@@ -1,0 +1,44 @@
+.root-content {
+  padding: 2em;
+}
+
+.toolbar {
+  background: #F4F4F4;
+  padding: 1em;
+  margin-bottom: 1.5em;
+}
+
+.main-nav {
+  background: #6067b0;
+  color: #FFF;
+  padding: 0 2em;
+}
+
+.app-icon {
+  color: inherit;
+}
+
+.app-icon:before {
+  content: 'b';
+  font-family: 'fontastic';
+  display: inline-block;
+  font-size: 2.5em;
+  padding-right: 0.5rem;
+  vertical-align: middle;
+  transform: rotate(-10deg);
+}
+
+.main-nav-link {
+  display: inline-block;
+  padding: 1em 1em;
+  color: inherit;
+}
+
+.main-nav-link:hover {
+  background: $alt-accent-bg;
+  color: $alt-accent-fg;
+}
+
+.main-nav-link.active {
+  background: #4d5196;
+}

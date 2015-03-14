@@ -1,0 +1,11 @@
+@font-face {
+  //check: a, denied: c, graduate: b
+  font-family: "fontastic";
+  src:url("static/fonts/fontastic.eot");
+  src:url("static/fonts/fontastic.eot?#iefix") format("embedded-opentype"),
+    url("static/fonts/fontastic.woff") format("woff"),
+    url("static/fonts/fontastic.ttf") format("truetype"),
+    url("static/fonts/fontastic.svg#fontastic") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
