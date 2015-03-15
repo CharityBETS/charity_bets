@@ -13,7 +13,8 @@ SECRET_KEY = 'development-key'
 def create_app():
     app = Flask(__name__)
     app.config.from_object(__name__)
-    app.register_blueprint(coaction)
+    app.register_blueprint(home)
+    app.register_blueprint(users)
 
     config.init_app(app)
     db.init_app(app)
