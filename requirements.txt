@@ -7,6 +7,8 @@ Werkzeug==0.10.1
 Jinja2==2.7.3
 itsdangerous==0.24
 gunicorn==19.2.1
+Flask-Assets==0.10
+flask-oauthlib==0.9.0
 
 # Database
 Flask-SQLAlchemy==2.0
