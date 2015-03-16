@@ -1,0 +1,41 @@
+.header-nav, .app-header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-end;
+  letter-spacing: 1px;
+  // text-transform: lowercase;
+
+
+  li {
+    padding: 1em 3em 1em 2em;
+  }
+
+  li:first-child {
+    margin-right: auto;
+
+}
+
+}
+
+// .create-new-bet-li {
+//   font-size: 1.4em;
+// }
+
+
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-end;
+  background: $my-black;
+  color: white;
+}
+
+.app-header li:hover {
+  background-color: $main-accent-color;
+}
+
+.header-nav li:first-child {
+  margin-right: auto;
+}

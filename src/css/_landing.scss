@@ -1,0 +1,58 @@
+.hero-section {
+  height: 90vh;
+  position: relative;
+}
+
+.landing-content-wrap {
+  padding: 2rem;
+}
+
+.three-items {
+  display: flex;
+  width: 85%;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.landing-block {
+  flex-grow: 1;
+  width: 25%;
+  padding: 1rem 2rem;
+
+}
+
+.landing-block-header {
+  font-weight: 700;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.landing-content-head {
+  text-align: center;
+}
+
+.top-hero-line {
+  margin-left: .75em;
+  padding-top: .4em;
+  line-height: 1em;
+}
+
+.bottom-hero-line {
+  position: absolute;
+  right: 0;
+  // float: right;
+  margin-right: .75em;
+  padding-top: 4em;
+}
+
+.landing-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2em;
+  justify-content: center;
+
+  button {
+    margin: 0 2em;
+  }
+
+}

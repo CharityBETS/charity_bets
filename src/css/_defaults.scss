@@ -1,19 +1,18 @@
 body {
-  font-family: sans-serif;
-  line-height: 1.4em;
-  background: $bg-color;
-  color: $fg-color;
+    font-family: 'Noto Sans', sans-serif;
+    line-height: 1.8em;
+    background: #FFF;
+    color: #444;
 }
 
-h1 { font-size: 2em; margin: .67em 0 }
+h1 { font-size: 4em; margin: .67em 0 }
 h2 { font-size: 1.5em; margin: .75em 0 }
 h3 { font-size: 1.17em; margin: .83em 0 }
 h5 { font-size: .83em; margin: 1.5em 0 }
 h6 { font-size: .75em; margin: 1.67em 0 }
 h1, h2, h3, h4,
 h5, h6 {
-  font-weight: bolder;
-  line-height: 1.3em;
+  font-weight: bolder
 }
 
 p {
@@ -22,30 +21,24 @@ p {
 }
 
 a {
-  color: $alt-bold-color;
+  color: #00AAEE;
   text-decoration: none;
-  outline: none;
 }
 
-a:hover {
-  color: $alt-accent-bg;
-}
-
-td {
-  padding: 0.25em 0.5em;
-}
-
-input, textarea {
-  font-size: 1em;
-  border: 1px solid $input-border-color;
-  padding: 0.25em;
+li {
+  list-style: none;
 }
 
 button {
-  display: inline-block;
-  padding: 0.25em 0.75em;
-  border: 0;
-  background: $alt-accent-bg;
-  color: $alt-accent-fg;
-  font-size: 1em;
+  width: 13em;
+  font-size: .875em;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: $main-accent-color;
+  border: 0px;
+  padding: 1em;
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+
 }

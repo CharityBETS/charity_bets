@@ -1,0 +1,182 @@
+.create-bet-wrapper {
+  text-align: center;
+
+  h3 {
+    margin: 0;
+  }
+
+  button {
+    display: block;
+    margin: 1rem auto 0;
+  }
+
+  textarea {
+      box-sizing: border-box;
+      border:1px solid #BEBEBE;
+      padding: 7px;
+      margin:1rem;
+      -webkit-transition: all 0.30s ease-in-out;
+      outline: none;
+      border-radius: 6px;
+      resize: none;
+      width: 40em;
+  }
+
+   textarea:focus {
+      box-shadow: 0 0 8px #88D5E9;
+      border: 1px solid #88D5E9;
+  }
+
+}
+
+.bet-essentials {
+  padding: 1.3rem 0 2rem 0;
+  position: relative;
+}
+
+.bet-title {
+  font-size: 2em;
+  padding-bottom: .5rem;
+}
+
+.donate-button {
+  background-color: green;
+}
+
+.bet-money-earned {
+  border: 1px solid black;
+  width: 6em;
+  margin: 0 auto;
+  font-size: 2em;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+
+
+.profile-details-wrap {
+  position: relative;
+  // border: 1px black solid;
+  min-height: 350px;
+  padding: 1.5rem 0;
+  background-color: $my-black;
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 1px;
+}
+
+.bet-date {
+  font-size: 1.3em;
+}
+
+.bet-description {
+  max-width: 30%;
+  margin: 0 auto;
+}
+
+.better-profile {
+  display: inline-block;
+  position: absolute;
+  top: 1rem;
+}
+
+.bettor-name {
+  font-size: 1.2em;
+  color: $main-accent-color;
+  font-weight: 700;
+}
+
+.charity {
+  padding-bottom: .3em;
+}
+
+.user-pic {
+  width: 200px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.hero-bettor {
+  left: 08%;
+}
+
+.villian-bettor {
+  right: 08%;
+}
+
+.info-title {
+  font-weight: bold;
+  padding-top: 1.5rem;
+}
+
+.end-bet {
+  margin: 1.5em auto !important;
+}
+
+.user-descriptor {
+  padding-right: .5rem;
+}
+
+.comment-section h3 {
+  padding-top: 1rem;
+}
+
+.user-comment {
+  font-weight: bold;
+  font-size: .85em;
+  padding:  0 9px;
+  font-style: italic;
+  color: $main-accent-color;
+}
+
+.comment-date {
+  font-size: .85em;
+  font-weight: bold;
+}
+
+
+@media only screen and (max-width : 920px) {
+  .better-profile {
+    position: relative;
+    display: block;
+    top: 0;
+    padding: 2em 0;
+
+  }
+
+
+  .hero-bettor, .villian-bettor {
+    left: auto;
+    right: auto;
+  }
+
+  .villian-bettor {
+        background-color: $secondary-accent-color;
+  }
+
+  .bet-description {
+    max-width: 70%;
+  }
+
+  .hero-bettor {
+    background-color: $my-gray;
+  }
+
+  .bet-deets {
+    padding-bottom: 2rem;
+  }
+
+  .end-bet {
+    margin-top: 3em !important;
+  }
+
+  textarea {
+    max-width: 85%;
+  }
+
+}
+
+@media only screen and (max-width : 480px) {
+
+
+}
