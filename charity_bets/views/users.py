@@ -2,7 +2,8 @@ from functools import wraps
 
 from flask import session, Blueprint, url_for, request, redirect, flash, render_template
 
-from ..extensions import oauth
+from ..extensions import oauth, db
+from ..models import User
 
 
 facebook = oauth.remote_app('facebook',
@@ -65,5 +66,17 @@ def facebook_authorized():
     me = facebook.get('/me')
     session['facebook_name'] = me.data['first_name']
 
-    flash('You were signed in as %s' % repr(me.data['first_name']))
+    user = User.query.filter_by(email=me.data['email']).first()
+    if user:
+        print("user already exists")
+    else:
+        user = User(name=me.data['name'],
+                    email=me.data['email']
+                    )
+        db.session.add(user)
+        db.session.commit()
+        # login_user(user)
+        # return {"message": "You have been registered and logged in"}
+
+    flash('You were signed in as %s' % repr(me.data['email']))
     return redirect(next_url)
