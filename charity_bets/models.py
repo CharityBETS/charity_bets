@@ -20,7 +20,7 @@ class User(db.Model):
 class Bet(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(255))
     status = db.Column(db.String(255), default="pending", nullable=False)
     amount = db.Column(db.String(255), nullable=False)
     date = db.Column(db.String(255))

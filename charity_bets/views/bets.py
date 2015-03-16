@@ -12,23 +12,22 @@ def create_bet():
     body = request.get_data(as_text=True)
     data = json.loads(body)
     #  Enter Required data into Form
-    form = BetForm(title=data['title'],
-                    description = data['description'],
-                    amount = data['amount'],
+    form = BetForm( title=data['title'],
+                    amount = int(data['amount']),
                     formdata=None, csrf_enabled=False)
     # Validate Form
     if form.validate():
-
         bet = Bet(title=form.title.data,
-                    description=form.description.data,
-                    amount=form.amount.data,
-                    creator = 0)
+                  amount=form.amount.data,
+                  creator = 0)
 
         # Enter Optional Data Into Model
         if 'date' in data:
             bet.date = data['date']
+        if 'description' in data:
+            bet.description = data['description']
         if 'location' in data:
-            location = data['location']
+            bet.location = data['location']
 
         db.session.add(bet)
         db.session.commit()
