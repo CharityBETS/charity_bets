@@ -1,6 +1,8 @@
 from functools import wraps
 
-from flask import session, Blueprint, url_for, request, redirect, flash, render_template
+from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
+import json
+
 
 from ..extensions import oauth, db
 from ..models import User
@@ -80,3 +82,12 @@ def facebook_authorized():
 
     flash('You were signed in as %s' % repr(me.data['email']))
     return redirect(next_url)
+
+@users.route("/users", methods = ["GET"])
+def view_all_users():
+    users = User.query.all()
+    users = [user.make_dict() for user in users]
+    if users:
+        return jsonify({'data': users}), 201
+    else:
+        return jsonify({"ERROR": "No bets available."}), 401

@@ -1,6 +1,7 @@
 from .extensions import db
 
 
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255))
@@ -10,9 +11,10 @@ class User(db.Model):
 
     def make_dict(self):
         return {"id": self.id,
+                "name": self.name,
                 "email": self.email,
                 "bank_token": self.bank_token,
-                "charity": self.charity}
+                "charity": self.charity_id}
 
 
 class Bets(db.Model):
