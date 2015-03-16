@@ -54,7 +54,8 @@ def facebook_login():
 
 @users.route('/login/facebook/authorized', methods=["GET", "POST"])
 def facebook_authorized():
-    next_url = request.args.get('next') or url_for('repolister.index')
+    next_url = "http://espn.go.com/"
+    # next_url = request.args.get('next') or url_for('repolister.index')
     resp = facebook.authorized_response()
     if resp is None:
         flash('You denied the request to sign in.')

@@ -6,15 +6,15 @@ from .extensions import db, migrate, config, oauth, assets
 from .views.home import home
 from .views.users import users
 
-SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/coaction.db"
-DEBUG = True
-SECRET_KEY = 'development-key'
-FACEBOOK={'consumer_key': '1417359091908563','consumer_secret': 'f129f7b34d7b57201da77f5ea0432a45'}
-
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(__name__)
+    app.config.from_pyfile('config.cfg')
+
+    app.config['DEBUG']
+    app.config['SECRET_KEY']
+    app.config['FACEBOOK']
+
     app.register_blueprint(home)
     app.register_blueprint(users)
 

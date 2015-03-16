@@ -48,3 +48,6 @@ docs/_build
 # Virtualenvs
 env
 .python-version
+
+#Config file
+charity_bets/config.cfg
