@@ -67,3 +67,12 @@ def view_all_bets():
         return jsonify({'data': bets}), 201
     else:
         return jsonify({"ERROR": "No bets available."}), 401
+
+@bets.route("/bets/<int:id>", methods = ["GET"])
+def view_bet(id):
+    bet = Bet.query.filter_by(id = id).first()
+    if bet:
+        bet = bet.make_dict()
+        return jsonify({'data': bet})
+    else:
+        return jsonify({"ERROR": "Bet does not exist."}), 401
