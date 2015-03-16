@@ -6,10 +6,20 @@ app.config(['$routeProvider', function($routeProvider) {
   };
   $routeProvider.when('/bet/edit', routeDefinition);
 }])
-.controller('EditBetCtrl', ['$location', function ($location) {
+.controller('EditBetCtrl', ['$location', 'Bet', 'betService', function ($location, Bet, betService) {
 
   var self = this;
 
+  self.bet = Bet();
+
+  self.addBet = function () {
+    betService.addBet(self.bet).then(self.goToBet);
+  };
+
+  self.goToBet = function () {
+    console.log("GO TO BET");
+    $location.path('/bet');
+  };
 
 
 }]);

@@ -129,9 +129,14 @@ button {
 .header-nav li:first-child {
   margin-right: auto; }
 
-@media only screen and (max-width: 920px) {
-  li:first-child {
-    margin: auto; } }
+@media only screen and (max-width: 620px) {
+  .app-header {
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; } }
 
 footer {
   min-height: 250px;
