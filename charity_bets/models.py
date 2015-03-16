@@ -20,14 +20,26 @@ class Bets(db.Model):
     description = db.Column(db.String(255), nullable=False)
     status = db.Column(db.String(255), default="pending", nullable=False)
     amount = db.Column(db.String(255), nullable=False)
+    date = db.Column(db.String(255))
+    location = db.Column(db.String(255))
+    creator = db.Column(db.Integer)
+    challenger = db.Column(db.Integer)
 
     def make_dict(self):
         return {"id": self.id,
                 "title": self.title,
                 "description": self.description,
                 "status": self.status,
-                "amount": self.amount}
+                "amount": self.amount,
+                "date": self.date,
+                "location":self.location,
+                "creator":self.creator,
+                "challenger":self.challenger}
 
+class UserBets(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer)
+    bet_id = db.Column(db.Integer)
 
 class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

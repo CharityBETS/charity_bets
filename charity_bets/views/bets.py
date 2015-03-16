@@ -1,0 +1,70 @@
+from functools import wraps
+from ..models import Bets, UserBets
+from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
+from ..forms import BetForm
+from ..extensions import db
+import json
+bets = Blueprint("bets", __name__)
+
+
+@bets.route("/user/bets", methods = ["POST"])
+def create_bet():
+    body = request.get_data(as_text=True)
+    data = json.loads(body)
+    #  Enter Required data into Form
+    form = BetForm(title=data['title'],
+                    description = data['description'],
+                    amount = data['amount'],
+                    formdata=None, csrf_enabled=False)
+    # Validate Form
+    if form.validate():
+
+        bet = Bets(title=form.title.data,
+                    description=form.description.data,
+                    amount=form.amount.data,
+                    creator = 0)
+
+        # Enter Optional Data Into Model
+        if 'date' in data:
+            bet.date = data['date']
+        if 'location' in data:
+            location = data['location']
+
+        db.session.add(bet)
+        db.session.commit()
+
+        user_bet = UserBets(user_id = 0,
+                            bet_id = bet.id)
+        db.session.add(user_bet)
+        db.session.commit()
+
+        bet = bet.make_dict()
+
+        return (jsonify({ 'data': bet }), 201)
+
+    else:
+        return form.errors, 400
+
+
+@bets.route("/user/bets", methods = ["GET"])
+def view_bets():
+    bet_list = []
+    bets = UserBets.query.filter_by(user_id = 0).all()
+    for a_bet in bets:
+       bet = Bets.query.filter_by(id = a_bet.bet_id).first()
+       if bet:
+           bet_list.append(bet)
+    if len(bet_list) > 0:
+        bets = [bet.make_dict() for bet in bet_list]
+
+    return jsonify({"data": bets}), 201
+
+
+@bets.route("/bets", methods = ["GET"])
+def view_all_bets():
+    bets = Bets.query.all()
+    bets = [bet.make_dict() for bet in bets]
+    if bets:
+        return jsonify({'data': bets}), 201
+    else:
+        return jsonify({"ERROR": "No bets available."}), 401
