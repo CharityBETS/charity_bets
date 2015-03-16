@@ -5,6 +5,7 @@ from .extensions import db, migrate, config, oauth, assets
 # from .views.views import coaction
 from .views.home import home
 from .views.users import users
+from .views.bets import bets
 
 
 def create_app():
@@ -17,6 +18,7 @@ def create_app():
 
     app.register_blueprint(home)
     app.register_blueprint(users)
+    app.register_blueprint(bets)
 
     config.init_app(app)
     oauth.init_app(app)
