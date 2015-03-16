@@ -51,3 +51,5 @@ env
 
 #Config file
 charity_bets/config.cfg
+
+.DS_Store
