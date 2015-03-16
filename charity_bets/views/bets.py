@@ -1,5 +1,5 @@
 from functools import wraps
-from ..models import Bets, UserBets
+from ..models import Bet, UserBet
 from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
 from ..forms import BetForm
 from ..extensions import db
@@ -19,7 +19,7 @@ def create_bet():
     # Validate Form
     if form.validate():
 
-        bet = Bets(title=form.title.data,
+        bet = Bet(title=form.title.data,
                     description=form.description.data,
                     amount=form.amount.data,
                     creator = 0)
@@ -33,7 +33,7 @@ def create_bet():
         db.session.add(bet)
         db.session.commit()
 
-        user_bet = UserBets(user_id = 0,
+        user_bet = UserBet(user_id = 0,
                             bet_id = bet.id)
         db.session.add(user_bet)
         db.session.commit()
@@ -49,9 +49,9 @@ def create_bet():
 @bets.route("/user/bets", methods = ["GET"])
 def view_bets():
     bet_list = []
-    bets = UserBets.query.filter_by(user_id = 0).all()
+    bets = UserBet.query.filter_by(user_id = 0).all()
     for a_bet in bets:
-       bet = Bets.query.filter_by(id = a_bet.bet_id).first()
+       bet = Bet.query.filter_by(id = a_bet.bet_id).first()
        if bet:
            bet_list.append(bet)
     if len(bet_list) > 0:
@@ -62,7 +62,7 @@ def view_bets():
 
 @bets.route("/bets", methods = ["GET"])
 def view_all_bets():
-    bets = Bets.query.all()
+    bets = Bet.query.all()
     bets = [bet.make_dict() for bet in bets]
     if bets:
         return jsonify({'data': bets}), 201

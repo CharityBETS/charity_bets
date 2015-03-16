@@ -17,7 +17,7 @@ class User(db.Model):
                 "charity": self.charity_id}
 
 
-class Bets(db.Model):
+class Bet(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
@@ -39,7 +39,7 @@ class Bets(db.Model):
                 "creator":self.creator,
                 "challenger":self.challenger}
 
-class UserBets(db.Model):
+class UserBet(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer)
     bet_id = db.Column(db.Integer)
