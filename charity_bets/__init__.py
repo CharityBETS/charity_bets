@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 
 from . import models
-from .extensions import db, migrate, config, oauth, assets
+from .extensions import db, migrate, config, oauth, assets, login_manager
 # from .views.views import coaction
 from .views.home import home
 from .views.users import users
@@ -26,5 +26,6 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
+    login_manager.init_app(app)
 
     return app
