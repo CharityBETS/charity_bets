@@ -18,7 +18,7 @@ def create_app():
 
     app.register_blueprint(home)
     app.register_blueprint(users)
-    app.register_blueprint(bets)
+    app.register_blueprint(bets, url_prefix='/api')
 
     config.init_app(app)
     oauth.init_app(app)

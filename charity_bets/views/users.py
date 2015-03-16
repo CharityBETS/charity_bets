@@ -84,7 +84,7 @@ def facebook_authorized():
     flash('You were signed in as %s' % repr(me.data['email']))
     return redirect(next_url)
 
-@users.route("/users", methods = ["GET"])
+@users.route("/api/users", methods = ["GET"])
 def view_all_users():
     users = User.query.all()
     users = [user.make_dict() for user in users]
