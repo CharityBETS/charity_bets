@@ -1,6 +1,6 @@
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
-    templateUrl: 'static/landing/landing.html',
+    templateUrl: '/static/landing/landing.html',
     controller: 'LandingCtrl',
     controllerAs: 'vm',
   };

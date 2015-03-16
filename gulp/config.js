@@ -3,7 +3,7 @@
 // // srcDir is the source directory
 
 var srcDir = './src',
-    destDir = './coaction/static',
+    destDir = './charity_bets/static',
     bowerDir = './bower_components';
 
 // src holds the values of source folders

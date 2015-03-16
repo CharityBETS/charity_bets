@@ -39,3 +39,12 @@
 .header-nav li:first-child {
   margin-right: auto;
 }
+
+@media only screen and (max-width : 920px) {
+  li:first-child {
+    margin: auto;
+
+}
+
+
+}

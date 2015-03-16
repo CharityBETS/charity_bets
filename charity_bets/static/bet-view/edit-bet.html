@@ -1,0 +1,67 @@
+<header class="site-header" ng-include="'/static/nav/app-nav.html'">
+</header>
+
+
+<div class="create-bet-wrapper edit-bet-wrapper">
+<form>
+
+  <div class="bet-essentials">
+    <!-- <h2>Bet Name</h2> -->
+    <input name="bet-title-input" class="bet-title-input" placeholder="Name Your Bet">
+    <input name="bet-challenger-input" class="bet-challenger-input" placeholder="Challenge a Friend">
+    <input name="bet-amount-input" class="bet-amount-input" placeholder="$$$">
+    <!-- <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$2,225,000</h4></div> -->
+    <!-- <button class="donate-button">$DONATE$</button> -->
+  </div>
+
+  <div class="profile-details-wrap">
+    <div class="bet-deets">
+      <div class="info-title">Date:</div>
+      <input class="bet-date-input secondary-input" name="bet-date-input" placeholder="When is the bet">
+      <div class="info-title">Location:</div>
+      <input name="location-input" class="location-input secondary-input" placeholder="Location">
+      <div class="info-title">Description:</div>
+      <textarea name="description-textarea" class="bet-description-textarea" placeholder="Describe the Bet"></textarea>
+    </div>
+
+
+    <div class="better-profile hero-bettor">
+      <div class="bettor-name">Tom Rau</div>
+      <div class="charity">Kids with Faces</div>
+      <!-- <div class="select-style">
+        <select name="charity-select" class="charity">
+          <option value="" disabled selected>Select Your Charity</option>
+        </select>
+      </div> -->
+      <div class="user-pic"><img class="user-pic" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/v/t1.0-1/p320x320/400594_10152235352367240_1385556304_n.jpg?oh=ef64a8391e995c9231f0aff6a8a03280&oe=5589E871&__gda__=1434317697_a57d9710581d475771ccea1d8e4a48be"></div>
+      <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
+      <div class="location">Durham, NC</div>
+    </div>
+
+    <div class="better-profile villian-bettor">
+      <div class="bettor-name-input">Challenger: Unknown</div>
+      <div class="charity">Charity: Unknown</div>
+      <div class="user-pic"><img class="user-pic" src="http://1.bp.blogspot.com/-lYpXSzJUQQA/TVVpZAw1i1I/AAAAAAAAABg/UQCaYfGfe4g/s220/profile_blank_gray.jpg"></div>
+      <!-- <div><span class="user-descriptor">Bet:</span>$50</div> -->
+      <div class="wins-losses"><span class="user-descriptor">Record:</span>Unknown</div>
+      <div class="location">Location: Unknown</div>
+    </div>
+
+    <button class="submit-bet">SUBMIT BET</button>
+
+</form>
+  </div>
+
+
+  <div class="comment-section">
+    <h3>Comments & Trash Talk</h3>
+    <!-- <ul class="comment-ul">
+        <li>Can't wait to watch these dumbasses sprint<span class="user-comment">battyben</span><span class="comment-date">12/12/12 2:00pm</span></li>
+        <li>I got $2,224,900 on it.<span class="user-comment">bretrunestad</span><span class="comment-date">12/12/12 2:19pm</span></li>
+    </ul> -->
+    <textarea placeholder="Comment or Talk Trash"></textarea>
+  </div>
+
+
+
+</div>

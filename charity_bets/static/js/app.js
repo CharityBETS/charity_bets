@@ -11,6 +11,55 @@ app.config(['$routeProvider', function ($routeProvider) {
   });
 }]);
 
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: '/static/bet-view/bet.html',
+    controller: 'ViewBetCtrl',
+    controllerAs: 'vm',
+  };
+  $routeProvider.when('/bet/', routeDefinition);
+}])
+.controller('ViewBetCtrl', ['$location', function ($location) {
+
+  var self = this;
+
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: '/static/bet-view/edit-bet.html',
+    controller: 'EditBetCtrl',
+    controllerAs: 'vm',
+  };
+  $routeProvider.when('/bet/edit', routeDefinition);
+}])
+.controller('EditBetCtrl', ['$location', function ($location) {
+
+  var self = this;
+
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: '/static/landing/landing.html',
+    controller: 'LandingCtrl',
+    controllerAs: 'vm',
+  };
+  $routeProvider.when('/', routeDefinition);
+}])
+.controller('LandingCtrl', ['$location', function ($location) {
+
+  var self = this;
+
+
+
+}]);
+
+
 app.controller('Error404Ctrl', ['$location', function ($location) {
   this.message = 'Could not find: ' + $location.url();
 }]);

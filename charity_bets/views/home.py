@@ -1,7 +1,7 @@
 from flask import Blueprint, flash
 
 
-home = Blueprint("home", __name__, static_folder="./static")
+home = Blueprint("home", __name__, static_folder="../static")
 
 
 @home.route("/")
