@@ -5,11 +5,13 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     bank_token = db.Column(db.String(255))
+    charity_id = db.Column(db.Integer)
 
     def make_dict(self):
     return {"id": self.id,
             "email": self.email,
-            "bank_token": self.bank_token}
+            "bank_token": self.bank_token,
+            "charity": self.charity}
 
 
 class Bets(db.Model):
@@ -40,10 +42,3 @@ class Charity(db.Model):
             "description": self.description,
             "email" = self.email,
             "recipient_token" = self.recipient_token}
-
-
-class Bet_Relations(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    bet_id = db.Column(db.String(255)
-    user_id = db.Column(db.String(255)
-    charity_id = db.Column(db.String(255)
