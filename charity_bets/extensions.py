@@ -10,3 +10,12 @@ migrate = Migrate()
 # Change this to HerokuConfig if using Heroku.
 from flask.ext.appconfig import AppConfig
 config = AppConfig()
+
+
+from flask_oauthlib.client import OAuth
+
+oauth = OAuth()
+
+from flask.ext.assets import Environment
+
+assets = Environment()
