@@ -44,7 +44,7 @@ body {
 
 h1 {
   font-size: 4em;
-  margin: .67em 0; }
+  margin: .3em 0 0 0; }
 
 h2 {
   font-size: 1.5em;
@@ -103,9 +103,19 @@ button {
   justify-content: flex-end;
   letter-spacing: 1px; }
   .header-nav li, .app-header li {
-    padding: 1em 3em 1em 2em; }
+    padding: 1rem 3rem 1rem 2rem;
+    font-size: 1.2em; }
   .header-nav li:first-child, .app-header li:first-child {
-    margin-right: auto; }
+    margin-right: auto;
+    font-size: 1.6em;
+    color: #f05f5c;
+    padding-bottom: .6rem;
+    font-weight: bold; }
+  .header-nav li:last-child, .app-header li:last-child {
+    font-size: .8em; }
+
+.app-header li:first-child {
+  color: white; }
 
 .active {
   color: green; }
@@ -139,7 +149,11 @@ button {
     justify-content: flex-start;
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
-    flex-direction: column; } }
+    flex-direction: column; }
+  li {
+    margin: 0 auto; }
+  li:first-child {
+    margin: 0 auto; } }
 
 footer {
   min-height: 250px;
@@ -148,7 +162,10 @@ footer {
 
 .hero-section {
   height: 90vh;
-  position: relative; }
+  position: relative;
+  background: url(https://opinionize.files.wordpress.com/2012/08/01_20120713_arm_wrestle_00019-v211.jpg) no-repeat center center fixed;
+  background-size: cover;
+  color: white; }
 
 .landing-content-wrap {
   padding: 2rem; }
@@ -168,26 +185,35 @@ footer {
   -ms-flex-positive: 1;
   flex-grow: 1;
   width: 25%;
-  padding: 1rem 2rem; }
+  padding: 1rem 2rem;
+  text-align: center; }
 
 .landing-block-header {
   font-weight: 700;
   font-size: 1.2em;
-  text-align: center; }
+  text-align: center;
+  padding-bottom: 1rem; }
 
 .landing-content-head {
   text-align: center; }
 
 .top-hero-line {
   margin-left: .75em;
-  padding-top: .4em;
+  padding-top: .6em;
   line-height: 1em; }
 
 .bottom-hero-line {
   position: absolute;
   right: 0;
   margin-right: .75em;
-  padding-top: 4em; }
+  padding-top: 8em; }
+
+.icons {
+  font-family: major-wager;
+  text-align: center;
+  font-size: 1.7em;
+  color: #f05f5c;
+  padding-bottom: 1rem; }
 
 .landing-action-buttons {
   display: -webkit-flex;
@@ -197,11 +223,27 @@ footer {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 2em;
+  margin-top: 24rem;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
   .landing-action-buttons button {
     margin: 0 2em; }
+
+@media only screen and (max-width: 920px) {
+  .three-items {
+    display: block; }
+  .landing-block {
+    margin: 0 auto;
+    width: 75%; } }
+
+@media only screen and (max-width: 535px) {
+  .landing-action-buttons {
+    margin-top: 4rem; }
+  .sign-up-button {
+    margin-bottom: 1rem !important; }
+  .bottom-hero-line {
+    padding-top: 5em; } }
 
 .create-bet-wrapper {
   text-align: center; }
@@ -266,12 +308,13 @@ footer {
 .better-profile {
   display: inline-block;
   position: absolute;
-  top: 1rem; }
+  top: 3rem; }
 
 .bettor-name {
-  font-size: 1.2em;
+  font-size: 1.5em;
   color: #f05f5c;
-  font-weight: 700; }
+  font-weight: 700;
+  letter-spacing: 4px; }
 
 .charity {
   padding-bottom: .3em; }
@@ -335,13 +378,19 @@ footer {
   textarea {
     max-width: 85%; } }
 
-.edit-bet-wrapper input {
+.edit-bet-wrapper input, .edit-bet-wrapper select {
   padding: 1em;
   width: 14em;
   text-align: center;
   border: dotted 1px black;
   font-size: 1.2em;
   border-radius: 6px; }
+.edit-bet-wrapper select {
+  height: 64px;
+  margin-left: 1rem;
+  background-color: none; }
+.edit-bet-wrapper option {
+  font-family: 'Noto Sans', sans-serif; }
 .edit-bet-wrapper .bet-amount-input {
   width: 7em;
   margin-left: 1rem; }
@@ -391,7 +440,10 @@ footer {
 @media only screen and (max-width: 920px) {
   .bet-amount-input, .bet-challenger-input {
     margin-top: 1rem;
-    margin-left: 0rem !important; } }
+    margin-left: 0rem !important; }
+  select {
+    margin-top: 1rem;
+    margin-left: 0; } }
 
 .bets-title, .bets-date, .bets-amount, .bets-users {
   text-align: center; }

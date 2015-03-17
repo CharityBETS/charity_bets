@@ -46,7 +46,7 @@ app.factory('Bet', function () {
     spec = spec || {};
     return {
         title: spec.title,
-        // challenger: spec.challenger,
+        challenger: spec.challenger,
         amount: spec.amount,
         date: spec.date,
         location: spec.location,
@@ -67,7 +67,9 @@ app.config(['$routeProvider', function($routeProvider) {
         })
       }],
       users: ['userService', function(userService) {
-        return userService.getUsers();
+        return userService.getUsers().then(function (result) {
+          return result.data;
+        })
       }]
     }
   };

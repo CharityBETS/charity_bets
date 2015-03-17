@@ -1,12 +1,22 @@
 .edit-bet-wrapper {
 
-  input {
+  input, select {
     padding: 1em;
     width: 14em;
     text-align: center;
     border: dotted 1px black;
     font-size: 1.2em;
     border-radius: 6px;
+  }
+
+  select {
+    height: 64px;
+    margin-left: 1rem;
+    background-color: none;
+  }
+
+  option {
+    font-family: 'Noto Sans', sans-serif;
   }
 
   .bet-amount-input {
@@ -27,8 +37,6 @@
   .info-title {
     padding: .5rem;
   }
-
-
 
 }
 
@@ -78,6 +86,12 @@
        margin-top: 1rem;
        margin-left: 0rem !important;
      }
+
+     select {
+       margin-top: 1rem;
+       margin-left: 0;
+     }
+
 
 
    }

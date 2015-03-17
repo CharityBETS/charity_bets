@@ -27,6 +27,7 @@
       border: 1px solid #88D5E9;
   }
 
+
 }
 
 .bet-essentials {
@@ -91,13 +92,14 @@
 .better-profile {
   display: inline-block;
   position: absolute;
-  top: 1rem;
+  top: 3rem;
 }
 
 .bettor-name {
-  font-size: 1.2em;
+  font-size: 1.5em;
   color: $main-accent-color;
   font-weight: 700;
+  letter-spacing: 4px;
 }
 
 .charity {

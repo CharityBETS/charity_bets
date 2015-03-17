@@ -8,7 +8,14 @@
   <div class="bet-essentials">
     <!-- <h2>Bet Name</h2> -->
     <input name="bet-title-input" class="bet-title-input" placeholder="Name Your Bet" ng-model="vm.bet.title">
-    <input name="bet-challenger-input" class="bet-challenger-input" placeholder="Challenge a Friend" ng-model="vm.bet.challenger">
+    <!-- <input name="bet-challenger-input" class="bet-challenger-input" placeholder="Challenge a Friend" ng-model="vm.bet.challenger"> -->
+
+    <select class="bet-challenger" ng-model="vm.bet.challenger">
+            <option value="" disabled selected>Select Challenger</option>
+            <option ng-repeat="user in vm.users" value="{{ user.name }}"> {{ user.name }}
+            </option>
+    </select>
+
     <input name="bet-amount-input" class="bet-amount-input" placeholder="$$$" ng-model="vm.bet.amount">
     <!-- <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$2,225,000</h4></div> -->
     <!-- <button class="donate-button">$DONATE$</button> -->
