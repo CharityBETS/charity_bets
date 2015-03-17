@@ -13,15 +13,48 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
-    templateUrl: '/static/bet-view/bet.html',
-    controller: 'ViewBetCtrl',
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
     controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
   };
-  $routeProvider.when('/bet', routeDefinition);
+  $routeProvider.when('/bets', routeDefinition);
 }])
-.controller('ViewBetCtrl', ['$location', function ($location) {
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
 
   var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    controller: 'ViewBetCtrl',
+    controllerAs: 'vm',
+    templateUrl: '/static/bet-view/bet.html',
+    resolve: {
+      bet: ['betService', '$route', function (betService, $route) {
+        return betService.getBet($route.current.params.id);
+      }],
+    }
+  };
+  $routeProvider.when('/bet/:id', routeDefinition);
+}])
+.controller('ViewBetCtrl', ['$location', 'bet', function ($location, bet) {
+
+  var self = this;
+  self.bet = bet;
 
 
 
@@ -59,37 +92,10 @@ app.config(['$routeProvider', function($routeProvider) {
     betService.addBet(self.bet).then(self.goToBet);
   };
 
-  self.goToBet = function () {
-    console.log("GO TO BET");
-    $location.path('/bet');
+  self.goToBet = function (bet) {
+    console.log(bet);
+    $location.path('/bet/' + bet.id);
   };
-
-
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
 
 
 }]);

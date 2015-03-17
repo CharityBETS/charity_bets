@@ -1,14 +1,20 @@
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
-    templateUrl: '/static/bet-view/bet.html',
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
+    templateUrl: '/static/bet-view/bet.html',
+    resolve: {
+      bet: ['betService', '$route', function (betService, $route) {
+        return betService.getBet($route.current.params.id);
+      }],
+    }
   };
-  $routeProvider.when('/bet', routeDefinition);
+  $routeProvider.when('/bet/:id', routeDefinition);
 }])
-.controller('ViewBetCtrl', ['$location', function ($location) {
+.controller('ViewBetCtrl', ['$location', 'bet', function ($location, bet) {
 
   var self = this;
+  self.bet = bet;
 
 
 

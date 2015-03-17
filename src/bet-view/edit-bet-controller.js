@@ -16,9 +16,9 @@ app.config(['$routeProvider', function($routeProvider) {
     betService.addBet(self.bet).then(self.goToBet);
   };
 
-  self.goToBet = function () {
-    console.log("GO TO BET");
-    $location.path('/bet');
+  self.goToBet = function (bet) {
+    console.log(bet);
+    $location.path('/bet/' + bet.id);
   };
 
 
