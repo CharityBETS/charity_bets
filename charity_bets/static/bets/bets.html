@@ -1,0 +1,38 @@
+<header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
+
+
+<ul class="bets-ul">
+  <li class="bets-li" ng-repeat="bet in vm.bets" ng-click="vm.goToBet(bet.id)">
+    <div class="bets-title">
+      {{bet.title}}
+    </div>
+    <div class="bets-date">
+      {{bet.date | date:'EEEE, MMM d'}}
+    </div>
+    <div class="bets-amount">
+      {{bet.amount | currency}}
+    </div>
+
+    <!-- <div class="prize-purse">
+      {{}}
+    </div> -->
+
+    <!-- <<div class="profile-wrap creator-wrap">
+      <div class="creator-name">
+        {{creator.name}}
+      </div>
+      <div class="creator-pic">
+        {{creator.pic}}
+      </div>
+    </div>
+
+    <div class="profile-wrap challenger-wrap">
+      <div class="challenger-name">
+        {{challenger.name}}
+      </div>
+      <div class="challenger-pic">
+        {{challenger.pic}}
+      </div>
+    </div> -->
+  </li>
+</ul>

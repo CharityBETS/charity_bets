@@ -15,10 +15,13 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
 
   function processAjaxPromise(p) {
     return p.then(function (result) {
-      return result.data;
+      var data = result.data;
+      console.log(data);
+      return data.data;
     })
     .catch(function (error) {
-      $log.log(error);
+     $log.log(error);
+     throw error;
     });
   }
 
@@ -35,6 +38,10 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     addBet: function (bet) {
       return post('/api/user/bets', bet);
     },
+
+    getBets: function () {
+      return get('/api/bets');
+    }
 
     // deleteShare: function (id) {
     //   return remove('/api/res/' + id);

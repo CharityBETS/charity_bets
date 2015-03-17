@@ -17,7 +17,7 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
   };
-  $routeProvider.when('/bet/', routeDefinition);
+  $routeProvider.when('/bet', routeDefinition);
 }])
 .controller('ViewBetCtrl', ['$location', function ($location) {
 
@@ -26,6 +26,20 @@ app.config(['$routeProvider', function($routeProvider) {
 
 
 }]);
+
+app.factory('Bet', function () {
+  return function (spec) {
+    spec = spec || {};
+    return {
+        title: spec.title,
+        challenger: spec.challenger,
+        amount: spec.amount,
+        date: spec.date,
+        location: spec.location,
+        description: spec.description
+    };
+  };
+});
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -55,6 +69,33 @@ app.config(['$routeProvider', function($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
     templateUrl: '/static/landing/landing.html',
     controller: 'LandingCtrl',
     controllerAs: 'vm',
@@ -69,6 +110,84 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', function($location, StringUtil) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+      return StringUtil.startsWith($location.path(), path);
+    };
+
+    //
+    // self.goToLogIn = function () {
+    //   $location.path('/login');
+    // };
+  }]);
+
+app.factory('betService', ['$http', '$log', function($http, $log) {
+
+  function get(url) {
+    return processAjaxPromise($http.get(url));
+  }
+
+  function post(url, share) {
+    return processAjaxPromise($http.post(url, share));
+  }
+
+  function remove(url) {
+    return processAjaxPromise($http.delete(url));
+
+  }
+
+  function processAjaxPromise(p) {
+    return p.then(function (result) {
+      var data = result.data;
+      console.log(data);
+      return data.data;
+    })
+    .catch(function (error) {
+     $log.log(error);
+     throw error;
+    });
+  }
+
+
+  return {
+    // getBetList: function () {
+    //   return get('/api/res');
+    // },
+
+    getBet: function (id) {
+      return get('/api/user/bets');
+    },
+
+    addBet: function (bet) {
+      return post('/api/user/bets', bet);
+    },
+
+    getBets: function () {
+      return get('/api/bets');
+    }
+
+    // deleteShare: function (id) {
+    //   return remove('/api/res/' + id);
+    // }
+  };
+}]);
+
+
+app.factory('StringUtil', function() {
+  return {
+    startsWith: function (str, subStr) {
+      str = str || '';
+      return str.slice(0, subStr.length) === subStr;
+    }
+  };
+});
 
 app.controller('Error404Ctrl', ['$location', function ($location) {
   this.message = 'Could not find: ' + $location.url();

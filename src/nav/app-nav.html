@@ -1,9 +1,8 @@
 <header>
   <nav class="app-header">
-   <li class="create-new-bet-li">Add Bet</li>
-   <li>Bets</li>
-   <li>Profile</li>
-   <li>Leaderboard</li>
-   <li>Log Out</li>
+   <li><a ng-class="{active:vm.isActive('/bet/edit')}" href="#/bet/edit">Add Bet</a></li>
+   <li><a ng-class="{active: vm.isActive('/bets')}" href="#/bets">Bets</a></li>
+   <li><a ng-class="{active: vm.isActive('/profile')}" href="#/profile">Profile</a></li>
+   <li><a href=""></a>Log Out</li>
   </nav>
 </header>

@@ -4,7 +4,7 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
   };
-  $routeProvider.when('/bet/', routeDefinition);
+  $routeProvider.when('/bet', routeDefinition);
 }])
 .controller('ViewBetCtrl', ['$location', function ($location) {
 

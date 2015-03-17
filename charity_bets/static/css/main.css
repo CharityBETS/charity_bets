@@ -107,6 +107,9 @@ button {
   .header-nav li:first-child, .app-header li:first-child {
     margin-right: auto; }
 
+.active {
+  color: green; }
+
 .app-header {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -275,7 +278,9 @@ footer {
 .user-pic {
   width: 200px;
   height: auto;
-  margin: 0 auto; }
+  margin: 0 auto;
+  border-radius: 100px;
+  border: 3px #f05f5c; }
 
 .hero-bettor {
   left: 8%; }
@@ -386,3 +391,9 @@ footer {
   .bet-amount-input, .bet-challenger-input {
     margin-top: 1rem;
     margin-left: 0rem !important; } }
+
+.bets-title, .bets-date, .bets-amount {
+  text-align: center; }
+
+.bets-li {
+  padding: 2rem 0; }
