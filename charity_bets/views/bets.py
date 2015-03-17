@@ -82,7 +82,6 @@ def view_bet(id):
     else:
         return jsonify({"ERROR": "Bet does not exist."}), 401
 
-
 @bets.route("/bets/<int:id>", methods = ["PUT"])
 def update_bet(id):
     bet = Bet.query.filter_by(id = id).first()
@@ -90,11 +89,12 @@ def update_bet(id):
         body = request.get_data(as_text=True)
         data = json.loads(body)
         keys = data.keys()
-        if "status" in keys:
-            bet.status = data["status"]
+        for key in keys:
+            setattr(bet, key, data[key])
             db.session.commit()
-            return jsonify({"data": bet.make_dict()})
-        else:
-            return jsonify({"ERROR": "Invalid Keyword"}), 401
+            return jsonify({"data": bet.make_dict()}), 401
     else:
         return jsonify({"ERROR": "Bet is not in database"})
+
+def edit_generator():
+    edits = []
