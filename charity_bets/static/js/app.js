@@ -20,15 +20,22 @@ app.config(['$routeProvider', function($routeProvider) {
       bet: ['betService', '$route', function (betService, $route) {
         var id = $route.current.params.id;
         return betService.getBet(id);
+      }],
+      currentUser: ['userService', function (userService) {
+        console.log(userService.getCurrent());
+        return userService.getCurrent().then(function (result) {
+          return result.data;
+        });
       }]
     }
   };
   $routeProvider.when('/bet/:id', routeDefinition);
 }])
-.controller('ViewBetCtrl', ['$location', 'bet', 'betService', function ($location, bet, betService) {
+.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser',  function ($location, bet, betService, currentUser) {
 
   var self = this;
   self.bet = bet;
+  self.currentUser = currentUser;
 
 
 
@@ -39,11 +46,7 @@ app.factory('Bet', function () {
     spec = spec || {};
     return {
         title: spec.title,
-<<<<<<< HEAD
-        challenger: spec.challenger,
-=======
         // challenger: spec.challenger,
->>>>>>> new-bets
         amount: spec.amount,
         date: spec.date,
         location: spec.location,
@@ -57,21 +60,36 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/static/bet-view/edit-bet.html',
     controller: 'EditBetCtrl',
     controllerAs: 'vm',
+    resolve: {
+      currentUser: ['userService', function (userService) {
+        return userService.getCurrent().then(function (result) {
+          return result.data;
+        })
+      }],
+      users: ['userService', function(userService) {
+        return userService.getUsers();
+      }]
+    }
   };
   $routeProvider.when('/createbet', routeDefinition);
 }])
-.controller('EditBetCtrl', ['$location', 'Bet', 'betService', function ($location, Bet, betService) {
+.controller('EditBetCtrl', ['$location', 'Bet', 'betService', 'currentUser', 'users', function ($location, Bet, betService, currentUser, users) {
 
   var self = this;
   self.bet = Bet();
+  self.currentUser = currentUser;
+  self.users = users;
 
   self.addBet = function () {
     betService.addBet(self.bet).then(self.goToBet);
   };
 
   self.goToBet = function (bet) {
-    console.log(bet);
     $location.path('/bet/' + bet.id);
+  };
+
+  self.getUsers = function () {
+    userService.getUsers();
   };
 
 
@@ -120,8 +138,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-<<<<<<< HEAD
-=======
 app.controller('MainNavCtrl',
   ['$location', 'StringUtil', function($location, StringUtil) {
     var self = this;
@@ -140,7 +156,6 @@ app.controller('MainNavCtrl',
     // };
   }]);
 
->>>>>>> new-bets
 app.factory('betService', ['$http', '$log', function($http, $log) {
 
   function get(url) {
@@ -158,12 +173,6 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
 
   function processAjaxPromise(p) {
     return p.then(function (result) {
-<<<<<<< HEAD
-      return result.data;
-    })
-    .catch(function (error) {
-      $log.log(error);
-=======
       var data = result.data;
       console.log(data);
       return data.data;
@@ -171,7 +180,6 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     .catch(function (error) {
      $log.log(error);
      throw error;
->>>>>>> new-bets
     });
   }
 
@@ -182,32 +190,100 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     // },
 
     getBet: function (id) {
-<<<<<<< HEAD
-      return get('/api/user/bets');
-=======
       return get('/api/bets/' + id);
->>>>>>> new-bets
     },
 
     addBet: function (bet) {
       return post('/api/user/bets', bet);
     },
 
-<<<<<<< HEAD
-=======
     getBets: function () {
       return get('/api/bets');
     }
 
->>>>>>> new-bets
     // deleteShare: function (id) {
     //   return remove('/api/res/' + id);
     // }
   };
 }]);
 
-<<<<<<< HEAD
-=======
+app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
+
+  function get(url) {
+    return processAjaxPromise($http.get(url));
+  }
+
+  function processAjaxPromise(p) {
+    return p.then(function (result) {
+      return result.data;
+    })
+    .catch(function (error) {
+      $log.log(error);
+    });
+  }
+
+  return {
+    getUsers: function () {
+      return get('/api/users');
+    },
+
+    getByUserId: function (userId) {
+      if (!userId) {
+        throw new Error('getByUserId requires a user id');
+      }
+
+      return get('/api/users/' + userId);
+    },
+
+    addUser: function (user) {
+      return processAjaxPromise($http.post('/api/users', user));
+    },
+
+    getCurrent: function () {
+      return get('/api/user/me');
+    }
+  };
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/user/user.html',
+    controller: 'UserCtrl',
+    controllerAs: 'vm'
+    // resolve: {
+    //   currentUser: ['userService', function (userService){
+    //     return userService.getCurrent();
+    //   }]
+    //   }
+  };
+  $routeProvider.when('/users', routeDefinition);
+}])
+.controller('UserCtrl', ['$location', 'userService', 'currentUser', function ($location, userService, currentUser) {
+
+  var self = this;
+  self.currentUser = currentUser;
+
+  // self.user = User();
+
+  //holds any error messages
+  // self.errors = {};
+  //
+  // self.createUser = function () {
+  //   //reset error object for next request
+  //   self.errors = {};
+  //   userService.createUser(self.user).then(function(success){
+  //     $location.path('/tasks');
+  //
+  //   }, function(error){
+  //     // set the errors object for our view
+  //     self.errors = error.data;
+  //
+  //   });
+  //
+  //   };
+
+
+}]);
 
 app.factory('StringUtil', function() {
   return {
@@ -217,7 +293,6 @@ app.factory('StringUtil', function() {
     }
   };
 });
->>>>>>> new-bets
 
 app.controller('Error404Ctrl', ['$location', function ($location) {
   this.message = 'Could not find: ' + $location.url();

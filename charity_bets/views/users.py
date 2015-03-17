@@ -113,6 +113,7 @@ def view_user(id):
     else:
         return jsonify({"ERROR": "User does not exist."}), 401
 
+
 @users.route("/api/user/me", methods = ["GET"])
 def get_current_user():
     user = User.query.filter_by(id = current_user.id).first()

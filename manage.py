@@ -7,6 +7,7 @@ from flask.ext.script.commands import ShowUrls, Clean
 from charity_bets.models import User
 
 from charity_bets import create_app, db
+from charity_bets.models import User
 
 
 app = create_app()
@@ -65,7 +66,6 @@ def seed():
             db.session.add(user)
     db.session.commit()
     print("You've added some major wagerers as users.")
-
 
 if __name__ == '__main__':
     manager.run()
