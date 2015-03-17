@@ -108,4 +108,6 @@ def view_user(id):
 @users.route("/api/user/me", methods = ["GET"])
 def get_current_user():
     user = User.query.filter_by(id = current_user.id).first()
-    return jsonify({'data': {"name":"you", "id": current_user.id}})
+    if user:
+        user = user.make_dict()
+    return jsonify({'data': user})
