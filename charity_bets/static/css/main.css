@@ -70,7 +70,7 @@ p {
   margin-bottom: 1em; }
 
 a {
-  color: #00AAEE;
+  color: white;
   text-decoration: none; }
 
 li {
@@ -106,6 +106,9 @@ button {
     padding: 1em 3em 1em 2em; }
   .header-nav li:first-child, .app-header li:first-child {
     margin-right: auto; }
+
+.active {
+  color: green; }
 
 .app-header {
   display: -webkit-flex;
@@ -243,6 +246,10 @@ footer {
   padding: 1rem;
   border-radius: 6px; }
 
+.middle-wrap {
+  background-color: #484848;
+  width: 2000px; }
+
 .profile-details-wrap {
   position: relative;
   min-height: 350px;
@@ -250,7 +257,8 @@ footer {
   background-color: #484848;
   color: white;
   font-family: 'Oswald', sans-serif;
-  letter-spacing: 1px; }
+  letter-spacing: 1px;
+  margin: 0 auto; }
 
 .bet-date {
   font-size: 1.3em; }
@@ -275,7 +283,9 @@ footer {
 .user-pic {
   width: 200px;
   height: auto;
-  margin: 0 auto; }
+  margin: 0 auto;
+  border-radius: 100px;
+  border: 3px #f05f5c; }
 
 .hero-bettor {
   left: 8%; }
@@ -386,3 +396,22 @@ footer {
   .bet-amount-input, .bet-challenger-input {
     margin-top: 1rem;
     margin-left: 0rem !important; } }
+
+.bets-title, .bets-date, .bets-amount, .bets-users {
+  text-align: center; }
+
+.bets-li {
+  padding: 2rem 0;
+  position: relative; }
+
+.bets-users {
+  font-size: 1.3em; }
+
+.bets-pic {
+  width: 100px;
+  border-radius: 50px; }
+
+.creator-pic-div {
+  position: absolute;
+  top: 2rem;
+  left: 15%; }
