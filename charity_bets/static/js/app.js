@@ -27,6 +27,20 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
+app.factory('Bet', function () {
+  return function (spec) {
+    spec = spec || {};
+    return {
+        title: spec.title,
+        challenger: spec.challenger,
+        amount: spec.amount,
+        date: spec.date,
+        location: spec.location,
+        description: spec.description
+    };
+  };
+});
+
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
     templateUrl: '/static/bet-view/edit-bet.html',
@@ -67,6 +81,50 @@ app.config(['$routeProvider', function($routeProvider) {
 
 
 
+}]);
+
+app.factory('betService', ['$http', '$log', function($http, $log) {
+
+  function get(url) {
+    return processAjaxPromise($http.get(url));
+  }
+
+  function post(url, share) {
+    return processAjaxPromise($http.post(url, share));
+  }
+
+  function remove(url) {
+    return processAjaxPromise($http.delete(url));
+
+  }
+
+  function processAjaxPromise(p) {
+    return p.then(function (result) {
+      return result.data;
+    })
+    .catch(function (error) {
+      $log.log(error);
+    });
+  }
+
+
+  return {
+    // getBetList: function () {
+    //   return get('/api/res');
+    // },
+
+    getBet: function (id) {
+      return get('/api/user/bets');
+    },
+
+    addBet: function (bet) {
+      return post('/api/user/bets', bet);
+    },
+
+    // deleteShare: function (id) {
+    //   return remove('/api/res/' + id);
+    // }
+  };
 }]);
 
 
