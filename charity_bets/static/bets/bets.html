@@ -1,0 +1,38 @@
+<header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
+
+
+<ul class="bets-ul">
+  <li class="bets-li" ng-repeat="bet in vm.bets" ng-click="vm.goToBet(bet.id)">
+    <div class="bets-users">
+      {{bet.creator}} vs {{bet.challenger}}
+      
+    </div>
+    <div class="bets-title">
+      {{bet.title}}
+    </div>
+    <div class="bets-date">
+      {{bet.date | date:'EEEE, MMM d'}}
+    </div>
+    <div class="bets-amount">
+      {{bet.amount | currency}}
+    </div>
+
+    <!-- <div class="prize-purse">
+      {{}}
+    </div> -->
+
+    <div class="profile-wrap creator-wrap">
+      <div class="creator-pic-div">
+        <!-- <img src="http://graph.facebook.com/{{creator.facebook_id}}/picture?type=large"></img> -->
+        <img class="bets-pic" src="http://graph.facebook.com/hifilorau/picture?type=large"></img>
+      </div>
+
+    </div>
+
+    <div class="profile-wrap challenger-wrap">
+      <div class="challenger-pic">
+        <img src="http://graph.facebook.com/{{challenger.facebook_id}}/picture?type=large"></img>
+      </div>
+    </div>
+  </li>
+</ul>

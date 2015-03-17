@@ -2,6 +2,7 @@ from functools import wraps
 from ..models import Bet, UserBet
 from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
 from ..forms import BetForm
+from flask.ext.login import current_user
 from ..extensions import db
 import json
 bets = Blueprint("bets", __name__)
@@ -19,7 +20,7 @@ def create_bet():
     if form.validate():
         bet = Bet(title=form.title.data,
                   amount=form.amount.data,
-                  creator = 0)
+                  creator = current_user.id)
 
         # Enter Optional Data Into Model
         if 'date' in data:
@@ -32,8 +33,8 @@ def create_bet():
         db.session.add(bet)
         db.session.commit()
 
-        user_bet = UserBet(user_id = 0,
-                            bet_id = bet.id)
+        user_bet = UserBet(user_id = current_user.id,
+                           bet_id = bet.id)
         db.session.add(user_bet)
         db.session.commit()
 
@@ -48,7 +49,7 @@ def create_bet():
 @bets.route("/user/bets", methods = ["GET"])
 def view_bets():
     bet_list = []
-    bets = UserBet.query.filter_by(user_id = 0).all()
+    bets = UserBet.query.filter_by(user_id = current_user.id).all()
     for a_bet in bets:
        bet = Bet.query.filter_by(id = a_bet.bet_id).first()
        if bet:
@@ -76,3 +77,4 @@ def view_bet(id):
         return jsonify({'data': bet})
     else:
         return jsonify({"ERROR": "Bet does not exist."}), 401
+        

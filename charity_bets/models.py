@@ -1,6 +1,9 @@
-from .extensions import db
+from .extensions import db, login_manager
 from flask.ext.login import UserMixin, current_user
 
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -17,6 +20,9 @@ class User(db.Model, UserMixin):
                 "facebook_id": self.facebook_id,
                 "bank_token": self.bank_token,
                 "charity": self.charity_id}
+
+
+
 
 
 class Bet(db.Model):

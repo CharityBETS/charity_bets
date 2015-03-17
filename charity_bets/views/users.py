@@ -80,11 +80,12 @@ def facebook_authorized():
                     )
         db.session.add(user)
         db.session.commit()
+        
     login_user(user)
         # return {"message": "You have been registered and logged in"}
 
     flash('You were signed in as %s' % repr(me.data['email']))
-    return redirect(next_url)
+    return redirect('/#createbet')
 
 @users.route("/api/users", methods = ["GET"])
 def view_all_users():
@@ -94,3 +95,21 @@ def view_all_users():
         return jsonify({'data': users}), 201
     else:
         return jsonify({"ERROR": "No users available."}), 401
+
+
+@users.route("/api/user/<int:id>", methods = ["GET"])
+def view_user(id):
+    user = User.query.filter_by(id = id).first()
+    if user:
+        user = user.make_dict()
+        del user['bank_token']
+        return jsonify({'data': user})
+    else:
+        return jsonify({"ERROR": "User does not exist."}), 401
+
+@users.route("/api/user/me", methods = ["GET"])
+def get_current_user():
+    user = User.query.filter_by(id = current_user.id).first()
+    if user:
+        user = user.make_dict()
+    return jsonify({'data': user})
