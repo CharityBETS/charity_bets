@@ -92,3 +92,14 @@ def view_all_users():
         return jsonify({'data': users}), 201
     else:
         return jsonify({"ERROR": "No users available."}), 401
+
+
+@users.route("/api/user/<int:id>", methods = ["GET"])
+def view_user(id):
+    user = User.query.filter_by(id = id).first()
+    if user:
+        user = user.make_dict()
+        del user['bank_token']
+        return jsonify({'data': user})
+    else:
+        return jsonify({"ERROR": "User does not exist."}), 401
