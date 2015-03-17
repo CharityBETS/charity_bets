@@ -6,6 +6,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255))
     email = db.Column(db.String(255), unique=True, nullable=False)
+    facebook_id = db.Column(db.String(255), unique=True, nullable=False)
     bank_token = db.Column(db.String(255))
     charity_id = db.Column(db.Integer)
 
@@ -13,6 +14,7 @@ class User(db.Model):
         return {"id": self.id,
                 "name": self.name,
                 "email": self.email,
+                "facebook_id": self.facebook_id,
                 "bank_token": self.bank_token,
                 "charity": self.charity_id}
 
