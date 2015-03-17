@@ -73,7 +73,8 @@ def facebook_authorized():
         print("user already exists")
     else:
         user = User(name=me.data['name'],
-                    email=me.data['email']
+                    email=me.data['email'],
+                    facebook_id=me.data['id']
                     )
         db.session.add(user)
         db.session.commit()
