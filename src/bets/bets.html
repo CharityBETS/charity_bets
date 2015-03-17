@@ -3,6 +3,10 @@
 
 <ul class="bets-ul">
   <li class="bets-li" ng-repeat="bet in vm.bets" ng-click="vm.goToBet(bet.id)">
+    <div class="bets-users">
+      {{bet.creator}} vs {{bet.challenger}}
+      
+    </div>
     <div class="bets-title">
       {{bet.title}}
     </div>
@@ -17,22 +21,18 @@
       {{}}
     </div> -->
 
-    <!-- <<div class="profile-wrap creator-wrap">
-      <div class="creator-name">
-        {{creator.name}}
+    <div class="profile-wrap creator-wrap">
+      <div class="creator-pic-div">
+        <!-- <img src="http://graph.facebook.com/{{creator.facebook_id}}/picture?type=large"></img> -->
+        <img class="bets-pic" src="http://graph.facebook.com/hifilorau/picture?type=large"></img>
       </div>
-      <div class="creator-pic">
-        {{creator.pic}}
-      </div>
+
     </div>
 
     <div class="profile-wrap challenger-wrap">
-      <div class="challenger-name">
-        {{challenger.name}}
-      </div>
       <div class="challenger-pic">
-        {{challenger.pic}}
+        <img src="http://graph.facebook.com/{{challenger.facebook_id}}/picture?type=large"></img>
       </div>
-    </div> -->
+    </div>
   </li>
 </ul>

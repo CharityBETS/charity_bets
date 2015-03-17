@@ -70,7 +70,7 @@ p {
   margin-bottom: 1em; }
 
 a {
-  color: #00AAEE;
+  color: white;
   text-decoration: none; }
 
 li {
@@ -392,8 +392,21 @@ footer {
     margin-top: 1rem;
     margin-left: 0rem !important; } }
 
-.bets-title, .bets-date, .bets-amount {
+.bets-title, .bets-date, .bets-amount, .bets-users {
   text-align: center; }
 
 .bets-li {
-  padding: 2rem 0; }
+  padding: 2rem 0;
+  position: relative; }
+
+.bets-users {
+  font-size: 1.3em; }
+
+.bets-pic {
+  width: 100px;
+  border-radius: 50px; }
+
+.creator-pic-div {
+  position: absolute;
+  top: 2rem;
+  left: 15%; }
