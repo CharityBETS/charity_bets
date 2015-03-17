@@ -1,4 +1,4 @@
-app.factory('usersService', ['$http', '$q', '$log', function($http, $q, $log) {
+app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
 
   function get(url) {
     return processAjaxPromise($http.get(url));
@@ -28,7 +28,7 @@ app.factory('usersService', ['$http', '$q', '$log', function($http, $q, $log) {
 
     addUser: function (user) {
       return processAjaxPromise($http.post('/api/users', user));
-    }
+    },
 
     getCurrent: function () {
       return get('/api/user/me');

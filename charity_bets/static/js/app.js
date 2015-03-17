@@ -13,33 +13,6 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
     templateUrl: '/static/bet-view/bet.html',
@@ -47,15 +20,22 @@ app.config(['$routeProvider', function($routeProvider) {
       bet: ['betService', '$route', function (betService, $route) {
         var id = $route.current.params.id;
         return betService.getBet(id);
+      }],
+      currentUser: ['userService', function (userService) {
+        console.log(userService.getCurrent());
+        return userService.getCurrent().then(function (result) {
+          return result.data;
+        });
       }]
     }
   };
   $routeProvider.when('/bet/:id', routeDefinition);
 }])
-.controller('ViewBetCtrl', ['$location', 'bet', 'betService', function ($location, bet, betService) {
+.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser',  function ($location, bet, betService, currentUser) {
 
   var self = this;
   self.bet = bet;
+  self.currentUser = currentUser;
 
 
 
@@ -102,6 +82,33 @@ app.config(['$routeProvider', function($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
     templateUrl: '/static/landing/landing.html',
     controller: 'LandingCtrl',
     controllerAs: 'vm',
@@ -133,7 +140,6 @@ app.controller('MainNavCtrl',
     //   $location.path('/login');
     // };
   }]);
-
 
 app.factory('betService', ['$http', '$log', function($http, $log) {
 
@@ -186,7 +192,7 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
   };
 }]);
 
-app.factory('usersService', ['$http', '$q', '$log', function($http, $q, $log) {
+app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
 
   function get(url) {
     return processAjaxPromise($http.get(url));
@@ -216,12 +222,52 @@ app.factory('usersService', ['$http', '$q', '$log', function($http, $q, $log) {
 
     addUser: function (user) {
       return processAjaxPromise($http.post('/api/users', user));
-    }
+    },
 
     getCurrent: function () {
       return get('/api/user/me');
     }
   };
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/user/user.html',
+    controller: 'UserCtrl',
+    controllerAs: 'vm'
+    // resolve: {
+    //   currentUser: ['userService', function (userService){
+    //     return userService.getCurrent();
+    //   }]
+    //   }
+  };
+  $routeProvider.when('/users', routeDefinition);
+}])
+.controller('UserCtrl', ['$location', 'userService', 'currentUser', function ($location, userService, currentUser) {
+
+  var self = this;
+  self.currentUser = currentUser;
+
+  // self.user = User();
+
+  //holds any error messages
+  // self.errors = {};
+  //
+  // self.createUser = function () {
+  //   //reset error object for next request
+  //   self.errors = {};
+  //   userService.createUser(self.user).then(function(success){
+  //     $location.path('/tasks');
+  //
+  //   }, function(error){
+  //     // set the errors object for our view
+  //     self.errors = error.data;
+  //
+  //   });
+  //
+  //   };
+
+
 }]);
 
 app.factory('StringUtil', function() {
