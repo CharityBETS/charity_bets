@@ -78,7 +78,8 @@ def facebook_authorized():
                     )
         db.session.add(user)
         db.session.commit()
-        login_user(user)
+
+    login_user(user)
         # return {"message": "You have been registered and logged in"}
 
     flash('You were signed in as %s' % repr(me.data['email']))
@@ -103,3 +104,8 @@ def view_user(id):
         return jsonify({'data': user})
     else:
         return jsonify({"ERROR": "User does not exist."}), 401
+
+@users.route("/api/user/me", methods = ["GET"])
+def get_current_user():
+    user = User.query.filter_by(id = current_user.id).first()
+    return jsonify({'data': {"name":"you", "id": current_user.id}})
