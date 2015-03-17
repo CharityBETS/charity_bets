@@ -13,6 +13,33 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
     templateUrl: '/static/bet-view/bet.html',
@@ -60,13 +87,25 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/static/bet-view/edit-bet.html',
     controller: 'EditBetCtrl',
     controllerAs: 'vm',
+    resolve: {
+      currentUser: ['userService', function (userService) {
+        return userService.getCurrent().then(function (result) {
+          return result.data;
+        })
+      }],
+      users: ['userService', function(userService) {
+        return userService.getUsers();
+      }]
+    }
   };
   $routeProvider.when('/createbet', routeDefinition);
 }])
-.controller('EditBetCtrl', ['$location', 'Bet', 'betService', function ($location, Bet, betService) {
+.controller('EditBetCtrl', ['$location', 'Bet', 'betService', 'currentUser', 'users', function ($location, Bet, betService, currentUser, users) {
 
   var self = this;
   self.bet = Bet();
+  self.currentUser = currentUser;
+  self.users = users;
 
   self.addBet = function () {
     betService.addBet(self.bet).then(self.goToBet);
@@ -79,33 +118,6 @@ app.config(['$routeProvider', function($routeProvider) {
   self.getUsers = function () {
     userService.getUsers();
   };
-
-
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
 
 
 }]);
@@ -211,7 +223,7 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
   }
 
   return {
-    listUsers: function () {
+    getUsers: function () {
       return get('/api/users');
     },
 

@@ -14,7 +14,7 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
   }
 
   return {
-    listUsers: function () {
+    getUsers: function () {
       return get('/api/users');
     },
 
