@@ -82,7 +82,7 @@ def facebook_authorized():
         # return {"message": "You have been registered and logged in"}
 
     flash('You were signed in as %s' % repr(me.data['email']))
-    return redirect(next_url)
+    return redirect('/#createbet')
 
 @users.route("/api/users", methods = ["GET"])
 def view_all_users():
