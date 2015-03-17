@@ -3,6 +3,8 @@ from functools import wraps
 from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
 from flask.ext.login import current_user, abort, login_user, logout_user, login_required
 import json
+from charity_bets import mail
+from flask_mail import Message
 
 
 from ..extensions import oauth, db
@@ -78,7 +80,7 @@ def facebook_authorized():
                     )
         db.session.add(user)
         db.session.commit()
-        login_user(user)
+    login_user(user)
         # return {"message": "You have been registered and logged in"}
 
     flash('You were signed in as %s' % repr(me.data['email']))
