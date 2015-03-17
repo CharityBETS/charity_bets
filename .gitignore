@@ -53,3 +53,4 @@ env
 charity_bets/config.cfg
 
 .DS_Store
+migrations/*
