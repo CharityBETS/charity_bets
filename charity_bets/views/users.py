@@ -68,7 +68,6 @@ def facebook_authorized():
     session['facebook_token'] = (resp['access_token'],)
     me = facebook.get('/me')
     session['facebook_name'] = me.data['first_name']
-
     user = User.query.filter_by(email=me.data['email']).first()
     if user:
         print("user already exists")
