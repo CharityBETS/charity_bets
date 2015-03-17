@@ -3,6 +3,9 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/static/bet-view/edit-bet.html',
     controller: 'EditBetCtrl',
     controllerAs: 'vm',
+    users: ['userService', function(userService) {
+      return userService.getUsers();
+    }]
   };
   $routeProvider.when('/createbet', routeDefinition);
 }])
