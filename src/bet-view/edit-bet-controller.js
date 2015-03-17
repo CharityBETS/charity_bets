@@ -4,12 +4,11 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'EditBetCtrl',
     controllerAs: 'vm',
   };
-  $routeProvider.when('/bet/edit', routeDefinition);
+  $routeProvider.when('/createbet', routeDefinition);
 }])
 .controller('EditBetCtrl', ['$location', 'Bet', 'betService', function ($location, Bet, betService) {
 
   var self = this;
-
   self.bet = Bet();
 
   self.addBet = function () {

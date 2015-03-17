@@ -246,6 +246,10 @@ footer {
   padding: 1rem;
   border-radius: 6px; }
 
+.middle-wrap {
+  background-color: #484848;
+  width: 2000px; }
+
 .profile-details-wrap {
   position: relative;
   min-height: 350px;
@@ -253,7 +257,8 @@ footer {
   background-color: #484848;
   color: white;
   font-family: 'Oswald', sans-serif;
-  letter-spacing: 1px; }
+  letter-spacing: 1px;
+  margin: 0 auto; }
 
 .bet-date {
   font-size: 1.3em; }

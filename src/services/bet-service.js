@@ -32,7 +32,7 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     // },
 
     getBet: function (id) {
-      return get('/api/user/bets');
+      return get('/api/bets/' + id);
     },
 
     addBet: function (bet) {

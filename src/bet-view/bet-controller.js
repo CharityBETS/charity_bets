@@ -5,13 +5,14 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/static/bet-view/bet.html',
     resolve: {
       bet: ['betService', '$route', function (betService, $route) {
-        return betService.getBet($route.current.params.id);
-      }],
+        var id = $route.current.params.id;
+        return betService.getBet(id);
+      }]
     }
   };
   $routeProvider.when('/bet/:id', routeDefinition);
 }])
-.controller('ViewBetCtrl', ['$location', 'bet', function ($location, bet) {
+.controller('ViewBetCtrl', ['$location', 'bet', 'betService', function ($location, bet, betService) {
 
   var self = this;
   self.bet = bet;
