@@ -4,6 +4,7 @@ import os
 from flask.ext.script import Manager, Shell, Server
 from flask.ext.migrate import MigrateCommand
 from flask.ext.script.commands import ShowUrls, Clean
+from charity_bets.models import User
 
 from charity_bets import create_app, db
 
@@ -30,6 +31,40 @@ def createdb():
     """Creates the database with all model tables.
     Migrations are preferred."""
     db.create_all()
+
+@manager.command
+def seed():
+    user_seed_data = [{
+                    'name': "Daniel Newell",
+                    'email': "dn78685@appstate.edu",
+                    'facebook_id': "10101587473382708"
+                    },
+                    {
+                    'name': "Tom Rau",
+                    'email': "tomrau@gmail.com",
+                    'facebook_id': "10153291816102240"
+                    },
+                    {
+                    'name': "Ben Batty",
+                    'email': "bbatty32@yahoo.com",
+                    'facebook_id': "1015316897151279"
+                    },
+                    {
+                    'name': "Bret Runestad",
+                    'email': "bret.runestad@gmail.com",
+                    'facebook_id': "10100983997732464"
+                    }
+                    ]
+    for seed in user_seed_data:
+        user = User.query.filter_by(email=seed['email']).first()
+        if not user:
+            user=User(name=seed['name'],
+                      facebook_id=seed['facebook_id'],
+                      email=seed['email']
+                            )
+            db.session.add(user)
+    db.session.commit()
+    print("You've added some major wagerers as users.")
 
 
 if __name__ == '__main__':

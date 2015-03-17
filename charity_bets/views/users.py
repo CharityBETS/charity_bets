@@ -80,7 +80,13 @@ def facebook_authorized():
                     )
         db.session.add(user)
         db.session.commit()
-        
+    message = Message(
+                          "Welcome",
+                          recipients="bret.runestad@gmail.com"
+                          )
+    message.body = "This is a message test.  Do not panic!" \
+                   " This is the second line of the message."
+    mail.send(message)
     login_user(user)
         # return {"message": "You have been registered and logged in"}
 
