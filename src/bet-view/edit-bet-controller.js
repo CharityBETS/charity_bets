@@ -16,8 +16,11 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.goToBet = function (bet) {
-    console.log(bet);
     $location.path('/bet/' + bet.id);
+  };
+
+  self.getUsers = function () {
+    userService.getUsers();
   };
 
 
