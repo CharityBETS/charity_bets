@@ -5,6 +5,7 @@ from flask.ext.login import UserMixin, current_user
 def load_user(id):
     return User.query.get(int(id))
 
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255))
@@ -20,9 +21,6 @@ class User(db.Model, UserMixin):
                 "facebook_id": self.facebook_id,
                 "bank_token": self.bank_token,
                 "charity": self.charity_id}
-
-
-
 
 
 class Bet(db.Model):
@@ -47,10 +45,12 @@ class Bet(db.Model):
                 "creator":self.creator,
                 "challenger":self.challenger}
 
+
 class UserBet(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer)
     bet_id = db.Column(db.Integer)
+
 
 class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

@@ -1,5 +1,5 @@
 from functools import wraps
-from ..models import Bet, UserBet
+from ..models import Bet, UserBet, User
 from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
 from ..forms import BetForm
 from flask.ext.login import current_user
@@ -16,11 +16,14 @@ def create_bet():
     form = BetForm( title=data['title'],
                     amount = int(data['amount']),
                     formdata=None, csrf_enabled=False)
+    challenger = User.query.filter_by(name = data['challenger']).first()
+
     # Validate Form
     if form.validate():
         bet = Bet(title=form.title.data,
                   amount=form.amount.data,
-                  creator = current_user.id)
+                  creator = current_user.id,
+                  challenger = challenger.id)
 
         # Enter Optional Data Into Model
         if 'date' in data:
@@ -69,6 +72,7 @@ def view_all_bets():
     else:
         return jsonify({"ERROR": "No bets available."}), 401
 
+
 @bets.route("/bets/<int:id>", methods = ["GET"])
 def view_bet(id):
     bet = Bet.query.filter_by(id = id).first()
@@ -77,4 +81,20 @@ def view_bet(id):
         return jsonify({'data': bet})
     else:
         return jsonify({"ERROR": "Bet does not exist."}), 401
-        
+
+
+@bets.route("/bets/<int:id>", methods = ["PUT"])
+def update_bet(id):
+    bet = Bet.query.filter_by(id = id).first()
+    if bet:
+        body = request.get_data(as_text=True)
+        data = json.loads(body)
+        keys = data.keys()
+        if "status" in keys:
+            bet.status = data["status"]
+            db.session.commit()
+            return jsonify({"data": bet.make_dict()})
+        else:
+            return jsonify({"ERROR": "Invalid Keyword"}), 401
+    else:
+        return jsonify({"ERROR": "Bet is not in database"})
