@@ -60,11 +60,6 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: '/static/bet-view/edit-bet.html',
     controller: 'EditBetCtrl',
     controllerAs: 'vm',
-<<<<<<< HEAD
-    users: ['userService', function(userService) {
-      return userService.getUsers();
-    }]
-=======
     resolve: {
       currentUser: ['userService', function (userService) {
         return userService.getCurrent().then(function (result) {
@@ -75,7 +70,6 @@ app.config(['$routeProvider', function($routeProvider) {
         return userService.getUsers();
       }]
     }
->>>>>>> current-user
   };
   $routeProvider.when('/createbet', routeDefinition);
 }])
