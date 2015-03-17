@@ -13,6 +13,33 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
     templateUrl: '/static/bet-view/bet.html',
@@ -39,11 +66,7 @@ app.factory('Bet', function () {
     spec = spec || {};
     return {
         title: spec.title,
-<<<<<<< HEAD
-        challenger: spec.challenger,
-=======
         // challenger: spec.challenger,
->>>>>>> new-bets
         amount: spec.amount,
         date: spec.date,
         location: spec.location,
@@ -79,33 +102,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
     templateUrl: '/static/landing/landing.html',
     controller: 'LandingCtrl',
     controllerAs: 'vm',
@@ -120,8 +116,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-<<<<<<< HEAD
-=======
 app.controller('MainNavCtrl',
   ['$location', 'StringUtil', function($location, StringUtil) {
     var self = this;
@@ -140,7 +134,7 @@ app.controller('MainNavCtrl',
     // };
   }]);
 
->>>>>>> new-bets
+
 app.factory('betService', ['$http', '$log', function($http, $log) {
 
   function get(url) {
@@ -158,12 +152,6 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
 
   function processAjaxPromise(p) {
     return p.then(function (result) {
-<<<<<<< HEAD
-      return result.data;
-    })
-    .catch(function (error) {
-      $log.log(error);
-=======
       var data = result.data;
       console.log(data);
       return data.data;
@@ -171,7 +159,6 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     .catch(function (error) {
      $log.log(error);
      throw error;
->>>>>>> new-bets
     });
   }
 
@@ -182,32 +169,60 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     // },
 
     getBet: function (id) {
-<<<<<<< HEAD
-      return get('/api/user/bets');
-=======
       return get('/api/bets/' + id);
->>>>>>> new-bets
     },
 
     addBet: function (bet) {
       return post('/api/user/bets', bet);
     },
 
-<<<<<<< HEAD
-=======
     getBets: function () {
       return get('/api/bets');
     }
 
->>>>>>> new-bets
     // deleteShare: function (id) {
     //   return remove('/api/res/' + id);
     // }
   };
 }]);
 
-<<<<<<< HEAD
-=======
+app.factory('usersService', ['$http', '$q', '$log', function($http, $q, $log) {
+
+  function get(url) {
+    return processAjaxPromise($http.get(url));
+  }
+
+  function processAjaxPromise(p) {
+    return p.then(function (result) {
+      return result.data;
+    })
+    .catch(function (error) {
+      $log.log(error);
+    });
+  }
+
+  return {
+    listUsers: function () {
+      return get('/api/users');
+    },
+
+    getByUserId: function (userId) {
+      if (!userId) {
+        throw new Error('getByUserId requires a user id');
+      }
+
+      return get('/api/users/' + userId);
+    },
+
+    addUser: function (user) {
+      return processAjaxPromise($http.post('/api/users', user));
+    }
+
+    getCurrent: function () {
+      return get('/api/user/me');
+    }
+  };
+}]);
 
 app.factory('StringUtil', function() {
   return {
@@ -217,7 +232,6 @@ app.factory('StringUtil', function() {
     }
   };
 });
->>>>>>> new-bets
 
 app.controller('Error404Ctrl', ['$location', function ($location) {
   this.message = 'Could not find: ' + $location.url();
