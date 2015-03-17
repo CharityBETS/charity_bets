@@ -82,7 +82,8 @@ def facebook_authorized():
         db.session.commit()
     message = Message(
                           "Welcome",
-                          recipients="bret.runestad@gmail.com"
+                          sender="betsforcharity@gmail.com",
+                          recipients=["bret.runestad@gmail.com"]
                           )
     message.body = "This is a message test.  Do not panic!" \
                    " This is the second line of the message."

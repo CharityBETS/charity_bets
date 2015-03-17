@@ -8,12 +8,6 @@ from .views.users import users
 from .views.bets import bets
 
 
-MAIL_SERVER = 'smtp.googlemail.com'
-MAIL_PORT = 465
-MAIL_USE_TLS = False
-MAIL_USE_SSL = True
-MAIL_USERNAME = "betsforcharity@gmail.com"
-MAIL_PASSWORD = "noblebookie"
 
 
 def create_app():
@@ -23,6 +17,12 @@ def create_app():
     app.config['DEBUG']
     app.config['SECRET_KEY']
     app.config['FACEBOOK']
+    app.config['MAIL_SERVER']
+    app.config['MAIL_PORT']
+    app.config['MAIL_USE_TLS']
+    app.config['MAIL_USE_SSL']
+    app.config['MAIL_USERNAME']
+    app.config['MAIL_PASSWORD']
 
 
     app.register_blueprint(home)
