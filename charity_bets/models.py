@@ -33,6 +33,11 @@ class Bet(db.Model):
     location = db.Column(db.String(255))
     creator = db.Column(db.Integer)
     challenger = db.Column(db.Integer)
+    challenger_name = db.Column(db.String(255))
+    challenger_facebook_id = db.Column(db.String(255))
+    creator_name = db.Column(db.String(255))
+    creator_facebook_id = db.Column(db.String(255))
+    
 
     def make_dict(self):
         return {"id": self.id,
