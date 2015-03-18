@@ -8,51 +8,60 @@
   <div class="bet-essentials">
     <!-- <h2>Bet Name</h2> -->
     <input name="bet-title-input" class="bet-title-input" placeholder="Name Your Bet" ng-model="vm.bet.title">
-    <input name="bet-challenger-input" class="bet-challenger-input" placeholder="Challenge a Friend" ng-model="vm.bet.challenger">
+    <!-- <input name="bet-challenger-input" class="bet-challenger-input" placeholder="Challenge a Friend" ng-model="vm.bet.challenger"> -->
+
+    <select class="bet-challenger" ng-model="vm.bet.challenger">
+            <option value="" disabled selected>Select Challenger</option>
+            <option ng-repeat="user in vm.users" value="{{ user.name }}"> {{ user.name }}
+            </option>
+    </select>
+
     <input name="bet-amount-input" class="bet-amount-input" placeholder="$$$" ng-model="vm.bet.amount">
     <!-- <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$2,225,000</h4></div> -->
     <!-- <button class="donate-button">$DONATE$</button> -->
   </div>
 
-  <!-- <div class="middle-wrap"> -->
+
   <div class="profile-details-wrap">
-    <div class="bet-deets">
-      <div class="info-title">Date:</div>
-      <input class="bet-date-input secondary-input" name="bet-date-input" placeholder="When is the bet" ng-model="vm.bet.date">
-      <div class="info-title">Location:</div>
-      <input name="location-input" class="location-input secondary-input" placeholder="Location" ng-model="vm.bet.location">
-      <div class="info-title">Description:</div>
-      <textarea name="description-textarea" class="bet-description-textarea" placeholder="Describe the Bet" ng-model="vm.bet.description"></textarea>
-    </div>
-
-    <!-- </div> -->
-
-      <div class="better-profile hero-bettor">
-        <div class="bettor-name">{{vm.currentUser.name}}</div>
-        <div class="charity">Kids with Faces</div>
-        <!-- <div class="select-style">
-          <select name="charity-select" class="charity">
-            <option value="" disabled selected>Select Your Charity</option>
-          </select>
-        </div> -->
-        <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large"></div>
-        <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
-        <div class="location">Durham, NC</div>
+    <div class="bet-flex-wrap">
+      <div class="bet-deets flex-section-a">
+        <div class="info-title">Date:</div>
+        <input class="bet-date-input secondary-input" name="bet-date-input" placeholder="When is the bet" ng-model="vm.bet.date">
+        <div class="info-title">Location:</div>
+        <input name="location-input" class="location-input secondary-input" placeholder="Location" ng-model="vm.bet.location">
+        <div class="info-title">Description:</div>
+        <textarea name="description-textarea" class="bet-description-textarea" placeholder="Describe the Bet" ng-model="vm.bet.description"></textarea>
+        <button class="submit-bet">SUBMIT BET</button>
       </div>
 
-    <div class="better-profile villian-bettor">
-      <div class="bettor-name-input">Challenger: Unknown</div>
-      <div class="charity">Charity: Unknown</div>
-      <div class="user-pic"><img class="user-pic" src="http://1.bp.blogspot.com/-lYpXSzJUQQA/TVVpZAw1i1I/AAAAAAAAABg/UQCaYfGfe4g/s220/profile_blank_gray.jpg"></div>
-      <!-- <div><span class="user-descriptor">Bet:</span>$50</div> -->
-      <div class="wins-losses"><span class="user-descriptor">Record:</span>Unknown</div>
-      <div class="location">Location: Unknown</div>
+      <!-- </div> -->
+
+        <div class="better-profile hero-bettor flex-section-b">
+          <div class="bettor-name">{{vm.currentUser.name}}</div>
+          <div class="charity">Kids with Faces</div>
+          <!-- <div class="select-style">
+            <select name="charity-select" class="charity">
+              <option value="" disabled selected>Select Your Charity</option>
+            </select>
+          </div> -->
+          <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large"></div>
+          <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
+          <div class="location">Durham, NC</div>
+        </div>
+
+      <div class="better-profile villian-bettor flex-section-c">
+        <div class="bettor-name-input">Challenger: Unknown</div>
+        <div class="charity">Charity: Unknown</div>
+        <div class="user-pic"><img class="user-pic" src="http://1.bp.blogspot.com/-lYpXSzJUQQA/TVVpZAw1i1I/AAAAAAAAABg/UQCaYfGfe4g/s220/profile_blank_gray.jpg"></div>
+        <!-- <div><span class="user-descriptor">Bet:</span>$50</div> -->
+        <div class="wins-losses"><span class="user-descriptor">Record:</span>Unknown</div>
+        <div class="location">Location: Unknown</div>
+      </div>
+
     </div>
 
-    <button class="submit-bet">SUBMIT BET</button>
-
-</form>
   </div>
+</form>
 
 
   <div class="comment-section">

@@ -44,7 +44,7 @@ body {
 
 h1 {
   font-size: 4em;
-  margin: .67em 0; }
+  margin: 0; }
 
 h2 {
   font-size: 1.5em;
@@ -103,9 +103,19 @@ button {
   justify-content: flex-end;
   letter-spacing: 1px; }
   .header-nav li, .app-header li {
-    padding: 1em 3em 1em 2em; }
+    padding: 1rem 3rem 1rem 2rem;
+    font-size: 1.2em; }
   .header-nav li:first-child, .app-header li:first-child {
-    margin-right: auto; }
+    margin-right: auto;
+    font-size: 1.6em;
+    color: #f05f5c;
+    padding-bottom: .6rem;
+    font-weight: bold; }
+  .header-nav li:last-child, .app-header li:last-child {
+    font-size: .8em; }
+
+.app-header li:first-child {
+  color: white; }
 
 .active {
   color: green; }
@@ -139,7 +149,11 @@ button {
     justify-content: flex-start;
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
-    flex-direction: column; } }
+    flex-direction: column; }
+  li {
+    margin: 0 auto; }
+  li:first-child {
+    margin: 0 auto; } }
 
 footer {
   min-height: 250px;
@@ -148,7 +162,10 @@ footer {
 
 .hero-section {
   height: 90vh;
-  position: relative; }
+  position: relative;
+  background: url(https://opinionize.files.wordpress.com/2012/08/01_20120713_arm_wrestle_00019-v211.jpg) no-repeat center center fixed;
+  background-size: cover;
+  color: white; }
 
 .landing-content-wrap {
   padding: 2rem; }
@@ -168,26 +185,35 @@ footer {
   -ms-flex-positive: 1;
   flex-grow: 1;
   width: 25%;
-  padding: 1rem 2rem; }
+  padding: 1rem 2rem;
+  text-align: center; }
 
 .landing-block-header {
   font-weight: 700;
   font-size: 1.2em;
-  text-align: center; }
+  text-align: center;
+  padding-bottom: 1rem; }
 
 .landing-content-head {
   text-align: center; }
 
 .top-hero-line {
   margin-left: .75em;
-  padding-top: .4em;
+  padding-top: .6em;
   line-height: 1em; }
 
 .bottom-hero-line {
   position: absolute;
   right: 0;
   margin-right: .75em;
-  padding-top: 4em; }
+  bottom: 15%; }
+
+.icons {
+  font-family: major-wager;
+  text-align: center;
+  font-size: 1.7em;
+  color: #f05f5c;
+  padding-bottom: 1rem; }
 
 .landing-action-buttons {
   display: -webkit-flex;
@@ -197,11 +223,27 @@ footer {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 2em;
+  margin-top: 14rem;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
   .landing-action-buttons button {
     margin: 0 2em; }
+
+@media only screen and (max-width: 920px) {
+  .three-items {
+    display: block; }
+  .landing-block {
+    margin: 0 auto;
+    width: 75%; } }
+
+@media only screen and (max-width: 535px) {
+  .landing-action-buttons {
+    margin-top: 4rem; }
+  .sign-up-button {
+    margin-bottom: 1rem !important; }
+  .bottom-hero-line {
+    padding-top: 5em; } }
 
 .create-bet-wrapper {
   text-align: center; }
@@ -247,7 +289,6 @@ footer {
   border-radius: 6px; }
 
 .profile-details-wrap {
-  position: relative;
   min-height: 350px;
   padding: 1.5rem 0;
   background-color: #484848;
@@ -260,25 +301,24 @@ footer {
   font-size: 1.3em; }
 
 .bet-description {
-  max-width: 30%;
   margin: 0 auto; }
 
 .better-profile {
   display: inline-block;
-  position: absolute;
-  top: 1rem; }
+  padding-top: 1rem; }
 
 .bettor-name {
-  font-size: 1.2em;
+  font-size: 1.5em;
   color: #f05f5c;
-  font-weight: 700; }
+  font-weight: 700;
+  letter-spacing: 4px; }
 
 .charity {
   padding-bottom: .3em; }
 
 .user-pic {
   width: 200px;
-  height: auto;
+  height: 200px;
   margin: 0 auto;
   border-radius: 100px;
   border: 3px #f05f5c; }
@@ -313,12 +353,57 @@ footer {
   font-size: .85em;
   font-weight: bold; }
 
+.bet-flex-wrap {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  max-width: 900px;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 0 auto;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
+
+.flex-section-a {
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2; }
+
+.flex-section-b {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1; }
+
+.flex-section-c {
+  -webkit-order: 3;
+  -ms-flex-order: 3;
+  order: 3; }
+
 @media only screen and (max-width: 920px) {
   .better-profile {
-    position: relative;
     display: block;
-    top: 0;
     padding: 2em 0; }
+  .bet-flex-wrap {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+  .flex-section-a {
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1; }
+  .flex-section-b {
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    order: 2; }
+  .flex-section-c {
+    -webkit-order: 3;
+    -ms-flex-order: 3;
+    order: 3; }
   .hero-bettor, .villian-bettor {
     left: auto;
     right: auto; }
@@ -335,13 +420,19 @@ footer {
   textarea {
     max-width: 85%; } }
 
-.edit-bet-wrapper input {
+.edit-bet-wrapper input, .edit-bet-wrapper select {
   padding: 1em;
   width: 14em;
   text-align: center;
   border: dotted 1px black;
   font-size: 1.2em;
   border-radius: 6px; }
+.edit-bet-wrapper select {
+  height: 64px;
+  margin-left: 1rem;
+  background-color: none; }
+.edit-bet-wrapper option {
+  font-family: 'Noto Sans', sans-serif; }
 .edit-bet-wrapper .bet-amount-input {
   width: 7em;
   margin-left: 1rem; }
@@ -391,23 +482,74 @@ footer {
 @media only screen and (max-width: 920px) {
   .bet-amount-input, .bet-challenger-input {
     margin-top: 1rem;
-    margin-left: 0rem !important; } }
+    margin-left: 0rem !important; }
+  select {
+    margin-top: 1rem;
+    margin-left: 0; } }
 
 .bets-title, .bets-date, .bets-amount, .bets-users {
   text-align: center; }
 
 .bets-li {
   padding: 2rem 0;
-  position: relative; }
+  position: relative;
+  background-color: #4BBADA; }
 
 .bets-users {
   font-size: 1.3em; }
 
 .bets-pic {
   width: 100px;
+  height: 100px;
   border-radius: 50px; }
 
-.creator-pic-div {
-  position: absolute;
-  top: 2rem;
-  left: 15%; }
+.bets-flex-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  max-width: 640px;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 0 auto; }
+
+.bets-section-1 {
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2; }
+
+.bets-section-2 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1; }
+
+.bets-section-3 {
+  -webkit-order: 3;
+  -ms-flex-order: 3;
+  order: 3; }
+
+.profile-top-section {
+  background-color: #4BBADA;
+  padding: 2rem;
+  color: white;
+  text-align: center; }
+  .profile-top-section h3 {
+    margin: 0;
+    font-size: 2em;
+    padding-bottom: .1em; }
+  .profile-top-section h4 {
+    padding: .3rem 0 1rem;
+    font-size: 1.2em; }
+
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  border: 5px solid #f05f5c; }
+
+.profile-section-two {
+  background-color: #484848;
+  height: 1000px; }

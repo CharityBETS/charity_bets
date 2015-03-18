@@ -6,42 +6,42 @@
   <div class="bet-essentials">
     <div class="bet-title">{{vm.bet.title}}</div>
     <h3>Prize Purse</h3>
-    <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$2,225,000</h4></div>
+    <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$723</h4></div>
     <button class="donate-button">$DONATE$</button>
   </div>
 
-  <div class="profile-details-wrap">
-    <div class="bet-deets">
-      <div class="bet-date">{{vm.bet.date}}</div>
-      <div class="info-title">Bet Amount:</div>
-      <div class="bet-size">{{vm.bet.amount | currency}}</div>
-      <div class="info-title">Location:</div>
-      <div class="location">Blackwell St.</div>
-      <div class="info-title">Description:</div>
-      <div class="bet-description">{{vm.bet.description}}</div>
-    </div>
+    <div class="profile-details-wrap">
+      <div class=bet-flex-wrap>
 
-    <div class="middle-wrap">
-      <div class="better-profile hero-bettor">
-        <div class="bettor-name">{{vm.currentUser.name}}</div>
-        <div class="charity">Kids with Faces</div>
-        <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large"></div>
-        <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
-        <div class="location">Durham, NC</div>
+      <div class="bet-deets flex-section-a">
+        <div class="bet-date">{{vm.bet.date}}</div>
+        <div class="info-title">Bet Amount:</div>
+        <div class="bet-size">{{vm.bet.amount | currency}}</div>
+        <div class="info-title">Location:</div>
+        <div class="location">{{vm.bet.location}}</div>
+        <div class="info-title">Description:</div>
+        <div class="bet-description">{{vm.bet.description}}</div>
+        <button class="end-bet">WHO WON?</button>
       </div>
 
-      <div class="better-profile villian-bettor">
-        <div class="bettor-name">Daniel Newcliff</div>
-        <div class="charity">Girl Scouts of America</div>
-        <div class="user-pic"><img class="user-pic" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xtf1/v/t1.0-1/p320x320/11252_10101280403972268_8663987891698564670_n.jpg?oh=c203c6e6cf759b0877cd156ec258b186&oe=5579700E&__gda__=1433625923_d075c70617eab46851dcd35ef6c0c54d"></div>
-        <div class="wins-losses"><span class="user-descriptor">Record:</span>12-29</div>
-        <div class="location">Chapel Hill, NC</div>
-      </div>
+
+        <div class="better-profile hero-bettor flex-section-b">
+          <div class="bettor-name">{{vm.currentUser.name}}</div>
+          <div class="charity">Kids with Faces</div>
+          <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large"></div>
+          <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
+          <div class="location">Durham, NC</div>
+        </div>
+
+        <div class="better-profile villian-bettor flex-section-c">
+          <div class="bettor-name">{{vm.bet.challenger_name}}</div>
+          <div class="charity">Girl Scouts of America</div>
+          <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.challenger_facebook_id}}/picture?type=large"></div>
+          <div class="wins-losses"><span class="user-descriptor">Record:</span>12-29</div>
+          <div class="location">Chapel Hill, NC</div>
+        </div>
     </div>
-
-    <button class="end-bet">WHO WON?</button>
-
-  </div>
+ </div>
 
 
   <div class="comment-section">

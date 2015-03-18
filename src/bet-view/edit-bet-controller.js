@@ -10,7 +10,9 @@ app.config(['$routeProvider', function($routeProvider) {
         })
       }],
       users: ['userService', function(userService) {
-        return userService.getUsers();
+        return userService.getUsers().then(function (result) {
+          return result.data;
+        })
       }]
     }
   };

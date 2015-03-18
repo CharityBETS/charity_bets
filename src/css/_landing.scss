@@ -1,6 +1,9 @@
 .hero-section {
   height: 90vh;
   position: relative;
+  background: url(https://opinionize.files.wordpress.com/2012/08/01_20120713_arm_wrestle_00019-v211.jpg) no-repeat center center fixed;
+  background-size: cover;
+  color: white;
 }
 
 .landing-content-wrap {
@@ -18,6 +21,7 @@
   flex-grow: 1;
   width: 25%;
   padding: 1rem 2rem;
+  text-align: center;
 
 }
 
@@ -25,6 +29,7 @@
   font-weight: 700;
   font-size: 1.2em;
   text-align: center;
+  padding-bottom: 1rem;
 }
 
 .landing-content-head {
@@ -33,7 +38,7 @@
 
 .top-hero-line {
   margin-left: .75em;
-  padding-top: .4em;
+  padding-top: .6em;
   line-height: 1em;
 }
 
@@ -42,17 +47,55 @@
   right: 0;
   // float: right;
   margin-right: .75em;
-  padding-top: 4em;
+  bottom: 15%;
+}
+
+.icons {
+  font-family: major-wager;
+  text-align: center;
+  font-size: 1.7em;
+  color: $main-accent-color;
+  padding-bottom: 1rem;
 }
 
 .landing-action-buttons {
   display: flex;
   flex-wrap: wrap;
   padding: 2em;
+  margin-top: 14rem;
   justify-content: center;
 
   button {
     margin: 0 2em;
   }
+}
+
+@media only screen and (max-width : 920px) {
+  .three-items {
+    display: block;
+
+  }
+
+  .landing-block {
+    margin: 0 auto;
+    width: 75%
+  }
+
+}
+
+@media only screen and (max-width : 535px) {
+
+  .landing-action-buttons {
+    margin-top: 4rem;
+  }
+
+  .sign-up-button {
+    margin-bottom: 1rem !important;
+  }
+
+  .bottom-hero-line {
+    padding-top: 5em;
+  }
+
 
 }

@@ -3,36 +3,45 @@
 
 <ul class="bets-ul">
   <li class="bets-li" ng-repeat="bet in vm.bets" ng-click="vm.goToBet(bet.id)">
-    <div class="bets-users">
-      {{bet.creator}} vs {{bet.challenger}}
-      
-    </div>
-    <div class="bets-title">
-      {{bet.title}}
-    </div>
-    <div class="bets-date">
-      {{bet.date | date:'EEEE, MMM d'}}
-    </div>
-    <div class="bets-amount">
-      {{bet.amount | currency}}
+
+  <div class="bets-flex-container">
+
+    <div class="bets-section-1">
+      <div class="bets-users">
+        {{bet.creator_name}} vs {{bet.challenger_name}}
+      </div>
+      <div class="bets-title">
+        {{bet.title}}
+      </div>
+      <div class="bets-date">
+        {{bet.date | date:'EEEE, MMM d'}}
+      </div>
+      <div class="bets-amount">
+        {{bet.amount | currency}}
+      </div>
     </div>
 
     <!-- <div class="prize-purse">
       {{}}
     </div> -->
+    <div class="bets-section-2">
+      <div class="profile-wrap creator-wrap">
+        <div class="creator-pic-div">
 
-    <div class="profile-wrap creator-wrap">
-      <div class="creator-pic-div">
-        <!-- <img src="http://graph.facebook.com/{{creator.facebook_id}}/picture?type=large"></img> -->
-        <img class="bets-pic" src="http://graph.facebook.com/hifilorau/picture?type=large"></img>
-      </div>
-
-    </div>
-
-    <div class="profile-wrap challenger-wrap">
-      <div class="challenger-pic">
-        <img src="http://graph.facebook.com/{{challenger.facebook_id}}/picture?type=large"></img>
+          <img class="bets-pic" src="http://graph.facebook.com/{{bet.creator_facebook_id}}/picture?type=large"></img>
+        </div>
       </div>
     </div>
+
+    <div class="bets-section-3">
+      <div class="profile-wrap challenger-wrap">
+        <div class="challenger-pic">
+          <img class="bets-pic" src="http://graph.facebook.com/{{bet.challenger_facebook_id}}/picture?type=large"></img>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   </li>
 </ul>

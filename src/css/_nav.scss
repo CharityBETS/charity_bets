@@ -8,13 +8,26 @@
 
 
   li {
-    padding: 1em 3em 1em 2em;
+    padding: 1rem 3rem 1rem 2rem;
+    font-size: 1.2em;
   }
 
   li:first-child {
     margin-right: auto;
+    font-size: 1.6em;
+    color: $main-accent-color;
+    padding-bottom: .6rem;
+    font-weight: bold;
  }
 
+  li:last-child {
+    font-size: .8em;
+  }
+
+}
+
+.app-header li:first-child {
+  color: white;
 }
 
 .active {
@@ -56,4 +69,12 @@
     justify-content: flex-start;
     flex-direction: column;
   }
+
+  li {
+    margin: 0 auto;
+  }
+
+  li:first-child {
+    margin: 0 auto;
+ }
 }

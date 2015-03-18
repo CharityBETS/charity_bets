@@ -2,7 +2,7 @@ from functools import wraps
 from ..models import Bet, UserBet, User
 from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
 from ..forms import BetForm
-from flask.ext.login import current_user
+from flask.ext.login import current_user, login_required
 from ..extensions import db
 import json
 from charity_bets import mail
@@ -78,9 +78,18 @@ def view_bets():
 @bets.route("/bets", methods = ["GET"])
 def view_all_bets():
     bets = Bet.query.all()
-    bets = [bet.make_dict() for bet in bets]
+    all_bets = []
+    for bet in bets:
+        challenger = User.query.filter_by(id=bet.challenger).first()
+        bet = bet.make_dict()
+        bet['challenger_name'] = challenger.name
+        bet['challenger_facebook_id'] = challenger.facebook_id
+        bet['creator_name'] = current_user.name
+        bet['creator_facebook_id'] = current_user.facebook_id
+        all_bets.append(bet)
+
     if bets:
-        return jsonify({'data': bets}), 201
+        return jsonify({'data': all_bets}), 201
     else:
         return jsonify({"ERROR": "No bets available."}), 401
 
@@ -88,12 +97,16 @@ def view_all_bets():
 @bets.route("/bets/<int:id>", methods = ["GET"])
 def view_bet(id):
     bet = Bet.query.filter_by(id = id).first()
+    challenger = User.query.filter_by(id=bet.challenger).first()
     if bet:
         bet = bet.make_dict()
+        bet['challenger_name'] = challenger.name
+        bet['challenger_facebook_id'] = challenger.facebook_id
+        bet['creator_name'] = current_user.name
+        bet['creator_facebook_id'] = current_user.facebook_id
         return jsonify({'data': bet})
     else:
         return jsonify({"ERROR": "Bet does not exist."}), 401
-
 
 @bets.route("/bets/<int:id>", methods = ["PUT"])
 def update_bet(id):
@@ -102,11 +115,12 @@ def update_bet(id):
         body = request.get_data(as_text=True)
         data = json.loads(body)
         keys = data.keys()
-        if "status" in keys:
-            bet.status = data["status"]
+        for key in keys:
+            setattr(bet, key, data[key])
             db.session.commit()
-            return jsonify({"data": bet.make_dict()})
-        else:
-            return jsonify({"ERROR": "Invalid Keyword"}), 401
+            return jsonify({"data": bet.make_dict()}), 401
     else:
         return jsonify({"ERROR": "Bet is not in database"})
+
+def edit_generator():
+    edits = []
