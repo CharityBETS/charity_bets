@@ -79,7 +79,7 @@ def facebook_authorized():
 def logout():
     logout_user()
     session.pop('facebook_token', None)
-    return {"result": "logged out"}
+    return jsonify({"result": "logged out"}), 201
 
 @users.route("/api/users", methods = ["GET"])
 def view_all_users():
