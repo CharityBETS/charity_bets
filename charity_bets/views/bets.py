@@ -4,6 +4,7 @@ from flask import session, Blueprint, url_for, request, redirect, flash, render_
 from ..forms import BetForm
 from flask.ext.login import current_user, login_required
 from ..extensions import db
+from ..emails import send_email, bet_creation_notification
 import json
 from charity_bets import mail
 from flask_mail import Message
@@ -50,14 +51,7 @@ def create_bet():
         db.session.commit()
 
         # Message sent to the other party of the bet
-        message = Message(
-                              "Welcome",
-                              sender="betsforcharity@gmail.com",
-                              recipients=[current_user.email]
-                              )
-        message.body = "This is a message test.  Do not panic! Did this work?  If so, great!" \
-                       " This is the second line of the message."
-        mail.send(message)
+        bet_creation_notification(current_user, challenger, bet)
 
         bet = bet.make_dict()
 
