@@ -206,7 +206,7 @@ footer {
   position: absolute;
   right: 0;
   margin-right: .75em;
-  padding-top: 8em; }
+  bottom: 15%; }
 
 .icons {
   font-family: major-wager;
@@ -223,7 +223,7 @@ footer {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 2em;
-  margin-top: 24rem;
+  margin-top: 14rem;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
@@ -321,7 +321,7 @@ footer {
 
 .user-pic {
   width: 200px;
-  height: auto;
+  height: 200px;
   margin: 0 auto;
   border-radius: 100px;
   border: 3px #f05f5c; }
