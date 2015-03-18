@@ -108,9 +108,28 @@ def update_bet(id):
         data = json.loads(body)
         keys = data.keys()
         for key in keys:
-            setattr(bet, key, data[key])
-            db.session.commit()
-            return jsonify({"data": bet.make_dict()}), 401
+            if key == "outcome":
+                if current_user.id == bet.creator:
+                    if data["outcome"] == -1:
+                        bet.creator_outcome = bet.challenger
+                    else:
+                        bet.creator_outcome = bet.creator
+
+                elif current_user.id == bet.challenger:
+                    if data["outcome"] == -1:
+                        bet.challenger_outcome = bet.creator
+                    else:
+                        bet.creator_outcome = bet.challenger
+                else:
+                    return jsonify({"Error, Not authorized"})
+                return jsonify({"data": bet.make_dict()}), 401
+
+            else:
+                setattr(bet, key, data[key])
+
+        db.session.commit()
+        return jsonify({"data": bet.make_dict()}), 401
+
     else:
         return jsonify({"ERROR": "Bet is not in database"})
 
