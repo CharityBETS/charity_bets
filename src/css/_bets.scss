@@ -1,5 +1,4 @@
-.bets-ul {
-}
+
 
 .bets-title, .bets-date, .bets-amount, .bets-users {
   text-align: center;
@@ -16,12 +15,42 @@
 
 .bets-pic {
   width: 100px;
+  height: 100px;
   border-radius: 50px;
 
 }
 
-.creator-pic-div {
-  position: absolute;
-  top: 2rem;
-  left: 15%
+.bets-flex-container {
+  display: flex;
+  flex-direction: row;
+  max-width: 640px;
+  justify-content: space-between;
+  margin: 0 auto;
 }
+
+.bets-section-1 {
+  order: 2
+
+}
+
+.bets-section-2 {
+  order: 1
+
+}
+
+.bets-section-3 {
+  order: 3;
+
+}
+
+// .creator-pic-div {
+//   position: absolute;
+//   top: 2rem;
+//   left: 15%
+// }
+//
+// .challenger-pic {
+//   position: absolute;
+//   top: 2rem;
+//   right: 15%
+// }
