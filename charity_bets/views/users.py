@@ -75,7 +75,7 @@ def facebook_authorized():
     flash('You were signed in as %s' % repr(me.data['email']))
     return redirect('/#createbet')
 
-@users.route("/#/logout")
+@users.route("/logout")
 def logout():
     logout_user()
     session.pop('facebook_token', None)
