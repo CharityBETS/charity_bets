@@ -26,7 +26,12 @@ def create_bet():
         bet = Bet(title=form.title.data,
                   amount=form.amount.data,
                   creator = current_user.id,
-                  challenger = challenger.id)
+                  challenger = challenger.id,
+                  challenger_name = challenger.name,
+                  challenger_facebook_id = challenger.facebook_id,
+                  creator_name = current_user.name,
+                  creator_facebook_id = current_user.facebook_id
+                  )
 
         # Enter Optional Data Into Model
         if 'date' in data:
@@ -83,10 +88,6 @@ def view_all_bets():
     for bet in bets:
         challenger = User.query.filter_by(id=bet.challenger).first()
         bet = bet.make_dict()
-        bet['challenger_name'] = challenger.name
-        bet['challenger_facebook_id'] = challenger.facebook_id
-        bet['creator_name'] = current_user.name
-        bet['creator_facebook_id'] = current_user.facebook_id
         all_bets.append(bet)
 
     if bets:
@@ -101,10 +102,6 @@ def view_bet(id):
     challenger = User.query.filter_by(id=bet.challenger).first()
     if bet:
         bet = bet.make_dict()
-        bet['challenger_name'] = challenger.name
-        bet['challenger_facebook_id'] = challenger.facebook_id
-        bet['creator_name'] = current_user.name
-        bet['creator_facebook_id'] = current_user.facebook_id
         return jsonify({'data': bet})
     else:
         return jsonify({"ERROR": "Bet does not exist."}), 401

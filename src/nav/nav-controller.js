@@ -1,5 +1,5 @@
 app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', function($location, StringUtil) {
+  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
     var self = this;
 
     self.isActive = function (path) {
@@ -10,8 +10,4 @@ app.controller('MainNavCtrl',
       return StringUtil.startsWith($location.path(), path);
     };
 
-    //
-    // self.goToLogIn = function () {
-    //   $location.path('/login');
-    // };
-  }]);
+}]);

@@ -195,7 +195,7 @@ app.config(['$routeProvider', function($routeProvider) {
 }]);
 
 app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', function($location, StringUtil) {
+  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
     var self = this;
 
     self.isActive = function (path) {
@@ -206,11 +206,7 @@ app.controller('MainNavCtrl',
       return StringUtil.startsWith($location.path(), path);
     };
 
-    //
-    // self.goToLogIn = function () {
-    //   $location.path('/login');
-    // };
-  }]);
+}]);
 
 app.factory('betService', ['$http', '$log', function($http, $log) {
 
@@ -297,7 +293,13 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
 
     getCurrent: function () {
       return get('/api/user/me');
+    },
+
+    logOut: function (currentUser) {
+      return post('/api/logout');
     }
+
+
   };
 }]);
 
