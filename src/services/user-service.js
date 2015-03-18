@@ -32,6 +32,12 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
 
     getCurrent: function () {
       return get('/api/user/me');
+    },
+
+    logOut: function (currentUser) {
+      return post('/api/logout');
     }
+
+
   };
 }]);

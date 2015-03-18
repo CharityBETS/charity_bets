@@ -31,7 +31,7 @@
 }
 
 .active {
-  color: green;
+  color: $secondary-accent-color;
 }
 
 // .create-new-bet-li {
@@ -50,6 +50,11 @@
 
 .app-header li:hover {
   background-color: $main-accent-color;
+}
+
+.log-out:hover {
+  background-color: $my-black;
+
 }
 
 .header-nav li:first-child {
