@@ -13,6 +13,10 @@ class User(db.Model, UserMixin):
     facebook_id = db.Column(db.String(255), unique=True, nullable=False)
     bank_token = db.Column(db.String(255))
     charity_id = db.Column(db.Integer)
+    wins = db.Column(db.Integer, default=0)
+    losses = db.Column(db.Integer, default=0)
+    money_lost = db.Column(db.Integer, default=0)
+    money_won = db.Column(db.Integer, default=0)
 
     def make_dict(self):
         return {"id": self.id,
@@ -20,7 +24,11 @@ class User(db.Model, UserMixin):
                 "email": self.email,
                 "facebook_id": self.facebook_id,
                 "bank_token": self.bank_token,
-                "charity": self.charity_id}
+                "charity": self.charity_id,
+                "wins": self.wins,
+                "losses": self.losses,
+                "money_lost": self.money_lost,
+                "money_won": self.money_won}
 
 
 class Bet(db.Model):
@@ -33,6 +41,8 @@ class Bet(db.Model):
     location = db.Column(db.String(255))
     creator = db.Column(db.Integer)
     challenger = db.Column(db.Integer)
+    creator_outcome = db.Column(db.String(255))
+    challenger_outcome = db.Column(db.String(255))
     challenger_name = db.Column(db.String(255))
     challenger_facebook_id = db.Column(db.String(255))
     creator_name = db.Column(db.String(255))
@@ -49,6 +59,8 @@ class Bet(db.Model):
                 "location":self.location,
                 "creator":self.creator,
                 "challenger":self.challenger,
+                "creator_outcome": self.creator_outcome,
+                "challenger_outcome": self.challenger_outcome,
                 "challenger_name":self.challenger_name,
                 "challenger_facebook_id": self.challenger_facebook_id,
                 "creator_name": self.creator_name,
