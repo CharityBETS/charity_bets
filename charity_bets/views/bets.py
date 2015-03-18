@@ -76,8 +76,13 @@ def view_all_bets():
 @bets.route("/bets/<int:id>", methods = ["GET"])
 def view_bet(id):
     bet = Bet.query.filter_by(id = id).first()
+    challenger = User.query.filter_by(id=bet.challenger).first()
     if bet:
         bet = bet.make_dict()
+        bet['challenger_name'] = challenger.name
+        bet['challenger_facebook_id'] = challenger.facebook_id
+        bet['creator_name'] = current_user.name
+        bet['creator_facebook_id'] = current_user.facebook_id
         return jsonify({'data': bet})
     else:
         return jsonify({"ERROR": "Bet does not exist."}), 401
