@@ -66,9 +66,18 @@ def view_bets():
 @bets.route("/bets", methods = ["GET"])
 def view_all_bets():
     bets = Bet.query.all()
-    bets = [bet.make_dict() for bet in bets]
+    all_bets = []
+    for bet in bets:
+        challenger = User.query.filter_by(id=bet.challenger).first()
+        bet = bet.make_dict()
+        bet['challenger_name'] = challenger.name
+        bet['challenger_facebook_id'] = challenger.facebook_id
+        bet['creator_name'] = current_user.name
+        bet['creator_facebook_id'] = current_user.facebook_id
+        all_bets.append(bet)
+
     if bets:
-        return jsonify({'data': bets}), 201
+        return jsonify({'data': all_bets}), 201
     else:
         return jsonify({"ERROR": "No bets available."}), 401
 
