@@ -37,7 +37,7 @@ class Bet(db.Model):
     challenger_facebook_id = db.Column(db.String(255))
     creator_name = db.Column(db.String(255))
     creator_facebook_id = db.Column(db.String(255))
-    
+
 
     def make_dict(self):
         return {"id": self.id,
@@ -48,7 +48,11 @@ class Bet(db.Model):
                 "date": self.date,
                 "location":self.location,
                 "creator":self.creator,
-                "challenger":self.challenger}
+                "challenger":self.challenger,
+                "challenger_name":self.challenger_name,
+                "challenger_facebook_id": self.challenger_facebook_id,
+                "creator_name": self.creator_name,
+                "creator_facebook_id": self.creator_facebook_id}
 
 
 class UserBet(db.Model):

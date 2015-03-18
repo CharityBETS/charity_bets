@@ -26,8 +26,8 @@ def create_bet():
                   challenger = challenger.id,
                   challenger_name = challenger.name,
                   challenger_facebook_id = challenger.facebook_id,
-                  creator_name = creator.name,
-                  creator_facebook_id = creator.facebook_id
+                  creator_name = current_user.name,
+                  creator_facebook_id = current_user.facebook_id
                   )
 
         # Enter Optional Data Into Model
