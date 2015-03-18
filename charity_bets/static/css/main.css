@@ -118,7 +118,7 @@ button {
   color: white; }
 
 .active {
-  color: green; }
+  color: #4BBADA; }
 
 .app-header {
   display: -webkit-flex;
@@ -138,6 +138,9 @@ button {
 
 .app-header li:hover {
   background-color: #f05f5c; }
+
+.log-out:hover {
+  background-color: #484848; }
 
 .header-nav li:first-child {
   margin-right: auto; }
