@@ -10,15 +10,4 @@ app.controller('MainNavCtrl',
       return StringUtil.startsWith($location.path(), path);
     };
 
-    // self.logOut = function () {
-    //   userService.logOut(currentUser).then(function () {
-    //    alert("LOG OUT");
-    //     self.goToLanding();
-    //   });
-    // };
-    //
-    // self.goToLanding = function () {
-    // $location.path('/');
-    // };
-
 }]);
