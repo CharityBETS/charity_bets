@@ -60,7 +60,7 @@ class Bet(db.Model):
                 "creator":self.creator,
                 "challenger":self.challenger,
                 "creator_outcome": self.creator_outcome,
-                "challenger_outcome": self.challenger_outcome}
+                "challenger_outcome": self.challenger_outcome,
                 "challenger_name":self.challenger_name,
                 "challenger_facebook_id": self.challenger_facebook_id,
                 "creator_name": self.creator_name,
