@@ -36,16 +36,6 @@ def require_login(view):
 users = Blueprint("users", __name__)
 
 
-# @users.route("/login")
-# def login():
-#     return render_template("login.html")
-
-@users.route("/logout")
-def logout():
-    session.pop('facebook_token', None)
-    return redirect(url_for("repolister.index"))
-
-
 @users.route("/facebook/login")
 def facebook_login():
     session.pop('facebook_token', None)
@@ -84,6 +74,12 @@ def facebook_authorized():
 
     flash('You were signed in as %s' % repr(me.data['email']))
     return redirect('/#createbet')
+
+@users.route("/api/logout", methods = ["POST"])
+def logout():
+    logout_user()
+    session.pop('facebook_token', None)
+    return {"result": "logged out"}
 
 @users.route("/api/users", methods = ["GET"])
 def view_all_users():
