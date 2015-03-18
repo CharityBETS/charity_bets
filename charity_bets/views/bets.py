@@ -2,7 +2,7 @@ from functools import wraps
 from ..models import Bet, UserBet, User
 from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
 from ..forms import BetForm
-from flask.ext.login import current_user
+from flask.ext.login import current_user, login_required
 from ..extensions import db
 import json
 bets = Blueprint("bets", __name__)
