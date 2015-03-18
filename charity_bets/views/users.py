@@ -79,7 +79,7 @@ def facebook_authorized():
 def logout():
     logout_user()
     session.pop('facebook_token', None)
-    return redirect('/')
+    return redirect('/#/')
 
 # @users.route("/api/logout", methods = ["POST"])
 # def logout():
