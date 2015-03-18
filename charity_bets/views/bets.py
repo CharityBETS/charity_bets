@@ -44,12 +44,13 @@ def create_bet():
         db.session.add(user_bet)
         db.session.commit()
 
+        # Message sent to the other party of the bet
         message = Message(
                               "Welcome",
                               sender="betsforcharity@gmail.com",
                               recipients=[current_user.email]
                               )
-        message.body = "This is a message test.  Do not panic!" \
+        message.body = "This is a message test.  Do not panic! Did this work?  If so, great!" \
                        " This is the second line of the message."
         mail.send(message)
 
