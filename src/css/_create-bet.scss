@@ -167,6 +167,20 @@
 
 }
 
+.choose-winner-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.bet-win {
+  background-color: green;
+}
+
+.bet-lose, .bet-win {
+  margin: 0;
+  // width: 6em;
+}
+
 
 
 @media only screen and (max-width : 920px) {

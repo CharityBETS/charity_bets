@@ -88,6 +88,9 @@ button {
   text-transform: uppercase;
   cursor: pointer; }
 
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer; }
+
 .header-nav, .app-header {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -383,6 +386,23 @@ footer {
   -webkit-order: 3;
   -ms-flex-order: 3;
   order: 3; }
+
+.choose-winner-wrapper {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
+
+.bet-win {
+  background-color: green; }
+
+.bet-lose, .bet-win {
+  margin: 0; }
 
 @media only screen and (max-width: 920px) {
   .better-profile {

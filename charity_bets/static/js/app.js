@@ -1,6 +1,6 @@
 // Declare our app module, and import the ngRoute and ngAnimate
 // modules into it.
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ui.bootstrap', 'ngRoute']);
 
 // Set up our 404 handler
 app.config(['$routeProvider', function ($routeProvider) {
@@ -36,6 +36,15 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
   self.bet = bet;
   self.currentUser = currentUser;
+
+  self.betOutcomeWin = function (betid) {
+     alert("I WON");
+     betService.betOutcomeWin(betid, currentUser.id);
+  };
+
+  self.betOutcomeLose = function (betid) {
+     betService.betOutcomeLose(betid);
+  };
 
 
 
@@ -97,59 +106,59 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.directive('textarea', function() {
-    return {
-        restrict: 'E',
-        link: function( scope , element , attributes ) {
-            var threshold    = 35,
-                minHeight    = element[0].offsetHeight,
-                paddingLeft  = element.css('paddingLeft'),
-                paddingRight = element.css('paddingRight');
-
-            var $shadow = angular.element('<div></div>').css({
-                position:   'absolute',
-                top:        -10000,
-                left:       -10000,
-                width:      element[0].offsetWidth - parseInt(paddingLeft || 0) - parseInt(paddingRight || 0),
-                fontSize:   element.css('fontSize'),
-                fontFamily: element.css('fontFamily'),
-                lineHeight: element.css('lineHeight'),
-                resize:     'none'
-            });
-
-            angular.element( document.body ).append( $shadow );
-
-            var update = function() {
-                var times = function(string, number) {
-                    for (var i = 0, r = ''; i < number; i++) {
-                        r += string;
-                    }
-                    return r;
-                }
-
-                var val = element.val().replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/&/g, '&amp;')
-                    .replace(/\n$/, '<br/>&nbsp;')
-                    .replace(/\n/g, '<br/>')
-                    .replace(/\s{2,}/g, function( space ) {
-                        return times('&nbsp;', space.length - 1) + ' ';
-                    });
-
-                $shadow.html( val );
-
-                element.css( 'height' , Math.max( $shadow[0].offsetHeight + threshold , minHeight ) );
-            }
-
-            scope.$on('$destroy', function() {
-                $shadow.remove();
-            });
-
-            element.bind( 'keyup keydown keypress change' , update );
-            update();
-        }
-    }
-});
+// app.directive('textarea', function() {
+//     return {
+//         restrict: 'E',
+//         link: function( scope , element , attributes ) {
+//             var threshold    = 35,
+//                 minHeight    = element[0].offsetHeight,
+//                 paddingLeft  = element.css('paddingLeft'),
+//                 paddingRight = element.css('paddingRight');
+//
+//             var $shadow = angular.element('<div></div>').css({
+//                 position:   'absolute',
+//                 top:        -10000,
+//                 left:       -10000,
+//                 width:      element[0].offsetWidth - parseInt(paddingLeft || 0) - parseInt(paddingRight || 0),
+//                 fontSize:   element.css('fontSize'),
+//                 fontFamily: element.css('fontFamily'),
+//                 lineHeight: element.css('lineHeight'),
+//                 resize:     'none'
+//             });
+//
+//             angular.element( document.body ).append( $shadow );
+//
+//             var update = function() {
+//                 var times = function(string, number) {
+//                     for (var i = 0, r = ''; i < number; i++) {
+//                         r += string;
+//                     }
+//                     return r;
+//                 };
+//
+//                 var val = element.val().replace(/</g, '&lt;')
+//                     .replace(/>/g, '&gt;')
+//                     .replace(/&/g, '&amp;')
+//                     .replace(/\n$/, '<br/>&nbsp;')
+//                     .replace(/\n/g, '<br/>')
+//                     .replace(/\s{2,}/g, function( space ) {
+//                         return times('&nbsp;', space.length - 1) + ' ';
+//                     });
+//
+//                 $shadow.html( val );
+//
+//                 element.css( 'height' , Math.max( $shadow[0].offsetHeight + threshold , minHeight ) );
+//             };
+//
+//             scope.$on('$destroy', function() {
+//                 $shadow.remove();
+//             });
+//
+//             element.bind( 'keyup keydown keypress change' , update );
+//             update();
+//         }
+//     };
+// });
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -214,6 +223,10 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     return processAjaxPromise($http.get(url));
   }
 
+  function put(url, bet) {
+    return processAjaxPromise($http.put(url, bet));
+  }
+
   function post(url, share) {
     return processAjaxPromise($http.post(url, share));
   }
@@ -251,7 +264,17 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
 
     getBets: function () {
       return get('/api/bets');
+    },
+
+    betOutcomeWin: function(id, data ) {
+      return put('/api/bets/' + id, {"outcome": data});
+    },
+
+    betOutcomeLose: function(id) {
+      return put('/api/bets/' + id, {"outcome": -1});
     }
+
+
 
     // deleteShare: function (id) {
     //   return remove('/api/res/' + id);

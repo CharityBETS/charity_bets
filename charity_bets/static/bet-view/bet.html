@@ -21,7 +21,16 @@
         <div class="location">{{vm.bet.location}}</div>
         <div class="info-title">Description:</div>
         <div class="bet-description">{{vm.bet.description}}</div>
-        <button class="end-bet">WHO WON?</button>
+        <button class="end-bet" ng-click="showme=true">WHO WON?</button>
+        <div class="choose-winner-wrapper">
+            <!-- <p ng-hide="showme">It will appear here!</p> -->
+            <div ng-show="showme">
+                <button class="bet-win" ng-click="vm.betOutcomeWin()">I WON</button>
+                <button class="bet-lose" ng-click="vm.betOutcomeLose()">I LOST</button>
+                <a ng-click="showme=false">Cancel</a>
+
+            </div>
+        </div>
       </div>
 
 

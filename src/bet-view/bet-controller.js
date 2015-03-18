@@ -24,6 +24,15 @@ app.config(['$routeProvider', function($routeProvider) {
   self.bet = bet;
   self.currentUser = currentUser;
 
+  self.betOutcomeWin = function (betid) {
+     alert("I WON");
+     betService.betOutcomeWin(betid, currentUser.id);
+  };
+
+  self.betOutcomeLose = function (betid) {
+     betService.betOutcomeLose(betid);
+  };
+
 
 
 }]);

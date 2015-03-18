@@ -4,6 +4,10 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     return processAjaxPromise($http.get(url));
   }
 
+  function put(url, bet) {
+    return processAjaxPromise($http.put(url, bet));
+  }
+
   function post(url, share) {
     return processAjaxPromise($http.post(url, share));
   }
@@ -41,7 +45,17 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
 
     getBets: function () {
       return get('/api/bets');
+    },
+
+    betOutcomeWin: function(id, data ) {
+      return put('/api/bets/' + id, {"outcome": data});
+    },
+
+    betOutcomeLose: function(id) {
+      return put('/api/bets/' + id, {"outcome": -1});
     }
+
+
 
     // deleteShare: function (id) {
     //   return remove('/api/res/' + id);
