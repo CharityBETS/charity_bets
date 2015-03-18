@@ -108,3 +108,27 @@ def get_current_user():
     if user:
         user = user.make_dict()
     return jsonify({'data': user})
+
+
+@users.route("/api/user/<int:id>", methods = ["PUT"])
+def money_transactions(id):
+    user = User.query.filter_by(id = id).first()
+    if user:
+        body = request.get_data(as_text=True)
+        data = json.loads(body)
+        keys = data.keys()
+        for key in keys:
+            if key == "money_won":
+                data = int(data[key])
+                amount = user.money_won + data
+                setattr(user, key, amount)
+            elif key == "money_lost":
+                data = int(data[key])
+                amount = user.money_lost + data
+                setattr(user, key, amount)
+            else:
+                return jsonify({"ERROR": "User transaction not in the database"})
+            db.session.commit()
+            return jsonify({"data": user.make_dict()}), 401
+    else:
+        return jsonify({"ERROR": "User transaction not in database"})
