@@ -5,6 +5,9 @@ from ..forms import BetForm
 from flask.ext.login import current_user
 from ..extensions import db
 import json
+from charity_bets import mail
+from flask_mail import Message
+
 bets = Blueprint("bets", __name__)
 
 
@@ -40,6 +43,15 @@ def create_bet():
                            bet_id = bet.id)
         db.session.add(user_bet)
         db.session.commit()
+
+        message = Message(
+                              "Welcome",
+                              sender="betsforcharity@gmail.com",
+                              recipients=[current_user.email]
+                              )
+        message.body = "This is a message test.  Do not panic!" \
+                       " This is the second line of the message."
+        mail.send(message)
 
         bet = bet.make_dict()
 
