@@ -1,0 +1,31 @@
+.profile-top-section {
+  background-color: $secondary-accent-color;
+  padding: 2rem;
+  color: white;
+  text-align: center;
+
+  h3 {
+    margin: 0;
+    font-size: 2em;
+    padding-bottom: .1em;
+  }
+
+  h4 {
+    padding: .3rem 0 1rem;
+    font-size: 1.2em;
+  }
+}
+
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  border: 5px solid $main-accent-color;
+
+}
+
+.profile-section-two {
+  background-color: $my-black;
+  height: 1000px;
+
+}

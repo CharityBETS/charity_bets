@@ -305,7 +305,7 @@ footer {
 
 .better-profile {
   display: inline-block;
-  padding-top: 2rem; }
+  padding-top: 1rem; }
 
 .bettor-name {
   font-size: 1.5em;
@@ -530,3 +530,26 @@ footer {
   -webkit-order: 3;
   -ms-flex-order: 3;
   order: 3; }
+
+.profile-top-section {
+  background-color: #4BBADA;
+  padding: 2rem;
+  color: white;
+  text-align: center; }
+  .profile-top-section h3 {
+    margin: 0;
+    font-size: 2em;
+    padding-bottom: .1em; }
+  .profile-top-section h4 {
+    padding: .3rem 0 1rem;
+    font-size: 1.2em; }
+
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  border: 5px solid #f05f5c; }
+
+.profile-section-two {
+  background-color: #484848;
+  height: 1000px; }
