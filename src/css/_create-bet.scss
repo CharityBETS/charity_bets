@@ -59,15 +59,7 @@
 }
 
 
-// .middle-wrap {
-//   background-color: $my-black;
-//   position: relative;
-//   color: white;
-//
-// }
-
 .profile-details-wrap {
-  position: relative;
   // border: 1px black solid;
   min-height: 350px;
   padding: 1.5rem 0;
@@ -85,14 +77,12 @@
 }
 
 .bet-description {
-  max-width: 30%;
   margin: 0 auto;
 }
 
 .better-profile {
   display: inline-block;
-  position: absolute;
-  top: 3rem;
+  padding-top: 2rem;
 }
 
 .bettor-name {
@@ -153,14 +143,56 @@
 }
 
 
+.bet-flex-wrap {
+  display: flex;
+  flex-direction: row;
+  max-width: 900px;
+  justify-content: space-between;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.flex-section-a {
+  order: 2
+
+}
+
+.flex-section-b {
+  order: 1
+
+}
+
+.flex-section-c {
+  order: 3;
+
+}
+
+
+
 @media only screen and (max-width : 920px) {
   .better-profile {
-    position: relative;
     display: block;
-    top: 0;
     padding: 2em 0;
-
   }
+
+  .bet-flex-wrap {
+    flex-direction: column;
+  }
+
+  .flex-section-a {
+    order: 1;
+  }
+
+  .flex-section-b {
+    order: 2;
+  }
+
+  .flex-section-c {
+    order: 3;
+  }
+
+
+
 
 
   .hero-bettor, .villian-bettor {
@@ -169,7 +201,7 @@
   }
 
   .villian-bettor {
-        background-color: $secondary-accent-color;
+    background-color: $secondary-accent-color;
   }
 
   .bet-description {

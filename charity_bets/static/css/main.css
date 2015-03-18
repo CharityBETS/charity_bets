@@ -289,7 +289,6 @@ footer {
   border-radius: 6px; }
 
 .profile-details-wrap {
-  position: relative;
   min-height: 350px;
   padding: 1.5rem 0;
   background-color: #484848;
@@ -302,13 +301,11 @@ footer {
   font-size: 1.3em; }
 
 .bet-description {
-  max-width: 30%;
   margin: 0 auto; }
 
 .better-profile {
   display: inline-block;
-  position: absolute;
-  top: 3rem; }
+  padding-top: 2rem; }
 
 .bettor-name {
   font-size: 1.5em;
@@ -356,12 +353,57 @@ footer {
   font-size: .85em;
   font-weight: bold; }
 
+.bet-flex-wrap {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  max-width: 900px;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 0 auto;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
+
+.flex-section-a {
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2; }
+
+.flex-section-b {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1; }
+
+.flex-section-c {
+  -webkit-order: 3;
+  -ms-flex-order: 3;
+  order: 3; }
+
 @media only screen and (max-width: 920px) {
   .better-profile {
-    position: relative;
     display: block;
-    top: 0;
     padding: 2em 0; }
+  .bet-flex-wrap {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+  .flex-section-a {
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1; }
+  .flex-section-b {
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    order: 2; }
+  .flex-section-c {
+    -webkit-order: 3;
+    -ms-flex-order: 3;
+    order: 3; }
   .hero-bettor, .villian-bettor {
     left: auto;
     right: auto; }
@@ -450,7 +492,8 @@ footer {
 
 .bets-li {
   padding: 2rem 0;
-  position: relative; }
+  position: relative;
+  background-color: #4BBADA; }
 
 .bets-users {
   font-size: 1.3em; }
