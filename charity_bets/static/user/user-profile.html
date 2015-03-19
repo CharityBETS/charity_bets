@@ -11,6 +11,51 @@
 
   <div class="profile-section-two">
 
+    <ul class="bets-ul">
+      <li class="user-bets-li" ng-repeat="bet in vm.currentUserBets">
+
+      <div class="bets-flex-container">
+
+        <div class="bets-section-1">
+          <div class="bets-users">
+            {{bet.creator_name}} Vs. {{bet.challenger_name}}
+          </div>
+          <div class="bets-title">
+            {{bet.title}}
+          </div>
+          <div class="bets-date">
+            {{bet.date | date:'EEEE, MMM d'}}
+          </div>
+          <div class="bets-amount">
+            {{bet.amount | currency}}
+          </div>
+        </div>
+
+        <!-- <div class="prize-purse">
+          {{}}
+        </div> -->
+        <div class="bets-section-2">
+          <div class="profile-wrap creator-wrap">
+            <div class="creator-pic-div">
+
+              <img class="bets-pic" src="http://graph.facebook.com/{{bet.creator_facebook_id}}/picture?type=large"></img>
+            </div>
+          </div>
+        </div>
+
+        <div class="bets-section-3">
+          <div class="profile-wrap challenger-wrap">
+            <div class="challenger-pic">
+              <img class="bets-pic" src="http://graph.facebook.com/{{bet.challenger_facebook_id}}/picture?type=large"></img>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      </li>
+    </ul>
+
+
 
 
   </div>

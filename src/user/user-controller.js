@@ -5,19 +5,25 @@ app.config(['$routeProvider', function($routeProvider) {
     controllerAs: 'vm',
     resolve: {
           currentUser: ['userService', function (userService) {
-          console.log(userService.getCurrent());
           return userService.getCurrent().then(function (result) {
             return result.data;
           });
-        }]
+          }],
+          currentUserBets: ['userService', function (userService) {
+          console.log(userService.getCurrentUserBets());
+          return userService.getCurrentUserBets().then(function (result) {
+            return result.data;
+          });
+          }]
       }
   };
   $routeProvider.when('/user/user-profile', routeDefinition);
 }])
-.controller('UserCtrl', ['$location', 'userService', 'currentUser', function ($location, userService, currentUser) {
+.controller('UserCtrl', ['$location', 'userService', 'currentUser', 'currentUserBets', function ($location, userService, currentUser, currentUserBets) {
 
   var self = this;
   self.currentUser = currentUser;
+  self.currentUserBets = currentUserBets;
 
   // self.user = User();
 

@@ -81,11 +81,6 @@ def logout():
     session.pop('facebook_token', None)
     return redirect('/#/')
 
-# @users.route("/api/logout", methods = ["POST"])
-# def logout():
-#     logout_user()
-#     session.pop('facebook_token', None)
-#     return jsonify({"result": "logged out"}), 201
 
 @users.route("/api/users", methods = ["GET"])
 def view_all_users():

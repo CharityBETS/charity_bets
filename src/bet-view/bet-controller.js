@@ -9,7 +9,6 @@ app.config(['$routeProvider', function($routeProvider) {
         return betService.getBet(id);
       }],
       currentUser: ['userService', function (userService) {
-        console.log(userService.getCurrent());
         return userService.getCurrent().then(function (result) {
           return result.data;
         });
@@ -21,9 +20,26 @@ app.config(['$routeProvider', function($routeProvider) {
 .controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser',  function ($location, bet, betService, currentUser) {
 
   var self = this;
+  self.isBettor = (currentUser.id === bet.challenger || currentUser.id  === bet.creator);
   self.bet = bet;
   self.currentUser = currentUser;
+  self.showme=true;
+  self.isChallengeable = (bet.status === "pending" && currentUser.id === bet.challenger);
 
+
+  self.betOutcomeWin = function (id) {
+     betService.betOutcomeWin(bet.id, currentUser.id);
+  };
+
+  self.betOutcomeLose = function (id) {
+     betService.betOutcomeLose(bet.id);
+     self.showme=false;
+  };
+
+  self.acceptBet = function (id) {
+    alert("I ACCEPT THIS NOBLE CHALLENGE!")
+    betService.acceptBet(bet.id);
+  };
 
 
 }]);

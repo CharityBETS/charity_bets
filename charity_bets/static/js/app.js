@@ -1,6 +1,6 @@
 // Declare our app module, and import the ngRoute and ngAnimate
 // modules into it.
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['mgcrea.ngStrap', 'ngRoute']);
 
 // Set up our 404 handler
 app.config(['$routeProvider', function ($routeProvider) {
@@ -9,6 +9,33 @@ app.config(['$routeProvider', function ($routeProvider) {
     controllerAs: 'vm',
     templateUrl: 'static/errors/404/error-404.html'
   });
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+
 }]);
 
 app.config(['$routeProvider', function($routeProvider) {
@@ -22,7 +49,6 @@ app.config(['$routeProvider', function($routeProvider) {
         return betService.getBet(id);
       }],
       currentUser: ['userService', function (userService) {
-        console.log(userService.getCurrent());
         return userService.getCurrent().then(function (result) {
           return result.data;
         });
@@ -34,9 +60,26 @@ app.config(['$routeProvider', function($routeProvider) {
 .controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser',  function ($location, bet, betService, currentUser) {
 
   var self = this;
+  self.isBettor = (currentUser.id === bet.challenger || currentUser.id  === bet.creator);
   self.bet = bet;
   self.currentUser = currentUser;
+  self.showme=true;
+  self.isChallengeable = (bet.status === "pending" && currentUser.id === bet.challenger);
 
+
+  self.betOutcomeWin = function (id) {
+     betService.betOutcomeWin(bet.id, currentUser.id);
+  };
+
+  self.betOutcomeLose = function (id) {
+     betService.betOutcomeLose(bet.id);
+     self.showme=false;
+  };
+
+  self.acceptBet = function (id) {
+    alert("I ACCEPT THIS NOBLE CHALLENGE!")
+    betService.acceptBet(bet.id);
+  };
 
 
 }]);
@@ -97,87 +140,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.directive('textarea', function() {
-    return {
-        restrict: 'E',
-        link: function( scope , element , attributes ) {
-            var threshold    = 35,
-                minHeight    = element[0].offsetHeight,
-                paddingLeft  = element.css('paddingLeft'),
-                paddingRight = element.css('paddingRight');
-
-            var $shadow = angular.element('<div></div>').css({
-                position:   'absolute',
-                top:        -10000,
-                left:       -10000,
-                width:      element[0].offsetWidth - parseInt(paddingLeft || 0) - parseInt(paddingRight || 0),
-                fontSize:   element.css('fontSize'),
-                fontFamily: element.css('fontFamily'),
-                lineHeight: element.css('lineHeight'),
-                resize:     'none'
-            });
-
-            angular.element( document.body ).append( $shadow );
-
-            var update = function() {
-                var times = function(string, number) {
-                    for (var i = 0, r = ''; i < number; i++) {
-                        r += string;
-                    }
-                    return r;
-                }
-
-                var val = element.val().replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/&/g, '&amp;')
-                    .replace(/\n$/, '<br/>&nbsp;')
-                    .replace(/\n/g, '<br/>')
-                    .replace(/\s{2,}/g, function( space ) {
-                        return times('&nbsp;', space.length - 1) + ' ';
-                    });
-
-                $shadow.html( val );
-
-                element.css( 'height' , Math.max( $shadow[0].offsetHeight + threshold , minHeight ) );
-            }
-
-            scope.$on('$destroy', function() {
-                $shadow.remove();
-            });
-
-            element.bind( 'keyup keydown keypress change' , update );
-            update();
-        }
-    }
-});
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-
-}]);
-
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
     templateUrl: '/static/landing/landing.html',
@@ -212,6 +174,10 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
 
   function get(url) {
     return processAjaxPromise($http.get(url));
+  }
+
+  function put(url, bet) {
+    return processAjaxPromise($http.put(url, bet));
   }
 
   function post(url, share) {
@@ -251,7 +217,22 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
 
     getBets: function () {
       return get('/api/bets');
+    },
+
+    betOutcomeWin: function(id, currentuserId) {
+      return put('/api/bets/' + id, {"outcome": currentuserId});
+    },
+
+    betOutcomeLose: function(id) {
+      console.log('/api/bets/' + id);
+      return put('/api/bets/' + id, {"outcome": -1});
+    },
+
+    acceptBet: function(id) {
+      return put('/api/bets/' + id, {"status": "active"});
     }
+
+
 
     // deleteShare: function (id) {
     //   return remove('/api/res/' + id);
@@ -297,8 +278,15 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
 
     logOut: function (currentUser) {
       return post('/api/logout');
-    }
+    },
 
+    getCurrentUserBets: function () {
+      return get('/api/user/bets');
+    },
+
+    getBetsByUser: function () {
+      return get ('api/user/' + id + '/bets');
+    }
 
   };
 }]);
@@ -310,19 +298,25 @@ app.config(['$routeProvider', function($routeProvider) {
     controllerAs: 'vm',
     resolve: {
           currentUser: ['userService', function (userService) {
-          console.log(userService.getCurrent());
           return userService.getCurrent().then(function (result) {
             return result.data;
           });
-        }]
+          }],
+          currentUserBets: ['userService', function (userService) {
+          console.log(userService.getCurrentUserBets());
+          return userService.getCurrentUserBets().then(function (result) {
+            return result.data;
+          });
+          }]
       }
   };
   $routeProvider.when('/user/user-profile', routeDefinition);
 }])
-.controller('UserCtrl', ['$location', 'userService', 'currentUser', function ($location, userService, currentUser) {
+.controller('UserCtrl', ['$location', 'userService', 'currentUser', 'currentUserBets', function ($location, userService, currentUser, currentUserBets) {
 
   var self = this;
   self.currentUser = currentUser;
+  self.currentUserBets = currentUserBets;
 
   // self.user = User();
 

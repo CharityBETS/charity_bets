@@ -40,5 +40,6 @@ button {
   color: white;
   text-transform: uppercase;
   cursor: pointer;
-
 }
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

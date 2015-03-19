@@ -52,10 +52,10 @@
   background-color: $main-accent-color;
 }
 
-.log-out:hover {
-  background-color: $my-black;
-
-}
+// .log-out:hover {
+//   background-color: $my-black;
+//
+// }
 
 .header-nav li:first-child {
   margin-right: auto;
@@ -76,7 +76,9 @@
   }
 
   li {
-    margin: 0 auto;
+    text-align: center;
+    // margin: 0 auto;
+    padding: 1rem 0rem 1rem 0rem;
   }
 
   li:first-child {

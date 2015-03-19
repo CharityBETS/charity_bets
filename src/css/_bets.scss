@@ -8,6 +8,12 @@
   padding: 2rem 0;
   position: relative;
   background-color: $secondary-accent-color;
+  color: white;
+  border-bottom: black 1px solid;
+}
+
+.bets-title {
+  font-size: 1.2em;
 }
 
 .bets-users {

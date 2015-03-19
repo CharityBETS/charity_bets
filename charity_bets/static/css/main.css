@@ -88,6 +88,9 @@ button {
   text-transform: uppercase;
   cursor: pointer; }
 
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer; }
+
 .header-nav, .app-header {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -139,9 +142,6 @@ button {
 .app-header li:hover {
   background-color: #f05f5c; }
 
-.log-out:hover {
-  background-color: #484848; }
-
 .header-nav li:first-child {
   margin-right: auto; }
 
@@ -154,7 +154,8 @@ button {
     -ms-flex-direction: column;
     flex-direction: column; }
   li {
-    margin: 0 auto; }
+    text-align: center;
+    padding: 1rem 0rem 1rem 0rem; }
   li:first-child {
     margin: 0 auto; } }
 
@@ -281,7 +282,7 @@ footer {
   padding-bottom: .5rem; }
 
 .donate-button {
-  background-color: green; }
+  background-color: #4BBADA; }
 
 .bet-money-earned {
   border: 1px solid black;
@@ -386,6 +387,16 @@ footer {
   -webkit-order: 3;
   -ms-flex-order: 3;
   order: 3; }
+
+.choose-winner-wrapper {
+  width: 100%;
+  margin: 0 auto; }
+
+.bet-win {
+  background-color: #4BBADA; }
+
+.bet-lose, .bet-win {
+  margin: 0 auto; }
 
 @media only screen and (max-width: 920px) {
   .better-profile {
@@ -496,7 +507,12 @@ footer {
 .bets-li {
   padding: 2rem 0;
   position: relative;
-  background-color: #4BBADA; }
+  background-color: #4BBADA;
+  color: white;
+  border-bottom: black 1px solid; }
+
+.bets-title {
+  font-size: 1.2em; }
 
 .bets-users {
   font-size: 1.3em; }
@@ -555,4 +571,31 @@ footer {
 
 .profile-section-two {
   background-color: #484848;
-  height: 1000px; }
+  height: 1000px;
+  color: white; }
+
+.charity-edit {
+  font-family: major-wager;
+  padding-left: 1rem; }
+
+.user-bets-li {
+  padding: 2rem 0;
+  position: relative;
+  background-color: #484848;
+  color: white; }
+
+.user-bets-li:nth-child(even) {
+  background-color: #4BBADA; }
+
+.datepicker button {
+  width: auto;
+  border: none; }
+.datepicker .dow {
+  color: black; }
+.datepicker .prev, .datepicker .next {
+  background: blue; }
+.datepicker .datepicker-switch {
+  background: green; }
+
+.form-control {
+  display: inline-block; }

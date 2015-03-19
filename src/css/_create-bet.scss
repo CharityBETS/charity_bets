@@ -46,7 +46,7 @@
 }
 
 .donate-button {
-  background-color: green;
+  background-color: $secondary-accent-color;
 }
 
 .bet-money-earned {
@@ -165,6 +165,20 @@
 .flex-section-c {
   order: 3;
 
+}
+
+.choose-winner-wrapper {
+   width: 100%;
+   margin: 0 auto;
+}
+
+.bet-win {
+  background-color: $secondary-accent-color;
+}
+
+.bet-lose, .bet-win {
+  margin: 0 auto;
+  // width: 6em;
 }
 
 
