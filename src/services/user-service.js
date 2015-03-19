@@ -36,8 +36,15 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
 
     logOut: function (currentUser) {
       return post('/api/logout');
-    }
+    },
 
+    getCurrentUserBets: function () {
+      return get('/api/user/bets');
+    },
+
+    getBetsByUser: function () {
+      return get ('api/user/' + id + '/bets');
+    }
 
   };
 }]);

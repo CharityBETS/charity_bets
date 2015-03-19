@@ -22,7 +22,7 @@
         <div class="info-title">Description:</div>
         <div class="bet-description">{{vm.bet.description}}</div>
 
-        <div ng-if="vm.isBettor" class="choose-winner-div">
+        <div ng-if="(vm.isBettor && !vm.isChallengeable)" class="choose-winner-div">
           <button class="end-bet" ng-click="showme=true;" ng-hide="showme===true">WHO WON?</button>
           <div class="choose-winner-wrapper">
               <!-- <p ng-hide="showme">It will appear here!</p> -->
@@ -33,6 +33,8 @@
               </div>
           </div>
         </div>
+
+        <button ng-if="vm.isChallengeable" ng-click="vm.acceptBet()">ACCEPT BET</button>
       </div>
 
 
