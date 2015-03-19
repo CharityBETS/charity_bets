@@ -67,6 +67,27 @@ def view_bets():
 
     return jsonify({"data": bets}), 201
 
+def bet_aggregator(bets, bet_list):
+    for a_bet in bets:
+        bet = Bet.query.filter_by(id=a_bet.id).first()
+        if bet:
+            bet_list.append(bet)
+    return bet_list
+
+
+@bets.route("/user/<int:id>/bets", methods = ["GET"])
+def view_users_bets(id):
+    creator_bets = Bet.query.filter_by(creator=id).all()
+    challenger_bets = Bet.query.filter_by(challenger=id).all()
+    bet_list = []
+    bet_list = bet_aggregator(creator_bets, bet_list)
+    bet_list = bet_aggregator(challenger_bets, bet_list)
+    if len(bet_list) > 0:
+        bets = [bet.make_dict() for bet in bet_list]
+
+    return jsonify({"data": bets}), 201
+
+
 
 @bets.route("/bets", methods = ["GET"])
 def view_all_bets():
