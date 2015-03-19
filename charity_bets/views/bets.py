@@ -9,6 +9,7 @@ import json
 from charity_bets import mail
 from flask_mail import Message
 
+
 bets = Blueprint("bets", __name__)
 
 
@@ -51,8 +52,7 @@ def create_bet():
         db.session.commit()
 
         # Message sent to the other party of the bet
-        if MAIL_IN_USE:
-            bet_creation_notification(current_user, challenger, bet)
+        bet_creation_notification(current_user, challenger, bet)
 
         bet = bet.make_dict()
 

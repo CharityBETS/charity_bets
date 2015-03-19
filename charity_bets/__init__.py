@@ -23,7 +23,6 @@ def create_app():
     app.config['MAIL_USE_SSL']
     app.config['MAIL_USERNAME']
     app.config['MAIL_PASSWORD']
-    app.config['MAIL_IN_USE']
 
 
     app.register_blueprint(home)
