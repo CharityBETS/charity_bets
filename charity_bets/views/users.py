@@ -70,9 +70,7 @@ def facebook_authorized():
         db.session.commit()
 
     login_user(user)
-        # return {"message": "You have been registered and logged in"}
 
-    flash('You were signed in as %s' % repr(me.data['email']))
     return redirect('/#createbet')
 
 @users.route("/logout")
@@ -81,11 +79,6 @@ def logout():
     session.pop('facebook_token', None)
     return redirect('/#/')
 
-# @users.route("/api/logout", methods = ["POST"])
-# def logout():
-#     logout_user()
-#     session.pop('facebook_token', None)
-#     return jsonify({"result": "logged out"}), 201
 
 @users.route("/api/users", methods = ["GET"])
 def view_all_users():
