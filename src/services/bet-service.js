@@ -47,11 +47,12 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
       return get('/api/bets');
     },
 
-    betOutcomeWin: function(id, data ) {
-      return put('/api/bets/' + id, {"outcome": data});
+    betOutcomeWin: function(id, bet ) {
+      return put('/api/bets/' + id, {"outcome": bet});
     },
 
     betOutcomeLose: function(id) {
+      console.log('/api/bets/' + id);
       return put('/api/bets/' + id, {"outcome": -1});
     }
 

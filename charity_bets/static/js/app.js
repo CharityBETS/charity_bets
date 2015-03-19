@@ -13,6 +13,33 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
     templateUrl: '/static/bet-view/bet.html',
@@ -22,7 +49,6 @@ app.config(['$routeProvider', function($routeProvider) {
         return betService.getBet(id);
       }],
       currentUser: ['userService', function (userService) {
-        console.log(userService.getCurrent());
         return userService.getCurrent().then(function (result) {
           return result.data;
         });
@@ -36,14 +62,16 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
   self.bet = bet;
   self.currentUser = currentUser;
+  self.showme=true;
 
-  self.betOutcomeWin = function (betid) {
-     alert("I WON");
-     betService.betOutcomeWin(betid, currentUser.id);
+  self.betOutcomeWin = function (id) {
+     betService.betOutcomeWin(bet.id, currentUser.id);
+     alert("finished");
   };
 
-  self.betOutcomeLose = function (betid) {
-     betService.betOutcomeLose(betid);
+  self.betOutcomeLose = function (id) {
+     betService.betOutcomeLose(bet.id);
+     self.showme=false;
   };
 
 
@@ -162,33 +190,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
     templateUrl: '/static/landing/landing.html',
     controller: 'LandingCtrl',
     controllerAs: 'vm',
@@ -266,11 +267,12 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
       return get('/api/bets');
     },
 
-    betOutcomeWin: function(id, data ) {
-      return put('/api/bets/' + id, {"outcome": data});
+    betOutcomeWin: function(id, bet ) {
+      return put('/api/bets/' + id, {"outcome": bet});
     },
 
     betOutcomeLose: function(id) {
+      console.log('/api/bets/' + id);
       return put('/api/bets/' + id, {"outcome": -1});
     }
 

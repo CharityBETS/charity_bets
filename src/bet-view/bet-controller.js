@@ -9,7 +9,6 @@ app.config(['$routeProvider', function($routeProvider) {
         return betService.getBet(id);
       }],
       currentUser: ['userService', function (userService) {
-        console.log(userService.getCurrent());
         return userService.getCurrent().then(function (result) {
           return result.data;
         });
@@ -23,14 +22,16 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
   self.bet = bet;
   self.currentUser = currentUser;
+  self.showme=true;
 
-  self.betOutcomeWin = function (betid) {
-     alert("I WON");
-     betService.betOutcomeWin(betid, currentUser.id);
+  self.betOutcomeWin = function (id) {
+     betService.betOutcomeWin(bet.id, currentUser.id);
+     alert("finished");
   };
 
-  self.betOutcomeLose = function (betid) {
-     betService.betOutcomeLose(betid);
+  self.betOutcomeLose = function (id) {
+     betService.betOutcomeLose(bet.id);
+     self.showme=false;
   };
 
 
