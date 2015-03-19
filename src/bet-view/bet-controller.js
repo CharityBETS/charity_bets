@@ -20,6 +20,7 @@ app.config(['$routeProvider', function($routeProvider) {
 .controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser',  function ($location, bet, betService, currentUser) {
 
   var self = this;
+  self.isBettor = (currentUser.id === bet.challenger || currentUser.id  === bet.creator );
   self.bet = bet;
   self.currentUser = currentUser;
   self.showme=true;
@@ -33,7 +34,5 @@ app.config(['$routeProvider', function($routeProvider) {
      betService.betOutcomeLose(bet.id);
      self.showme=false;
   };
-
-
 
 }]);

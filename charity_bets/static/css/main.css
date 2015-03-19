@@ -154,7 +154,8 @@ button {
     -ms-flex-direction: column;
     flex-direction: column; }
   li {
-    margin: 0 auto; }
+    text-align: center;
+    padding: 1rem 0rem 1rem 0rem; }
   li:first-child {
     margin: 0 auto; } }
 
@@ -281,7 +282,7 @@ footer {
   padding-bottom: .5rem; }
 
 .donate-button {
-  background-color: green; }
+  background-color: #4BBADA; }
 
 .bet-money-earned {
   border: 1px solid black;
@@ -388,21 +389,14 @@ footer {
   order: 3; }
 
 .choose-winner-wrapper {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap; }
+  width: 100%;
+  margin: 0 auto; }
 
 .bet-win {
-  background-color: green; }
+  background-color: #4BBADA; }
 
 .bet-lose, .bet-win {
-  margin: 0; }
+  margin: 0 auto; }
 
 @media only screen and (max-width: 920px) {
   .better-profile {
@@ -513,7 +507,11 @@ footer {
 .bets-li {
   padding: 2rem 0;
   position: relative;
-  background-color: #4BBADA; }
+  background-color: #4BBADA;
+  color: white; }
+
+.bets-title {
+  font-size: 1.2em; }
 
 .bets-users {
   font-size: 1.3em; }
@@ -573,3 +571,16 @@ footer {
 .profile-section-two {
   background-color: #484848;
   height: 1000px; }
+
+.datepicker button {
+  width: auto;
+  border: none; }
+.datepicker .dow {
+  color: black; }
+.datepicker .prev, .datepicker .next {
+  background: blue; }
+.datepicker .datepicker-switch {
+  background: green; }
+
+.form-control {
+  display: inline-block; }

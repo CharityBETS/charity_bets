@@ -7,7 +7,5 @@ module.exports = {
     './src/init.js'
   ],
 
-  vendor: [
-    "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"
-  ]
+  vendor: []
 };

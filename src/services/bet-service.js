@@ -47,8 +47,8 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
       return get('/api/bets');
     },
 
-    betOutcomeWin: function(id, bet ) {
-      return put('/api/bets/' + id, {"outcome": bet});
+    betOutcomeWin: function(id, currentuserId) {
+      return put('/api/bets/' + id, {"outcome": currentuserId});
     },
 
     betOutcomeLose: function(id) {

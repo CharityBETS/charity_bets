@@ -21,23 +21,25 @@
         <div class="location">{{vm.bet.location}}</div>
         <div class="info-title">Description:</div>
         <div class="bet-description">{{vm.bet.description}}</div>
-        <button class="end-bet" ng-click="showme=true">WHO WON?</button>
-        <div class="choose-winner-wrapper">
-            <!-- <p ng-hide="showme">It will appear here!</p> -->
-            <div ng-show="showme">
-                <button class="bet-win" ng-click="vm.betOutcomeWin();showme=false">I WON</button>
-                <button class="bet-lose" ng-click="vm.betOutcomeLose()">I LOST</button>
-                <a ng-click="showme=false">Cancel</a>
 
-            </div>
+        <div ng-if="vm.isBettor" class="choose-winner-div">
+          <button class="end-bet" ng-click="showme=true">WHO WON?</button>
+          <div class="choose-winner-wrapper">
+              <!-- <p ng-hide="showme">It will appear here!</p> -->
+              <div ng-show="showme">
+                  <button class="bet-win" ng-click="vm.betOutcomeWin();showme=false">I WON</button>
+                  <button class="bet-lose" ng-click="vm.betOutcomeLose();showme=false">I LOST</button>
+                  <a ng-click="showme=false">Cancel</a>
+              </div>
+          </div>
         </div>
       </div>
 
 
         <div class="better-profile hero-bettor flex-section-b">
-          <div class="bettor-name">{{vm.currentUser.name}}</div>
+          <div class="bettor-name">{{vm.bet.creator_name}}</div>
           <div class="charity">Kids with Faces</div>
-          <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large"></div>
+          <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.creator_facebook_id}}/picture?type=large"></div>
           <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
           <div class="location">Durham, NC</div>
         </div>
