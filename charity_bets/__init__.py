@@ -1,11 +1,13 @@
 from flask import Flask, render_template
 
 from . import models
-from .extensions import db, migrate, config, oauth, assets, login_manager
+from .extensions import db, migrate, config, oauth, assets, login_manager, mail
 # from .views.views import coaction
 from .views.home import home
 from .views.users import users
 from .views.bets import bets
+
+
 
 
 def create_app():
@@ -15,6 +17,13 @@ def create_app():
     app.config['DEBUG']
     app.config['SECRET_KEY']
     app.config['FACEBOOK']
+    app.config['MAIL_SERVER']
+    app.config['MAIL_PORT']
+    app.config['MAIL_USE_TLS']
+    app.config['MAIL_USE_SSL']
+    app.config['MAIL_USERNAME']
+    app.config['MAIL_PASSWORD']
+
 
     app.register_blueprint(home)
     app.register_blueprint(users)
@@ -23,6 +32,7 @@ def create_app():
     config.init_app(app)
     oauth.init_app(app)
     assets.init_app(app)
+    mail.init_app(app)
 
     db.init_app(app)
     migrate.init_app(app, db)

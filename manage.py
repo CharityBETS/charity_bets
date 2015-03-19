@@ -4,6 +4,7 @@ import os
 from flask.ext.script import Manager, Shell, Server
 from flask.ext.migrate import MigrateCommand
 from flask.ext.script.commands import ShowUrls, Clean
+from charity_bets.models import User
 
 from charity_bets import create_app, db
 from charity_bets.models import User
