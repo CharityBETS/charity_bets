@@ -1,5 +1,8 @@
 <p>Dear {{ challenger.name}},</p>
-<p>{{ creator.name }} has challenged you to a bet titled {{ bet.title }} on Major Wager!</p>
+<p>{{ creator.name }} has challenged you to a bet on Major Wager!</p>
+<p> View your bet at:</p>
+<a href="http://localhost:5000/#/bet/{{ bet.id }}">{{ bet.title }}</a><br />
+
 
 <p>Good luck,</p>
 <p>The <code>Major Wager</code> Staff</p>

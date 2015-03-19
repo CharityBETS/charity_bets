@@ -51,6 +51,7 @@ env
 
 #Config file
 charity_bets/config.cfg
+charity_bets/email_switch.py
 
 .DS_Store
 migrations/*
