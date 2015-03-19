@@ -33,6 +33,7 @@ app.config(['$routeProvider', function($routeProvider) {
 .controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser',  function ($location, bet, betService, currentUser) {
 
   var self = this;
+  self.isBettor = (currentUser.id === bet.challenger || currentUser.id  === bet.creator );
   self.bet = bet;
   self.currentUser = currentUser;
   self.showme=true;
@@ -46,8 +47,6 @@ app.config(['$routeProvider', function($routeProvider) {
      betService.betOutcomeLose(bet.id);
      self.showme=false;
   };
-
-
 
 }]);
 
@@ -268,8 +267,8 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
       return get('/api/bets');
     },
 
-    betOutcomeWin: function(id, bet ) {
-      return put('/api/bets/' + id, {"outcome": bet});
+    betOutcomeWin: function(id, currentuserId) {
+      return put('/api/bets/' + id, {"outcome": currentuserId});
     },
 
     betOutcomeLose: function(id) {
