@@ -51,7 +51,8 @@ def create_bet():
         db.session.commit()
 
         # Message sent to the other party of the bet
-        bet_creation_notification(current_user, challenger, bet)
+        if MAIL_IN_USE:
+            bet_creation_notification(current_user, challenger, bet)
 
         bet = bet.make_dict()
 
