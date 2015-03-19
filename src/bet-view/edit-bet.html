@@ -21,12 +21,16 @@
     <!-- <button class="donate-button">$DONATE$</button> -->
   </div>
 
-
   <div class="profile-details-wrap">
     <div class="bet-flex-wrap">
       <div class="bet-deets flex-section-a">
         <div class="info-title">Date:</div>
-        <input class="bet-date-input secondary-input" name="bet-date-input" placeholder="When is the bet" ng-model="vm.bet.date">
+
+        <div class="form-group date-input-wrap" ng-class="{'has-error': datepickerForm.date.$invalid}">
+         <input type="text" class="form-control bet-date-input secondary-input"  ng-model="vm.bet.date" placeholder="Date" bs-datepicker>
+        </div>
+
+          <!-- <input class="bet-date-input secondary-input" name="bet-date-input" placeholder="When is the bet" ng-model="vm.bet.date"> -->
         <div class="info-title">Location:</div>
         <input name="location-input" class="location-input secondary-input" placeholder="Location" ng-model="vm.bet.location">
         <div class="info-title">Description:</div>

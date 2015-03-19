@@ -1,6 +1,6 @@
 // Declare our app module, and import the ngRoute and ngAnimate
 // modules into it.
-var app = angular.module('app', ['ui.bootstrap', 'ngRoute']);
+var app = angular.module('app', ['mgcrea.ngStrap', 'ngRoute']);
 
 // Set up our 404 handler
 app.config(['$routeProvider', function ($routeProvider) {
@@ -9,33 +9,6 @@ app.config(['$routeProvider', function ($routeProvider) {
     controllerAs: 'vm',
     templateUrl: 'static/errors/404/error-404.html'
   });
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-
 }]);
 
 app.config(['$routeProvider', function($routeProvider) {
@@ -91,6 +64,7 @@ app.factory('Bet', function () {
     };
   };
 });
+
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -187,6 +161,33 @@ app.config(['$routeProvider', function($routeProvider) {
 //         }
 //     };
 // });
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+
+}]);
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
