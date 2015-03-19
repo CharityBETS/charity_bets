@@ -93,7 +93,7 @@ def view_bet(id):
     else:
         return jsonify({"ERROR": "Bet does not exist."}), 401
 
-@bets.route("/bets/<int:id>", methods = ["PUT"])
+@bets.route("/bets/<int:id>", methods = ul["PUT"])
 def update_bet(id):
     bet = Bet.query.filter_by(id = id).first()
     if bet:
@@ -115,13 +115,13 @@ def update_bet(id):
                         bet.creator_outcome = bet.challenger
                 else:
                     return jsonify({"Error, Not authorized"})
-                return jsonify({"data": bet.make_dict()}), 401
+                return jsonify({"data": bet.make_dict()}), 201
 
             else:
                 setattr(bet, key, data[key])
 
         db.session.commit()
-        return jsonify({"data": bet.make_dict()}), 401
+        return jsonify({"data": bet.make_dict()}), 201
 
     else:
         return jsonify({"ERROR": "Bet is not in database"})
