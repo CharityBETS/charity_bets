@@ -93,7 +93,7 @@ def view_bet(id):
     else:
         return jsonify({"ERROR": "Bet does not exist."}), 401
 
-@bets.route("/bets/<int:id>", methods = ul["PUT"])
+@bets.route("/bets/<int:id>", methods = ["PUT"])
 def update_bet(id):
     bet = Bet.query.filter_by(id = id).first()
     if bet:

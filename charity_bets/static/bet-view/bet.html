@@ -14,7 +14,7 @@
       <div class=bet-flex-wrap>
 
       <div class="bet-deets flex-section-a">
-        <div class="bet-date">{{vm.bet.date}}</div>
+        <div class="bet-date">{{vm.bet.date | date:'EEEE, MMM d'}}</div>
         <div class="info-title">Bet Amount:</div>
         <div class="bet-size">{{vm.bet.amount | currency}}</div>
         <div class="info-title">Location:</div>
@@ -23,7 +23,7 @@
         <div class="bet-description">{{vm.bet.description}}</div>
 
         <div ng-if="vm.isBettor" class="choose-winner-div">
-          <button class="end-bet" ng-click="showme=true">WHO WON?</button>
+          <button class="end-bet" ng-click="showme=true;" ng-hide="showme===true">WHO WON?</button>
           <div class="choose-winner-wrapper">
               <!-- <p ng-hide="showme">It will appear here!</p> -->
               <div ng-show="showme">
