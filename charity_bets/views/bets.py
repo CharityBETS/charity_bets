@@ -31,6 +31,7 @@ def check_resolution(bet):
 
 
 @bets.route("/user/bets", methods = ["POST"])
+@login_required
 def create_bet():
     body = request.get_data(as_text=True)
     data = json.loads(body)
@@ -82,6 +83,7 @@ def create_bet():
 
 
 @bets.route("/user/bets", methods = ["GET"])
+@login_required
 def view_bets():
     bet_list = []
     bets = UserBet.query.filter_by(user_id = current_user.id).all()
@@ -103,6 +105,7 @@ def bet_aggregator(bets, bet_list):
 
 
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
+@login_required
 def view_users_bets(id):
     creator_bets = Bet.query.filter_by(creator=id).all()
     challenger_bets = Bet.query.filter_by(challenger=id).all()
@@ -117,6 +120,7 @@ def view_users_bets(id):
 
 
 @bets.route("/bets", methods = ["GET"])
+@login_required
 def view_all_bets():
     bets = Bet.query.all()
     all_bets = []
@@ -132,9 +136,9 @@ def view_all_bets():
 
 
 @bets.route("/bets/<int:id>", methods = ["GET"])
+@login_required
 def view_bet(id):
     bet = Bet.query.filter_by(id = id).first()
-    challenger = User.query.filter_by(id=bet.challenger).first()
     comments = Comment.query.filter_by(bet_id=id).all()
     all_comments = []
     if bet:
@@ -150,6 +154,7 @@ def view_bet(id):
         return jsonify({"ERROR": "Bet does not exist."}), 401
 
 @bets.route("/bets/<int:id>", methods = ["PUT"])
+@login_required
 def update_bet(id):
     bet = Bet.query.filter_by(id = id).first()
     if bet:
@@ -195,6 +200,7 @@ def update_bet(id):
 
 
 @bets.route("/bets/<int:id>/comments", methods = ["POST"])
+@login_required
 def view_comments(id):
     bet = Bet.query.filter_by(id = id).first()
     body = request.get_data(as_text=True)
