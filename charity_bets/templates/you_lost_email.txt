@@ -1,0 +1,14 @@
+Dear {{ loser.name }},
+
+{{ winner.name }} has claimed victory in your bet on Major Wager!
+
+View your bet, {{ bet.title }}, at:
+http://localhost:5000/#/bet/{{ bet.id }}
+
+If you accept defeat, please promptly follow the directions to pay off your bet of {{ bet.amount }} via stripe.
+
+And remember, this was for charity!  So even in losing, you win, because you're giving to a great cause!
+
+Thanks,
+
+The Major Wager Staff
