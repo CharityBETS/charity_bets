@@ -133,7 +133,10 @@ def money_transactions(id):
                 amount = user.money_lost + data
                 setattr(user, key, amount)
             else:
-                return jsonify({"ERROR": "User transaction not in the database"})
+                data = data[key]
+                setattr(user,key,data)
+                db.session.commit()
+                #return jsonify({"ERROR": "User transaction not in the database"})
             db.session.commit()
             return jsonify({"data": user.make_dict()}), 401
     else:

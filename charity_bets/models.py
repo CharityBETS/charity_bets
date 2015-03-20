@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
                 "email": self.email,
                 "facebook_id": self.facebook_id,
                 "bank_token": self.bank_token,
-                "charity": self.charity_id,
+                "charity_id": self.charity_id,
                 "wins": self.wins,
                 "losses": self.losses,
                 "money_lost": self.money_lost,
@@ -50,6 +50,7 @@ class Bet(db.Model):
     verified_winner = db.Column(db.Integer)
     verified_loser = db.Column(db.Integer)
     loser_paid = db.Column(db.String(255))
+
 
     def make_dict(self):
         return {"id": self.id,
