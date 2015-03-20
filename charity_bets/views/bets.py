@@ -145,9 +145,7 @@ def view_bet(id):
         bet = bet.make_dict()
         for comment in comments:
             comment = comment.make_dict()
-            print(comment)
             all_comments.append(comment)
-        print(all_comments)
         bet["comments"] = all_comments
         return jsonify({'data': bet})
     else:
