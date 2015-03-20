@@ -27,20 +27,23 @@ def bet_creation_notification(creator, challenger, bet):
                                creator=creator, challenger=challenger, bet=bet))
 
 
-def win_claim_notification(creator, challenger, bet):
+def win_claim_notification(bet):
+    winner = User.query.filter_by(id = bet.verified_winner).first()
+    loser = User.query.filter_by(id = bet.verified_loser).first()
+
     send_email("{} has claimed victory in your bet!",
                "betsforcharity@gmail.com",
-               [creator.email],
-               render_template("new_bet_email.txt",
-                               creator=creator, challenger=challenger, bet=bet),
-               render_template("new_bet_email.html",
-                               creator=creator, challenger=challenger, bet=bet))
+               [loser.email],
+               render_template("you_lost_email.txt",
+                                winner=winner, loser=loser, bet=bet),
+               render_template("you_lost_email.html",
+                                winner=winner, loser=loser, bet=bet))
 
 def loss_claim_notification(creator, challenger, bet):
     send_email("{} has accepted defeat in your bet!".format(creator.name),
                "betsforcharity@gmail.com",
-               [creator.email],
-               render_template("new_bet_email.txt",
-                               creator=creator, challenger=challenger, bet=bet),
-               render_template("new_bet_email.html",
-                               creator=creator, challenger=challenger, bet=bet))
+               [winner.email],
+               render_template("you_won_email.txt",
+                                winner=winner, loser=loser, bet=bet),
+               render_template("you_won_email.html",
+                                winner=winner, loser=loser, bet=bet))
