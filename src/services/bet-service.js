@@ -58,6 +58,11 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
 
     acceptBet: function(id) {
       return put('/api/bets/' + id, {"status": "active"});
+    },
+
+    addComment: function (id, comment) {
+      alert('comment-test-2');
+      return post('/api/bets/' + id + '/comments', comment);
     }
 
 

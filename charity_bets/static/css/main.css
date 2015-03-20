@@ -404,6 +404,16 @@ footer {
 .bet-lose, .bet-win {
   margin: 0 auto; }
 
+.comment-form {
+  margin: 0 auto; }
+
+.submit-comment {
+  display: inline-block;
+  height: 35%; }
+
+.comment-section {
+  text-align: center; }
+
 @media only screen and (max-width: 920px) {
   .better-profile {
     display: block;

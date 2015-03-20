@@ -13,11 +13,16 @@ app.config(['$routeProvider', function($routeProvider) {
           return result.data;
         });
       }]
+      // comments: ['betService', function (betService) {
+      //   return betService.getComments().then(function (result){
+      //     return result.data;
+      //   });
+      // }]
     }
   };
   $routeProvider.when('/bet/:id', routeDefinition);
 }])
-.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser',  function ($location, bet, betService, currentUser) {
+.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', function ($location, bet, betService, currentUser, Comment) {
 
   var self = this;
   self.isBettor = (currentUser.id === bet.challenger || currentUser.id  === bet.creator);
@@ -25,7 +30,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.showme=true;
   self.isChallengeable = (bet.status === "pending" && currentUser.id === bet.challenger);
-
+  self.comment=Comment();
 
   self.betOutcomeWin = function (id) {
      betService.betOutcomeWin(bet.id, currentUser.id);
@@ -37,9 +42,13 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.acceptBet = function (id) {
-    alert("I ACCEPT THIS NOBLE CHALLENGE!")
     betService.acceptBet(bet.id);
   };
+
+  self.addComment = function () {
+    betService.addComment(bet.id, self.comment);
+    self.comment="";
+  }
 
 
 }]);

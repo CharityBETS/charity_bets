@@ -181,6 +181,26 @@
   // width: 6em;
 }
 
+.comment-form {
+  margin: 0 auto;
+}
+
+.submit-comment {
+  display: inline-block;
+  height: 35%;
+  // margin-left: .2rem !important;
+  // margin-top: 1.4rem !important;
+
+}
+
+.comment-li {
+  max-width:
+}
+
+.comment-section {
+  text-align: center;
+}
+
 
 
 @media only screen and (max-width : 920px) {
@@ -204,9 +224,6 @@
   .flex-section-c {
     order: 3;
   }
-
-
-
 
 
   .hero-bettor, .villian-bettor {
