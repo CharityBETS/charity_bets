@@ -12,6 +12,23 @@ from ..email_switch import emailing
 
 bets = Blueprint("bets", __name__)
 
+#check if a bets outcome is resolved
+def check_resolution(bet):
+    if bet.creator_outcome == bet.challenger_outcome:
+        bet.status = "complete"
+        bet.verified_winner = bet.creator_outcome
+        if bet.creator_outcome == bet.creator:
+            bet.verified_loser = bet.challenger
+        else:
+            bet.verified_loser = bet.creator
+        bet.loser_paid = "unpaid"
+        db.session.add(bet)
+        db.session.commit()
+    else:
+        bet.status = "unresolved"
+        db.session.add(bet)
+        db.session.commit()
+
 
 @bets.route("/user/bets", methods = ["POST"])
 def create_bet():
@@ -132,29 +149,37 @@ def update_bet(id):
         keys = data.keys()
         for key in keys:
             if key == "outcome":
+
                 if current_user.id == bet.creator:
                     if data["outcome"] == -1:
                         bet.creator_outcome = bet.challenger
+                        bet.challenger_outcome = bet.challenger
+                        db.session.commit()
                     else:
                         bet.creator_outcome = bet.creator
+                        db.session.commit()
 
                 elif current_user.id == bet.challenger:
                     if data["outcome"] == -1:
+                        bet.creator_outcome = bet.creator
                         bet.challenger_outcome = bet.creator
+                        db.session.commit()
                     else:
                         bet.creator_outcome = bet.challenger
+                        db.session.commit()
+
                 else:
                     return jsonify({"Error, Not authorized"})
-                return jsonify({"data": bet.make_dict()}), 201
+                #return jsonify({"data": bet.make_dict()}), 201
+
+                check_resolution(bet)
 
             else:
                 setattr(bet, key, data[key])
 
-        db.session.commit()
+
+        print("check_resolution: ", check_resolution(bet))
         return jsonify({"data": bet.make_dict()}), 201
 
     else:
         return jsonify({"ERROR": "Bet is not in database"})
-
-def edit_generator():
-    edits = []
