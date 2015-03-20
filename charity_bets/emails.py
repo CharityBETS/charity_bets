@@ -2,6 +2,8 @@ from flask.ext.mail import Message
 from charity_bets import mail
 from flask import render_template, current_app
 from threading import Thread
+from flask.ext.login import current_user
+from .models import User
 
 
 def send_async_email(app, message):
@@ -29,10 +31,10 @@ def bet_creation_notification(creator, challenger, bet):
 
 def win_claim_notification(bet):
     winner = User.query.filter_by(id = current_user.id).first()
-    if current_user.id == creator.id:
-        loser = User.query.filter_by(id = challenger.id).first()
+    if current_user.id == bet.creator:
+        loser = User.query.filter_by(id = bet.challenger).first()
     else:
-        loser = User.query.filter_by(id = creator.id).first()
+        loser = User.query.filter_by(id = bet.creator).first()
 
     send_email("{} has claimed victory in your bet!".format(winner.name),
                "betsforcharity@gmail.com",
@@ -44,10 +46,10 @@ def win_claim_notification(bet):
 
 def loss_claim_notification(bet):
     loser = User.query.filter_by(id = current_user.id).first()
-    if current_user.id == creator.id:
-        winner = User.query.filter_by(id = challenger.id).first()
+    if current_user.id == bet.creator:
+        winner = User.query.filter_by(id = bet.challenger).first()
     else:
-        winner = User.query.filter_by(id = creator.id).first()
+        winner = User.query.filter_by(id = bet.creator).first()
 
     send_email("{} has accepted defeat in your bet!".format(loser.name),
                "betsforcharity@gmail.com",
