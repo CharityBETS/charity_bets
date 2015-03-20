@@ -8,7 +8,7 @@
 
 
   li {
-    padding: 1rem 3rem 1rem 2rem;
+    padding: 1rem 3rem .5rem 2rem;
     font-size: 1.2em;
   }
 
@@ -21,7 +21,12 @@
  }
 
   li:last-child {
-    font-size: .8em;
+    color: black;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
   }
 
 }
@@ -59,6 +64,10 @@
 
 .header-nav li:first-child {
   margin-right: auto;
+}
+
+.app-header li a{
+  color: white;
 }
 
 @media only screen and (max-width : 920px) {

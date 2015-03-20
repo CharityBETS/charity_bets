@@ -1,11 +1,21 @@
   <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
   <div class="profile-top-section">
-    <div class="profile-img-container">
+    <div class="profile-details-container">
         <h3>{{vm.currentUser.name}}</h3>
         <!-- <h4>{{vm.currentUser.charity}}</h4> -->
         <h4>Kids with Faces</h4>
         <img class="profile-img" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large">
+    </div>
+
+    <div class="profile-stats">
+      <div class="user-record">
+        {{vm.user.wins}} - {{vm.user.losses}}
+      </div>
+      <div class="stat-title-label">Money Won For Charity</div>
+      <div class="money-won">{{vm.user.money_won}}</div>
+      <div class="stat-title-label">Money Lost For Charity</div>
+      <div class="money-won">{{vm.user.money_lost}}</div>
     </div>
   </div>
 
