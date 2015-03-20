@@ -1,7 +1,7 @@
 from functools import wraps
-from ..models import Bet, UserBet, User
+from ..models import Bet, UserBet, User, Comment
 from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
-from ..forms import BetForm
+from ..forms import BetForm, CommentForm
 from flask.ext.login import current_user, login_required
 from ..extensions import db
 import json
@@ -43,6 +43,7 @@ def create_bet():
 
         user_bet = UserBet(user_id = current_user.id,
                            bet_id = bet.id)
+
         db.session.add(user_bet)
         db.session.commit()
 
@@ -108,8 +109,16 @@ def view_all_bets():
 def view_bet(id):
     bet = Bet.query.filter_by(id = id).first()
     challenger = User.query.filter_by(id=bet.challenger).first()
+    comments = Comment.query.filter_by(bet_id=id).all()
+    all_comments = []
     if bet:
         bet = bet.make_dict()
+        for comment in comments:
+            comment = comment.make_dict()
+            print(comment)
+            all_comments.append(comment)
+        print(all_comments)
+        bet["comments"] = all_comments
         return jsonify({'data': bet})
     else:
         return jsonify({"ERROR": "Bet does not exist."}), 401
@@ -146,6 +155,39 @@ def update_bet(id):
 
     else:
         return jsonify({"ERROR": "Bet is not in database"})
+
+
+@bets.route("/bets/<int:id>/comments", methods = ["POST"])
+def view_comments(id):
+    bet = Bet.query.filter_by(id = id).first()
+    body = request.get_data(as_text=True)
+    data = json.loads(body)
+    form = CommentForm( comment=data['comment'],
+                        formdata=None, csrf_enabled=False)
+    if form.validate():
+        user_comment = Comment(comment = form.comment.data,
+                               user_id = current_user.id,
+                               bet_id = bet.id)
+
+        db.session.add(user_comment)
+        db.session.commit()
+
+        user_comment = user_comment.make_dict()
+
+        return jsonify({ 'data': user_comment }), 201
+
+    else:
+        return jsonify({"ERROR": "No comments yet"})
+
+    # bet = Bet.query.filter_by(id = id).first()
+    # comment = Comment.query.filter_by(id = id).first()
+    # comment_list = []
+    # if len(comment_list) != None:
+    #     comments = [comment.make_dict() for comment in comment_list]
+    #     return jsonify({"data": comments}), 201
+    # else:
+    #     return jsonify({"ERROR": "No comments yet"})
+
 
 def edit_generator():
     edits = []

@@ -86,3 +86,16 @@ class Charity(db.Model):
                 "description": self.description,
                 "email": self.email,
                 "recipient_token": self.recipient_token}
+
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer)
+    bet_id = db.Column(db.Integer)
+    comment = db.Column(db.String(255))
+
+    def make_dict(self):
+        return {"id": self.id,
+                "user_id": self.user_id,
+                "bet_id": self.bet_id,
+                "comment": self.comment}
