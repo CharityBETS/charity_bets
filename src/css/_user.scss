@@ -1,8 +1,13 @@
 .profile-top-section {
+
   background-color: $secondary-accent-color;
   padding: 2rem;
   color: white;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
 
   h3 {
     margin: 0;
@@ -15,10 +20,16 @@
     font-size: 1.2em;
   }
 
+
   // h4:after {
   //   content: "f";
   //   font-family: major-wager;
   // }
+}
+
+.profile-details-container {
+  text-align: center;
+
 }
 
 .profile-img {
@@ -44,22 +55,36 @@
   position: relative;
   background-color: $my-black;
   color: white;
+
+  img {
+    border: 3px $secondary-accent-color solid;
+  }
 }
 
 .user-bets-li:nth-child(even) {
   background-color: $secondary-accent-color;
-}
+  color: white;
 
-.creator-wrap {
-  img {
-    border: 2px $secondary-accent-color solid;
+  img{
+    border: 3px $main-accent-color solid;
   }
 }
 
-.challenger-wrap {
-  img {
-    border: 2px $primary-accent-color solid;
+
+
+@media only screen and (max-width : 920px) {
+
+
+}
+
+@media only screen and (max-width : 480px) {
+
+  .profile-top-section {
+    display: block;
+    padding: 2rem;
+    text-align: center;
 
   }
+
 
 }

@@ -10,7 +10,6 @@ from charity_bets import mail
 from flask_mail import Message
 from ..email_switch import emailing
 
-
 bets = Blueprint("bets", __name__)
 
 
