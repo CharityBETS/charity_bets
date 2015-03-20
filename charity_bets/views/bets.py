@@ -16,6 +16,12 @@ bets = Blueprint("bets", __name__)
 def check_resolution(bet):
     if bet.creator_outcome == bet.challenger_outcome:
         bet.status = "complete"
+        bet.verified_winner = bet.creator_outcome
+        if bet.creator_outcome == bet.creator:
+            bet.verified_loser = bet.challenger
+        else:
+            bet.verified_loser = bet.creator
+        bet.loser_paid = "unpaid"
         db.session.add(bet)
         db.session.commit()
     else:
@@ -166,10 +172,12 @@ def update_bet(id):
                     return jsonify({"Error, Not authorized"})
                 #return jsonify({"data": bet.make_dict()}), 201
 
+                check_resolution(bet)
+
             else:
                 setattr(bet, key, data[key])
-        print(bet)
-        check_resolution(bet)
+
+
         print("check_resolution: ", check_resolution(bet))
         return jsonify({"data": bet.make_dict()}), 201
 
