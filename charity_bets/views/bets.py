@@ -208,7 +208,8 @@ def view_comments(id):
     if form.validate():
         user_comment = Comment(comment = form.comment.data,
                                user_id = current_user.id,
-                               bet_id = bet.id)
+                               bet_id = bet.id,
+                               name = current_user.name)
 
         db.session.add(user_comment)
         db.session.commit()
