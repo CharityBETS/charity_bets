@@ -80,17 +80,17 @@ class UserBet(db.Model):
 
 class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(255))
     description = db.Column(db.String(255))
-    email = db.Column(db.String(255), unique=True)
-    recipient_token = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255))
+    token = db.Column(db.String(255))
 
     def make_dict(self):
         return {"id": self.id,
                 "name": self.name,
                 "description": self.description,
                 "email": self.email,
-                "recipient_token": self.recipient_token}
+                "token": self.token}
 
 
 class Comment(db.Model):
