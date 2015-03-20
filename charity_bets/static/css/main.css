@@ -514,7 +514,10 @@ footer {
     font-size: 1.2em; }
 
 .profile-details-container {
-  text-align: center; }
+  text-align: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
 
 .profile-img {
   width: 200px;
@@ -544,6 +547,14 @@ footer {
   color: white; }
   .user-bets-li:nth-child(even) img {
     border: 3px #f05f5c solid; }
+
+.pay-button {
+  margin: 1rem auto;
+  width: 10em; }
+
+.bets-section-1 form {
+  margin-top: 1rem;
+  text-align: center; }
 
 @media only screen and (max-width: 480px) {
   .profile-top-section {

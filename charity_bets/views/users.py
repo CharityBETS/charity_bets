@@ -76,6 +76,7 @@ def facebook_authorized():
     return redirect('/#createbet')
 
 @users.route("/logout")
+@login_required
 def logout():
     logout_user()
     session.pop('facebook_token', None)
@@ -83,6 +84,7 @@ def logout():
 
 
 @users.route("/api/users", methods = ["GET"])
+@login_required
 def view_all_users():
     users = User.query.all()
     users = [user.make_dict() for user in users]
@@ -93,6 +95,7 @@ def view_all_users():
 
 
 @users.route("/api/user/<int:id>", methods = ["GET"])
+@login_required
 def view_user(id):
     user = User.query.filter_by(id = id).first()
     if user:
@@ -104,6 +107,7 @@ def view_user(id):
 
 
 @users.route("/api/user/me", methods = ["GET"])
+@login_required
 def get_current_user():
     user = User.query.filter_by(id = current_user.id).first()
     if user:
@@ -112,6 +116,7 @@ def get_current_user():
 
 
 @users.route("/api/user/<int:id>", methods = ["PUT"])
+@login_required
 def money_transactions(id):
     user = User.query.filter_by(id = id).first()
     if user:

@@ -29,6 +29,7 @@
 
 .profile-details-container {
   text-align: center;
+  justify-content: center;
 
 }
 
@@ -67,6 +68,20 @@
 
   img{
     border: 3px $main-accent-color solid;
+  }
+}
+
+
+.pay-button {
+  margin: 1rem auto;
+  width: 10em;
+
+}
+
+.bets-section-1 {
+  form {
+    margin-top: 1rem;
+    text-align: center;
   }
 }
 
