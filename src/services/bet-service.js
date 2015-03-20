@@ -54,6 +54,10 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     betOutcomeLose: function(id) {
       console.log('/api/bets/' + id);
       return put('/api/bets/' + id, {"outcome": -1});
+    },
+
+    acceptBet: function(id) {
+      return put('/api/bets/' + id, {"status": "active"});
     }
 
 

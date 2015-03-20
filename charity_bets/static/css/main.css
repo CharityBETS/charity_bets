@@ -106,7 +106,7 @@ button {
   justify-content: flex-end;
   letter-spacing: 1px; }
   .header-nav li, .app-header li {
-    padding: 1rem 3rem 1rem 2rem;
+    padding: 1rem 3rem .5rem 2rem;
     font-size: 1.2em; }
   .header-nav li:first-child, .app-header li:first-child {
     margin-right: auto;
@@ -115,7 +115,10 @@ button {
     padding-bottom: .6rem;
     font-weight: bold; }
   .header-nav li:last-child, .app-header li:last-child {
-    font-size: .8em; }
+    color: black; }
+  .header-nav a, .app-header a {
+    color: black;
+    text-decoration: none; }
 
 .app-header li:first-child {
   color: white; }
@@ -144,6 +147,9 @@ button {
 
 .header-nav li:first-child {
   margin-right: auto; }
+
+.app-header li a {
+  color: white; }
 
 @media only screen and (max-width: 620px) {
   .app-header {
@@ -434,73 +440,6 @@ footer {
   textarea {
     max-width: 85%; } }
 
-.edit-bet-wrapper input, .edit-bet-wrapper select {
-  padding: 1em;
-  width: 14em;
-  text-align: center;
-  border: dotted 1px black;
-  font-size: 1.2em;
-  border-radius: 6px; }
-.edit-bet-wrapper select {
-  height: 64px;
-  margin-left: 1rem;
-  background-color: none; }
-.edit-bet-wrapper option {
-  font-family: 'Noto Sans', sans-serif; }
-.edit-bet-wrapper .bet-amount-input {
-  width: 7em;
-  margin-left: 1rem; }
-.edit-bet-wrapper .bet-challenger-input {
-  margin-left: 1rem; }
-.edit-bet-wrapper .secondary-input {
-  padding: .9em;
-  width: 11em;
-  font-size: 1em; }
-.edit-bet-wrapper .info-title {
-  padding: .5rem; }
-
-.select-style {
-  padding: 0;
-  margin: 1rem auto;
-  border: 1px dotted black;
-  width: 200px;
-  border-radius: 6px;
-  overflow: hidden;
-  background-color: #fff;
-  background: #fff url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") no-repeat 90% 50%; }
-
-.select-style select {
-  color: gray;
-  padding: 5px 8px;
-  width: 130%;
-  text-align: center;
-  border: none;
-  box-shadow: none;
-  background-color: transparent;
-  background-image: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none; }
-
-.select-style select:focus {
-  outline: none; }
-
-.bet-description-textarea {
-  text-align: center;
-  font-size: 1em;
-  padding: 1em;
-  min-height: 6em;
-  width: 15em !important;
-  border: dotted 1px black !important; }
-
-@media only screen and (max-width: 920px) {
-  .bet-amount-input, .bet-challenger-input {
-    margin-top: 1rem;
-    margin-left: 0rem !important; }
-  select {
-    margin-top: 1rem;
-    margin-left: 0; } }
-
 .bets-title, .bets-date, .bets-amount, .bets-users {
   text-align: center; }
 
@@ -508,7 +447,8 @@ footer {
   padding: 2rem 0;
   position: relative;
   background-color: #4BBADA;
-  color: white; }
+  color: white;
+  border-bottom: black 1px solid; }
 
 .bets-title {
   font-size: 1.2em; }
@@ -553,7 +493,18 @@ footer {
   background-color: #4BBADA;
   padding: 2rem;
   color: white;
-  text-align: center; }
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
   .profile-top-section h3 {
     margin: 0;
     font-size: 2em;
@@ -561,6 +512,9 @@ footer {
   .profile-top-section h4 {
     padding: .3rem 0 1rem;
     font-size: 1.2em; }
+
+.profile-details-container {
+  text-align: center; }
 
 .profile-img {
   width: 200px;
@@ -570,7 +524,32 @@ footer {
 
 .profile-section-two {
   background-color: #484848;
-  height: 1000px; }
+  height: 1000px;
+  color: white; }
+
+.charity-edit {
+  font-family: major-wager;
+  padding-left: 1rem; }
+
+.user-bets-li {
+  padding: 2rem 0;
+  position: relative;
+  background-color: #484848;
+  color: white; }
+  .user-bets-li img {
+    border: 3px #4BBADA solid; }
+
+.user-bets-li:nth-child(even) {
+  background-color: #4BBADA;
+  color: white; }
+  .user-bets-li:nth-child(even) img {
+    border: 3px #f05f5c solid; }
+
+@media only screen and (max-width: 480px) {
+  .profile-top-section {
+    display: block;
+    padding: 2rem;
+    text-align: center; } }
 
 .datepicker button {
   width: auto;
@@ -584,3 +563,71 @@ footer {
 
 .form-control {
   display: inline-block; }
+
+.edit-bet-wrapper input, .edit-bet-wrapper select {
+  padding: 1em;
+  width: 14em;
+  text-align: center;
+  border: dotted 1px black;
+  font-size: 1.2em;
+  border-radius: 6px; }
+.edit-bet-wrapper select {
+  height: 64px;
+  margin-left: 1rem;
+  background-color: none; }
+.edit-bet-wrapper option {
+  font-family: 'Noto Sans', sans-serif; }
+.edit-bet-wrapper .bet-amount-input {
+  width: 7em;
+  margin-left: 1rem; }
+.edit-bet-wrapper .bet-challenger-input {
+  margin-left: 1rem; }
+.edit-bet-wrapper .secondary-input {
+  padding: .9em;
+  width: 11em;
+  font-size: 1em;
+  color: black; }
+.edit-bet-wrapper .info-title {
+  padding: .5rem; }
+
+.select-style {
+  padding: 0;
+  margin: 1rem auto;
+  border: 1px dotted black;
+  width: 200px;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #fff;
+  background: #fff url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") no-repeat 90% 50%; }
+
+.select-style select {
+  color: gray;
+  padding: 5px 8px;
+  width: 130%;
+  text-align: center;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; }
+
+.select-style select:focus {
+  outline: none; }
+
+.bet-description-textarea {
+  text-align: center;
+  font-size: 1em;
+  padding: 1em;
+  min-height: 6em;
+  width: 15em !important;
+  border: dotted 1px black !important; }
+
+@media only screen and (max-width: 920px) {
+  .bet-amount-input, .bet-challenger-input {
+    margin-top: 1rem;
+    margin-left: 0rem !important; }
+  select {
+    margin-top: 1rem;
+    margin-left: 0; } }

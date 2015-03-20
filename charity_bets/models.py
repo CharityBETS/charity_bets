@@ -47,7 +47,9 @@ class Bet(db.Model):
     challenger_facebook_id = db.Column(db.String(255))
     creator_name = db.Column(db.String(255))
     creator_facebook_id = db.Column(db.String(255))
-
+    verified_winner = db.Column(db.Integer)
+    verified_loser = db.Column(db.Integer)
+    loser_paid = db.Column(db.String(255))
 
     def make_dict(self):
         return {"id": self.id,
@@ -64,7 +66,10 @@ class Bet(db.Model):
                 "challenger_name":self.challenger_name,
                 "challenger_facebook_id": self.challenger_facebook_id,
                 "creator_name": self.creator_name,
-                "creator_facebook_id": self.creator_facebook_id}
+                "creator_facebook_id": self.creator_facebook_id,
+                "verified_winner": self.verified_winner,
+                "verified_loser": self.verified_loser,
+                "loser_paid": self.loser_paid}
 
 
 class UserBet(db.Model):

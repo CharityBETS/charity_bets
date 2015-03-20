@@ -1,0 +1,9 @@
+Dear {{ challenger.name }},
+
+{{ creator.name }} has challenged you to a bet titled {{ bet.title }} on Major Wager!
+View your bet at:
+http://localhost:5000/#/bet/{{ bet.id }}
+
+Good luck,
+
+The Major Wager Staff
