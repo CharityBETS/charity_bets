@@ -1,0 +1,12 @@
+Dear {{ winner.name }},
+
+Congratulations! {{ loser.name }} has conceded victory in your bet on beti!
+
+View your bet, {{ bet.title }}, at:
+http://localhost:5000/#/bet/{{ bet.id }}
+
+Your chosen charity has earned ${{ bet.amount }} and you're not a penny poorer!
+
+Thanks,
+
+The beti Staff

@@ -4,8 +4,8 @@ from wtforms.validators import DataRequired
 
 
 class BetForm(Form):
-    title = StringField('title', validators = [DataRequired()])
-    amount = IntegerField('amount', validators = [DataRequired()])
+    title = StringField('title', validators=[DataRequired()])
+    amount = IntegerField('amount', validators=[DataRequired()])
 
 
 class CommentForm(Form):

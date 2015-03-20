@@ -4,7 +4,7 @@ from flask import session, Blueprint, url_for, request, redirect, flash, render_
 from ..forms import BetForm, CommentForm
 from flask.ext.login import current_user, login_required
 from ..extensions import db
-from ..emails import send_email, bet_creation_notification
+from ..emails import send_email, bet_creation_notification, win_claim_notification, loss_claim_notification
 import json
 from charity_bets import mail
 from flask_mail import Message
@@ -145,9 +145,7 @@ def view_bet(id):
         bet = bet.make_dict()
         for comment in comments:
             comment = comment.make_dict()
-            print(comment)
             all_comments.append(comment)
-        print(all_comments)
         bet["comments"] = all_comments
         return jsonify({'data': bet})
     else:
@@ -191,7 +189,6 @@ def update_bet(id):
             else:
                 setattr(bet, key, data[key])
 
-
         print("check_resolution: ", check_resolution(bet))
         return jsonify({"data": bet.make_dict()}), 201
 
@@ -210,7 +207,8 @@ def view_comments(id):
     if form.validate():
         user_comment = Comment(comment = form.comment.data,
                                user_id = current_user.id,
-                               bet_id = bet.id)
+                               bet_id = bet.id,
+                               name = current_user.name)
 
         db.session.add(user_comment)
         db.session.commit()

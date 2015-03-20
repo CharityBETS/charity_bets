@@ -48,7 +48,7 @@ def seed():
                     {
                     'name': "Ben Batty",
                     'email': "bbatty32@yahoo.com",
-                    'facebook_id': "1015316897151279"
+                    'facebook_id': "10153168971512790"
                     },
                     {
                     'name': "Bret Runestad",
