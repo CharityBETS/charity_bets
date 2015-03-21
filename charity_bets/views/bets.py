@@ -9,7 +9,7 @@ import json
 from charity_bets import mail
 from flask_mail import Message
 from ..email_switch import emailing
-import stripe
+# import stripe
 bets = Blueprint("bets", __name__)
 
 #check if a bets outcome is resolved
@@ -81,27 +81,25 @@ def create_bet():
     else:
         return form.errors, 400
 
-
-@bets.route("/user/bets", methods = ["GET"])
-@login_required
-def view_bets():
-    bet_list = []
-    bets = UserBet.query.filter_by(user_id = current_user.id).all()
-    for a_bet in bets:
-       bet = Bet.query.filter_by(id = a_bet.bet_id).first()
-       if bet:
-           bet_list.append(bet)
-    if len(bet_list) > 0:
-        bets = [bet.make_dict() for bet in bet_list]
-
-    return jsonify({"data": bets}), 201
-
 def bet_aggregator(bets, bet_list):
     for a_bet in bets:
         bet = Bet.query.filter_by(id=a_bet.id).first()
         if bet:
             bet_list.append(bet)
     return bet_list
+
+@bets.route("/user/bets", methods = ["GET"])
+@login_required
+def view_bets():
+    creator_bets = Bet.query.filter_by(creator=current_user.id).all()
+    challenger_bets = Bet.query.filter_by(challenger=current_user.id).all()
+    bet_list = []
+    bet_list = bet_aggregator(creator_bets, bet_list)
+    bet_list = bet_aggregator(challenger_bets, bet_list)
+    if len(bet_list) > 0:
+        bets = [bet.make_dict() for bet in bet_list]
+        return jsonify({"data": bets}), 201
+    return jsonify({"ERROR": "No bets available."}), 401
 
 
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
