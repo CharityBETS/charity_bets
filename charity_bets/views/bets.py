@@ -9,7 +9,7 @@ import json
 from charity_bets import mail
 from flask_mail import Message
 from ..email_switch import emailing
-# import stripe
+import stripe
 from datetime import datetime
 
 
@@ -230,12 +230,15 @@ def charge_loser(id):
     charity = Charity.query.filter_by(id = user.charity_id).first()
     #token = request.POST['stripeToken']
     stripe.api_key = charity.token
-
+    card_token = request.form['stripeToken']
+    print("card_token.... ",card_token)
     charge = stripe.Charge.create(
         amount = bet.amount,
         currency='usd',
-        source = 'tok_15iWYJKYBsnJvdQeEIe7q2hS',
+        source = card_token,
         description='BET PAYMENT')
+
+    return jsonify({"SUCESSFUL PAYMENT":"SUCCESSFUL PAYMENT"})
 
 @bets.route("/charities", methods = ["GET"])
 @login_required
@@ -247,3 +250,15 @@ def view_all_charities():
         return jsonify({'data': charities}), 201
     else:
         return jsonify({"ERROR": "No charities available."}), 401
+
+
+@bets.route("/charities/<int:id>", methods=["GET"])
+@login_required
+def view_charity(id):
+    charity = Charity.query.filter_by(id = id).first()
+    if charity:
+        charity = charity.make_dict()
+        del charity['token']
+        return jsonify({'data': charity})
+    else:
+        return jsonify({"ERROR": "Charity does not exist."}), 401

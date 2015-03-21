@@ -69,17 +69,18 @@ def seed():
 
 @manager.command
 def charity_seed():
-    charity_seed_data = [{
+    charity_seed_data = [
+                    {
+                    'name': "Profiles Without Faces",
+                    'description': "Raising awareness for the difficulties of copying and pasting",
+                    'email': "bbatty32@yahoo.com",
+                    'token': "sk_test_8H01iPxORNegr3wWFhm9sU6G"
+                    },
+                    {
                     'name': "Kids With Faces",
                     'email': "kidswithfaces@notanemail.com",
                     'description': "sadly, at this time we cannot serve kids without faces",
                     'token': "sgjlfskgl4wojwlgjwgu4"
-                    },
-                    {
-                    'name': "Profiles without faces",
-                    'description': "Raising awareness for the difficulties of copying and pasting",
-                    'email': "bbatty32@yahoo.com",
-                    'token': "joiufdsfjlewnlgewo983"
                     },
                     {
                     'name': "Girl Scouts",
@@ -100,6 +101,7 @@ def charity_seed():
                     'token': "fsdjlgisdgnnlewrj2343"
                     }
                     ]
+
     for seed in charity_seed_data:
         charity = Charity.query.filter_by(email=seed['email']).first()
         if not charity:
@@ -111,6 +113,14 @@ def charity_seed():
             db.session.add(charity)
     db.session.commit()
     print("You've added some VERY fake charities.")
+
+@manager.command
+def clear_charities():
+    charities = Charity.query.all()
+    for charity in charities:
+        db.session.delete(charity)
+    db.session.commit()
+    print("You've cleared out all of the charities.")
 
 if __name__ == '__main__':
     manager.run()
