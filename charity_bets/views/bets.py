@@ -223,6 +223,7 @@ def view_comments(id):
         return jsonify({"ERROR": "No comments yet"})
 
 @bets.route("/bets/<int:id>/pay_bet", methods = ["POST"])
+@login_required
 def charge_loser(id):
     bet = Bet.query.filter_by(id = id).first()
     user = User.query.filter_by(id = bet.verified_loser).first()
@@ -235,3 +236,14 @@ def charge_loser(id):
         currency='usd',
         source = 'tok_15iWYJKYBsnJvdQeEIe7q2hS',
         description='BET PAYMENT')
+
+@bets.route("/charities", methods = ["GET"])
+@login_required
+def view_all_charities():
+    charities = Charity.query.all()
+    charities = [charity.make_dict() for charity in charities]
+
+    if charities:
+        return jsonify({'data': charities}), 201
+    else:
+        return jsonify({"ERROR": "No charities available."}), 401
