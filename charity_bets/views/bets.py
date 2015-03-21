@@ -112,7 +112,6 @@ def view_users_bets(id):
     bet_list = []
     bet_list = bet_aggregator(creator_bets, bet_list)
     bet_list = bet_aggregator(challenger_bets, bet_list)
-    print(len(bet_list))
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets}), 201
