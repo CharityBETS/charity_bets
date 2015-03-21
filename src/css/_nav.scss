@@ -51,7 +51,10 @@
   justify-content: flex-end;
   background: $my-black;
   color: white;
+
 }
+
+
 
 .app-header li:hover {
   background-color: $main-accent-color;
@@ -68,6 +71,10 @@
 
 .app-header li a{
   color: white;
+}
+
+.logo-li {
+  background: $main-accent-color;
 }
 
 @media only screen and (max-width : 920px) {
