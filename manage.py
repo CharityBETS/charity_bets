@@ -7,7 +7,7 @@ from flask.ext.script.commands import ShowUrls, Clean
 from charity_bets.models import User
 
 from charity_bets import create_app, db
-from charity_bets.models import User
+from charity_bets.models import User, Charity
 
 
 app = create_app()
@@ -66,6 +66,51 @@ def seed():
             db.session.add(user)
     db.session.commit()
     print("You've added some major wagerers as users.")
+
+@manager.command
+def charity_seed():
+    charity_seed_data = [{
+                    'name': "Kids With Faces",
+                    'email': "kidswithfaces@notanemail.com",
+                    'description': "sadly, at this time we cannot serve kids without faces",
+                    'token': "sgjlfskgl4wojwlgjwgu4"
+                    },
+                    {
+                    'name': "Profiles without faces",
+                    'description': "Raising awareness for the difficulties of copying and pasting",
+                    'email': "bbatty32@yahoo.com",
+                    'token': "joiufdsfjlewnlgewo983"
+                    },
+                    {
+                    'name': "Girl Scouts",
+                    'email': "dknewell1@gmail.com",
+                    'description': "Buy our cookies!",
+                    'token': "jsdogudstlewnlgewo983"
+                    },
+                    {
+                    'name': "The Human Fund",
+                    'email': "georgecostanza@seinfeldjoke.com",
+                    'description': "Have younger people watched Seinfeld?",
+                    'token': "dlsjfliwetnldnglds232"
+                    },
+                    {
+                    'name': "The Bret Fund",
+                    'email': "bret.runestad@gmail.com",
+                    'description': "The money just goes right to Bret.  He deserves this.",
+                    'token': "fsdjlgisdgnnlewrj2343"
+                    }
+                    ]
+    for seed in charity_seed_data:
+        charity = Charity.query.filter_by(email=seed['email']).first()
+        if not charity:
+            charity=Charity(name=seed['name'],
+                            token=seed['token'],
+                            email=seed['email'],
+                            description = seed['description']
+                            )
+            db.session.add(charity)
+    db.session.commit()
+    print("You've added some VERY fake charities.")
 
 if __name__ == '__main__':
     manager.run()
