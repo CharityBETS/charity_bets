@@ -60,7 +60,7 @@ def facebook_authorized():
     session['facebook_token'] = (resp['access_token'],)
     me = facebook.get('/me')
     session['facebook_name'] = me.data['first_name']
-    user = User.query.filter_by(email=me.data['email']).first()
+    user = User.query.filter_by(facebook_id=me.data['id']).first()
     if user:
         print("user already exists")
     else:
@@ -88,6 +88,8 @@ def logout():
 def view_all_users():
     users = User.query.all()
     users = [user.make_dict() for user in users if user.id != current_user.id]
+    [user.pop('bank_token', None) for user in users]
+    
     if users:
         return jsonify({'data': users}), 201
     else:

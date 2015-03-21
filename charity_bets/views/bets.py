@@ -43,6 +43,7 @@ def create_bet():
                     amount = int(data['amount']),
                     formdata=None, csrf_enabled=False)
     challenger = User.query.filter_by(name = data['challenger']).first()
+    charity = Charity.query.filter_by(name = data['charity_creator']).first()
 
     # Validate Form
     if form.validate():
@@ -53,7 +54,9 @@ def create_bet():
                   challenger_name = challenger.name,
                   challenger_facebook_id = challenger.facebook_id,
                   creator_name = current_user.name,
-                  creator_facebook_id = current_user.facebook_id
+                  creator_facebook_id = current_user.facebook_id,
+                  charity_creator = charity.name,
+                  charity_creator_id = charity.id
                   )
 
         # Enter Optional Data Into Model
@@ -227,11 +230,13 @@ def view_comments(id):
 def charge_loser(id):
     bet = Bet.query.filter_by(id = id).first()
     user = User.query.filter_by(id = bet.verified_loser).first()
-    charity = Charity.query.filter_by(id = user.charity_id).first()
-    #token = request.POST['stripeToken']
+    if user.id == bet.creator:
+        charity = Charity.query.filter_by(id = bet.charity_creator)
+    if user.id == bet.challenger
+        charity = Charity.query.filter_by(id = bet.charity_challenger)
+
     stripe.api_key = charity.token
     card_token = request.form['stripeToken']
-    print("card_token.... ",card_token)
     charge = stripe.Charge.create(
         amount = bet.amount,
         currency='usd',
@@ -245,6 +250,7 @@ def charge_loser(id):
 def view_all_charities():
     charities = Charity.query.all()
     charities = [charity.make_dict() for charity in charities]
+    [charity.pop('token', None) for charity in charities]
 
     if charities:
         return jsonify({'data': charities}), 201
