@@ -11,6 +11,13 @@ app.config(['$routeProvider', function($routeProvider) {
       }],
       users: ['userService', function(userService) {
         return userService.getUsers().then(function (result) {
+          console.log(result.data);
+          return result.data;
+        });
+      }],
+      charities: ['betService', function(betService) {
+        return betService.getCharities().then(function (result) {
+          console.log(result.data);
           return result.data;
         });
       }]
@@ -18,12 +25,13 @@ app.config(['$routeProvider', function($routeProvider) {
   };
   $routeProvider.when('/createbet', routeDefinition);
 }])
-.controller('EditBetCtrl', ['$location', 'Bet', 'betService', 'currentUser', 'users', function ($location, Bet, betService, currentUser, users) {
+.controller('EditBetCtrl', ['$location', 'Bet', 'betService', 'currentUser', 'users', 'charities', function ($location, Bet, betService, currentUser, users, charities) {
 
   var self = this;
   self.bet = Bet();
   self.currentUser = currentUser;
   self.users = users;
+  self.charities = charities;
 
   self.addBet = function () {
     betService.addBet(self.bet).then(self.goToBet);
@@ -36,6 +44,9 @@ app.config(['$routeProvider', function($routeProvider) {
   self.getUsers = function () {
     userService.getUsers();
   };
+
+
+
 
 
 }]);

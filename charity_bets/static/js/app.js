@@ -86,7 +86,8 @@ app.factory('Bet', function () {
         amount: spec.amount,
         date: spec.date,
         location: spec.location,
-        description: spec.description
+        description: spec.description,
+        charity_creator:spec.charity_creator
     };
   };
 });
@@ -114,6 +115,13 @@ app.config(['$routeProvider', function($routeProvider) {
       }],
       users: ['userService', function(userService) {
         return userService.getUsers().then(function (result) {
+          console.log(result.data);
+          return result.data;
+        });
+      }],
+      charities: ['betService', function(betService) {
+        return betService.getCharities().then(function (result) {
+          console.log(result.data);
           return result.data;
         });
       }]
@@ -121,12 +129,13 @@ app.config(['$routeProvider', function($routeProvider) {
   };
   $routeProvider.when('/createbet', routeDefinition);
 }])
-.controller('EditBetCtrl', ['$location', 'Bet', 'betService', 'currentUser', 'users', function ($location, Bet, betService, currentUser, users) {
+.controller('EditBetCtrl', ['$location', 'Bet', 'betService', 'currentUser', 'users', 'charities', function ($location, Bet, betService, currentUser, users, charities) {
 
   var self = this;
   self.bet = Bet();
   self.currentUser = currentUser;
   self.users = users;
+  self.charities = charities;
 
   self.addBet = function () {
     betService.addBet(self.bet).then(self.goToBet);
@@ -139,6 +148,9 @@ app.config(['$routeProvider', function($routeProvider) {
   self.getUsers = function () {
     userService.getUsers();
   };
+
+
+
 
 
 }]);
@@ -166,6 +178,22 @@ app.config(['$routeProvider', function($routeProvider) {
   self.goToBet = function (id) {
     $location.path('/bet/' + id );
     };
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: '/static/landing/organizations.html',
+    controller: 'OrgCtrl',
+    controllerAs: 'vm',
+  };
+  $routeProvider.when('/organizations', routeDefinition);
+}])
+.controller('OrgCtrl', ['$location', function ($location) {
+
+  var self = this;
+
 
 
 }]);
@@ -222,7 +250,6 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
   function processAjaxPromise(p) {
     return p.then(function (result) {
       var data = result.data;
-      console.log(data);
       return data.data;
     })
     .catch(function (error) {
@@ -263,8 +290,11 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     },
 
     addComment: function (id, comment) {
-      alert('comment-test-2');
       return post('/api/bets/' + id + '/comments', comment);
+    },
+
+    getCharities: function () {
+      return get('/api/charities');
     }
 
 
@@ -321,31 +351,41 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
 
     getBetsByUser: function () {
       return get ('api/user/' + id + '/bets');
+    },
+
+    sendStripe: function (id) {
+      console.log(post ('api/bets/' + id + '/pay_bet'));
+      return post ('api/bets/' + id + '/pay_bet');
     }
 
   };
 }]);
 
-app.directive('stripeForm', ['$log', function($log) {
-  return function(scope, elem, attrs) {
-    console.log('x');
-    var form =  document.createElement("form");
-    form.action = "charge";
-    form.method = "POST";
-    var script =  document.createElement("script");
-    script.src = "https://checkout.stripe.com/checkout.js";
-    script.className = "stripe-button";
-    script.setAttribute("data-key", "pk_test_6pRNASCoBOKtIshFeQd4XMUh");
-    script.setAttribute("data-image", "square-image.png");
-    script.setAttribute("data-name", "Demo Site");
-    script.setAttribute("data-description", "2 widgets ($40.00)");
-    script.setAttribute("data-amount", "4000");
-
-    form.appendChild(script);
-
-    elem.append(angular.element(form));
-  };
-}]);
+// app.directive('stripeForm', ['$log', function($log) {
+//   return function(scope, elem, attrs) {
+//
+//
+//
+//     console.log('x');
+//     var form =  document.createElement("form");
+//     form.action = "charge";
+//     form.method = "POST";
+//
+//     var script =  document.createElement("script");
+//     script.src = "https://checkout.stripe.com/checkout.js";
+//     script.className = "stripe-button";
+//     script.setAttribute("data-key", "pk_test_6pRNASCoBOKtIshFeQd4XMUh");
+//     script.setAttribute("data-image", "square-image.png");
+//     script.setAttribute("data-name", "Demo Site");
+//     script.setAttribute("data-description", "2 widgets ($40.00)");
+//     script.setAttribute("data-amount", "4000");
+//
+//     form.appendChild(script);
+//
+//     elem.append(angular.element(form));
+//
+//   };
+// }]);
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -375,7 +415,10 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
 
-
+  self.sendStripe = function (id) {
+   alert("striping!");
+   userService.sendStripe(id);
+  }
 
 
 
