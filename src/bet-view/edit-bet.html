@@ -16,7 +16,7 @@
             </option>
     </select> -->
 
-    <input type="text" class="form-control bet-challenger input-primary" ng-model="vm.bet.challenger" data-animation="am-flip-x" ng-options="user.name for user in vm.users" placeholder="Type Challenger Name" bs-typeahead>
+    <input type="text" value="vm.bet.user.name" class="form-control bet-challenger input-primary" ng-model="vm.bet.challenger" data-animation="am-flip-x" ng-options="user.name for user in vm.users" placeholder="Type Challenger Name" bs-typeahead>
 
     <input name="bet-amount-input" class="bet-amount-input input-primary" placeholder="$$$" ng-model="vm.bet.amount" required>
     <!-- <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$2,225,000</h4></div> -->
