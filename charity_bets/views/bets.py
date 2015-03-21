@@ -10,6 +10,9 @@ from charity_bets import mail
 from flask_mail import Message
 from ..email_switch import emailing
 # import stripe
+from datetime import datetime
+
+
 bets = Blueprint("bets", __name__)
 
 #check if a bets outcome is resolved
@@ -206,7 +209,8 @@ def view_comments(id):
         user_comment = Comment(comment = form.comment.data,
                                user_id = current_user.id,
                                bet_id = bet.id,
-                               name = current_user.name)
+                               name = current_user.name,
+                               timestamp = datetime.now())
 
         db.session.add(user_comment)
         db.session.commit()
