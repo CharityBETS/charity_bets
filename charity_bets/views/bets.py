@@ -232,7 +232,7 @@ def charge_loser(id):
     user = User.query.filter_by(id = bet.verified_loser).first()
     if user.id == bet.creator:
         charity = Charity.query.filter_by(id = bet.charity_creator)
-    if user.id == bet.challenger
+    if user.id == bet.challenger:
         charity = Charity.query.filter_by(id = bet.charity_challenger)
 
     stripe.api_key = charity.token
