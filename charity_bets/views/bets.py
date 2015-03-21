@@ -248,3 +248,15 @@ def view_all_charities():
         return jsonify({'data': charities}), 201
     else:
         return jsonify({"ERROR": "No charities available."}), 401
+
+
+@bets.route("/charities/<int:id>", methods=["GET"])
+@login_required
+def view_charity(id):
+    charity = Charity.query.filter_by(id = id).first()
+    if charity:
+        charity = charity.make_dict()
+        del charity['token']
+        return jsonify({'data': charity})
+    else:
+        return jsonify({"ERROR": "Charity does not exist."}), 401
