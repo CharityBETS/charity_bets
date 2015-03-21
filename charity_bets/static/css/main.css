@@ -588,7 +588,6 @@ footer {
 .edit-bet-wrapper input, .edit-bet-wrapper select {
   padding: 1em;
   width: 14em;
-  text-align: center;
   border: dotted 1px black;
   font-size: 1.2em;
   border-radius: 6px; }
@@ -609,9 +608,17 @@ footer {
   padding: .9em;
   width: 11em;
   font-size: 1em;
-  color: black; }
+  color: black;
+  text-align: center; }
 .edit-bet-wrapper .info-title {
   padding: .5rem; }
+
+.bet-charity {
+  height: 45px !important;
+  background-color: white;
+  color: gray;
+  text-align: center;
+  margin-bottom: 1rem; }
 
 .select-style {
   padding: 0;

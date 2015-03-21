@@ -6,7 +6,7 @@
 <form ng-submit="vm.addBet()">
 
   <div class="bet-essentials">
-    <!-- <h2>Bet Name</h2> -->
+    <h2>Required Bet Items</h2>
     <input name="bet-title-input" class="bet-title-input input-primary" placeholder="Name Your Bet" ng-model="vm.bet.title" required>
     <!-- <input name="bet-challenger-input" class="bet-challenger-input" placeholder="Challenge a Friend" ng-model="vm.bet.challenger"> -->
 
@@ -16,7 +16,13 @@
             </option>
     </select> -->
 
-    <input type="text" value="vm.bet.user.name" class="form-control bet-challenger input-primary" ng-model="vm.bet.challenger" data-animation="am-flip-x" ng-options="user.name for user in vm.users" placeholder="Type Challenger Name" bs-typeahead>
+    <select class="bet-charity input-primary" ng-model="vm.bet.creator_charity" required>
+            <option value="" disabled selected>Select Charity</option>
+            <option ng-repeat="charity in vm.charities" value="{{ charity.name }}"> {{ charity.name }}
+            </option>
+    </select>
+
+    <input type="text" class="form-control bet-challenger input-primary" ng-model="vm.bet.challenger" data-animation="am-flip-x" ng-options="user.name for user in vm.users" placeholder="Type Challenger Name" bs-typeahead>
 
     <input name="bet-amount-input" class="bet-amount-input input-primary" placeholder="$$$" ng-model="vm.bet.amount" required>
     <!-- <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$2,225,000</h4></div> -->
