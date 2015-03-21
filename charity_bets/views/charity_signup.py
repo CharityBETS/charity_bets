@@ -48,3 +48,8 @@ def callback():
   db.session.add(charity)
   db.session.commit()
   return render_template('thank_you.html', token=token)
+
+
+@charity_signup.route('/PAYMENT_TEST')
+def make_payment():
+    return render_template('PAYMENT_TEST.html')

@@ -230,13 +230,15 @@ def charge_loser(id):
     charity = Charity.query.filter_by(id = user.charity_id).first()
     #token = request.POST['stripeToken']
     stripe.api_key = charity.token
-    card_token = request.POST['stripeToken']
-
+    card_token = request.form['stripeToken']
+    print("card_token.... ",card_token)
     charge = stripe.Charge.create(
         amount = bet.amount,
         currency='usd',
         source = card_token,
         description='BET PAYMENT')
+
+    return jsonify({"SUCESSFUL PAYMENT":"SUCCESSFUL PAYMENT"})
 
 @bets.route("/charities", methods = ["GET"])
 @login_required
