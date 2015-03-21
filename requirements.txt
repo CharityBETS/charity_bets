@@ -33,3 +33,6 @@ webtest
 
 # Management script
 Flask-Script
+
+#Stripe
+Stripe

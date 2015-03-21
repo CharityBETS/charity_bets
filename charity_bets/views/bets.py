@@ -9,7 +9,7 @@ import json
 from charity_bets import mail
 from flask_mail import Message
 from ..email_switch import emailing
-# import stripe
+import stripe
 from datetime import datetime
 
 
