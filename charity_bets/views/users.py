@@ -88,6 +88,8 @@ def logout():
 def view_all_users():
     users = User.query.all()
     users = [user.make_dict() for user in users if user.id != current_user.id]
+    [user.pop('bank_token', None) for user in users]
+    
     if users:
         return jsonify({'data': users}), 201
     else:
