@@ -71,34 +71,34 @@ def seed():
 def charity_seed():
     charity_seed_data = [
                     {
-                    'name': "Profiles Without Faces",
+                    'name': "Profiles Without Faces (ben)",
                     'description': "Raising awareness for the difficulties of copying and pasting",
                     'email': "bbatty32@yahoo.com",
                     'token': "sk_test_8H01iPxORNegr3wWFhm9sU6G"
                     },
                     {
-                    'name': "Kids With Faces",
+                    'name': "Kids With Faces (ben)",
                     'email': "kidswithfaces@notanemail.com",
                     'description': "sadly, at this time we cannot serve kids without faces",
-                    'token': "sgjlfskgl4wojwlgjwgu4"
+                    'token': "sk_test_8H01iPxORNegr3wWFhm9sU6G"
                     },
                     {
-                    'name': "Girl Scouts",
+                    'name': "Girl Scouts (daniel)",
                     'email': "dknewell1@gmail.com",
                     'description': "Buy our cookies!",
-                    'token': "jsdogudstlewnlgewo983"
+                    'token': "sk_test_5goC5w2F0rGKcR2XpYqPM4D4"
                     },
                     {
-                    'name': "The Human Fund",
+                    'name': "The Human Fund (bret)",
                     'email': "georgecostanza@seinfeldjoke.com",
                     'description': "Have younger people watched Seinfeld?",
-                    'token': "dlsjfliwetnldnglds232"
+                    'token': "sk_test_q4G07kp7KTix0KCQPU7GnyFk"
                     },
                     {
-                    'name': "The Bret Fund",
+                    'name': "The Bret Fund(bret)",
                     'email': "bret.runestad@gmail.com",
                     'description': "The money just goes right to Bret.  He deserves this.",
-                    'token': "fsdjlgisdgnnlewrj2343"
+                    'token': "sk_test_q4G07kp7KTix0KCQPU7GnyFk"
                     }
                     ]
 
