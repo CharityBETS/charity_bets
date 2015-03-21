@@ -592,6 +592,9 @@ footer {
   border: dotted 1px black;
   font-size: 1.2em;
   border-radius: 6px; }
+.edit-bet-wrapper .input-primary {
+  height: 45px;
+  margin-left: 2rem; }
 .edit-bet-wrapper select {
   height: 64px;
   margin-left: 1rem;
@@ -599,8 +602,7 @@ footer {
 .edit-bet-wrapper option {
   font-family: 'Noto Sans', sans-serif; }
 .edit-bet-wrapper .bet-amount-input {
-  width: 7em;
-  margin-left: 1rem; }
+  width: 7em; }
 .edit-bet-wrapper .bet-challenger-input {
   margin-left: 1rem; }
 .edit-bet-wrapper .secondary-input {
@@ -652,3 +654,17 @@ footer {
   select {
     margin-top: 1rem;
     margin-left: 0; } }
+
+.charity-signup {
+  background: url(https://opinionize.files.wordpress.com/2012/08/01_20120713_arm_wrestle_00019-v211.jpg) no-repeat center center fixed;
+  background-size: cover; }
+  .charity-signup a {
+    font-size: 1.2em;
+    color: black; }
+  .charity-signup .charity-button {
+    padding: .65em;
+    position: absolute;
+    top: 50%;
+    left: 22%;
+    -webkit-transform: translate(-50% -50%);
+    transform: translate(-50% -50%); }
