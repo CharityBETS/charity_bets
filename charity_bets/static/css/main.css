@@ -356,8 +356,7 @@ footer {
   font-weight: bold;
   font-size: .85em;
   padding: 0 9px;
-  font-style: italic;
-  color: #f05f5c; }
+  color: black; }
 
 .comment-date {
   font-size: .85em;
@@ -413,6 +412,14 @@ footer {
 
 .comment-section {
   text-align: center; }
+
+.comment-date {
+  font-weight: bold; }
+
+.comment-date {
+  margin-left: .3rem;
+  font-style: italic;
+  color: #f05f5c; }
 
 @media only screen and (max-width: 920px) {
   .better-profile {

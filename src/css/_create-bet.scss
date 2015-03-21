@@ -133,8 +133,7 @@
   font-weight: bold;
   font-size: .85em;
   padding:  0 9px;
-  font-style: italic;
-  color: $main-accent-color;
+  color: black;
 }
 
 .comment-date {
@@ -201,6 +200,15 @@
   text-align: center;
 }
 
+.comment-date {
+  font-weight: bold;
+}
+
+.comment-date {
+  margin-left: .3rem;
+  font-style: italic;
+  color: $main-accent-color;
+}
 
 
 @media only screen and (max-width : 920px) {
