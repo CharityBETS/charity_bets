@@ -674,7 +674,7 @@ footer {
 
 .modal-template {
   background-color: white;
-  height: 200px;
+  height: 290px;
   z-index: 10000;
   border-radius: .3em;
   position: absolute;
@@ -683,9 +683,29 @@ footer {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   width: 400px; }
+  .modal-template .bet-modal-button {
+    padding: .6em;
+    display: block;
+    width: 12em;
+    margin: .5rem auto; }
+  .modal-template h2 {
+    text-align: center; }
 
 .modal-text {
-  color: black; }
+  color: black;
+  width: 85%;
+  margin: 0 auto; }
+
+.accept {
+  background-color: #4BBADA; }
+
+.modal-charity-select {
+  margin-left: 50%;
+  width: 12em;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+  height: 4em;
+  outline: none; }
 
 .charity-signup {
   background: url(https://opinionize.files.wordpress.com/2012/08/01_20120713_arm_wrestle_00019-v211.jpg) no-repeat center center fixed;
@@ -703,7 +723,7 @@ footer {
 
 .modal-template {
   background-color: white;
-  height: 200px;
+  height: 290px;
   z-index: 10000;
   border-radius: .3em;
   position: absolute;
@@ -712,9 +732,29 @@ footer {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   width: 400px; }
+  .modal-template .bet-modal-button {
+    padding: .6em;
+    display: block;
+    width: 12em;
+    margin: .5rem auto; }
+  .modal-template h2 {
+    text-align: center; }
 
 .modal-text {
-  color: black; }
+  color: black;
+  width: 85%;
+  margin: 0 auto; }
+
+.accept {
+  background-color: #4BBADA; }
+
+.modal-charity-select {
+  margin-left: 50%;
+  width: 12em;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+  height: 4em;
+  outline: none; }
 
 .org-page h2 {
   padding: 1rem 0 .8rem;

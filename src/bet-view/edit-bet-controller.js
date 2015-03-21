@@ -17,8 +17,8 @@ app.config(['$routeProvider', function($routeProvider) {
       }],
       charities: ['betService', function(betService) {
         return betService.getCharities().then(function (result) {
-          console.log(result.data);
-          return result.data;
+          console.log(result);
+          return result;
         });
       }]
     }
@@ -41,9 +41,9 @@ app.config(['$routeProvider', function($routeProvider) {
     $location.path('/bet/' + bet.id);
   };
 
-  self.getUsers = function () {
-    userService.getUsers();
-  };
+  // self.getUsers = function () {
+  //   userService.getUsers();
+  // };
 
 
 

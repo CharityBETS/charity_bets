@@ -1,6 +1,6 @@
 .modal-template {
   background-color: white;
-  height: 200px;
+  height: 290px;
   z-index: 10000;
   border-radius: .3em;
   position: absolute;
@@ -8,8 +8,34 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
+
+  .bet-modal-button {
+    padding: .6em;
+    display: block;
+    width: 12em;
+    margin: .5rem auto;
+  }
+
+  h2 {
+    text-align: center;
+  }
 }
 
 .modal-text {
   color: black;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.accept {
+  background-color: $secondary-accent-color;
+}
+
+
+.modal-charity-select {
+  margin-left: 50%;
+  width: 12em;
+  transform: translate(-50%);
+  height: 4em;
+  outline: none;
 }

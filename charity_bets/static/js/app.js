@@ -65,11 +65,11 @@ app.config(['$routeProvider', function($routeProvider) {
 
 
   // Pre-fetch an external template populated with a custom scope
-  var acceptBetModal = $modal({scope: $scope, template: "/static/modals/challenger-charity.html", show: false});
-  // Show when some event occurs (use $promise property to ensure the template has been loaded)
-  self.showModal = function() {
-    acceptBetModal.$promise.then(acceptBetModal.show);
-  };
+  // var acceptBetModal = $modal({scope: $scope, template: "/static/modals/challenger-charity.html", show: false});
+  // // Show when some event occurs (use $promise property to ensure the template has been loaded)
+  // self.showModal = function() {
+  //   acceptBetModal.$promise.then(acceptBetModal.show);
+  // };
 
 
 
@@ -121,8 +121,8 @@ app.config(['$routeProvider', function($routeProvider) {
       }],
       charities: ['betService', function(betService) {
         return betService.getCharities().then(function (result) {
-          console.log(result.data);
-          return result.data;
+          console.log(result);
+          return result;
         });
       }]
     }
@@ -145,9 +145,9 @@ app.config(['$routeProvider', function($routeProvider) {
     $location.path('/bet/' + bet.id);
   };
 
-  self.getUsers = function () {
-    userService.getUsers();
-  };
+  // self.getUsers = function () {
+  //   userService.getUsers();
+  // };
 
 
 
