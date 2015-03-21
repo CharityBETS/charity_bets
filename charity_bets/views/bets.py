@@ -189,9 +189,14 @@ def update_bet(id):
                 #return jsonify({"data": bet.make_dict()}), 201
 
                 check_resolution(bet)
-
+            if key == "charity_challenger":
+                setattr(bet, key, data[key])
+                charity = Charity.query.filter_by(name=data[key]).first()
+                setattr(bet, "charity_challenger_id", charity.id)
+                db.session.commit()
             else:
                 setattr(bet, key, data[key])
+                db.session.commit()
 
         return jsonify({"data": bet.make_dict()}), 201
 
