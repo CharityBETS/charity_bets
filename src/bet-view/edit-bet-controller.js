@@ -32,6 +32,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.users = users;
   self.charities = charities;
+  
 
   self.addBet = function () {
     betService.addBet(self.bet).then(self.goToBet);

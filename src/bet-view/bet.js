@@ -8,7 +8,7 @@ app.factory('Bet', function () {
         date: spec.date,
         location: spec.location,
         description: spec.description,
-        charity_creator:spec.charity_creator
+        charity_creator: spec.charity_creator
     };
   };
 });
