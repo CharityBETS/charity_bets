@@ -40,10 +40,10 @@ def create_bet():
     data = json.loads(body)
     #  Enter Required data into Form
     form = BetForm( title=data['title'],
-                    amount = int(data['amount'],
-                    charity_creator = data['charity_creator']),
+                    amount = int(data['amount']),
                     formdata=None, csrf_enabled=False)
     challenger = User.query.filter_by(name = data['challenger']).first()
+    charity = Charity.query.filter_by(name = data['charity_creator']).first()
 
     # Validate Form
     if form.validate():
@@ -55,7 +55,8 @@ def create_bet():
                   challenger_facebook_id = challenger.facebook_id,
                   creator_name = current_user.name,
                   creator_facebook_id = current_user.facebook_id,
-                  charity_creator = form.charity_creator.data
+                  charity_creator = charity.name,
+                  charity_creator_id = charity.id
                   )
 
         # Enter Optional Data Into Model

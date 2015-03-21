@@ -52,6 +52,8 @@ class Bet(db.Model):
     loser_paid = db.Column(db.String(255))
     charity_creator = db.Column(db.String(255))
     charity_challenger = db.Column(db.String(255))
+    charity_creator_id = db.Column(db.Integer)
+    charity_challenger_id = db.Column(db.Integer)
 
 
     def make_dict(self):
@@ -74,7 +76,9 @@ class Bet(db.Model):
                 "verified_loser": self.verified_loser,
                 "loser_paid": self.loser_paid,
                 "charity_creator": self.charity_creator,
-                "charity_challenger": self.charity_challenger}
+                "charity_challenger": self.charity_challenger,
+                "charity_creator_id": self.charity_creator_id,
+                "charity_challenger_id": self.charity_challenger_id}
 
 
 class UserBet(db.Model):
