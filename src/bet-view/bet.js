@@ -3,7 +3,7 @@ app.factory('Bet', function () {
     spec = spec || {};
     return {
         title: spec.title,
-        challenger: spec.challenger,
+        challenger_name: spec.challenger_name,
         amount: spec.amount,
         date: spec.date,
         location: spec.location,
