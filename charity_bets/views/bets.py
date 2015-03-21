@@ -247,6 +247,7 @@ def charge_loser(id):
 def view_all_charities():
     charities = Charity.query.all()
     charities = [charity.make_dict() for charity in charities]
+    [charity.pop('token', None) for charity in charities]
 
     if charities:
         return jsonify({'data': charities}), 201
