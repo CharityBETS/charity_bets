@@ -100,10 +100,12 @@ class Comment(db.Model):
     bet_id = db.Column(db.Integer)
     comment = db.Column(db.String(255))
     name = db.Column(db.String(255))
+    timestamp = db.Column(db.DateTime)
 
     def make_dict(self):
         return {"id": self.id,
                 "user_id": self.user_id,
                 "bet_id": self.bet_id,
                 "comment": self.comment,
-                "name": self.name}
+                "name": self.name,
+                "timestamp": self.timestamp}
