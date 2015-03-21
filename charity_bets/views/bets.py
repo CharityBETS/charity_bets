@@ -274,20 +274,3 @@ def view_charity(id):
         return jsonify({'data': charity})
     else:
         return jsonify({"ERROR": "Charity does not exist."}), 401
-
-# @bets.route("/charities/<int:id>", methods=["PUT"])
-# @login_required
-# def view_charity(id):
-#     bet=Bet.query.filter_by(id=id).first()
-#     if charity:
-#         body = request.get_data(as_text=True)
-#         data = json.loads(body)
-#         keys = data.keys()
-#         for key in keys:
-#             if key == "":
-#
-#             else:
-#                 setattr(charity, key, data[key])
-#         return jsonify({"data": bet.make_dict()}), 201
-#     else:
-#         return jsonify({"ERROR": "Charity is not in database"})
