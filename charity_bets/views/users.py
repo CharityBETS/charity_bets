@@ -87,7 +87,7 @@ def logout():
 @login_required
 def view_all_users():
     users = User.query.all()
-    users = [user.make_dict() for user in users]
+    users = [user.make_dict() for user in users if user.id != current_user.id]
     if users:
         return jsonify({'data': users}), 201
     else:
