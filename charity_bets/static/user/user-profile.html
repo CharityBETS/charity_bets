@@ -40,7 +40,22 @@
             {{bet.amount | currency}}
           </div>
 
-          <div ng-show="vm.isBetLoser" stripe-form></div>
+          <button class="stripe-button" ng-show="!vm.isBetLoser"><a href="/PAYMENT_TEST">Pay with Stripe</a></button>
+
+          <!-- <form action="/charge" method="post">
+           <article>
+             <label>
+               <span>Amount is $5.00</span>
+             </label>
+           </article>
+
+           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                   data-key="pk_test_uJKqYlmmCLr8ZPiVAofhtYZj"
+                   data-description="A Flask Charge"
+                   data-amount="500"></script>
+          </form> -->
+
+
 
 
         </div>

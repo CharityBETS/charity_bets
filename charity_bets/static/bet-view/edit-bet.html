@@ -16,10 +16,9 @@
             </option>
     </select> -->
 
-    <select class="bet-charity input-primary" ng-model="vm.bet.creator_charity" >
+    <select class="bet-charity input-primary" ng-model="vm.bet.charity_creator" >
             <option value="" disabled selected>Select Charity</option>
-            <option ng-repeat="charity in vm.charities" value="{{ charity.name }}"> {{ charity.name }}
-            </option>
+            <option ng-repeat="charity in vm.charities"> {{ charity.name }}</option>
     </select>
 
     <input type="text" class="form-control bet-challenger input-primary" ng-model="vm.bet.challenger" data-animation="am-flip-x" ng-options="user.name as user.name for user in vm.users" placeholder="Type Challenger Name" bs-typeahead>
@@ -48,18 +47,18 @@
 
       <!-- </div> -->
 
-        <div class="better-profile hero-bettor flex-section-b">
-          <div class="bettor-name">{{vm.currentUser.name}}</div>
-          <div class="charity">Kids with Faces</div>
-          <!-- <div class="select-style">
-            <select name="charity-select" class="charity">
-              <option value="" disabled selected>Select Your Charity</option>
-            </select>
-          </div> -->
-          <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large"></div>
-          <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
-          <div class="location">Durham, NC</div>
-        </div>
+      <div class="better-profile hero-bettor flex-section-b">
+        <div class="bettor-name">{{vm.currentUser.name}}</div>
+        <div class="charity">Kids with Faces</div>
+        <!-- <div class="select-style">
+          <select name="charity-select" class="charity">
+            <option value="" disabled selected>Select Your Charity</option>
+          </select>
+        </div> -->
+        <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large"></div>
+        <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
+        <div class="location">Durham, NC</div>
+      </div>
 
       <div class="better-profile villian-bettor flex-section-c">
         <div class="bettor-name-input">Challenger: Unknown</div>

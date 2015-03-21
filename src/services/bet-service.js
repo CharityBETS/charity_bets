@@ -20,7 +20,6 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
   function processAjaxPromise(p) {
     return p.then(function (result) {
       var data = result.data;
-      console.log(data);
       return data.data;
     })
     .catch(function (error) {
@@ -61,8 +60,11 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     },
 
     addComment: function (id, comment) {
-      alert('comment-test-2');
       return post('/api/bets/' + id + '/comments', comment);
+    },
+
+    getCharities: function () {
+      return get('/api/charities');
     }
 
 

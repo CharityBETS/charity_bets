@@ -8,6 +8,6 @@ module.exports = {
   ],
 
   vendor: [
-  
+    "bower_components/stripe-angular/stripe-angular.js"
   ]
 };
