@@ -1,5 +1,5 @@
 from functools import wraps
-from ..models import Bet, UserBet, User, Comment
+from ..models import Bet, UserBet, User, Comment, Charity
 from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
 from ..forms import BetForm, CommentForm
 from flask.ext.login import current_user, login_required
@@ -9,6 +9,9 @@ import json
 from charity_bets import mail
 from flask_mail import Message
 from ..email_switch import emailing
+# import stripe
+from datetime import datetime
+
 
 bets = Blueprint("bets", __name__)
 
@@ -81,27 +84,25 @@ def create_bet():
     else:
         return form.errors, 400
 
-
-@bets.route("/user/bets", methods = ["GET"])
-@login_required
-def view_bets():
-    bet_list = []
-    bets = UserBet.query.filter_by(user_id = current_user.id).all()
-    for a_bet in bets:
-       bet = Bet.query.filter_by(id = a_bet.bet_id).first()
-       if bet:
-           bet_list.append(bet)
-    if len(bet_list) > 0:
-        bets = [bet.make_dict() for bet in bet_list]
-
-    return jsonify({"data": bets}), 201
-
 def bet_aggregator(bets, bet_list):
     for a_bet in bets:
         bet = Bet.query.filter_by(id=a_bet.id).first()
         if bet:
             bet_list.append(bet)
     return bet_list
+
+@bets.route("/user/bets", methods = ["GET"])
+@login_required
+def view_bets():
+    creator_bets = Bet.query.filter_by(creator=current_user.id).all()
+    challenger_bets = Bet.query.filter_by(challenger=current_user.id).all()
+    bet_list = []
+    bet_list = bet_aggregator(creator_bets, bet_list)
+    bet_list = bet_aggregator(challenger_bets, bet_list)
+    if len(bet_list) > 0:
+        bets = [bet.make_dict() for bet in bet_list]
+        return jsonify({"data": bets}), 201
+    return jsonify({"ERROR": "No bets available."}), 401
 
 
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
@@ -114,8 +115,8 @@ def view_users_bets(id):
     bet_list = bet_aggregator(challenger_bets, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
-
-    return jsonify({"data": bets}), 201
+        return jsonify({"data": bets}), 201
+    return jsonify({"ERROR": "No bets available."}), 401
 
 
 
@@ -208,7 +209,8 @@ def view_comments(id):
         user_comment = Comment(comment = form.comment.data,
                                user_id = current_user.id,
                                bet_id = bet.id,
-                               name = current_user.name)
+                               name = current_user.name,
+                               timestamp = datetime.now())
 
         db.session.add(user_comment)
         db.session.commit()
@@ -219,3 +221,17 @@ def view_comments(id):
 
     else:
         return jsonify({"ERROR": "No comments yet"})
+
+@bets.route("/bets/<int:id>/pay_bet", methods = ["POST"])
+def charge_loser(id):
+    bet = Bet.query.filter_by(id = id).first()
+    user = User.query.filter_by(id = bet.verified_loser).first()
+    charity = Charity.query.filter_by(id = user.charity_id).first()
+    #token = request.POST['stripeToken']
+    stripe.api_key = charity.token
+
+    charge = stripe.Charge.create(
+        amount = bet.amount,
+        currency='usd',
+        source = 'tok_15iWYJKYBsnJvdQeEIe7q2hS',
+        description='BET PAYMENT')
