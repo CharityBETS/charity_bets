@@ -193,7 +193,6 @@ def update_bet(id):
             else:
                 setattr(bet, key, data[key])
 
-        print("check_resolution: ", check_resolution(bet))
         return jsonify({"data": bet.make_dict()}), 201
 
     else:
@@ -229,11 +228,13 @@ def view_comments(id):
 @login_required
 def charge_loser(id):
     bet = Bet.query.filter_by(id = id).first()
+    print("This is the bet: {}".format(bet.verified_loser))
     user = User.query.filter_by(id = bet.verified_loser).first()
+    print("This is the user: {}".format(user))
     if user.id == bet.creator:
-        charity = Charity.query.filter_by(id = bet.charity_creator)
-    if user.id == bet.challenger:
         charity = Charity.query.filter_by(id = bet.charity_challenger)
+    if user.id == bet.challenger:
+        charity = Charity.query.filter_by(id = bet.charity_creator)
 
     stripe.api_key = charity.token
     card_token = request.form['stripeToken']
