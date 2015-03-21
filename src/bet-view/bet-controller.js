@@ -22,7 +22,7 @@ app.config(['$routeProvider', function($routeProvider) {
   };
   $routeProvider.when('/bet/:id', routeDefinition);
 }])
-.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', function ($location, bet, betService, currentUser, Comment) {
+.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', '$scope', '$modal', function ($location, bet, betService, currentUser, Comment, $scope, $modal) {
 
   var self = this;
   self.isBettor = (currentUser.id === bet.challenger || currentUser.id  === bet.creator);
@@ -49,6 +49,20 @@ app.config(['$routeProvider', function($routeProvider) {
     betService.addComment(bet.id, self.comment);
     self.comment="";
   }
+
+  var myModal = $modal(
+    "<button>ACCEPT BET</button>");
+
+  // Pre-fetch an external template populated with a custom scope
+  var myOtherModal = $modal({scope: $scope, template: "/static/modals/challenger-charity.html", show: false});
+  // Show when some event occurs (use $promise property to ensure the template has been loaded)
+  self.showModal = function() {
+    alert("show-modal");
+    myOtherModal.$promise.then(myOtherModal.show);
+  };
+
+
+
 
 
 }]);
