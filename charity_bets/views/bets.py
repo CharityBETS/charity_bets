@@ -43,6 +43,7 @@ def create_bet():
                     amount = int(data['amount']),
                     formdata=None, csrf_enabled=False)
     challenger = User.query.filter_by(name = data['challenger']).first()
+    charity = Charity.query.filter_by(name = data['charity_creator']).first()
 
     # Validate Form
     if form.validate():
@@ -53,7 +54,9 @@ def create_bet():
                   challenger_name = challenger.name,
                   challenger_facebook_id = challenger.facebook_id,
                   creator_name = current_user.name,
-                  creator_facebook_id = current_user.facebook_id
+                  creator_facebook_id = current_user.facebook_id,
+                  charity_creator = charity.name,
+                  charity_creator_id = charity.id
                   )
 
         # Enter Optional Data Into Model
