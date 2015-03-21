@@ -1,5 +1,5 @@
 from functools import wraps
-from ..models import Bet, UserBet, User, Comment
+from ..models import Bet, UserBet, User, Comment, Charity
 from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
 from ..forms import BetForm, CommentForm
 from flask.ext.login import current_user, login_required
@@ -9,7 +9,7 @@ import json
 from charity_bets import mail
 from flask_mail import Message
 from ..email_switch import emailing
-
+import stripe
 bets = Blueprint("bets", __name__)
 
 #check if a bets outcome is resolved
@@ -219,3 +219,17 @@ def view_comments(id):
 
     else:
         return jsonify({"ERROR": "No comments yet"})
+
+@bets.route("/bets/<int:id>/pay_bet", methods = ["POST"])
+def charge_loser(id):
+    bet = Bet.query.filter_by(id = id).first()
+    user = User.query.filter_by(id = bet.verified_loser).first()
+    charity = Charity.query.filter_by(id = user.charity_id).first()
+    #token = request.POST['stripeToken']
+    stripe.api_key = charity.token
+
+    charge = stripe.Charge.create(
+        amount = bet.amount,
+        currency='usd',
+        source = 'tok_15iWYJKYBsnJvdQeEIe7q2hS',
+        description='BET PAYMENT')
