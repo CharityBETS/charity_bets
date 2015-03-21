@@ -48,17 +48,14 @@ app.config(['$routeProvider', function($routeProvider) {
   self.addComment = function () {
     betService.addComment(bet.id, self.comment);
     self.comment="";
-  }
+  };
 
-  var myModal = $modal(
-    "<button>ACCEPT BET</button>");
 
   // Pre-fetch an external template populated with a custom scope
-  var myOtherModal = $modal({scope: $scope, template: "/static/modals/challenger-charity.html", show: false});
+  var acceptBetModal = $modal({scope: $scope, template: "/static/modals/challenger-charity.html", show: false});
   // Show when some event occurs (use $promise property to ensure the template has been loaded)
   self.showModal = function() {
-    alert("show-modal");
-    myOtherModal.$promise.then(myOtherModal.show);
+    acceptBetModal.$promise.then(acceptBetModal.show);
   };
 
 

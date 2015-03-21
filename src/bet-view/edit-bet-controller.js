@@ -7,12 +7,12 @@ app.config(['$routeProvider', function($routeProvider) {
       currentUser: ['userService', function (userService) {
         return userService.getCurrent().then(function (result) {
           return result.data;
-        })
+        });
       }],
       users: ['userService', function(userService) {
         return userService.getUsers().then(function (result) {
           return result.data;
-        })
+        });
       }]
     }
   };

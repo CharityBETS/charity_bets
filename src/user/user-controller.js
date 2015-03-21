@@ -24,6 +24,10 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
+  self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
+
+
+
 
 
   // app.directive('stripeForm', ['$log', function($log) {

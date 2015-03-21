@@ -1,7 +1,7 @@
 app.directive('stripeForm', ['$log', function($log) {
   return function(scope, elem, attrs) {
     console.log('x');
-    var form =  document.createElement("form");;
+    var form =  document.createElement("form");
     form.action = "charge";
     form.method = "POST";
     var script =  document.createElement("script");

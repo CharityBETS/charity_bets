@@ -1,0 +1,15 @@
+.modal-template {
+  background-color: white;
+  height: 200px;
+  z-index: 10000;
+  border-radius: .3em;
+  position: absolute;
+  top: 35em;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+}
+
+.modal-text {
+  color: black;
+}

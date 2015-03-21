@@ -39,8 +39,8 @@
           <div class="bets-amount">
             {{bet.amount | currency}}
           </div>
-    
-          <div stripe-form></div>
+
+          <div ng-show="vm.isBetLoser" stripe-form></div>
 
 
         </div>

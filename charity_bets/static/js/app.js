@@ -61,17 +61,14 @@ app.config(['$routeProvider', function($routeProvider) {
   self.addComment = function () {
     betService.addComment(bet.id, self.comment);
     self.comment="";
-  }
+  };
 
-  var myModal = $modal(
-    "<button>ACCEPT BET</button>");
 
   // Pre-fetch an external template populated with a custom scope
-  var myOtherModal = $modal({scope: $scope, template: "/static/modals/challenger-charity.html", show: false});
+  var acceptBetModal = $modal({scope: $scope, template: "/static/modals/challenger-charity.html", show: false});
   // Show when some event occurs (use $promise property to ensure the template has been loaded)
   self.showModal = function() {
-    alert("show-modal");
-    myOtherModal.$promise.then(myOtherModal.show);
+    acceptBetModal.$promise.then(acceptBetModal.show);
   };
 
 
@@ -113,12 +110,12 @@ app.config(['$routeProvider', function($routeProvider) {
       currentUser: ['userService', function (userService) {
         return userService.getCurrent().then(function (result) {
           return result.data;
-        })
+        });
       }],
       users: ['userService', function(userService) {
         return userService.getUsers().then(function (result) {
           return result.data;
-        })
+        });
       }]
     }
   };
@@ -332,7 +329,7 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
 app.directive('stripeForm', ['$log', function($log) {
   return function(scope, elem, attrs) {
     console.log('x');
-    var form =  document.createElement("form");;
+    var form =  document.createElement("form");
     form.action = "charge";
     form.method = "POST";
     var script =  document.createElement("script");
@@ -376,6 +373,10 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
+  self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
+
+
+
 
 
   // app.directive('stripeForm', ['$log', function($log) {
