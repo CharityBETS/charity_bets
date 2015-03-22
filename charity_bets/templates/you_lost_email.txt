@@ -1,6 +1,6 @@
 Dear {{ loser.name }},
 
-{{ winner.name }} has claimed victory in your bet on beti!
+{{ winner.name }} has claimed victory in your bet on betti!
 
 View your bet, {{ bet.title }}, at:
 http://localhost:5000/#/bet/{{ bet.id }}
@@ -11,4 +11,4 @@ And remember, this was for charity!  So even in losing, you win, because you're 
 
 Thanks,
 
-The beti Staff
+The betti team
