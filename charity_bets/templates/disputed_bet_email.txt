@@ -1,0 +1,12 @@
+Dear {{ recipient.name }},
+Sadly, you and {{ opponent.name }} have been unable to agree on the resolution of your betti bet: {{ bet.title }}.
+http://localhost:5000/#/bet/{{ bet.id }}
+
+betti is a fun website designed to direct money to charity in a new way.  We are not in the business of trying to investigate or determine who was the actual winner of the bet.
+
+Because you failed to reach a bet resolution, no charities will receive any donations!
+
+Hopefully on your next betti bet, you'll be able to reach a better outcome.
+
+Thanks,
+The betti team
