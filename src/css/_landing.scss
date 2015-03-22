@@ -68,7 +68,14 @@
   button {
     margin: 0 2em;
   }
+
+  button:hover {
+    background-color: white;
+    color: $secondary-accent-color;
+  }
 }
+
+
 
 @media only screen and (max-width : 920px) {
   .three-items {

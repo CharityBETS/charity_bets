@@ -16,12 +16,12 @@
             </option>
     </select> -->
 
-    <select class="bet-charity input-primary" ng-model="vm.bet.charity_creator">
+    <select class="bet-charity input-primary" name="charityName" ng-model="vm.bet.charity_creator" ng-model-options="{ getterSetter: true }">
             <option value="" disabled selected>Select Charity</option>
             <option ng-repeat="charity in vm.charities" value="{{charity.name}}"> {{charity.name}}</option>
     </select>
 
-    <input ng-model-options="{ updateOn: 'blur' }" ng-keyup="cancel($event)" type="text" name="challengerName" class="form-control bet-challenger input-primary" ng-model="vm.bet.challenger" data-animation="am-flip-x" ng-options="user.name as user.name for user in vm.users" placeholder="Type Challenger Name" bs-typeahead>
+    <input ng-model-options="{ updateOn: 'blur' }" ng-keyup="cancel($event)" type="text" name="challengerName" class="form-control bet-challenger input-primary" ng-model="vm.bet.challenger" data-animation="am-flip-x" ng-options="user.name as user.name for user in vm.users" placeholder="Search for a Challenger" bs-typeahead>
 
     <input name="bet-amount-input" class="bet-amount-input input-primary" placeholder="$$$" ng-model="vm.bet.amount" required>
     <!-- <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$2,225,000</h4></div> -->
@@ -49,7 +49,7 @@
 
       <div class="better-profile hero-bettor flex-section-b">
         <div class="bettor-name">{{vm.currentUser.name}}</div>
-        <div class="charity">Kids with Faces</div>
+        <div class="charity">{{vm.charity_creator}}</div>
         <!-- <div class="select-style">
           <select name="charity-select" class="charity">
             <option value="" disabled selected>Select Your Charity</option>

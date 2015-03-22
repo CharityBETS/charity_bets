@@ -36,10 +36,15 @@ button {
   border-radius: 6px;
   background-color: $main-accent-color;
   border: 0px;
-  padding: 1em;
+  padding: .75em;
   color: white;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+button:hover {
+  background-color:white;
+  color: $secondary-accent-color;
 }
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

@@ -83,10 +83,14 @@ button {
   border-radius: 6px;
   background-color: #f05f5c;
   border: 0px;
-  padding: 1em;
+  padding: .75em;
   color: white;
   text-transform: uppercase;
   cursor: pointer; }
+
+button:hover {
+  background-color: white;
+  color: #4BBADA; }
 
 .nav, .pagination, .carousel, .panel-title a {
   cursor: pointer; }
@@ -152,7 +156,8 @@ button {
 
 .logo-li {
   font-family: 'McLaren', cursive;
-  letter-spacing: 3px; }
+  letter-spacing: 3px;
+  color: #4BBADA; }
 
 @media only screen and (max-width: 620px) {
   .app-header {
@@ -242,6 +247,9 @@ footer {
   justify-content: center; }
   .landing-action-buttons button {
     margin: 0 2em; }
+  .landing-action-buttons button:hover {
+    background-color: white;
+    color: #4BBADA; }
 
 @media only screen and (max-width: 920px) {
   .three-items {
@@ -792,8 +800,8 @@ footer {
 
 .org-page-img {
   background: url(https://s3-us-west-2.amazonaws.com/betti/black-and-white-photograph-wallpaper_1920x1200_84148.jpg) no-repeat center center fixed;
-  background-size: contain;
-  height: 240px; }
+  background-size: cover;
+  height: 50vh; }
 
 .org-content {
   width: 85%;
