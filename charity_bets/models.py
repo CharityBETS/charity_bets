@@ -117,3 +117,15 @@ class Comment(db.Model):
                 "comment": self.comment,
                 "name": self.name,
                 "timestamp": self.timestamp}
+
+
+#To be used when we implement crowd sourcing, we'll filter by verified_loser &
+#bet.id, and then charge them for the amount we stored at time of authorization
+
+# class Funder(db.model):
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     is_funding: = db.Column(db.Integer)
+#     bet_id = db.Column(db.Integer)
+#     email = db.Column(db.String)
+#     amount = db.Column(db.String)
+#     stripe_customer_id = db.Column(db.Integer)
