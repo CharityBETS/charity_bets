@@ -41,6 +41,7 @@ def create_bet():
     #  Enter Required data into Form
     form = BetForm( title=data['title'],
                     amount = int(data['amount']),
+                    charity_creator = data['charity_creator'],
                     formdata=None, csrf_enabled=False)
     challenger = User.query.filter_by(name = data['challenger']).first()
     charity = Charity.query.filter_by(name = data['charity_creator']).first()
@@ -189,11 +190,15 @@ def update_bet(id):
                 #return jsonify({"data": bet.make_dict()}), 201
 
                 check_resolution(bet)
-
+            if key == "charity_challenger":
+                setattr(bet, key, data[key])
+                charity = Charity.query.filter_by(name=data[key]).first()
+                setattr(bet, "charity_challenger_id", charity.id)
+                db.session.commit()
             else:
                 setattr(bet, key, data[key])
+                db.session.commit()
 
-        print("check_resolution: ", check_resolution(bet))
         return jsonify({"data": bet.make_dict()}), 201
 
     else:
@@ -229,11 +234,13 @@ def view_comments(id):
 @login_required
 def charge_loser(id):
     bet = Bet.query.filter_by(id = id).first()
+    print("This is the bet: {}".format(bet.verified_loser))
     user = User.query.filter_by(id = bet.verified_loser).first()
+    print("This is the user: {}".format(user))
     if user.id == bet.creator:
-        charity = Charity.query.filter_by(id = bet.charity_creator)
-    if user.id == bet.challenger:
         charity = Charity.query.filter_by(id = bet.charity_challenger)
+    if user.id == bet.challenger:
+        charity = Charity.query.filter_by(id = bet.charity_creator)
 
     stripe.api_key = charity.token
     card_token = request.form['stripeToken']
