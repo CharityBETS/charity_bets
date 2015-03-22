@@ -1,6 +1,6 @@
 // Declare our app module, and import the ngRoute and ngAnimate
 // modules into it.
-var app = angular.module('app', ['mgcrea.ngStrap', 'ngRoute']);
+var app = angular.module('app', ['mgcrea.ngStrap', 'angularPayments', 'ngRoute']);
 
 // Set up our 404 handler
 app.config(['$routeProvider', function ($routeProvider) {

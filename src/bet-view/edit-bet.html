@@ -21,7 +21,7 @@
             <option ng-repeat="charity in vm.charities" value="{{charity.name}}"> {{charity.name}}</option>
     </select>
 
-    <input ng-model-options="{ updateOn: 'blur' }" ng-keyup="cancel($event)" type="text" name="challengerName" class="form-control bet-challenger input-primary" ng-model="vm.bet.challenger" data-animation="am-flip-x" ng-options="user.name as user.name for user in vm.users" placeholder="Search for a Challenger" bs-typeahead>
+    <input ng-model-options="{ getterSetter: true }" ng-keyup="cancel($event)" type="text" name="challengerName" class="form-control bet-challenger input-primary" ng-model="vm.bet.challenger" data-animation="am-flip-x" ng-options="user.name as user.name for user in vm.users" placeholder="Search for a Challenger" bs-typeahead>
 
     <input name="bet-amount-input" class="bet-amount-input input-primary" placeholder="$$$" ng-model="vm.bet.amount" required>
     <!-- <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$2,225,000</h4></div> -->

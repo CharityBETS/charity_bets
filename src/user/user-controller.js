@@ -26,6 +26,14 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
 
+  self.stripeCallback = function (code, result) {
+      if (result.error) {
+          window.alert('it failed! error: ' + result.error.message);
+      } else {
+          window.alert('success! token: ' + result.id);
+      }
+  };
+
   // self.sendStripe = function (id) {
   //  alert("striping!");
   //  userService.sendStripe(id);
