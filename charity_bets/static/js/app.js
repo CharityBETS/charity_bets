@@ -376,9 +376,8 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
       return get ('api/user/' + id + '/bets');
     },
 
-    sendStripe: function (id) {
-      console.log(post ('api/bets/' + id + '/pay_bet'));
-      return post ('api/bets/' + id + '/pay_bet');
+    sendStripe: function (betid, resultid) {
+      return post('api/bets/' + betid + '/pay_bet', resultid);
     }
 
   };
@@ -439,11 +438,12 @@ app.config(['$routeProvider', function($routeProvider) {
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
 
   $scope.stripeCallback = function (code, result) {
-    alert('HEY I"M ALMOST WORKING')
       if (result.error) {
           window.alert('it failed! error: ' + result.error.message);
       } else {
           window.alert('success! token: ' + result.id);
+          alert(self.currentUserBets.id, result.id);
+          userService.sendStripe(currentUserBets.id, result.id);
       }
   };
 

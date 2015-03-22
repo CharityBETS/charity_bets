@@ -46,9 +46,8 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
       return get ('api/user/' + id + '/bets');
     },
 
-    sendStripe: function (id) {
-      console.log(post ('api/bets/' + id + '/pay_bet'));
-      return post ('api/bets/' + id + '/pay_bet');
+    sendStripe: function (betid, resultid) {
+      return post('api/bets/' + betid + '/pay_bet', resultid);
     }
 
   };
