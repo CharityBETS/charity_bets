@@ -4,6 +4,10 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
     return processAjaxPromise($http.get(url));
   }
 
+  function post(url, share) {
+    return processAjaxPromise($http.post(url, share));
+  }
+
   function processAjaxPromise(p) {
     return p.then(function (result) {
       return result.data;
@@ -46,9 +50,9 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
       return get ('api/user/' + id + '/bets');
     },
 
-    sendStripe: function (id) {
-      console.log(post ('api/bets/' + id + '/pay_bet'));
-      return post ('api/bets/' + id + '/pay_bet');
+    sendStripe: function (betid, resultid) {
+      console.log('api/bets/' + betid + '/pay_bet', resultid);
+      return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
     }
 
   };

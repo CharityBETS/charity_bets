@@ -13,33 +13,6 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
     templateUrl: '/static/bet-view/bet.html',
@@ -202,6 +175,33 @@ app.config(['$routeProvider', function($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
     templateUrl: '/static/landing/organizations.html',
     controller: 'OrgCtrl',
     controllerAs: 'vm',
@@ -316,8 +316,8 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     },
 
     challengerCharity: function (id, charity) {
-      console.log('/api/bets/' + id, {"charity_challenger": charity});
-      return put ('/api/bets/' + id, {"charity_challenger": charity});
+      console.log('/api/bets/' + id, {'charity_challenger': charity});
+      return put ('/api/bets/' + id, {'charity_challenger': charity});
     }
 
 
@@ -332,6 +332,10 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
 
   function get(url) {
     return processAjaxPromise($http.get(url));
+  }
+
+  function post(url, share) {
+    return processAjaxPromise($http.post(url, share));
   }
 
   function processAjaxPromise(p) {
@@ -376,9 +380,9 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
       return get ('api/user/' + id + '/bets');
     },
 
-    sendStripe: function (id) {
-      console.log(post ('api/bets/' + id + '/pay_bet'));
-      return post ('api/bets/' + id + '/pay_bet');
+    sendStripe: function (betid, resultid) {
+      console.log('api/bets/' + betid + '/pay_bet', resultid);
+      return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
     }
 
   };
@@ -437,16 +441,34 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
+  // self.thisBetId = angular.element(document.querySelector('.user-stripe-form'))
+  // var stripeButton = document.querySelector('.form-stripe-button');
+  // var id;
+  // stripeButton.addEventListener("click", function (e) {
+  //   var button = e.target;
+  //   id = button.parentNode.getAttribute('data-id');
+  // });
+  // console.log(id);
+  // var thisStripeId = this.aStripeForm.getAttribute('data-id');
+  // var thisStripeId = this.aStripeForm.data('id');
+
+
 
   $scope.stripeCallback = function (code, result) {
-    alert('HEY I"M ALMOST WORKING')
+      var buttons = document.querySelector('.form-stripe-button');
+      var id = buttons.parentNode.getAttribute('data-id');
       if (result.error) {
           window.alert('it failed! error: ' + result.error.message);
       } else {
           window.alert('success! token: ' + result.id);
+          alert(id, result.id);
+          userService.sendStripe(id, result.id);
       }
   };
 
+  self.stripeTest = function (dataID) {
+    alert(dataID);
+  }
   // self.sendStripe = function (id) {
   //  alert("striping!");
   //  userService.sendStripe(id);
