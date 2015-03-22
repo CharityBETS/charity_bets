@@ -111,7 +111,6 @@ button {
   .header-nav li:first-child, .app-header li:first-child {
     margin-right: auto;
     font-size: 1.6em;
-    color: #f05f5c;
     padding-bottom: .6rem;
     font-weight: bold; }
   .header-nav li:last-child, .app-header li:last-child {
@@ -152,7 +151,8 @@ button {
   color: white; }
 
 .logo-li {
-  background: #f05f5c; }
+  font-family: 'McLaren', cursive;
+  letter-spacing: 3px; }
 
 @media only screen and (max-width: 620px) {
   .app-header {
@@ -572,9 +572,19 @@ footer {
   margin: 1rem auto;
   width: 10em; }
 
-.bets-section-1 form {
-  margin-top: 1rem;
+.bets-section-1 {
   text-align: center; }
+  .bets-section-1 form {
+    margin-top: 1rem; }
+  .bets-section-1 .stripe-button:hover {
+    background-color: white; }
+    .bets-section-1 .stripe-button:hover a {
+      color: #484848; }
+  .bets-section-1 .stripe-button {
+    margin-top: 1rem;
+    padding: .5rem; }
+    .bets-section-1 .stripe-button a {
+      text-decoration: none; }
 
 @media only screen and (max-width: 480px) {
   .profile-top-section {
@@ -678,7 +688,7 @@ footer {
   z-index: 10000;
   border-radius: .3em;
   position: absolute;
-  top: 35em;
+  top: 17em;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -689,7 +699,10 @@ footer {
     width: 12em;
     margin: .5rem auto; }
   .modal-template h2 {
-    text-align: center; }
+    text-align: center;
+    color: black; }
+  .modal-template select {
+    margin: .5rem 0; }
 
 .modal-text {
   color: black;
@@ -699,13 +712,20 @@ footer {
 .accept {
   background-color: #4BBADA; }
 
-.modal-charity-select {
-  margin-left: 50%;
-  width: 12em;
-  -webkit-transform: translate(-50%);
-  transform: translate(-50%);
-  height: 4em;
-  outline: none; }
+.modal-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8); }
+
+.close {
+  position: absolute;
+  width: auto;
+  color: black;
+  top: -5px;
+  right: 8px; }
 
 .charity-signup {
   background: url(https://opinionize.files.wordpress.com/2012/08/01_20120713_arm_wrestle_00019-v211.jpg) no-repeat center center fixed;
@@ -727,7 +747,7 @@ footer {
   z-index: 10000;
   border-radius: .3em;
   position: absolute;
-  top: 35em;
+  top: 17em;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -738,7 +758,10 @@ footer {
     width: 12em;
     margin: .5rem auto; }
   .modal-template h2 {
-    text-align: center; }
+    text-align: center;
+    color: black; }
+  .modal-template select {
+    margin: .5rem 0; }
 
 .modal-text {
   color: black;
@@ -748,13 +771,20 @@ footer {
 .accept {
   background-color: #4BBADA; }
 
-.modal-charity-select {
-  margin-left: 50%;
-  width: 12em;
-  -webkit-transform: translate(-50%);
-  transform: translate(-50%);
-  height: 4em;
-  outline: none; }
+.modal-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8); }
+
+.close {
+  position: absolute;
+  width: auto;
+  color: black;
+  top: -5px;
+  right: 8px; }
 
 .org-page h2 {
   padding: 1rem 0 .8rem;

@@ -26,10 +26,10 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
 
-  self.sendStripe = function (id) {
-   alert("striping!");
-   userService.sendStripe(id);
-  }
+  // self.sendStripe = function (id) {
+  //  alert("striping!");
+  //  userService.sendStripe(id);
+  // }
 
 
 

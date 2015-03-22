@@ -12,6 +12,12 @@ app.config(['$routeProvider', function($routeProvider) {
         return userService.getCurrent().then(function (result) {
           return result.data;
         });
+      }],
+      charities: ['betService', function(betService) {
+        return betService.getCharities().then(function (result) {
+          console.log(result);
+          return result;
+        });
       }]
       // comments: ['betService', function (betService) {
       //   return betService.getComments().then(function (result){
@@ -22,7 +28,7 @@ app.config(['$routeProvider', function($routeProvider) {
   };
   $routeProvider.when('/bet/:id', routeDefinition);
 }])
-.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', '$scope', '$modal', function ($location, bet, betService, currentUser, Comment, $scope, $modal) {
+.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', 'charities', function ($location, bet, betService, currentUser, Comment, charities) {
 
   var self = this;
   self.isBettor = (currentUser.id === bet.challenger || currentUser.id  === bet.creator);
@@ -31,6 +37,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.showme=true;
   self.isChallengeable = (bet.status === "pending" && currentUser.id === bet.challenger);
   self.comment=Comment();
+  self.charities=charities;
 
   self.betOutcomeWin = function (id) {
      betService.betOutcomeWin(bet.id, currentUser.id);
@@ -41,14 +48,20 @@ app.config(['$routeProvider', function($routeProvider) {
      self.showme=false;
   };
 
-  self.acceptBet = function (id) {
+  self.acceptBet = function (charity) {
     betService.acceptBet(bet.id);
+    betService.challengerCharity(bet.id, bet.charity_challenger);
   };
 
   self.addComment = function () {
     betService.addComment(bet.id, self.comment);
     self.comment="";
   };
+
+  // self.challengerCharity = function (id, charity) {
+  //   betService.challengerCharity(id, charity);
+  // }
+
 
 
   // Pre-fetch an external template populated with a custom scope

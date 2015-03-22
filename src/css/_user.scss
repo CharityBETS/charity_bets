@@ -79,11 +79,30 @@
 }
 
 .bets-section-1 {
-  form {
-    margin-top: 1rem;
-    text-align: center;
-  }
+  text-align: center;
+    form {
+      margin-top: 1rem;
+      // text-align: center;
+    }
+
+     .stripe-button:hover {
+       background-color: white;
+
+       a {
+         color: $my-black;
+       }
+    }
+     .stripe-button {
+       margin-top: 1rem;
+       padding: .5rem;
+
+       a {
+         text-decoration: none;
+       }
+    }
+
 }
+
 
 
 

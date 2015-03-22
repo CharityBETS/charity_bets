@@ -65,6 +65,11 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
 
     getCharities: function () {
       return get('/api/charities');
+    },
+
+    challengerCharity: function (id, charity) {
+      console.log('/api/bets/' + id, charity);
+      return put ('/api/bets/' + id, charity);
     }
 
 

@@ -34,31 +34,37 @@
           </div>
         </div>
 
-        <button ng-if="vm.isChallengeable" ng-click="vm.acceptBet()">ACCEPT BET</button>
+        <button ng-if="vm.isChallengeable" ng-hide="hideme" ng-click="hideme=false">ACCEPT BET</button>
 
 
 
         <!-- <button type="button" class="btn btn-lg btn-danger" data-animation="am-fade-and-slide-top"  data-template="/static/modals/challenger-charity.html" bs-modal="modal">Custom Modal
         </button> -->
-        <button ng-click="vm.showModal()">SHOW MODAL</button>
+        <!-- <button ng-click="vm.showModal()">SHOW MODAL</button> -->
         </div>
 
-        <!-- <div class="modal-bg">
+        <div class="modal-bg" ng-show="vm.isChallengeable" ng-hide="hideme">
 
           <div class="modal-template">
             <h2>Select Charity and Accept</h2>
             <p class="modal-text">If you wish to accept this bet. Select a charity and press the accept bet button</p>
 
-            <select class="modal-charity-select">
-              <options></options>
-            </select>
+              <!-- <select class="modal-charity-select">
+                <options></options>
+              </select> -->
+            <form ng-submit="vm.acceptBet();hideme=true">
+              <select class="bet-charity input-primary" ng-model="vm.bet.charity_challenger" required>
+                      <option value="" disabled selected>Select Charity</option>
+                      <option ng-repeat="charity in vm.charities" value="{{charity.name}}"> {{charity.name}}</option>
+              </select>
+              <button class="bet-modal-button accept">ACCEPT BET</button>
+            </form>
 
-
-            <button class="bet-modal-button accept">ACCEPT BET</button>
             <button class="bet-modal-button deny">DECLINE BET</button>
+            <button ng-click="hideme=true" class="close">x</button>
 
           </div>
-        </div> -->
+        </div>
 
 
         <div class="better-profile hero-bettor flex-section-b">

@@ -15,7 +15,6 @@
   li:first-child {
     margin-right: auto;
     font-size: 1.6em;
-    color: $main-accent-color;
     padding-bottom: .6rem;
     font-weight: bold;
  }
@@ -74,7 +73,8 @@
 }
 
 .logo-li {
-  background: $main-accent-color;
+  font-family: 'McLaren', cursive;
+  letter-spacing: 3px;
 }
 
 @media only screen and (max-width : 920px) {

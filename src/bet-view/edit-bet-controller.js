@@ -32,7 +32,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.users = users;
   self.charities = charities;
-  
+
 
   self.addBet = function () {
     betService.addBet(self.bet).then(self.goToBet);
@@ -46,7 +46,11 @@ app.config(['$routeProvider', function($routeProvider) {
   //   userService.getUsers();
   // };
 
-
+  self.cancel = function(e) {
+    if (e.keyCode == 27) {
+      self.betForm.challengerName.$rollbackViewValue();
+    }
+  };
 
 
 

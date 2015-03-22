@@ -4,7 +4,7 @@
   z-index: 10000;
   border-radius: .3em;
   position: absolute;
-  top: 35em;
+  top: 17em;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
@@ -18,6 +18,11 @@
 
   h2 {
     text-align: center;
+    color: black;
+  }
+
+  select {
+    margin: .5rem 0;
   }
 }
 
@@ -31,11 +36,19 @@
   background-color: $secondary-accent-color;
 }
 
+.modal-bg {
+ position: absolute;
+ top: 0;
+ right: 0;
+ bottom: 0;
+ left: 0;
+ background: rgba(0,0,0,0.8);
+}
 
-.modal-charity-select {
-  margin-left: 50%;
-  width: 12em;
-  transform: translate(-50%);
-  height: 4em;
-  outline: none;
+.close {
+  position: absolute;
+  width: auto;
+  color: black;
+  top: -05px;
+  right: 8px;
 }
