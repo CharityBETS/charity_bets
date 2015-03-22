@@ -42,12 +42,14 @@
 
           <button class="stripe-button" ng-show="!vm.isBetLoser"><a href="/PAYMENT_TEST">Pay with Stripe</a></button>
 
-          <form class="user-stripe-form" stripe-form="stripeCallback">
+          <form class="user-stripe-form" data-id="{{bet.id}}" stripe-form="stripeCallback">
             <input ng-model="number" placeholder="Card Number">
             <input ng-model="expiry" placeholder="Expiration">
             <input ng-model="cvc" placeholder="CVC">
-            <button type="submit">Submit</button>
+            <button class="form-stripe-button" type="submit">Submit</button>
           </form>
+
+          <button ng-click="vm.stripeTest(bet.id)"></button>
           <!-- <form action="/charge" method="post">
            <article>
              <label>
