@@ -431,14 +431,15 @@ app.config(['$routeProvider', function($routeProvider) {
   };
   $routeProvider.when('/user/user-profile', routeDefinition);
 }])
-.controller('UserCtrl', ['$location', 'userService', 'currentUser', 'currentUserBets', function ($location, userService, currentUser, currentUserBets) {
+.controller('UserCtrl', ['$location', 'userService', 'currentUser', 'currentUserBets', '$scope', function ($location, userService, currentUser, currentUserBets, $scope) {
 
   var self = this;
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
 
-  self.stripeCallback = function (code, result) {
+  $scope.stripeCallback = function (code, result) {
+    alert('HEY I"M ALMOST WORKING')
       if (result.error) {
           window.alert('it failed! error: ' + result.error.message);
       } else {

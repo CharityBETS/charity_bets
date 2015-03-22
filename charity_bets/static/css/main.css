@@ -810,3 +810,6 @@ footer {
 .org-wrap {
   width: 100%;
   margin: 0 auto; }
+
+.user-stripe-form input {
+  color: black; }
