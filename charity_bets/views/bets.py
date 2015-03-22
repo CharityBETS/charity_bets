@@ -234,18 +234,16 @@ def view_comments(id):
 @login_required
 def charge_loser(id):
     bet = Bet.query.filter_by(id = id).first()
-    print("This is the bet: {}".format(bet.verified_loser))
     user = User.query.filter_by(id = bet.verified_loser).first()
-    print("This is the user: {}".format(user))
     if user.id == bet.creator:
-        charity = Charity.query.filter_by(id = bet.charity_challenger)
+        charity = Charity.query.filter_by(name = bet.charity_creator).first()
     if user.id == bet.challenger:
-        charity = Charity.query.filter_by(id = bet.charity_creator)
+        charity = Charity.query.filter_by(name = bet.charity_challenger).first()
 
     stripe.api_key = charity.token
     card_token = request.form['stripeToken']
     charge = stripe.Charge.create(
-        amount = bet.amount,
+        amount = int(bet.amount)*10,
         currency='usd',
         source = card_token,
         description='BET PAYMENT')
