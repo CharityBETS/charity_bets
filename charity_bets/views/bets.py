@@ -41,6 +41,7 @@ def create_bet():
     #  Enter Required data into Form
     form = BetForm( title=data['title'],
                     amount = int(data['amount']),
+                    charity_creator = data['charity_creator'],
                     formdata=None, csrf_enabled=False)
     challenger = User.query.filter_by(name = data['challenger']).first()
     charity = Charity.query.filter_by(name = data['charity_creator']).first()
