@@ -5,7 +5,7 @@ Congratulations! {{ loser.name }} has conceded victory in your bet on betti!
 View your bet, {{ bet.title }}, at:
 http://localhost:5000/#/bet/{{ bet.id }}
 
-Your chosen charity has earned ${{ bet.amount }} and you're not a penny poorer!
+Your chosen charity of {{ winner.charity }} has earned ${{ bet.amount }} and you're not a penny poorer!
 
 Thanks,
 
