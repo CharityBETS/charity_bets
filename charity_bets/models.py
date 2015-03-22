@@ -36,7 +36,7 @@ class Bet(db.Model):
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255))
     status = db.Column(db.String(255), default="pending", nullable=False)
-    amount = db.Column(db.String(255), nullable=False)
+    amount = db.Column(db.Integer, nullable=False)
     date = db.Column(db.String(255))
     location = db.Column(db.String(255))
     creator = db.Column(db.Integer)
