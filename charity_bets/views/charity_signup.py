@@ -5,7 +5,7 @@ from ..extensions import db
 from flask import current_app as app
 import urllib
 import requests
-
+import stripe
 
 charity_signup = Blueprint("charity_signup", __name__)
 
@@ -38,15 +38,16 @@ def callback():
              'code': code
            }
 
-  # Make /oauth/token endpoint POST request
   url = 'https://connect.stripe.com' + '/oauth/token'
   resp = requests.post(url, params=data)
-  print(resp)
   resp = resp.json()
   token = resp['access_token']
-  charity = Charity(token = token)
+  stripe.api_key = token
+  email = stripe.Account.retrieve()["email"]
+  charity = Charity(token=token, email=email)
   db.session.add(charity)
   db.session.commit()
+
   return render_template('thank_you.html', token=token)
 
 
