@@ -41,8 +41,10 @@ def create_bet():
     #  Enter Required data into Form
     form = BetForm( title=data['title'],
                     amount = int(data['amount']),
+                    charity_creator = data['charity_creator'],
                     formdata=None, csrf_enabled=False)
     challenger = User.query.filter_by(name = data['challenger']).first()
+    charity = Charity.query.filter_by(name = data['charity_creator']).first()
 
     # Validate Form
     if form.validate():
@@ -53,7 +55,9 @@ def create_bet():
                   challenger_name = challenger.name,
                   challenger_facebook_id = challenger.facebook_id,
                   creator_name = current_user.name,
-                  creator_facebook_id = current_user.facebook_id
+                  creator_facebook_id = current_user.facebook_id,
+                  charity_creator = charity.name,
+                  charity_creator_id = charity.id
                   )
 
         # Enter Optional Data Into Model
@@ -186,9 +190,14 @@ def update_bet(id):
                 #return jsonify({"data": bet.make_dict()}), 201
 
                 check_resolution(bet)
-
+            if key == "charity_challenger":
+                setattr(bet, key, data[key])
+                charity = Charity.query.filter_by(name=data[key]).first()
+                setattr(bet, "charity_challenger_id", charity.id)
+                db.session.commit()
             else:
                 setattr(bet, key, data[key])
+                db.session.commit()
 
         return jsonify({"data": bet.make_dict()}), 201
 
@@ -246,6 +255,7 @@ def charge_loser(id):
 def view_all_charities():
     charities = Charity.query.all()
     charities = [charity.make_dict() for charity in charities]
+    [charity.pop('token', None) for charity in charities]
 
     if charities:
         return jsonify({'data': charities}), 201
