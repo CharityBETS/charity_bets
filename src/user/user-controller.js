@@ -25,17 +25,34 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
+  // self.thisBetId = angular.element(document.querySelector('.user-stripe-form'))
+  // var stripeButton = document.querySelector('.form-stripe-button');
+  // var id;
+  // stripeButton.addEventListener("click", function (e) {
+  //   var button = e.target;
+  //   id = button.parentNode.getAttribute('data-id');
+  // });
+  // console.log(id);
+  // var thisStripeId = this.aStripeForm.getAttribute('data-id');
+  // var thisStripeId = this.aStripeForm.data('id');
+
+
 
   $scope.stripeCallback = function (code, result) {
+      var buttons = document.querySelector('.form-stripe-button');
+      var id = buttons.parentNode.getAttribute('data-id');
       if (result.error) {
           window.alert('it failed! error: ' + result.error.message);
       } else {
           window.alert('success! token: ' + result.id);
-          alert(self.currentUserBets.id, result.id);
-          userService.sendStripe(currentUserBets.id, result.id);
+          alert(id, result.id);
+          userService.sendStripe(id, result.id);
       }
   };
 
+  self.stripeTest = function (dataID) {
+    alert(dataID);
+  }
   // self.sendStripe = function (id) {
   //  alert("striping!");
   //  userService.sendStripe(id);
