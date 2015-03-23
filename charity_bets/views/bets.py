@@ -21,17 +21,17 @@ bets = Blueprint("bets", __name__)
 def check_resolution(bet):
     if bet.creator_outcome == bet.challenger_outcome:
         bet.status = "complete"
-        bet.verified_winner = bet.creator_outcome
         if bet.creator_outcome == bet.creator:
+            bet.verified_winner = bet.creator
             bet.verified_loser = bet.challenger
         else:
+            bet.verified_winner = bet.challenger
             bet.verified_loser = bet.creator
+
         bet.loser_paid = "unpaid"
-        db.session.add(bet)
         db.session.commit()
     else:
         bet.status = "unresolved"
-        db.session.add(bet)
         db.session.commit()
 
 
@@ -184,7 +184,7 @@ def update_bet(id):
                         bet.challenger_outcome = bet.creator
                         db.session.commit()
                     else:
-                        bet.creator_outcome = bet.challenger
+                        bet.challenger_outcome = bet.challenger
                         db.session.commit()
 
                 else:
