@@ -8,9 +8,8 @@ from .views.users import users
 from .views.bets import bets
 from .views.charities import charities
 from .views.charity_signup import charity_signup
-
-
-
+import logging
+import sys
 
 def create_app():
     app = Flask(__name__)
@@ -26,6 +25,8 @@ def create_app():
     # app.config['MAIL_USERNAME']
     # app.config['MAIL_PASSWORD']
 
+    app.logger.addHandler(logging.StreamHandler(sys.stdout))
+    app.logger.setLevel(logging.ERROR)
 
     app.register_blueprint(home)
     app.register_blueprint(users)
