@@ -468,7 +468,8 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.stripeTest = function (dataID) {
     alert(dataID);
-  }
+  };
+  
   // self.sendStripe = function (id) {
   //  alert("striping!");
   //  userService.sendStripe(id);

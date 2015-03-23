@@ -8,6 +8,6 @@ module.exports = {
   ],
 
   vendor: [
-    "/static/bower_components/angular-payments/lib/angular-payments.js"
+    "./bower_components/angular-payments/lib/angular-payments.js"
   ]
 };
