@@ -8,6 +8,8 @@ from .views.users import users
 from .views.bets import bets
 from .views.charities import charities
 from .views.charity_signup import charity_signup
+import sys
+import logging
 
 def create_app():
     app = Flask(__name__)
@@ -16,12 +18,17 @@ def create_app():
     app.config['DEBUG'] = os.environ['DEBUG']
     app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
     app.config['FACEBOOK'] = os.environ['FACEBOOK']
+
     app.config['MAIL_SERVER'] = os.environ['MAIL_SERVER']
     app.config['MAIL_PORT'] = os.environ['MAIL_PORT']
     app.config['MAIL_USE_TLS'] = os.environ['MAIL_USE_TLS']
     app.config['MAIL_USE_SSL'] = os.environ['MAIL_USE_SSL']
     app.config['MAIL_USERNAME'] = os.environ['MAIL_USERNAME']
     app.config['MAIL_PASSWORD'] = os.environ['MAIL_PASSWORD']
+
+    app.logger.addHandler(logging.StreamHandler(sys.stdout))
+    app.logger.setLevel(logging.ERROR)
+
 
     app.register_blueprint(home)
     app.register_blueprint(users)
