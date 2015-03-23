@@ -81,7 +81,7 @@ def create_bet():
 
         # Message sent to the other party of the bet
         # if emailing == "on":
-        # bet_creation_notification(current_user, challenger, bet)
+        bet_creation_notification(current_user, challenger, bet)
 
         bet = bet.make_dict()
 
