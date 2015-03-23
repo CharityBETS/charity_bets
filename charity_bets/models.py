@@ -93,13 +93,17 @@ class Charity(db.Model):
     description = db.Column(db.String(255))
     email = db.Column(db.String(255))
     token = db.Column(db.String(255))
+    image = db.Column(db.String(255))
+    website = db.Column(db.String(255))
 
     def make_dict(self):
         return {"id": self.id,
                 "name": self.name,
                 "description": self.description,
                 "email": self.email,
-                "token": self.token}
+                "token": self.token,
+                "image": self.image,
+                "website": self.website}
 
 
 class Comment(db.Model):
