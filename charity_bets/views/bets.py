@@ -81,7 +81,7 @@ def create_bet():
 
         # Message sent to the other party of the bet
         # if emailing == "on":
-        #     bet_creation_notification(current_user, challenger, bet)
+        # bet_creation_notification(current_user, challenger, bet)
 
         bet = bet.make_dict()
 
@@ -109,6 +109,15 @@ def view_bets():
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets}), 201
     return jsonify({"ERROR": "No bets available."}), 401
+
+
+@bets.route("/email/<int:id>")
+def redirect_to_bets(id):
+    try:
+        if current_user.facebook_id:
+            return redirect('/#/bet/' + str(id) )
+    except AttributeError:
+        return redirect('/#/')
 
 
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
