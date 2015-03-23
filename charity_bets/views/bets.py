@@ -235,11 +235,13 @@ def view_comments(id):
 @bets.route("/bets/<int:id>/pay_bet", methods = ["POST"])
 @login_required
 def charge_loser(id):
+    print("WE HAVE REACHED THE PYTHON REST ENDPOINT")
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
+    print
     user = User.query.filter_by(id = bet.verified_loser).first()
-    print(user.name)
+    #print(user.name)
     if user.id == bet.creator:
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
     if user.id == bet.challenger:
