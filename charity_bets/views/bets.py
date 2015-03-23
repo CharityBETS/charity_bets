@@ -1,6 +1,7 @@
 from functools import wraps
 from ..models import Bet, UserBet, User, Comment, Charity
-from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
+from flask import (session, Blueprint, url_for, request, redirect, flash,
+                    render_template, jsonify, current_app)
 from ..forms import BetForm, CommentForm
 from flask.ext.login import current_user, login_required
 from ..extensions import db
