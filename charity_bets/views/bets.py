@@ -21,17 +21,17 @@ bets = Blueprint("bets", __name__)
 def check_resolution(bet):
     if bet.creator_outcome == bet.challenger_outcome:
         bet.status = "complete"
-        bet.verified_winner = bet.creator_outcome
         if bet.creator_outcome == bet.creator:
+            bet.verified_winner = bet.creator
             bet.verified_loser = bet.challenger
         else:
+            bet.verified_winner = bet.challenger
             bet.verified_loser = bet.creator
+
         bet.loser_paid = "unpaid"
-        db.session.add(bet)
         db.session.commit()
     else:
         bet.status = "unresolved"
-        db.session.add(bet)
         db.session.commit()
 
 
@@ -193,7 +193,7 @@ def update_bet(id):
                         bet.challenger_outcome = bet.creator
                         db.session.commit()
                     else:
-                        bet.creator_outcome = bet.challenger
+                        bet.challenger_outcome = bet.challenger
                         db.session.commit()
 
                 else:
@@ -244,11 +244,13 @@ def view_comments(id):
 @bets.route("/bets/<int:id>/pay_bet", methods = ["POST"])
 @login_required
 def charge_loser(id):
+    print("WE HAVE REACHED THE PYTHON REST ENDPOINT")
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
+    print
     user = User.query.filter_by(id = bet.verified_loser).first()
-    print(user.name)
+    #print(user.name)
     if user.id == bet.creator:
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
     if user.id == bet.challenger:

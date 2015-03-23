@@ -60,6 +60,8 @@ app.config(['$routeProvider', function($routeProvider) {
     console.log(bet);
     Stripe.card.createToken(bet.card, function (status, result) {
       console.log('GOT', result);
+      console.log(result.id)
+      userService.sendStripe(bet.id, result.id);
     });
   };
 

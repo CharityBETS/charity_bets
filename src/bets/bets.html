@@ -11,7 +11,7 @@
         {{bet.creator_name}} Vs. {{bet.challenger_name}}
       </div>
       <div class="bets-title">
-        {{bet.title}}
+        <a href="#/bets/{{bet.id}}">{{bet.title}}</a>
       </div>
       <div class="bets-date">
         {{bet.date | date:'EEEE, MMM d'}}
