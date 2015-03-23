@@ -16,15 +16,15 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(__name__)
 
-    app.config['DEBUG']
-    app.config['SECRET_KEY']
-    app.config['FACEBOOK']
-    app.config['MAIL_SERVER']
-    app.config['MAIL_PORT']
-    app.config['MAIL_USE_TLS']
-    app.config['MAIL_USE_SSL']
-    app.config['MAIL_USERNAME']
-    app.config['MAIL_PASSWORD']
+    # app.config['DEBUG']
+    # app.config['SECRET_KEY']
+    # app.config['FACEBOOK']
+    # app.config['MAIL_SERVER']
+    # app.config['MAIL_PORT']
+    # app.config['MAIL_USE_TLS']
+    # app.config['MAIL_USE_SSL']
+    # app.config['MAIL_USERNAME']
+    # app.config['MAIL_PASSWORD']
 
 
     app.register_blueprint(home)
