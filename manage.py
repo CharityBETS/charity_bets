@@ -74,31 +74,31 @@ def charity_seed():
                     'name': "Profiles Without Faces (ben)",
                     'description': "Raising awareness for the difficulties of copying and pasting",
                     'email': "bbatty32@yahoo.com",
-                    'token': "sk_test_8H01iPxORNegr3wWFhm9sU6G"
+                    'token': os.environ['ben_stripe']
                     },
                     {
                     'name': "Kids With Faces (ben)",
                     'email': "kidswithfaces@notanemail.com",
                     'description': "sadly, at this time we cannot serve kids without faces",
-                    'token': "sk_test_8H01iPxORNegr3wWFhm9sU6G"
+                    'token': os.environ['ben_stripe']
                     },
                     {
                     'name': "Girl Scouts (daniel)",
                     'email': "dknewell1@gmail.com",
                     'description': "Buy our cookies!",
-                    'token': "sk_test_5goC5w2F0rGKcR2XpYqPM4D4"
+                    'token': os.environ['dan_stripe']
                     },
                     {
                     'name': "The Human Fund (bret)",
                     'email': "georgecostanza@seinfeldjoke.com",
                     'description': "Have younger people watched Seinfeld?",
-                    'token': "sk_test_q4G07kp7KTix0KCQPU7GnyFk"
+                    'token': os.environ['bret_stripe']
                     },
                     {
                     'name': "The Bret Fund(bret)",
                     'email': "bret.runestad@gmail.com",
                     'description': "The money just goes right to Bret.  He deserves this.",
-                    'token': "sk_test_q4G07kp7KTix0KCQPU7GnyFk"
+                    'token': os.environ['bret_stripe']
                     }
                     ]
 
