@@ -14,7 +14,7 @@ from .views.charity_signup import charity_signup
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_pyfile('config.cfg')
+    app.config.from_object(__name__)
 
     app.config['DEBUG']
     app.config['SECRET_KEY']
