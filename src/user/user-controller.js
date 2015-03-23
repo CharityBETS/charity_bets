@@ -53,7 +53,16 @@ app.config(['$routeProvider', function($routeProvider) {
   self.stripeTest = function (dataID) {
     alert(dataID);
   };
-  
+
+  //self.sendToken = function ( )
+
+  self.sendStripe = function (bet) {
+    console.log(bet);
+    Stripe.card.createToken(bet.card, function (status, result) {
+      console.log('GOT', result);
+    });
+  };
+
   // self.sendStripe = function (id) {
   //  alert("striping!");
   //  userService.sendStripe(id);
