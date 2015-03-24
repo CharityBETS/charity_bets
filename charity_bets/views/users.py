@@ -108,6 +108,15 @@ def view_user(id):
     else:
         return jsonify({"ERROR": "User does not exist."}), 401
 
+@users.route("/email/<int:id>")
+def redirect_to_bets(id):
+    try:
+        if current_user.facebook_id:
+            return redirect('/#/bet/' + str(id) )
+    except AttributeError:
+        return redirect('/#/')
+
+
 
 @users.route("/api/user/me", methods = ["GET"])
 @login_required
