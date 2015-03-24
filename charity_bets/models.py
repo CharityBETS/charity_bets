@@ -125,8 +125,8 @@ class Comment(db.Model):
                 "timestamp": self.timestamp}
 
 
-#To be used when we implement crowd sourcing, we'll filter by verified_loser &
-#bet.id, and then charge them for the amount we stored at time of authorization
+# To be used when we implement crowd sourcing, we'll filter by verified_loser &
+# bet.id, and then charge them for the amount we stored at time of authorization
 
 # class Funder(db.model):
 #     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -135,3 +135,13 @@ class Comment(db.Model):
 #     email = db.Column(db.String)
 #     amount = db.Column(db.String)
 #     stripe_customer_id = db.Column(db.Integer)
+#     charity = db.Column(db.String)
+#     charity_token = db.Column(db.String)
+
+    # def make_dict(self):
+    #     return {"id": self.id,
+    #             "is_funding": self.is_funding,
+    #             "email": self.email,
+    #             "amount": self.comment,
+    #             "timestamp": self.timestamp,
+    #             "charity": self.charity}
