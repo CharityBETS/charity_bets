@@ -28,8 +28,14 @@ def check_resolution(bet):
             bet.verified_winner = bet.challenger
             bet.verified_loser = bet.creator
 
+        user = User.query.filter_by(id = bet.verified_loser).first()
+        user.losses = user.losses + 1
+
+        user = User.query.filter_by(id = bet.verified_winner).first()
+        user.wins = user.wins + 1
+
         bet.loser_paid = "unpaid"
-        db.session.commit()
+        #db.session.commit()
     else:
         bet.status = "unresolved"
         db.session.commit()
@@ -189,7 +195,6 @@ def update_bet(id):
 
                 else:
                     return jsonify({"Error, Not authorized"})
-                #return jsonify({"data": bet.make_dict()}), 201
 
                 check_resolution(bet)
             if key == "charity_challenger":
@@ -239,9 +244,7 @@ def charge_loser(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
-    print
     user = User.query.filter_by(id = bet.verified_loser).first()
-    #print(user.name)
     if user.id == bet.creator:
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
     if user.id == bet.challenger:
