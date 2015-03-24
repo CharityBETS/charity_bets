@@ -89,7 +89,7 @@ def view_all_users():
     users = User.query.all()
     users = [user.make_dict() for user in users if user.id != current_user.id]
     [user.pop('bank_token', None) for user in users]
-    
+
     if users:
         return jsonify({'data': users}), 201
     else:
@@ -106,6 +106,15 @@ def view_user(id):
         return jsonify({'data': user})
     else:
         return jsonify({"ERROR": "User does not exist."}), 401
+
+@users.route("/email/<int:id>")
+def redirect_to_bets(id):
+    try:
+        if current_user.facebook_id:
+            return redirect('/#/bet/' + str(id) )
+    except AttributeError:
+        return redirect('/#/')
+
 
 
 @users.route("/api/user/me", methods = ["GET"])

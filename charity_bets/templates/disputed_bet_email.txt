@@ -1,6 +1,6 @@
 Dear {{ recipient.name }},
 Sadly, you and {{ opponent.name }} have been unable to agree on the resolution of your betti bet: {{ bet.title }}.
-http://localhost:5000/api/email/{{ bet.id }}
+http://localhost:5000/email/{{ bet.id }}
 
 betti is a fun website designed to direct money to charity in a new way.  We are not in the business of trying to investigate or determine who was the actual winner of the bet.
 

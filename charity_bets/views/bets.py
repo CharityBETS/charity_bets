@@ -18,6 +18,7 @@ from datetime import datetime
 
 bets = Blueprint("bets", __name__)
 
+
 #check if a bets outcome is resolved
 def check_resolution(bet):
     if bet.creator_outcome == bet.challenger_outcome:
@@ -110,15 +111,6 @@ def view_bets():
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets}), 201
     return jsonify({"ERROR": "No bets available."}), 401
-
-
-@bets.route("/email/<int:id>")
-def redirect_to_bets(id):
-    try:
-        if current_user.facebook_id:
-            return redirect('/#/bet/' + str(id) )
-    except AttributeError:
-        return redirect('/#/')
 
 
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
