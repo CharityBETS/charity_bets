@@ -3,7 +3,7 @@ Dear {{ loser.name }},
 {{ winner.name }} has claimed victory in your bet on betti!
 
 View your bet, {{ bet.title }}, at:
-http://localhost:5000/#/bet/{{ bet.id }}
+http://localhost:5000/email/{{ bet.id }}
 
 If you accept defeat, please promptly follow the directions to reward {{ winner_charity }} with ${{ bet.amount }} via stripe.
 
