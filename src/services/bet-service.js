@@ -70,6 +70,11 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     challengerCharity: function (id, charity) {
       console.log('/api/bets/' + id, {'charity_challenger': charity});
       return put ('/api/bets/' + id, {'charity_challenger': charity});
+    },
+
+    sendStripe: function (betid, resultid) {
+      console.log('api/bets/' + betid + '/pay_bet', resultid);
+      return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
     }
 
 

@@ -8,14 +8,19 @@
     border-radius: 6px;
   }
 
+  .bet-essentials {
+    padding: 0;
+  }
+
   .input-primary {
     height: 45px;
-    margin-left: 2rem;
+    margin-bottom: 1rem;
+    // margin-left: 2rem;
   }
 
   select {
     height: 64px;
-    margin-left: 1rem;
+    margin-bottom: 1rem 0;
     background-color: none;
   }
 
@@ -37,11 +42,23 @@
     font-size: 1em;
     color: black;
     text-align: center;
+    display: block;
+    margin: 1rem auto;
   }
 
   .info-title {
     padding: .5rem;
   }
+}
+
+.edit-bet-flex {
+  display: flex;
+  flex-direction: row;
+  max-width: 900px;
+  justify-content: space-between;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  padding: 4em 0;
 }
 
 .bet-charity {
@@ -50,6 +67,10 @@
   color: gray;
   text-align: center;
   margin-bottom: 1rem;
+}
+
+.submit-bet:hover {
+  border: 1px solid $secondary-accent-color;
 }
 
 
@@ -83,6 +104,11 @@
     outline: none;
 }
 
+.loser-status {
+  border: 1px $secondary-accent-color solid;
+}
+
+
 
 .bet-description-textarea {
    text-align: center;
@@ -93,6 +119,15 @@
    border: dotted 1px black !important;
    }
 
+   .bet-deets {
+     margin: 0 auto;
+     text-align: center;
+
+     h4 {
+       color: black;
+       font-family: 'Noto Sans', sans-serif;
+     }
+   }
    @media only screen and (max-width : 920px) {
 
      .bet-amount-input, .bet-challenger-input {
@@ -105,6 +140,9 @@
        margin-left: 0;
      }
 
+     .edit-bet-flex {
+       flex-direction: column;
+     }
 
 
    }

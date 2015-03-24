@@ -10,12 +10,12 @@
 
       <div class="profile-stats">
         <div class="user-record">
-          {{vm.user.wins}} - {{vm.user.losses}}
+          {{vm.currentUser.wins}} - {{vm.currentUser.losses}}
         </div>
         <div class="stat-title-label">Money Won For Charity</div>
-        <div class="money-won">{{vm.user.money_won}}</div>
+        <div class="money-won">{{vm.currentUser.money_won | currency}}</div>
         <div class="stat-title-label">Money Lost For Charity</div>
-        <div class="money-won">{{vm.user.money_lost}}</div>
+        <div class="money-won">{{vm.currentUser.money_lost | currency }}</div>
       </div>
   </div>
 
@@ -28,10 +28,10 @@
 
         <div class="bets-section-1">
           <div class="bets-users">
-            {{bet.creator_name}} Vs. {{bet.challenger_name}}
+            <a href="#/bet/{{bet.id}}">{{bet.creator_name}} Vs. {{bet.challenger_name}}</a>
           </div>
           <div class="bets-title">
-            {{bet.title}}
+            <a href="#/bet/{{bet.id}}">{{bet.title}}</a>
           </div>
           <div class="bets-date">
             {{bet.date | date:'EEEE, MMM d'}}
@@ -40,43 +40,18 @@
             {{bet.amount | currency}}
           </div>
 
-          <button class="stripe-button" ng-show="!vm.isBetLoser"><a href="/PAYMENT_TEST">Pay with Stripe</a></button>
+          <!-- <button class="stripe-button" ng-show="!vm.isBetLoser"><a href="/PAYMENT_TEST">Pay with Stripe</a></button> -->
+          <button class="stripe-button" ng-show="vm.isBetLoser" ng-click="">PAY BET</button>
 
-          <!-- <form class="user-stripe-form" data-id="{{bet.id}}" stripe-form="stripeCallback">
-            <input ng-model="number" placeholder="Card Number">
-            <input ng-model="expiry" placeholder="Expiration">
-            <input ng-model="cvc" placeholder="CVC">
-            <button class="form-stripe-button" type="submit">Submit</button>
-          </form>
 
-          <button ng-click="vm.stripeTest(bet.id)"></button> -->
-          <!-- <form action="/charge" method="post">
-           <article>
-             <label>
-               <span>Amount is $5.00</span>
-             </label>
-           </article>
-
-           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                   data-key="pk_test_uJKqYlmmCLr8ZPiVAofhtYZj"
-                   data-description="A Flask Charge"
-                   data-amount="500"></script>
-          </form> -->
-
-          <form id="payment-form" ng-submit="vm.sendStripe(bet)" class="user-stripe-form">
+          <!-- <form id="payment-form" ng-submit="vm.sendStripe(bet)" class="user-stripe-form">
             <span class="payment-errors"></span>
-
+            <h3>Pay With Stripe</h3>
+            <span class="stripe-detail-label">Bet:</span><span>{{bet.amount | currency}}</span>
             <div class="form-row">
               <label>
                 <span>Card Number</span>
                 <input type="text" size="20" ng-model="bet.card.number" data-stripe="number"/>
-              </label>
-            </div>
-
-            <div class="form-row">
-              <label>
-                <span>CVC</span>
-                <input type="text" size="4" ng-model="bet.card.cvc" data-stripe="cvc"/>
               </label>
             </div>
 
@@ -89,9 +64,17 @@
               <input type="text" size="4" ng-model="bet.card.exp_year" data-stripe="exp-year"/>
             </div>
 
-            <button type="submit">Submit Payment</button>
-          </form>
+            <div class="form-row">
+              <label>
+                <span>CVC</span>
+                <input type="text" size="4" ng-model="bet.card.cvc" data-stripe="cvc"/>
+              </label>
+            </div>
 
+            <button class="stripe-form-submit-button" type="submit">Pay with Stripe</button>
+          </form> -->
+
+        <payment-form ng-show="vm.showpayment===true"></payment-form>
 
         </div>
 

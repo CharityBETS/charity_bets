@@ -246,13 +246,13 @@ def charge_loser(id):
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
     user = User.query.filter_by(id = bet.verified_loser).first()
+    
     if user.id == bet.creator:
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
-        charity.amount_earned = charity.amount_earned + bet.amount
     if user.id == bet.challenger:
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
-        charity.amount_earned = charity.amount_earned + bet.amount
 
+    charity.amount_earned = charity.amount_earned + bet.amount
     bet.loser_paid = "paid"
     db.session.commit()
 
@@ -266,3 +266,33 @@ def charge_loser(id):
 
 
     return jsonify({"SUCESSFUL PAYMENT":"SUCCESSFUL PAYMENT"})
+
+
+# To be added when we implement crowdsourcing, hasn't been tested yet
+
+# @bets.route("/bets/<int:id>/fund_better", methods = ["POST"])
+# def fund_bet(id):
+#     body = request.get_data(as_text=True)
+#     data = json.loads(body)
+#     bet = Bet.query.filter_by(id = id).first()
+#     if data["creator"] == bet.creator:
+#         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
+#         isfunding = bet.creator
+#     if data["challenger"] == bet.challenger:
+#         charity = Charity.query.filter_by(name = bet.charity_creator).first()
+#         isfunding = bet.challenger
+#     db.session.commit()
+#         stripe.api_key = charity.token
+#     customer = stripe.Customer.create(
+#         source = data['token'],
+#         description="payinguser@example.com"
+#         )
+#     funder = Funder(is_funding = isfunding,
+#                     bet_id = id,
+#                     amount = data["amount"],
+#                     stripe_customer_id = customer.id,
+#                     charity = charity.name,
+#                     charity_token = charity.token)
+#     db.session.add(funder)
+#     db.session.commit()
+#     return jsonify({"Data":funder.make_dict()})
