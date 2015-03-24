@@ -5,7 +5,7 @@ from flask.ext.login import current_user, abort, login_user, logout_user, login_
 import json
 from charity_bets import mail
 from flask_mail import Message
-
+import os
 
 from ..extensions import oauth, db
 from ..models import User
@@ -16,7 +16,8 @@ facebook = oauth.remote_app('facebook',
     request_token_url=None,
     access_token_url='/oauth/access_token',
     authorize_url='https://www.facebook.com/dialog/oauth',
-    app_key="FACEBOOK",
+    consumer_key= os.environ['FACEBOOK_APP_ID'],
+    consumer_secret=os.environ['FACEBOOK_APP_SECRET'],
     request_token_params={'scope': 'email, public_profile'}
 )
 
@@ -89,7 +90,7 @@ def view_all_users():
     users = User.query.all()
     users = [user.make_dict() for user in users if user.id != current_user.id]
     [user.pop('bank_token', None) for user in users]
-    
+
     if users:
         return jsonify({'data': users}), 201
     else:
