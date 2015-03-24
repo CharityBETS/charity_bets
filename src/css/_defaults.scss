@@ -25,6 +25,11 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
 li {
   list-style: none;
 }
@@ -40,6 +45,7 @@ button {
   color: white;
   text-transform: uppercase;
   cursor: pointer;
+  outline: none;
 }
 
 button:hover {

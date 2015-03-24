@@ -26,13 +26,36 @@
       box-shadow: 0 0 8px #88D5E9;
       border: 1px solid #88D5E9;
   }
+}
 
+.bet-section-top {
+  display: flex;
+  flex-direction: row;
+  max-width: 900px;
+  justify-content: space-between;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  padding: 4em 0 1em;
+}
+
+.flex-section-1 {
+  order: 2;
+}
+
+.flex-section-2 {
+  order: 1;
 
 }
 
+.flex-section-3 {
+  order: 3;
+}
+
 .bet-essentials {
-  padding: 1.3rem 0 2rem 0;
-  position: relative;
+  padding: 2rem 0 4rem 0;
+  // position: relative;
+  max-width: 33%;
+  margin: 0 auto;
 }
 
 .bet-size {
@@ -41,8 +64,10 @@
 }
 
 .bet-title {
-  font-size: 2em;
-  padding-bottom: .5rem;
+  max-width: 95%;
+  font-size: 1.7em;
+  margin: 0 auto;
+  // padding-bottom: .5rem;
 }
 
 .donate-button {
@@ -50,7 +75,7 @@
 }
 
 .bet-money-earned {
-  border: 1px solid black;
+  // border: 1px solid black;
   width: 6em;
   margin: 0 auto;
   font-size: 2em;
@@ -62,8 +87,8 @@
 .profile-details-wrap {
   // border: 1px black solid;
   min-height: 350px;
-  padding: 1.5rem 0;
-  background-color: $my-black;
+  padding: 0 0;
+  // background-color: $my-black;
   color: white;
   font-family: 'Oswald', sans-serif;
   letter-spacing: 1px;
@@ -96,6 +121,11 @@
   padding-bottom: .3em;
 }
 
+.select-org {
+  color: black;
+  padding-bottom: 1rem;
+}
+
 .user-pic {
   width: 200px;
   height: 200px;
@@ -114,7 +144,7 @@
 
 .info-title {
   font-weight: bold;
-  padding-top: 1.5rem;
+  padding-top: .75rem;
 }
 
 .end-bet {
@@ -140,6 +170,27 @@
   font-size: .85em;
   font-weight: bold;
 }
+
+
+.creator-pending {
+  padding-top: 2rem;
+  font-size: 1.4em;
+}
+
+.creator-pending {
+     animation: blink 1s steps(5, start) infinite;
+     -webkit-animation: blink 1s steps(5, start) infinite;
+   }
+   @keyframes blink {
+     to {
+       visibility: hidden;
+     }
+   }
+   @-webkit-keyframes blink {
+     to {
+       visibility: hidden;
+     }
+   }
 
 
 .bet-flex-wrap {
@@ -217,19 +268,23 @@
     padding: 2em 0;
   }
 
-  .bet-flex-wrap {
+  .bet-essentials {
+    max-width: 85%;
+  }
+
+  .bet-flex-wrap, .bet-section-top {
     flex-direction: column;
   }
 
-  .flex-section-a {
+  .flex-section-a, .flex-section-1 {
     order: 1;
   }
 
-  .flex-section-b {
+  .flex-section-b, .flex-section-2 {
     order: 2;
   }
 
-  .flex-section-c {
+  .flex-section-c, .flex-section-3 {
     order: 3;
   }
 
@@ -253,6 +308,8 @@
 
   .bet-deets {
     padding-bottom: 2rem;
+    text-align: center;
+
   }
 
   .end-bet {
@@ -263,6 +320,14 @@
     max-width: 85%;
   }
 
+}
+
+.loser-status {
+  color: black;
+}
+
+.bet-pay-form {
+  color: black;
 }
 
 @media only screen and (max-width : 480px) {

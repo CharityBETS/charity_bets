@@ -50,10 +50,10 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
       return get ('api/user/' + id + '/bets');
     },
 
-    sendStripe: function (betid, resultid) {
-      console.log('api/bets/' + betid + '/pay_bet', resultid);
-      return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
-    }
+    // sendStripe: function (betid, resultid) {
+    //   console.log('api/bets/' + betid + '/pay_bet', resultid);
+    //   return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
+    // }
 
   };
 }]);

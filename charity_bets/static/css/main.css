@@ -73,6 +73,10 @@ a {
   color: white;
   text-decoration: none; }
 
+a:hover {
+  color: white;
+  text-decoration: none; }
+
 li {
   list-style: none; }
 
@@ -86,7 +90,8 @@ button {
   padding: .75em;
   color: white;
   text-transform: uppercase;
-  cursor: pointer; }
+  cursor: pointer;
+  outline: none; }
 
 button:hover {
   background-color: white;
@@ -287,22 +292,55 @@ footer {
     box-shadow: 0 0 8px #88D5E9;
     border: 1px solid #88D5E9; }
 
+.bet-section-top {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  max-width: 900px;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 0 auto;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 4em 0 1em; }
+
+.flex-section-1 {
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2; }
+
+.flex-section-2 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1; }
+
+.flex-section-3 {
+  -webkit-order: 3;
+  -ms-flex-order: 3;
+  order: 3; }
+
 .bet-essentials {
-  padding: 1.3rem 0 2rem 0;
-  position: relative; }
+  padding: 2rem 0 4rem 0;
+  max-width: 33%;
+  margin: 0 auto; }
 
 .bet-size {
   text-align: center; }
 
 .bet-title {
-  font-size: 2em;
-  padding-bottom: .5rem; }
+  max-width: 95%;
+  font-size: 1.7em;
+  margin: 0 auto; }
 
 .donate-button {
   background-color: #4BBADA; }
 
 .bet-money-earned {
-  border: 1px solid black;
   width: 6em;
   margin: 0 auto;
   font-size: 2em;
@@ -311,8 +349,7 @@ footer {
 
 .profile-details-wrap {
   min-height: 350px;
-  padding: 1.5rem 0;
-  background-color: #484848;
+  padding: 0 0;
   color: white;
   font-family: 'Oswald', sans-serif;
   letter-spacing: 1px;
@@ -337,6 +374,10 @@ footer {
 .charity {
   padding-bottom: .3em; }
 
+.select-org {
+  color: black;
+  padding-bottom: 1rem; }
+
 .user-pic {
   width: 200px;
   height: 200px;
@@ -352,7 +393,7 @@ footer {
 
 .info-title {
   font-weight: bold;
-  padding-top: 1.5rem; }
+  padding-top: .75rem; }
 
 .end-bet {
   margin: 1.5em auto !important; }
@@ -372,6 +413,22 @@ footer {
 .comment-date {
   font-size: .85em;
   font-weight: bold; }
+
+.creator-pending {
+  padding-top: 2rem;
+  font-size: 1.4em; }
+
+.creator-pending {
+  animation: blink 1s steps(5, start) infinite;
+  -webkit-animation: blink 1s steps(5, start) infinite; }
+
+@keyframes blink {
+  to {
+    visibility: hidden; } }
+
+@-webkit-keyframes blink {
+  to {
+    visibility: hidden; } }
 
 .bet-flex-wrap {
   display: -webkit-flex;
@@ -436,19 +493,21 @@ footer {
   .better-profile {
     display: block;
     padding: 2em 0; }
-  .bet-flex-wrap {
+  .bet-essentials {
+    max-width: 85%; }
+  .bet-flex-wrap, .bet-section-top {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column; }
-  .flex-section-a {
+  .flex-section-a, .flex-section-1 {
     -webkit-order: 1;
     -ms-flex-order: 1;
     order: 1; }
-  .flex-section-b {
+  .flex-section-b, .flex-section-2 {
     -webkit-order: 2;
     -ms-flex-order: 2;
     order: 2; }
-  .flex-section-c {
+  .flex-section-c, .flex-section-3 {
     -webkit-order: 3;
     -ms-flex-order: 3;
     order: 3; }
@@ -462,11 +521,18 @@ footer {
   .hero-bettor {
     background-color: #B8BDC1; }
   .bet-deets {
-    padding-bottom: 2rem; }
+    padding-bottom: 2rem;
+    text-align: center; }
   .end-bet {
     margin-top: 3em !important; }
   textarea {
     max-width: 85%; } }
+
+.loser-status {
+  color: black; }
+
+.bet-pay-form {
+  color: black; }
 
 .bets-title, .bets-date, .bets-amount, .bets-users {
   text-align: center; }
@@ -619,12 +685,14 @@ footer {
   border: dotted 1px black;
   font-size: 1.2em;
   border-radius: 6px; }
+.edit-bet-wrapper .bet-essentials {
+  padding: 0; }
 .edit-bet-wrapper .input-primary {
   height: 45px;
-  margin-left: 2rem; }
+  margin-bottom: 1rem; }
 .edit-bet-wrapper select {
   height: 64px;
-  margin-left: 1rem;
+  margin-bottom: 1rem 0;
   background-color: none; }
 .edit-bet-wrapper option {
   font-family: 'Noto Sans', sans-serif; }
@@ -637,9 +705,28 @@ footer {
   width: 11em;
   font-size: 1em;
   color: black;
-  text-align: center; }
+  text-align: center;
+  display: block;
+  margin: 1rem auto; }
 .edit-bet-wrapper .info-title {
   padding: .5rem; }
+
+.edit-bet-flex {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  max-width: 900px;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 0 auto;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 4em 0; }
 
 .bet-charity {
   height: 45px !important;
@@ -647,6 +734,9 @@ footer {
   color: gray;
   text-align: center;
   margin-bottom: 1rem; }
+
+.submit-bet:hover {
+  border: 1px solid #4BBADA; }
 
 .select-style {
   padding: 0;
@@ -674,6 +764,9 @@ footer {
 .select-style select:focus {
   outline: none; }
 
+.loser-status {
+  border: 1px #4BBADA solid; }
+
 .bet-description-textarea {
   text-align: center;
   font-size: 1em;
@@ -682,58 +775,24 @@ footer {
   width: 15em !important;
   border: dotted 1px black !important; }
 
+.bet-deets {
+  margin: 0 auto;
+  text-align: center; }
+  .bet-deets h4 {
+    color: black;
+    font-family: 'Noto Sans', sans-serif; }
+
 @media only screen and (max-width: 920px) {
   .bet-amount-input, .bet-challenger-input {
     margin-top: 1rem;
     margin-left: 0rem !important; }
   select {
     margin-top: 1rem;
-    margin-left: 0; } }
-
-.modal-template {
-  background-color: white;
-  height: 290px;
-  z-index: 10000;
-  border-radius: .3em;
-  position: absolute;
-  top: 17em;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 400px; }
-  .modal-template .bet-modal-button {
-    padding: .6em;
-    display: block;
-    width: 12em;
-    margin: .5rem auto; }
-  .modal-template h2 {
-    text-align: center;
-    color: black; }
-  .modal-template select {
-    margin: .5rem 0; }
-
-.modal-text {
-  color: black;
-  width: 85%;
-  margin: 0 auto; }
-
-.accept {
-  background-color: #4BBADA; }
-
-.modal-bg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.8); }
-
-.close {
-  position: absolute;
-  width: auto;
-  color: black;
-  top: -5px;
-  right: 8px; }
+    margin-left: 0; }
+  .edit-bet-flex {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; } }
 
 .charity-signup {
   background: url(https://opinionize.files.wordpress.com/2012/08/01_20120713_arm_wrestle_00019-v211.jpg) no-repeat center center fixed;
@@ -749,6 +808,14 @@ footer {
     -webkit-transform: translate(-50% -50%);
     transform: translate(-50% -50%); }
 
+.modal-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8); }
+
 .modal-template {
   background-color: white;
   height: 290px;
@@ -779,20 +846,56 @@ footer {
 .accept {
   background-color: #4BBADA; }
 
-.modal-bg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.8); }
-
 .close {
   position: absolute;
   width: auto;
   color: black;
   top: -5px;
   right: 8px; }
+
+.user-stripe-form {
+  position: absolute;
+  top: 20em;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: white;
+  color: black;
+  border-radius: .5em;
+  margin: 0 auto; }
+  .user-stripe-form input {
+    margin-bottom: 1rem;
+    color: black;
+    padding: .1rem .7rem; }
+  .user-stripe-form .stripe-form-submit-button {
+    width: 65%;
+    margin: 0 auto;
+    background-color: blue;
+    color: white; }
+  .user-stripe-form h3 {
+    margin: 0; }
+  .user-stripe-form .form-row {
+    text-align: left; }
+
+.stripe-form-submit-button:hover {
+  border: 2px solid #4BBADA;
+  background-color: white;
+  color: #4BBADA; }
+
+.stripe-detail-label {
+  margin-bottom: 1rem;
+  margin-right: 1rem; }
+
+.close-modal {
+  position: absolute;
+  color: black;
+  top: -15px;
+  right: -75px;
+  background: none; }
+
+.close-modal:hover {
+  background: none; }
 
 .org-page h2 {
   padding: 1rem 0 .8rem;
@@ -811,5 +914,91 @@ footer {
   width: 100%;
   margin: 0 auto; }
 
-.user-stripe-form input {
-  color: black; }
+.modal-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8); }
+
+.modal-template {
+  background-color: white;
+  height: 290px;
+  z-index: 10000;
+  border-radius: .3em;
+  position: absolute;
+  top: 17em;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 400px; }
+  .modal-template .bet-modal-button {
+    padding: .6em;
+    display: block;
+    width: 12em;
+    margin: .5rem auto; }
+  .modal-template h2 {
+    text-align: center;
+    color: black; }
+  .modal-template select {
+    margin: .5rem 0; }
+
+.modal-text {
+  color: black;
+  width: 85%;
+  margin: 0 auto; }
+
+.accept {
+  background-color: #4BBADA; }
+
+.close {
+  position: absolute;
+  width: auto;
+  color: black;
+  top: -5px;
+  right: 8px; }
+
+.user-stripe-form {
+  position: absolute;
+  top: 20em;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: white;
+  color: black;
+  border-radius: .5em;
+  margin: 0 auto; }
+  .user-stripe-form input {
+    margin-bottom: 1rem;
+    color: black;
+    padding: .1rem .7rem; }
+  .user-stripe-form .stripe-form-submit-button {
+    width: 65%;
+    margin: 0 auto;
+    background-color: blue;
+    color: white; }
+  .user-stripe-form h3 {
+    margin: 0; }
+  .user-stripe-form .form-row {
+    text-align: left; }
+
+.stripe-form-submit-button:hover {
+  border: 2px solid #4BBADA;
+  background-color: white;
+  color: #4BBADA; }
+
+.stripe-detail-label {
+  margin-bottom: 1rem;
+  margin-right: 1rem; }
+
+.close-modal {
+  position: absolute;
+  color: black;
+  top: -15px;
+  right: -75px;
+  background: none; }
+
+.close-modal:hover {
+  background: none; }

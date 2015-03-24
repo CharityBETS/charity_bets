@@ -25,6 +25,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
+
   // self.thisBetId = angular.element(document.querySelector('.user-stripe-form'))
   // var stripeButton = document.querySelector('.form-stripe-button');
   // var id;
