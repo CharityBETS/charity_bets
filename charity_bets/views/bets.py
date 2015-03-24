@@ -7,7 +7,8 @@ from flask.ext.login import current_user, login_required
 from ..extensions import db
 from ..emails import (send_email, bet_creation_notification,
                        win_claim_notification, loss_claim_notification,
-                       disputed_bet_notification, you_lost_notification)
+                       disputed_bet_notification, you_lost_notification,
+                       bet_acceptance_notification)
 import json
 from charity_bets import mail
 from flask_mail import Message
@@ -91,11 +92,6 @@ def create_bet():
 
         db.session.add(user_bet)
         db.session.commit()
-
-        # Message sent to the other party of the bet
-        # if emailing == "on":
-        # bet_creation_notification(current_user, challenger, bet)
-        bet.
 
         bet = bet.make_dict()
 
@@ -182,7 +178,6 @@ def update_bet(id):
         keys = data.keys()
         for key in keys:
             if key == "outcome":
-
                 if current_user.id == bet.creator:
                     if data["outcome"] == -1:
                         bet.creator_outcome = bet.challenger
@@ -213,6 +208,12 @@ def update_bet(id):
             else:
                 setattr(bet, key, data[key])
                 db.session.commit()
+
+        if bet.mail_track == 'new_bet':
+            if bet.status == 'active':
+                creator = User.query.filter_by(id = bet.creator).first()
+                challenger = User.query.filter_by(id = bet.challenger).first()
+                # bet_acceptance_notification(creator, challenger, bet)
 
         return jsonify({"data": bet.make_dict()}), 201
 
