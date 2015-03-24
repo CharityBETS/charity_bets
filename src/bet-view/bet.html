@@ -1,85 +1,110 @@
 <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
-
 <div class="create-bet-wrapper">
+ <div class="bet-section-top">
+    <div class="bet-essentials flex-section-1">
+      <div class="bet-title">{{vm.bet.title}}</div>
+      <div class="creator-pending" ng-show="vm.isPendingCreator">Waiting For Challenger</div>
+      <div class="info-title">Bet Amount</div>
+      <div class="bet-size">{{vm.bet.amount | currency}}</div>
 
-  <div class="bet-essentials">
-    <div class="bet-title">{{vm.bet.title}}</div>
-    <h3>Prize Purse</h3>
-    <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$723</h4></div>
-    <button class="donate-button">$DONATE$</button>
-  </div>
+      <h3>Money Pledged</h3>
+      <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$723</h4></div>
+
+      <div ng-show="vm.isActive" class="crowd-funding-section">
+        <button class="donate-button">$DONATE$</button>
+      </div>
+
+      <button class="loser-status" ng-show="vm.isDonator">PAY BET</button>
+
+
+      <div class="bet-date">{{vm.bet.date | date:'EEEE, MMM d'}}</div>
+      <div class="info-title">Location:</div>
+      <div class="location">{{vm.bet.location}}</div>
+      <div class="info-title">Description:</div>
+      <div class="bet-description">{{vm.bet.description}}</div>
+    </div>
+
+    <div class="better-profile hero-bettor flex-section-2">
+      <div class="bettor-name">{{vm.bet.creator_name}}</div>
+      <div class="charity">{{vm.bet.charity_creator}}</div>
+      <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.creator_facebook_id}}/picture?type=large"></div>
+      <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
+      <div class="location">Durham, NC</div>
+    </div>
+
+    <div class="better-profile villian-bettor flex-section-3">
+      <div class="bettor-name">{{vm.bet.challenger_name}}</div>
+      <div class="charity">{{vm.bet.charity_challenger}}</div>
+      <!-- <div class="charity">Girl Scouts of America</div> -->
+      <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.challenger_facebook_id}}/picture?type=large"></div>
+      <div class="wins-losses"><span class="user-descriptor">Record:</span>12-29</div>
+      <div class="location">Chapel Hill, NC</div>
+    </div>
+
+ </div>
 
     <div class="profile-details-wrap">
       <div class=bet-flex-wrap>
 
       <div class="bet-deets flex-section-a">
-        <div class="bet-date">{{vm.bet.date | date:'EEEE, MMM d'}}</div>
-        <div class="info-title">Bet Amount:</div>
-        <div class="bet-size">{{vm.bet.amount | currency}}</div>
+        <!-- <div class="bet-date">{{vm.bet.date | date:'EEEE, MMM d'}}</div>
         <div class="info-title">Location:</div>
         <div class="location">{{vm.bet.location}}</div>
         <div class="info-title">Description:</div>
-        <div class="bet-description">{{vm.bet.description}}</div>
+        <div class="bet-description">{{vm.bet.description}}</div> -->
 
-        <div ng-if="(vm.isBettor && !vm.isChallengeable)" class="choose-winner-div">
+        <!-- <div ng-if="(vm.isBettor() && vm.isActive())" class="choose-winner-div"> -->
 
-          <button class="end-bet" ng-click="showme=true;" ng-hide="showme===true">WHO WON?</button>
-          <div class="choose-winner-wrapper">
-              <!-- <p ng-hide="showme">It will appear here!</p> -->
-              <div ng-show="showme">
-                  <button class="bet-win" ng-click="vm.betOutcomeWin();showme=false">I WON</button>
-                  <button class="bet-lose" ng-click="vm.betOutcomeLose();showme=false">I LOST</button>
-                  <a ng-click="showme=false">Cancel</a>
-              </div>
-          </div>
-        </div>
-
-        <button ng-if="vm.isChallengeable" ng-hide="!vm.hideme" ng-click="vm.hideme=false">ACCEPT BET</button>
+          <div ng-show="vm.showResolutionButton()" class="choose-winner-div">
 
 
+          <!-- <button class="end-bet" ng-click="showme=true;" ng-hide="showme===true">WHO WON?</button> -->
+            <div class="choose-winner-wrapper">
+                <!-- <p ng-hide="showme">It will appear here!</p> -->
+                 <div>
+                   <h4>Who Won</h4>
+                    <button class="bet-win" ng-click="vm.betOutcomeWin()">I WON</button>
+                    <button class="bet-lose" ng-click="modalaction=true">I LOST</button>
+                    <!-- <button class="bet-lose" ng-click="vm.betOutcomeLose()">I LOST</button> -->
+                </div>
+            </div>
+         </div>
 
-        <!-- <button type="button" class="btn btn-lg btn-danger" data-animation="am-fade-and-slide-top"  data-template="/static/modals/challenger-charity.html" bs-modal="modal">Custom Modal
-        </button> -->
-        <!-- <button ng-click="vm.showModal()">SHOW MODAL</button> -->
-        </div>
+        <!-- <bet-payment-form ng-if="modalaction" class="bet-pay-form">Payment Form</bet-payment-form>  -->
+        <!-- <button ng-if="vm.isChallengeable" ng-hide="!vm.hideme" ng-click="vm.hideme=false">ACCEPT BET</button> -->
+        <!-- <button ng-show="vm.isChallengeable" ng-click="vm.showModal=show">ACCEPT BET</button> -->
 
-        <div class="modal-bg" ng-show="vm.isChallengeable && vm.hideme!==true">
+        <div ng-show="vm.isChallengeable()">
+          <form ng-submit="vm.acceptBet()">
+            <div class="select-org">Select Organization to Support</div>
+            <select class="bet-charity input-primary" ng-model="vm.bet.charity_challenger" required>
+                    <option value="" disabled selected>Select Charity</option>
+                    <option ng-repeat="charity in vm.charities" value="{{charity.name}}"> {{charity.name}}</option>
+            </select>
+            <button class="bet-modal-button accept">ACCEPT BET</button>
+          </form>
 
-          <div class="modal-template">
-            <h2>Select Charity and Accept</h2>
-            <p class="modal-text">If you wish to accept this bet. Select a charity and press the accept bet button</p>
+        <button ng-click="vm.deleteBet()" class="bet-modal-button deny">DECLINE BET</button>
+      </div>
 
-            <form ng-submit="vm.acceptBet();vm.hideme=true">
-              <select class="bet-charity input-primary" ng-model="vm.bet.charity_challenger" required>
-                      <option value="" disabled selected>Select Charity</option>
-                      <option ng-repeat="charity in vm.charities" value="{{charity.name}}"> {{charity.name}}</option>
-              </select>
-              <button class="bet-modal-button accept">ACCEPT BET</button>
-            </form>
-
-            <button class="bet-modal-button deny">DECLINE BET</button>
-            <button ng-click="vm.hideme=true" class="close">x</button>
-
-          </div>
-        </div>
+  </div>
 
 
-        <div class="better-profile hero-bettor flex-section-b">
-          <div class="bettor-name">{{vm.bet.creator_name}}</div>
+        <div class="better-profile flex-section-b">
+          <!-- <div class="bettor-name">{{vm.bet.creator_name}}</div>
           <div class="charity">{{vm.bet.charity_creator}}</div>
           <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.creator_facebook_id}}/picture?type=large"></div>
           <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
-          <div class="location">Durham, NC</div>
+          <div class="location">Durham, NC</div> -->
         </div>
 
-        <div class="better-profile villian-bettor flex-section-c">
-          <div class="bettor-name">{{vm.bet.challenger_name}}</div>
+        <div class="better-profile flex-section-c">
+          <!-- <div class="bettor-name">{{vm.bet.challenger_name}}</div>
           <div class="charity">{{vm.bet.charity_challenger}}</div>
-          <!-- <div class="charity">Girl Scouts of America</div> -->
           <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.challenger_facebook_id}}/picture?type=large"></div>
           <div class="wins-losses"><span class="user-descriptor">Record:</span>12-29</div>
-          <div class="location">Chapel Hill, NC</div>
+          <div class="location">Chapel Hill, NC</div> -->
         </div>
     </div>
  </div>
@@ -97,7 +122,38 @@
     <button class="submit-comment">Comment</button>
     </form>
   </div>
-
-
-
 </div>
+
+
+<!-- <div class="modal-bg">
+    <form id="payment-form" ng-submit="vm.sendStripe(vm.card)" class="user-stripe-form">
+      <span class="payment-errors"></span>
+      <h3>Pay With Stripe</h3>
+      <span class="stripe-detail-label">Bet:</span><span>{{vm.bet.amount | currency}}</span>
+      <div class="form-row">
+        <label>
+          <span>Card Number</span>
+          <input type="text" size="20" ng-model="vm.card.number" data-stripe="number"/>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>Expiration (MM/YYYY)</span>
+          <input type="text" size="2" ng-model="vm.card.exp_month" data-stripe="exp-month"/>
+        </label>
+        <span> / </span>
+        <input type="text" size="4" ng-model="vm.card.exp_year" data-stripe="exp-year"/>
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>CVC</span>
+          <input type="text" size="4" ng-model="vm.card.cvc" data-stripe="cvc"/>
+        </label>
+      </div>
+
+      <button class="stripe-form-submit-button" type="submit">Pay with Stripe</button>
+    <button class="close-modal">x</button>
+    </form>
+</div> -->

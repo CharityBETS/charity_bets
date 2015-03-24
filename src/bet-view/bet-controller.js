@@ -31,25 +31,55 @@ app.config(['$routeProvider', function($routeProvider) {
 .controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', 'charities', function ($location, bet, betService, currentUser, Comment, charities) {
 
   var self = this;
-  self.isBettor = (currentUser.id === bet.challenger || currentUser.id  === bet.creator);
   self.bet = bet;
   self.currentUser = currentUser;
-  self.showme=true;
-  self.isChallengeable = (bet.status === "pending" && currentUser.id === bet.challenger);
+  // self.showme=true;
+
+  self.isBettor = function () {
+    return (currentUser.id === bet.challenger || currentUser.id  === bet.creator);
+  };
+  self.isChallengeable = function () {
+    return (bet.status === "pending" && currentUser.id === bet.challenger);
+  };
+  self.isPendingCreator = (bet.status === "pending" && currentUser.id === bet.creator);
+  self.isDonator = (bet.status === "complete" && currentUser.id === bet.verified_loser);
+  self.isActive = function () {
+      return (bet.status === "active");
+  };
+
+  self.isWaitingOnCurrentUser = function () {
+    var resolverId = Number(bet.challenger_outcome < 0 ? bet.creator_outcome : bet.challenger_outcome);
+    return (bet.status === 'unresolved' && resolverId !== currentUser.id);
+  };
+
+
+self.showResolutionButton = function () {
+    return self.isBettor() && (self.isWaitingOnCurrentUser() || self.isActive());
+};
+
+
+
   self.comment=Comment();
   self.charities=charities;
+  // self.hideme=false;
 
   self.betOutcomeWin = function (id) {
-     betService.betOutcomeWin(bet.id, currentUser.id);
+     betService.betOutcomeWin(bet.id, currentUser.id).then(function (result) {
+       self.bet=result;
+       bet=self.bet
+     });
   };
 
   self.betOutcomeLose = function (id) {
      betService.betOutcomeLose(bet.id);
-     self.showme=false;
+    //  self.showme=false;
   };
 
   self.acceptBet = function (charity) {
-    betService.acceptBet(bet.id);
+    betService.acceptBet(bet.id).then(function (result) {
+      console.log(result);
+      self.bet.status=result.status;
+    });
     betService.challengerCharity(bet.id, bet.charity_challenger);
   };
 
@@ -58,18 +88,20 @@ app.config(['$routeProvider', function($routeProvider) {
     self.comment="";
   };
 
+  self.sendStripe = function (card) {
+    console.log(bet);
+    Stripe.card.createToken(card, function (status, result) {
+      console.log('GOT', result);
+      console.log(bet.id)
+      betService.sendStripe(self.bet.id, result.id);
+    });
+  };
+
   // self.challengerCharity = function (id, charity) {
   //   betService.challengerCharity(id, charity);
   // }
 
 
-
-  // Pre-fetch an external template populated with a custom scope
-  // var acceptBetModal = $modal({scope: $scope, template: "/static/modals/challenger-charity.html", show: false});
-  // // Show when some event occurs (use $promise property to ensure the template has been loaded)
-  // self.showModal = function() {
-  //   acceptBetModal.$promise.then(acceptBetModal.show);
-  // };
 
 
 

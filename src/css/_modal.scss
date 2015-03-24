@@ -1,3 +1,12 @@
+.modal-bg {
+ position: absolute;
+ top: 0;
+ right: 0;
+ bottom: 0;
+ left: 0;
+ background: rgba(0,0,0,0.8);
+}
+
 .modal-template {
   background-color: white;
   height: 290px;
@@ -36,14 +45,6 @@
   background-color: $secondary-accent-color;
 }
 
-.modal-bg {
- position: absolute;
- top: 0;
- right: 0;
- bottom: 0;
- left: 0;
- background: rgba(0,0,0,0.8);
-}
 
 .close {
   position: absolute;
@@ -51,4 +52,62 @@
   color: black;
   top: -05px;
   right: 8px;
+}
+
+.user-stripe-form {
+  position: absolute;
+  top: 20em;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: white;
+  color: black;
+  border-radius: .5em;
+  margin: 0 auto;
+
+
+  input {
+    margin-bottom: 1rem;
+    color: black;
+    padding: .1rem .7rem;
+    // border-radius: .3em;
+  }
+  .stripe-form-submit-button {
+    width: 65%;
+    margin: 0 auto;
+    background-color: blue;
+    color: white;
+  }
+
+  h3  {
+    margin: 0;
+  }
+
+  .form-row {
+    text-align: left;
+  }
+
+}
+
+.stripe-form-submit-button:hover {
+  border: 2px solid $secondary-accent-color;
+  background-color: white;
+  color: $secondary-accent-color;
+}
+
+.stripe-detail-label {
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+.close-modal {
+position: absolute;
+color: black;
+top: -15px;
+right: -75px;
+background: none;
+}
+
+.close-modal:hover {
+  background: none;
 }
