@@ -246,13 +246,13 @@ def charge_loser(id):
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
     user = User.query.filter_by(id = bet.verified_loser).first()
+    
     if user.id == bet.creator:
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
-        charity.amount_earned = charity.amount_earned + bet.amount
     if user.id == bet.challenger:
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
-        charity.amount_earned = charity.amount_earned + bet.amount
 
+    charity.amount_earned = charity.amount_earned + bet.amount
     bet.loser_paid = "paid"
     db.session.commit()
 
