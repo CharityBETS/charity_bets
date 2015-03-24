@@ -1,6 +1,7 @@
 from functools import wraps
 from ..models import Bet, UserBet, User, Comment, Charity
-from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
+from flask import (session, Blueprint, url_for, request, redirect, flash,
+                    render_template, jsonify, current_app)
 from ..forms import BetForm, CommentForm
 from flask.ext.login import current_user, login_required
 from ..extensions import db
@@ -17,6 +18,7 @@ from datetime import datetime
 
 bets = Blueprint("bets", __name__)
 
+
 #check if a bets outcome is resolved
 def check_resolution(bet):
     if bet.creator_outcome == bet.challenger_outcome:
@@ -28,8 +30,16 @@ def check_resolution(bet):
             bet.verified_winner = bet.challenger
             bet.verified_loser = bet.creator
 
+        user = User.query.filter_by(id = bet.verified_loser).first()
+        user.losses = user.losses + 1
+        user.money_lost = user.money_lost + bet.amount
+
+        user = User.query.filter_by(id = bet.verified_winner).first()
+        user.wins = user.wins + 1
+        user.money_won = user.money_won + bet.amount
+
         bet.loser_paid = "unpaid"
-        db.session.commit()
+        #db.session.commit()
     else:
         bet.status = "unresolved"
         db.session.commit()
@@ -81,7 +91,7 @@ def create_bet():
 
         # Message sent to the other party of the bet
         # if emailing == "on":
-        #     bet_creation_notification(current_user, challenger, bet)
+        # bet_creation_notification(current_user, challenger, bet)
 
         bet = bet.make_dict()
 
@@ -189,7 +199,6 @@ def update_bet(id):
 
                 else:
                     return jsonify({"Error, Not authorized"})
-                #return jsonify({"data": bet.make_dict()}), 201
 
                 check_resolution(bet)
             if key == "charity_challenger":
@@ -235,17 +244,19 @@ def view_comments(id):
 @bets.route("/bets/<int:id>/pay_bet", methods = ["POST"])
 @login_required
 def charge_loser(id):
-    print("WE HAVE REACHED THE PYTHON REST ENDPOINT")
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
-    print
     user = User.query.filter_by(id = bet.verified_loser).first()
-    #print(user.name)
+    
     if user.id == bet.creator:
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
     if user.id == bet.challenger:
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
+
+    charity.amount_earned = charity.amount_earned + bet.amount
+    bet.loser_paid = "paid"
+    db.session.commit()
 
     stripe.api_key = charity.token
     card_token = data['token']
@@ -255,4 +266,35 @@ def charge_loser(id):
         source = card_token,
         description='BET PAYMENT')
 
+
     return jsonify({"SUCESSFUL PAYMENT":"SUCCESSFUL PAYMENT"})
+
+
+# To be added when we implement crowdsourcing, hasn't been tested yet
+
+# @bets.route("/bets/<int:id>/fund_better", methods = ["POST"])
+# def fund_bet(id):
+#     body = request.get_data(as_text=True)
+#     data = json.loads(body)
+#     bet = Bet.query.filter_by(id = id).first()
+#     if data["creator"] == bet.creator:
+#         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
+#         isfunding = bet.creator
+#     if data["challenger"] == bet.challenger:
+#         charity = Charity.query.filter_by(name = bet.charity_creator).first()
+#         isfunding = bet.challenger
+#     db.session.commit()
+#         stripe.api_key = charity.token
+#     customer = stripe.Customer.create(
+#         source = data['token'],
+#         description="payinguser@example.com"
+#         )
+#     funder = Funder(is_funding = isfunding,
+#                     bet_id = id,
+#                     amount = data["amount"],
+#                     stripe_customer_id = customer.id,
+#                     charity = charity.name,
+#                     charity_token = charity.token)
+#     db.session.add(funder)
+#     db.session.commit()
+#     return jsonify({"Data":funder.make_dict()})

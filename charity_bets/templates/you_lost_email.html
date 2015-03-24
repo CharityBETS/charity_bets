@@ -1,7 +1,7 @@
 <p>Dear {{ loser.name}},</p>
 <p>Your bet with {{ winner.name }} on betti is over, and you, alas, have lost.</p>
 <p>Click the link below to view your bet:</p>
-<a href="http://localhost:5000/#/bet/{{ bet.id }}">{{ bet.title }}</a><br />
+<a href="http://localhost:5000/email/{{ bet.id }}">{{ bet.title }}</a><br />
 
 <p>Please promptly follow the directions to reward {{ winner.charity }} with ${{ bet.amount }} via stripe.</p>
 <p>And remember, this was for charity!  So even in losing, you win, because you're giving to a great cause!</p>
