@@ -95,6 +95,7 @@ class Charity(db.Model):
     token = db.Column(db.String(255))
     image = db.Column(db.String(255))
     website = db.Column(db.String(255))
+    amount_earned = db.Column(db.Integer, default=0)
 
     def make_dict(self):
         return {"id": self.id,
@@ -103,7 +104,8 @@ class Charity(db.Model):
                 "email": self.email,
                 "token": self.token,
                 "image": self.image,
-                "website": self.website}
+                "website": self.website,
+                "amount_earned": self.amount_earned}
 
 
 class Comment(db.Model):
