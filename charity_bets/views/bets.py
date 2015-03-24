@@ -32,9 +32,11 @@ def check_resolution(bet):
 
         user = User.query.filter_by(id = bet.verified_loser).first()
         user.losses = user.losses + 1
+        user.money_lost = user.money_lost + bet.amount
 
         user = User.query.filter_by(id = bet.verified_winner).first()
         user.wins = user.wins + 1
+        user.money_won = user.money_won + bet.amount
 
         bet.loser_paid = "unpaid"
         #db.session.commit()
