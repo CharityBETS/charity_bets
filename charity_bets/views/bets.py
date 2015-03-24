@@ -11,7 +11,6 @@ from ..emails import (send_email, bet_creation_notification,
 import json
 from charity_bets import mail
 from flask_mail import Message
-# from ..email_switch import emailing
 import stripe
 from datetime import datetime
 
@@ -80,6 +79,10 @@ def create_bet():
         if 'location' in data:
             bet.location = data['location']
 
+        # Message sent to the other party of the bet
+        # bet_creation_notification(current_user, challenger, bet)
+        bet.mail_track = "new_bet"
+
         db.session.add(bet)
         db.session.commit()
 
@@ -92,6 +95,7 @@ def create_bet():
         # Message sent to the other party of the bet
         # if emailing == "on":
         # bet_creation_notification(current_user, challenger, bet)
+        bet.
 
         bet = bet.make_dict()
 
