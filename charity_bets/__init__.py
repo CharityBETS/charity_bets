@@ -25,6 +25,7 @@ def create_app():
     app.config['MAIL_USE_SSL']
     app.config['MAIL_USERNAME']
     app.config['MAIL_PASSWORD']
+    app.config['CLIENT_ID']
 
 
     app.register_blueprint(home)
