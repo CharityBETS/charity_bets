@@ -10,12 +10,12 @@
 
       <div class="profile-stats">
         <div class="user-record">
-          {{vm.user.wins}} - {{vm.user.losses}}
+          {{vm.currentUser.wins}} - {{vm.currentUser.losses}}
         </div>
         <div class="stat-title-label">Money Won For Charity</div>
-        <div class="money-won">{{vm.user.money_won}}</div>
+        <div class="money-won">{{vm.currentUser.money_won | currency}}</div>
         <div class="stat-title-label">Money Lost For Charity</div>
-        <div class="money-won">{{vm.user.money_lost}}</div>
+        <div class="money-won">{{vm.currentUser.money_lost | currency }}</div>
       </div>
   </div>
 
@@ -28,10 +28,10 @@
 
         <div class="bets-section-1">
           <div class="bets-users">
-            {{bet.creator_name}} Vs. {{bet.challenger_name}}
+            <a href="#/bet/{{bet.id}}">{{bet.creator_name}} Vs. {{bet.challenger_name}}</a>
           </div>
           <div class="bets-title">
-            {{bet.title}}
+            <a href="#/bet/{{bet.id}}">{{bet.title}}</a>
           </div>
           <div class="bets-date">
             {{bet.date | date:'EEEE, MMM d'}}
