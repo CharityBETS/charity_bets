@@ -11,11 +11,11 @@
       <h3>Money Pledged</h3>
       <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$723</h4></div>
 
-      <div ng-show="vm.isActive" class="crowd-funding-section">
+      <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button">$DONATE$</button>
       </div>
 
-      <button class="loser-status" ng-show="vm.isDonator">PAY BET</button>
+      <!-- <button class="loser-status" ng-show="vm.isDonator">PAY BET</button> -->
 
 
       <div class="bet-date">{{vm.bet.date | date:'EEEE, MMM d'}}</div>
@@ -65,7 +65,7 @@
                  <div>
                    <h4>Who Won</h4>
                     <button class="bet-win" ng-click="vm.betOutcomeWin()">I WON</button>
-                    <button class="bet-lose" ng-click="modalaction=true">I LOST</button>
+                    <button class="bet-lose" ng-click="vm.modalaction=true">I LOST</button>
                     <!-- <button class="bet-lose" ng-click="vm.betOutcomeLose()">I LOST</button> -->
                 </div>
             </div>
@@ -125,7 +125,7 @@
 </div>
 
 
-<!-- <div class="modal-bg">
+<div ng-show="vm.modalaction===true" class="modal-bg">
     <form id="payment-form" ng-submit="vm.sendStripe(vm.card)" class="user-stripe-form">
       <span class="payment-errors"></span>
       <h3>Pay With Stripe</h3>
@@ -153,7 +153,7 @@
         </label>
       </div>
 
-      <button class="stripe-form-submit-button" type="submit">Pay with Stripe</button>
-    <button class="close-modal">x</button>
+      <button class="stripe-form-submit-button" ng-click="vm.modalaction=false" type="submit">Pay with Stripe</button>
+    <button ng-click="vm.modalaction=false" class="close-modal">x</button>
     </form>
-</div> -->
+</div>

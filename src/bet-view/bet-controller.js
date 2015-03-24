@@ -43,6 +43,7 @@ app.config(['$routeProvider', function($routeProvider) {
   };
   self.isPendingCreator = (bet.status === "pending" && currentUser.id === bet.creator);
   self.isDonator = (bet.status === "complete" && currentUser.id === bet.verified_loser);
+
   self.isActive = function () {
       return (bet.status === "active");
   };
@@ -61,6 +62,7 @@ self.showResolutionButton = function () {
 
   self.comment=Comment();
   self.charities=charities;
+  self.modalaction=false;
   // self.hideme=false;
 
   self.betOutcomeWin = function (id) {
@@ -89,6 +91,7 @@ self.showResolutionButton = function () {
   };
 
   self.sendStripe = function (card) {
+    self.betOutcomeLose(currentUser.id);
     console.log(bet);
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
