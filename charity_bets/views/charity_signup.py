@@ -48,22 +48,19 @@ def callback():
     url = 'https://connect.stripe.com' + '/oauth/token'
     resp = requests.post(url, params=data)
     resp = resp.json()
+    print(resp)
     token = resp['access_token']
     stripe.api_key = token
-    email = stripe.Account.retrieve()["email"]
-
-    # check to see if charity is already in the database
-    duplicate = Charity.query.filter_by(email = email)
+    charity_email = stripe.Account.retrieve()["email"]
+    charity = Charity(token=token, email = charity_email)
+    duplicate = Charity.query.filter_by(email = charity_email).first()
     if duplicate:
-        duplicate.token = token
-        db.session.commit()
-
+        return render_template('duplicate.html')
     else:
-        charity = Charity(token=token, email=email)
         db.session.add(charity)
         db.session.commit()
+        return render_template('thank_you.html')
 
-    return render_template('thank_you.html')
 
 
 @charity_signup.route('/PAYMENT_TEST')
