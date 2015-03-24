@@ -17,8 +17,6 @@ def create_app():
 
     app.config['DEBUG'] = os.environ['DEBUG']
     app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
-    app.config['FACEBOOK'] = os.environ['FACEBOOK']
-
     app.config['MAIL_SERVER'] = os.environ['MAIL_SERVER']
     app.config['MAIL_PORT'] = os.environ['MAIL_PORT']
     app.config['MAIL_USE_TLS'] = os.environ['MAIL_USE_TLS']
