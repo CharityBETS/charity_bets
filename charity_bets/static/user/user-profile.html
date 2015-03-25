@@ -16,6 +16,15 @@
         <div class="money-won">{{vm.currentUser.money_won | currency}}</div>
         <div class="stat-title-label">Money Lost For Charity</div>
         <div class="money-won">{{vm.currentUser.money_lost | currency }}</div>
+
+        <canvas id="line" class="chart chart-line" data="data"
+          labels="labels" legend="true" series="series"
+          click="onClick">
+        </canvas>
+
+
+
+
       </div>
   </div>
 

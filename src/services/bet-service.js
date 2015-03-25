@@ -75,6 +75,11 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     sendStripe: function (betid, resultid) {
       console.log('api/bets/' + betid + '/pay_bet', resultid);
       return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
+    },
+
+    addDonation: function(betid, donation) {
+      console.log('api/bets/' + betid + '/donation', donation);
+      return post('api/bets/' + betid + '/donation', donation);
     }
 
 

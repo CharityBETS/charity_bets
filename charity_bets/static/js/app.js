@@ -1,6 +1,6 @@
 // Declare our app module, and import the ngRoute and ngAnimate
 // modules into it.
-var app = angular.module('app', ['mgcrea.ngStrap', 'angularPayments', 'ngRoute']);
+var app = angular.module('app', ['mgcrea.ngStrap', 'angularPayments','ngRoute']);
 
 // Set up our 404 handler
 app.config(['$routeProvider', function ($routeProvider) {
@@ -9,6 +9,33 @@ app.config(['$routeProvider', function ($routeProvider) {
     controllerAs: 'vm',
     templateUrl: 'static/errors/404/error-404.html'
   });
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+
 }]);
 
 app.config(['$routeProvider', function($routeProvider) {
@@ -41,11 +68,15 @@ app.config(['$routeProvider', function($routeProvider) {
   };
   $routeProvider.when('/bet/:id', routeDefinition);
 }])
-.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', 'charities', function ($location, bet, betService, currentUser, Comment, charities) {
+.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', 'charities', 'Donation', function ($location, bet, betService, currentUser, Comment, charities, Donation) {
 
   var self = this;
   self.bet = bet;
   self.currentUser = currentUser;
+  self.comment=Comment();
+  self.donation=Donation();
+  self.charities=charities;
+  self.modalaction=false;
   // self.showme=true;
 
   self.isBettor = function () {
@@ -62,21 +93,15 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.isWaitingOnCurrentUser = function () {
-    var resolverId = Number(bet.challenger_outcome < 0 ? bet.creator_outcome : bet.challenger_outcome);
+    var resolverId = Number((bet.challenger_outcome < 0 ? bet.creator_outcome : bet.challenger_outcome || bet.creator_outcome < 0 ? bet.challenger_outcome : bet.creator_outcome));
     return (bet.status === 'unresolved' && resolverId !== currentUser.id);
   };
 
 
-self.showResolutionButton = function () {
-    return self.isBettor() && (self.isWaitingOnCurrentUser() || self.isActive());
-};
+  self.showResolutionButton = function () {
+      return self.isBettor() && (self.isWaitingOnCurrentUser() || self.isActive());
+  };
 
-
-
-  self.comment=Comment();
-  self.charities=charities;
-  self.modalaction=false;
-  // self.hideme=false;
 
   self.betOutcomeWin = function (id) {
      betService.betOutcomeWin(bet.id, currentUser.id).then(function (result) {
@@ -99,7 +124,9 @@ self.showResolutionButton = function () {
   };
 
   self.addComment = function () {
-    betService.addComment(bet.id, self.comment);
+    betService.addComment(bet.id, self.comment).then(function(result) {
+      self.comment=result.comment;
+    });
     self.comment="";
   };
 
@@ -110,12 +137,24 @@ self.showResolutionButton = function () {
       console.log('GOT', result);
       console.log(bet.id)
       betService.sendStripe(self.bet.id, result.id);
+      location.reload();
     });
   };
 
-  // self.challengerCharity = function (id, charity) {
-  //   betService.challengerCharity(id, charity);
-  // }
+  self.sendStripeDonation = function (card, creatorid, amount) {
+    console.log(card);
+    console.log(creatorid);
+    console.log(amount);
+    Stripe.card.createToken(card, function (status, result) {
+      console.log('GOT', result);
+      // betService.addDonation(self.bet.id, creatorid, self.amount, result.id).then(self.goToBet);
+    });
+  };
+
+  self.addDonation = function () {
+    betService.addDonation(self.bet.id, self.Donation).then(self.goToBet);
+  };
+
 
 
 
@@ -146,6 +185,17 @@ app.factory('Comment', function () {
     return {
       comment: spec.comment
       
+    };
+  };
+});
+
+app.factory('Donation', function () {
+  return function (spec) {
+    spec = spec || {};
+    return {
+        amount: spec.donation_amount,
+        challenger_id: spec.challenger_id,
+        creator_id: spec.creator_id,
     };
   };
 });
@@ -208,33 +258,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-
-}]);
-
 app.directive('betPaymentForm', function() {
   return {
     restrict: 'E',
@@ -271,20 +294,6 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
 
 
-
-}]);
-
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-      return StringUtil.startsWith($location.path(), path);
-    };
 
 }]);
 
@@ -365,6 +374,11 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     sendStripe: function (betid, resultid) {
       console.log('api/bets/' + betid + '/pay_bet', resultid);
       return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
+    },
+
+    addDonation: function(betid, donation) {
+      console.log('api/bets/' + betid + '/donation', donation);
+      return post('api/bets/' + betid + '/donation', donation);
     }
 
 
@@ -435,12 +449,26 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
   };
 }]);
 
-app.directive('paymentForm', function() {
-  return {
-    restrict: 'E',
-    templateUrl: 'static/directives/user-payment-form-template.html'
-  }
-});
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+      return StringUtil.startsWith($location.path(), path);
+    };
+
+}]);
+
+// app.directive('paymentForm', function() {
+//   return {
+//     restrict: 'E',
+//     templateUrl: 'static/directives/user-payment-form-template.html'
+//   };
+// });
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -501,14 +529,14 @@ app.config(['$routeProvider', function($routeProvider) {
 
   //self.sendToken = function ( )
 
-  self.sendStripe = function (bet) {
-    console.log(bet);
-    Stripe.card.createToken(bet.card, function (status, result) {
-      console.log('GOT', result);
-      console.log(result.id)
-      userService.sendStripe(bet.id, result.id);
-    });
-  };
+  // self.sendStripe = function (bet) {
+  //   console.log(bet);
+  //   Stripe.card.createToken(bet.card, function (status, result) {
+  //     console.log('GOT', result);
+  //     console.log(result.id);
+  //     userService.sendStripe(bet.id, result.id);
+  //   });
+  // };
 
   // self.sendStripe = function (id) {
   //  alert("striping!");
@@ -537,6 +565,15 @@ app.config(['$routeProvider', function($routeProvider) {
   //     elem.append(angular.element(form));
   //   };
   // }]);
+      $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+      $scope.series = ['Series A', 'Series B'];
+      $scope.data = [
+        [65, 59, 80, 81, 56, 55, 40],
+        [28, 48, 40, 19, 86, 27, 90]
+      ];
+      $scope.onClick = function (points, evt) {
+        console.log(points, evt);
+      };
 
 
 
