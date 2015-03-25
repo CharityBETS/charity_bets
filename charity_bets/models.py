@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     money_lost = db.Column(db.Integer, default=0)
     money_won = db.Column(db.Integer, default=0)
     win_streak = db.Column(db.Integer, default=0)
+    bet_conflicts = db.Column(db.Integer, default=0)
 
     def make_dict(self):
         return {"id": self.id,
@@ -30,7 +31,8 @@ class User(db.Model, UserMixin):
                 "losses": self.losses,
                 "money_lost": self.money_lost,
                 "money_won": self.money_won,
-                "win_streak": self.win_streak}
+                "win_streak": self.win_streak,
+                "bet_conflicts": self.bet_conflicts}
 
 
 class Bet(db.Model):

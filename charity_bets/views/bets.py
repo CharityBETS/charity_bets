@@ -46,6 +46,11 @@ def check_resolution(bet):
         else:
             bet.status = "conflict"
             bet.mail_track = "conflict"
+
+            user = User.query.filter_by(id = bet.creator).first()
+            user.bet_conflicts = user.bet_conflicts + 1
+            user = User.query.filter_by(id = bet.challenger).first()
+            user.bet_conflicts = user.bet_conflicts + 1
             db.session.commit()
     else:
         bet.status = "unresolved"
