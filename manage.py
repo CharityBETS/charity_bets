@@ -86,7 +86,7 @@ def charity_seed():
                     'name': "Girl Scouts (daniel)",
                     'email': "dknewell1@gmail.com",
                     'description': "Buy our cookies!",
-                    'access_token': "sk_test_5goC5w2F0rGKcR2XpYqPM4D4"
+                    'access_token': "sk_test_nuOUpuXCOa6EXXtcBmHeWb36"
                     },
                     {
                     'name': "The Human Fund (bret)",

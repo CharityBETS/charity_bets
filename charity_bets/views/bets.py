@@ -30,6 +30,24 @@ def add_wins_losses(bet):
     user.win_streak = user.win_streak + 1
     user.money_won = user.money_won + bet.amount
 
+
+def charge_funders(bet):
+    """At the resolution of the bet, this charges all the losing funders"""
+    user = User.query.filter_by(id = bet.verified_winner).first()
+    funders = Funder.query.filter_by(bet_id = bet.id).all()
+    if user.id == bet.creator:
+        charity = Charity.query.filter_by(name = bet.charity_creator).first()
+    if user.id == bet.challenger:
+        charity = Charity.query.filter_by(name = bet.charity_challenger).first()
+
+    stripe.api_key = charity.access_token
+    for funder in losing_funders:
+        stripe.Charge.create(
+            amount = int(funder.amount)*100,
+            currency = "usd",
+            customer = funder.stripe_customer_id
+        )
+
 #check if a bets outcome is resolved
 def check_resolution(bet):
     if bet.creator_outcome and bet.challenger_outcome:
@@ -46,6 +64,8 @@ def check_resolution(bet):
             bet.loser_paid = "unpaid"
             winner = User.query.filter_by(id=bet.verified_winner).first()
             bet.winner_name = winner.name
+
+            charge_funders(bet)
             db.session.commit()
         else:
             bet.status = "conflict"
@@ -61,24 +81,6 @@ def check_resolution(bet):
         db.session.commit()
 
 # this needs to be tested
-def charge_funders(bet):
-    """At the resolution of the bet, this charges all the losing funders"""
-    user = User.query.filter_by(id = bet.verified_winner).first()
-    losing_funders = Funder.query.filter_by(bet_id = bet.id,
-                           is_funding = bet.verified_loser).all()
-    if user.id == bet.creator:
-        charity = Charity.query.filter_by(name = bet.charity_challenger).first()
-    if user.id == bet.challenger:
-        charity = Charity.query.filter_by(name = bet.charity_creator).first()
-
-    stripe.api_key = charity.token
-    for funder in losing_funders:
-        stripe.Charge.create(
-            amount = int(funder.amount)*100,
-            currency = "usd",
-            customer = funder.stripe_customer_id
-        )
-
 
 
 @bets.route("/user/bets", methods = ["POST"])
@@ -327,7 +329,7 @@ def charge_loser(id):
     bet.loser_paid = "paid"
     db.session.commit()
 
-    stripe.api_key = charity.token
+    stripe.api_key = charity.access_token
     card_token = data['token']
     charge = stripe.Charge.create(
         amount = int(bet.amount)*100,
@@ -348,15 +350,13 @@ def fund_bet(id):
     bet = Bet.query.filter_by(id = id).first()
 
     if "creatorid" in data.keys():
-        charity = Charity.query.filter_by(name = bet.charity_challenger).first()
+        charity = Charity.query.filter_by(name = bet.charity_creator).first()
         isfunding = bet.creator
     if "challengerid" in data.keys():
-        charity = Charity.query.filter_by(name = bet.charity_creator).first()
+        charity = Charity.query.filter_by(name = bet.charity_challenger).first()
         isfunding = bet.challenger
-    db.session.commit()
 
-    #BETTI SECRET KEY NEEDS TO GO BELOW
-    stripe.api_key = app.config.get['CLIENT_SECRET']
+    stripe.api_key = charity.access_token
     customer = stripe.Customer.create(
         source = data['token'],
         description="payinguser@example.com"
@@ -367,7 +367,7 @@ def fund_bet(id):
                     amount = data["amount"],
                     stripe_customer_id = customer.id,
                     charity = charity.name,
-                    charity_token = charity.token)
+                    charity_token = charity.access_token)
     db.session.add(funder)
     db.session.commit()
     return jsonify({"Data":funder.make_dict()})
