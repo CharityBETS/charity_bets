@@ -18,7 +18,6 @@ class User(db.Model, UserMixin):
     money_lost = db.Column(db.Integer, default=0)
     money_won = db.Column(db.Integer, default=0)
     win_streak = db.Column(db.Integer, default=0)
-    bet_conflicts = db.Column(db.Integer, default=0)
 
     def make_dict(self):
         return {"id": self.id,
@@ -31,8 +30,7 @@ class User(db.Model, UserMixin):
                 "losses": self.losses,
                 "money_lost": self.money_lost,
                 "money_won": self.money_won,
-                "win_streak": self.win_streak,
-                "bet_conflicts": self.bet_conflicts}
+                "win_streak": self.win_streak}
 
 
 class Bet(db.Model):
@@ -131,23 +129,20 @@ class Comment(db.Model):
                 "timestamp": self.timestamp}
 
 
-# To be used when we implement crowd sourcing, we'll filter by verified_loser &
-# bet.id, and then charge them for the amount we stored at time of authorization
 
-# class Funder(db.model):
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     is_funding: = db.Column(db.Integer)
-#     bet_id = db.Column(db.Integer)
-#     email = db.Column(db.String)
-#     amount = db.Column(db.String)
-#     stripe_customer_id = db.Column(db.Integer)
-#     charity = db.Column(db.String)
-#     charity_token = db.Column(db.String)
+class Funder(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    is_funding = db.Column(db.Integer)
+    bet_id = db.Column(db.Integer)
+    email = db.Column(db.String)
+    amount = db.Column(db.String)
+    stripe_customer_id = db.Column(db.String)
+    charity = db.Column(db.String)
+    charity_token = db.Column(db.String)
 
-    # def make_dict(self):
-    #     return {"id": self.id,
-    #             "is_funding": self.is_funding,
-    #             "email": self.email,
-    #             "amount": self.comment,
-    #             "timestamp": self.timestamp,
-    #             "charity": self.charity}
+    def make_dict(self):
+        return {"id": self.id,
+                "is_funding": self.is_funding,
+                "email": self.email,
+                "amount": self.amount,
+                "charity": self.charity}
