@@ -310,7 +310,7 @@ def charge_loser(id):
 
 # To be added when we implement crowdsourcing, hasn't been tested yet
 
-@bets.route("/bets/<int:id>/fund_better", methods = ["POST"])
+@bets.route("/bets/<int:id>/fund_bettor", methods = ["POST"])
 def fund_bet(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)
