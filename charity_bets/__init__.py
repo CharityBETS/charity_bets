@@ -20,6 +20,7 @@ def create_app():
     app.config['MAIL_SERVER'] = os.environ['MAIL_SERVER']
     app.config['MAIL_PORT'] = os.environ['MAIL_PORT']
     app.config['CLIENT_ID'] = os.environ['CLIENT_ID']
+    app.config['CLIENT_SECRET'] = os.environ['CLIENT_SECRET']
     # app.config['MAIL_USE_TLS'] = os.environ['MAIL_USE_TLS']
     app.config['MAIL_USE_SSL'] = os.environ['MAIL_USE_SSL']
     app.config['MAIL_USERNAME'] = os.environ['MAIL_USERNAME']
