@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     money_lost = db.Column(db.Integer, default=0)
     money_won = db.Column(db.Integer, default=0)
     win_streak = db.Column(db.Integer, default=0)
+    bet_conflicts = db.Column(db.Integer, default=0)
 
     def make_dict(self):
         return {"id": self.id,
@@ -30,7 +31,8 @@ class User(db.Model, UserMixin):
                 "losses": self.losses,
                 "money_lost": self.money_lost,
                 "money_won": self.money_won,
-                "win_streak": self.win_streak}
+                "win_streak": self.win_streak,
+                "bet_conflicts": self.bet_conflicts}
 
 
 class Bet(db.Model):
@@ -57,6 +59,7 @@ class Bet(db.Model):
     charity_creator_id = db.Column(db.Integer)
     charity_challenger_id = db.Column(db.Integer)
     mail_track = db.Column(db.String(255))
+    winner_name = db.Column(db.String(255))
 
 
     def make_dict(self):
@@ -82,7 +85,8 @@ class Bet(db.Model):
                 "charity_challenger": self.charity_challenger,
                 "charity_creator_id": self.charity_creator_id,
                 "charity_challenger_id": self.charity_challenger_id,
-                "mail_track": self.mail_track}
+                "mail_track": self.mail_track,
+                "winner_name": self.winner_name}
 
 
 class UserBet(db.Model):
