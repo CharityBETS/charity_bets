@@ -42,7 +42,9 @@ def check_resolution(bet):
             user.money_won = user.money_won + bet.amount
 
             bet.loser_paid = "unpaid"
-            #db.session.commit()
+            winner = User.query.filter_by(id=bet.verified_winner).first()
+            bet.winner_name = winner.name
+            db.session.commit()
         else:
             bet.status = "conflict"
             bet.mail_track = "conflict"
