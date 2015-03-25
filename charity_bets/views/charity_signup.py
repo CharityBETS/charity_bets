@@ -39,6 +39,8 @@ def callback():
     """Sends application information and requests stripe key for the Stripe Connect
     user"""
 
+    stripe.api_key = app.config.get('CLIENT_SECRET')
+
     code  = request.args.get('code')
     data  = {'client_secret': app.config.get('CLIENT_SECRET'),
               'grant_type': 'authorization_code',
@@ -49,11 +51,16 @@ def callback():
     resp = requests.post(url, params=data)
     resp = resp.json()
     print(resp)
-    token = resp['access_token']
-    stripe.api_key = token
     charity_email = stripe.Account.retrieve()["email"]
-    charity = Charity(token=token, email = charity_email)
-    duplicate = Charity.query.filterg_by(email = charity_email).first()
+
+
+    charity = Charity(stripe_publishable_key = resp['stripe_publishable_key'],
+                      stripe_user_id = resp['stripe_user_id'],
+                      stripe_refresh_token = resp['refresh_token'],
+                      access_token = resp['access_token'],
+                      email = charity_email)
+    duplicate = Charity.query.filter_by(email = charity_email).first()
+
     if duplicate:
         return render_template('duplicate.html')
     else:

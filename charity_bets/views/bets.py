@@ -13,6 +13,7 @@ import json
 from charity_bets import mail
 from flask_mail import Message
 import stripe
+from flask import current_app as app
 from datetime import datetime
 
 
@@ -355,7 +356,7 @@ def fund_bet(id):
     db.session.commit()
 
     #BETTI SECRET KEY NEEDS TO GO BELOW
-    stripe.api_key = 'sk_test_he9lziutsYI6bYo8JcT4cgog'
+    stripe.api_key = app.config.get['CLIENT_SECRET']
     customer = stripe.Customer.create(
         source = data['token'],
         description="payinguser@example.com"
