@@ -32,10 +32,12 @@ def check_resolution(bet):
 
         user = User.query.filter_by(id = bet.verified_loser).first()
         user.losses = user.losses + 1
+        user.win_streak = 0
         user.money_lost = user.money_lost + bet.amount
 
         user = User.query.filter_by(id = bet.verified_winner).first()
         user.wins = user.wins + 1
+        user.win_streak = user.win_streak + 1
         user.money_won = user.money_won + bet.amount
 
         bet.loser_paid = "unpaid"
@@ -102,12 +104,14 @@ def create_bet():
     else:
         return form.errors, 400
 
+
 def bet_aggregator(bets, bet_list):
     for a_bet in bets:
         bet = Bet.query.filter_by(id=a_bet.id).first()
         if bet:
             bet_list.append(bet)
     return bet_list
+
 
 @bets.route("/user/bets", methods = ["GET"])
 @login_required
@@ -135,7 +139,6 @@ def view_users_bets(id):
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets}), 201
     return jsonify({"ERROR": "No bets available."}), 401
-
 
 
 @bets.route("/bets", methods = ["GET"])
@@ -169,6 +172,7 @@ def view_bet(id):
         return jsonify({'data': bet})
     else:
         return jsonify({"ERROR": "Bet does not exist."}), 401
+
 
 @bets.route("/bets/<int:id>", methods = ["PUT"])
 @login_required
@@ -262,6 +266,7 @@ def view_comments(id):
 
     else:
         return jsonify({"ERROR": "No comments yet"})
+
 
 @bets.route("/bets/<int:id>/pay_bet", methods = ["POST"])
 @login_required
