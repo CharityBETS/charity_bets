@@ -45,6 +45,7 @@ def check_resolution(bet):
             #db.session.commit()
         else:
             bet.status = "conflict"
+            bet.mail_track = "conflict"
             db.session.commit()
     else:
         bet.status = "unresolved"
@@ -233,12 +234,18 @@ def update_bet(id):
             if bet.challenger_outcome or bet.creator_outcome:
                 if bet.verified_loser:
                     # loss_claim_notification(bet)
+                    # you_lost_notification(bet)
                     bet.mail_track = "bet_over"
                     db.session.commit()
                 else:
                     # win_claim_notification(bet)
                     bet.mail_track = 'win_claimed'
                     db.session.commit()
+
+        if bet.mail_track == 'conflict':
+            # disputed_bet_notification(bet)
+            bet.mail_track == 'no_more_mail'
+            db.session.commit()
 
         return jsonify({"data": bet.make_dict()}), 201
 
