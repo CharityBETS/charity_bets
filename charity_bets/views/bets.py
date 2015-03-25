@@ -205,18 +205,39 @@ def view_all_bets():
 @bets.route("/bets/<int:id>", methods = ["GET"])
 @login_required
 def view_bet(id):
-    bet = Bet.query.filter_by(id = id).first()
-    comments = Comment.query.filter_by(bet_id=id).all()
-    all_comments = []
-    if bet:
-        bet = bet.make_dict()
-        for comment in comments:
-            comment = comment.make_dict()
-            all_comments.append(comment)
-        bet["comments"] = all_comments
-        return jsonify({'data': bet})
+    if id==0:
+        betti = User.query.filter_by(email="betsforcharity@gmail.com").first()
+        fake_bet = Bet(title="Sample Bet",
+                      id = 0,
+                      amount=10,
+                      creator = betti.id,
+                      challenger = current_user.id,
+                      challenger_name = current_user.name,
+                      challenger_facebook_id = current_user.facebook_id,
+                      creator_name = betti.name,
+                      creator_facebook_id = betti.facebook_id,
+                      charity_creator = "The Human Fund",
+                      charity_creator_id = 2,
+                      status = "pending",
+                      date = "2020-01-01T04:00:00.000Z",
+                      description = "Give more info about your bet here",
+                      location = "The place where your bet will happen",
+                      )
+        fake_bet = fake_bet.make_dict()
+        return jsonify({'data': fake_bet})
     else:
-        return jsonify({"ERROR": "Bet does not exist."}), 401
+        bet = Bet.query.filter_by(id = id).first()
+        comments = Comment.query.filter_by(bet_id=id).all()
+        all_comments = []
+        if bet:
+            bet = bet.make_dict()
+            for comment in comments:
+                comment = comment.make_dict()
+                all_comments.append(comment)
+            bet["comments"] = all_comments
+            return jsonify({'data': bet})
+        else:
+            return jsonify({"ERROR": "Bet does not exist."}), 401
 
 
 @bets.route("/bets/<int:id>", methods = ["PUT"])
