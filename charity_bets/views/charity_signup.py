@@ -53,7 +53,7 @@ def callback():
     stripe.api_key = token
     charity_email = stripe.Account.retrieve()["email"]
     charity = Charity(token=token, email = charity_email)
-    duplicate = Charity.query.filterg_by(email = charity_email).first()
+    duplicate = Charity.query.filter_by(email = charity_email).first()
     if duplicate:
         return render_template('duplicate.html')
     else:
