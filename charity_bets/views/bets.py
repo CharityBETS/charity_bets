@@ -1,5 +1,5 @@
 from functools import wraps
-from ..models import Bet, UserBet, User, Comment, Charity
+from ..models import Bet, UserBet, User, Comment, Charity, Funder
 from flask import (session, Blueprint, url_for, request, redirect, flash,
                     render_template, jsonify, current_app)
 from ..forms import BetForm, CommentForm
@@ -18,6 +18,16 @@ from datetime import datetime
 
 bets = Blueprint("bets", __name__)
 
+def add_wins_losses(bet):
+    user = User.query.filter_by(id = bet.verified_loser).first()
+    user.losses = user.losses + 1
+    user.win_streak = 0
+    user.money_lost = user.money_lost + bet.amount
+
+    user = User.query.filter_by(id = bet.verified_winner).first()
+    user.wins = user.wins + 1
+    user.win_streak = user.win_streak + 1
+    user.money_won = user.money_won + bet.amount
 
 #check if a bets outcome is resolved
 def check_resolution(bet):
@@ -31,16 +41,7 @@ def check_resolution(bet):
                 bet.verified_winner = bet.challenger
                 bet.verified_loser = bet.creator
 
-            user = User.query.filter_by(id = bet.verified_loser).first()
-            user.losses = user.losses + 1
-            user.win_streak = 0
-            user.money_lost = user.money_lost + bet.amount
-
-            user = User.query.filter_by(id = bet.verified_winner).first()
-            user.wins = user.wins + 1
-            user.win_streak = user.win_streak + 1
-            user.money_won = user.money_won + bet.amount
-
+            add_wins_losses(bet)
             bet.loser_paid = "unpaid"
             winner = User.query.filter_by(id=bet.verified_winner).first()
             bet.winner_name = winner.name
@@ -57,6 +58,26 @@ def check_resolution(bet):
     else:
         bet.status = "unresolved"
         db.session.commit()
+
+# this needs to be tested
+def charge_funders(bet):
+    """At the resolution of the bet, this charges all the losing funders"""
+    user = User.query.filter_by(id = bet.verified_winner).first()
+    losing_funders = Funder.query.filter_by(bet_id = bet.id,
+                           is_funding = bet.verified_loser).all()
+    if user.id == bet.creator:
+        charity = Charity.query.filter_by(name = bet.charity_challenger).first()
+    if user.id == bet.challenger:
+        charity = Charity.query.filter_by(name = bet.charity_creator).first()
+
+    stripe.api_key = charity.token
+    for funder in losing_funders:
+        stripe.Charge.create(
+            amount = int(funder.amount)*100,
+            currency = "usd",
+            customer = funder.stripe_customer_id
+        )
+
 
 
 @bets.route("/user/bets", methods = ["POST"])
@@ -226,6 +247,8 @@ def update_bet(id):
             else:
                 setattr(bet, key, data[key])
                 db.session.commit()
+        user = User.query.filter_by(id = bet.creator).first()
+        user.bets_made = user.wins + user.losses + user.bet_conflicts
 
         # Emailing at various bet states:
         creator = User.query.filter_by(id = bet.creator).first()
@@ -292,12 +315,12 @@ def charge_loser(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
-    user = User.query.filter_by(id = bet.verified_loser).first()
+    user = User.query.filter_by(id = bet.verified_winner).first()
 
     if user.id == bet.creator:
-        charity = Charity.query.filter_by(name = bet.charity_challenger).first()
-    if user.id == bet.challenger:
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
+    if user.id == bet.challenger:
+        charity = Charity.query.filter_by(name = bet.charity_challenger).first()
 
     charity.amount_earned = charity.amount_earned + bet.amount
     bet.loser_paid = "paid"
@@ -322,18 +345,22 @@ def fund_bet(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
-    if data["creator"] == bet.creator:
+
+    if "creatorid" in data.keys():
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
         isfunding = bet.creator
-    if data["challenger"] == bet.challenger:
+    if "challengerid" in data.keys():
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
         isfunding = bet.challenger
     db.session.commit()
-    stripe.api_key = charity.token
+
+    #BETTI SECRET KEY NEEDS TO GO BELOW
+    stripe.api_key = 'sk_test_he9lziutsYI6bYo8JcT4cgog'
     customer = stripe.Customer.create(
         source = data['token'],
         description="payinguser@example.com"
         )
+
     funder = Funder(is_funding = isfunding,
                     bet_id = id,
                     amount = data["amount"],
