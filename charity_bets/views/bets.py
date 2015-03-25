@@ -224,6 +224,8 @@ def update_bet(id):
             else:
                 setattr(bet, key, data[key])
                 db.session.commit()
+        user = User.query.filter_by(id = bet.creator).first()
+        user.bets_made = user.wins + user.losses + user.bet_conflicts
 
         # Emailing at various bet states:
         creator = User.query.filter_by(id = bet.creator).first()
