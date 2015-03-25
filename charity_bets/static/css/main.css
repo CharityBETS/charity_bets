@@ -273,8 +273,6 @@ footer {
 
 .create-bet-wrapper {
   text-align: center; }
-  .create-bet-wrapper h3 {
-    margin: 0; }
   .create-bet-wrapper button {
     display: block;
     margin: 1rem auto 0; }
@@ -299,7 +297,7 @@ footer {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  max-width: 900px;
+  max-width: 1050px;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
@@ -335,8 +333,7 @@ footer {
 .bet-title {
   max-width: 95%;
   font-size: 1.7em;
-  margin: 0 auto;
-  padding-bottom: 1rem; }
+  margin: 0 auto; }
 
 .donate-button {
   background-color: #4BBADA; }
@@ -345,7 +342,6 @@ footer {
   width: 6em;
   margin: 0 auto;
   font-size: 2em;
-  padding: 1rem;
   border-radius: 6px; }
 
 .profile-details-wrap {
@@ -426,7 +422,7 @@ footer {
   font-weight: bold; }
 
 .creator-pending {
-  padding-top: 2rem;
+  padding-top: 1rem;
   font-size: 1.4em; }
 
 .creator-pending {
@@ -733,7 +729,7 @@ footer {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  max-width: 900px;
+  max-width: 1050px;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;

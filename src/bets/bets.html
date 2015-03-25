@@ -13,14 +13,17 @@
       <div class="bets-title">
         <a href="#/bet/{{bet.id}}">{{bet.title}}</a>
       </div>
+      <div ng-show="bet.winner_name !== null" class="bet-status">
+        <div>
+          The Winner is...
+        </div>
+      {{bet.winner_name}}
+      </div>
       <div class="bets-date">
         {{bet.date | date:'EEEE, MMM d'}}
       </div>
       <div class="bets-amount">
         {{bet.amount | currency}}
-      </div>
-      <div ng-show="isVerifiedWinner()" class="bet-status">
-      {{bet.winner_name}}
       </div>
     </div>
 

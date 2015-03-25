@@ -2,7 +2,7 @@
   text-align: center;
 
   h3 {
-    margin: 0;
+    // padding: 1rem;
   }
 
   button {
@@ -31,7 +31,7 @@
 .bet-section-top {
   display: flex;
   flex-direction: row;
-  max-width: 900px;
+  max-width: 1050px;
   justify-content: space-between;
   margin: 0 auto;
   flex-wrap: wrap;
@@ -67,7 +67,7 @@
   max-width: 95%;
   font-size: 1.7em;
   margin: 0 auto;
-  padding-bottom: 1rem;
+  // padding-bottom: 1rem;
   // padding-bottom: .5rem;
 }
 
@@ -80,7 +80,7 @@
   width: 6em;
   margin: 0 auto;
   font-size: 2em;
-  padding: 1rem;
+  // padding-top: 1rem;
   border-radius: 6px;
 }
 
@@ -188,7 +188,7 @@
 
 
 .creator-pending {
-  padding-top: 2rem;
+  padding-top: 1rem;
   font-size: 1.4em;
 }
 

@@ -250,6 +250,37 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+  // self.isVerifiedWinner = function () {
+  //   return (bets.winner_name !== null);
+  // }
+
+
+}]);
+
 app.directive('betPaymentForm', function() {
   return {
     restrict: 'E',
@@ -459,6 +490,39 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
   };
 }]);
 
+// app.config(['$routeProvider', function($routeProvider) {
+//   var routeDefinition = {
+//     templateUrl: 'static/user/user-profile.html',
+//     controller: 'OtherUserCtrl',
+//     controllerAs: 'vm',
+//     resolve: {
+//           user: ['userService', '$route', function (userService, $route) {
+//             var id = $route.current.params.id;
+//             return userService.getByUserId(id);
+//           }],
+//           thisUser: ['userService', function (userService) {
+//           return userService.getByUserId.then(function (result) {
+//             return result.data;
+//           });
+//           }],
+//           thisUserBets: ['userService', function (userService) {
+//           console.log(userService.getBetsByUser());
+//           return userService.getBetsByUser.then(function (result) {
+//             return result.data;
+//           });
+//           }]
+//       }
+//   };
+//   $routeProvider.when('/user/:userid', routeDefinition);
+// }])
+// .controller('OtherUserCtrl', ['$location', 'userService', 'user', 'thisUser', 'thisUserBets', function ($location, userService, user, thisUser, thisUserBets) {
+//
+//   var self = this;
+//   self.thisUser = thisUser;
+//   self.thisUserBets = thisUserBets;
+//
+// }]);
+
 // app.directive('paymentForm', function() {
 //   return {
 //     restrict: 'E',
@@ -583,37 +647,6 @@ app.factory('StringUtil', function() {
     }
   };
 });
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-  self.isVerifiedWinner = function () {
-    return (self.winner_name !== null);
-  }
-
-
-}]);
 
 app.controller('Error404Ctrl', ['$location', function ($location) {
   this.message = 'Could not find: ' + $location.url();
