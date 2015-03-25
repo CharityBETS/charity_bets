@@ -103,17 +103,19 @@ class Charity(db.Model):
     name = db.Column(db.String(255))
     description = db.Column(db.String(255))
     email = db.Column(db.String(255))
-    token = db.Column(db.String(255))
     image = db.Column(db.String(255))
     website = db.Column(db.String(255))
+    access_token = db.Column(db.String(255))
     amount_earned = db.Column(db.Integer, default=0)
+    stripe_publishable_key = db.Column(db.String(255))
+    stripe_user_id = db.Column(db.String(255))
+    stripe_refresh_token = db.Column(db.String(255))
 
     def make_dict(self):
         return {"id": self.id,
                 "name": self.name,
                 "description": self.description,
                 "email": self.email,
-                "token": self.token,
                 "image": self.image,
                 "website": self.website,
                 "amount_earned": self.amount_earned}
@@ -146,6 +148,7 @@ class Funder(db.Model):
     stripe_customer_id = db.Column(db.String)
     charity = db.Column(db.String)
     charity_token = db.Column(db.String)
+    paid_out = db.Column(db.String)
 
     def make_dict(self):
         return {"id": self.id,
