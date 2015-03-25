@@ -7,11 +7,11 @@ from flask.ext.login import current_user, login_required
 from ..extensions import db
 from ..emails import (send_email, bet_creation_notification,
                        win_claim_notification, loss_claim_notification,
-                       disputed_bet_notification, you_lost_notification)
+                       disputed_bet_notification, you_lost_notification,
+                       bet_acceptance_notification)
 import json
 from charity_bets import mail
 from flask_mail import Message
-# from ..email_switch import emailing
 import stripe
 from datetime import datetime
 
@@ -21,25 +21,31 @@ bets = Blueprint("bets", __name__)
 
 #check if a bets outcome is resolved
 def check_resolution(bet):
-    if bet.creator_outcome == bet.challenger_outcome:
-        bet.status = "complete"
-        if bet.creator_outcome == bet.creator:
-            bet.verified_winner = bet.creator
-            bet.verified_loser = bet.challenger
+    if bet.creator_outcome and bet.challenger_outcome:
+        if bet.creator_outcome == bet.challenger_outcome:
+            bet.status = "complete"
+            if bet.creator_outcome == bet.creator:
+                bet.verified_winner = bet.creator
+                bet.verified_loser = bet.challenger
+            else:
+                bet.verified_winner = bet.challenger
+                bet.verified_loser = bet.creator
+
+            user = User.query.filter_by(id = bet.verified_loser).first()
+            user.losses = user.losses + 1
+            user.win_streak = 0
+            user.money_lost = user.money_lost + bet.amount
+
+            user = User.query.filter_by(id = bet.verified_winner).first()
+            user.wins = user.wins + 1
+            user.win_streak = user.win_streak + 1
+            user.money_won = user.money_won + bet.amount
+
+            bet.loser_paid = "unpaid"
+            #db.session.commit()
         else:
-            bet.verified_winner = bet.challenger
-            bet.verified_loser = bet.creator
-
-        user = User.query.filter_by(id = bet.verified_loser).first()
-        user.losses = user.losses + 1
-        user.money_lost = user.money_lost + bet.amount
-
-        user = User.query.filter_by(id = bet.verified_winner).first()
-        user.wins = user.wins + 1
-        user.money_won = user.money_won + bet.amount
-
-        bet.loser_paid = "unpaid"
-        #db.session.commit()
+            bet.status = "conflict"
+            db.session.commit()
     else:
         bet.status = "unresolved"
         db.session.commit()
@@ -83,15 +89,17 @@ def create_bet():
         db.session.add(bet)
         db.session.commit()
 
+        # Message sent to the other party of the bet
+        # bet_creation_notification(current_user, challenger, bet)
+        bet.mail_track = "new_bet"
+        db.session.add(bet)
+        db.session.commit()
+
         user_bet = UserBet(user_id = current_user.id,
                            bet_id = bet.id)
 
         db.session.add(user_bet)
         db.session.commit()
-
-        # Message sent to the other party of the bet
-        # if emailing == "on":
-        # bet_creation_notification(current_user, challenger, bet)
 
         bet = bet.make_dict()
 
@@ -100,12 +108,14 @@ def create_bet():
     else:
         return form.errors, 400
 
+
 def bet_aggregator(bets, bet_list):
     for a_bet in bets:
         bet = Bet.query.filter_by(id=a_bet.id).first()
         if bet:
             bet_list.append(bet)
     return bet_list
+
 
 @bets.route("/user/bets", methods = ["GET"])
 @login_required
@@ -133,7 +143,6 @@ def view_users_bets(id):
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets}), 201
     return jsonify({"ERROR": "No bets available."}), 401
-
 
 
 @bets.route("/bets", methods = ["GET"])
@@ -168,6 +177,7 @@ def view_bet(id):
     else:
         return jsonify({"ERROR": "Bet does not exist."}), 401
 
+
 @bets.route("/bets/<int:id>", methods = ["PUT"])
 @login_required
 def update_bet(id):
@@ -178,7 +188,6 @@ def update_bet(id):
         keys = data.keys()
         for key in keys:
             if key == "outcome":
-
                 if current_user.id == bet.creator:
                     if data["outcome"] == -1:
                         bet.creator_outcome = bet.challenger
@@ -209,6 +218,27 @@ def update_bet(id):
             else:
                 setattr(bet, key, data[key])
                 db.session.commit()
+
+        # Emailing at various bet states:
+        creator = User.query.filter_by(id = bet.creator).first()
+        challenger = User.query.filter_by(id = bet.challenger).first()
+
+        if bet.mail_track == 'new_bet':
+            if bet.status == 'active':
+                # bet_acceptance_notification(creator, challenger, bet)
+                bet.mail_track = 'bet_accepted'
+                db.session.commit()
+
+        if bet.mail_track == 'bet_accepted':
+            if bet.challenger_outcome or bet.creator_outcome:
+                if bet.verified_loser:
+                    # loss_claim_notification(bet)
+                    bet.mail_track = "bet_over"
+                    db.session.commit()
+                else:
+                    # win_claim_notification(bet)
+                    bet.mail_track = 'win_claimed'
+                    db.session.commit()
 
         return jsonify({"data": bet.make_dict()}), 201
 
@@ -241,6 +271,7 @@ def view_comments(id):
     else:
         return jsonify({"ERROR": "No comments yet"})
 
+
 @bets.route("/bets/<int:id>/pay_bet", methods = ["POST"])
 @login_required
 def charge_loser(id):
@@ -248,7 +279,7 @@ def charge_loser(id):
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
     user = User.query.filter_by(id = bet.verified_loser).first()
-    
+
     if user.id == bet.creator:
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
     if user.id == bet.challenger:
