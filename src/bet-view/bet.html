@@ -46,7 +46,7 @@
       <div class="wins-losses"><span class="user-descriptor">Record:</span>12-29</div>
       <div class="location">Chapel Hill, NC</div>
       <div ng-show="vm.isActive()" class="crowd-funding-section">
-        <button class="donate-button">$DONATE$</button>
+        <button class="donate-button" ng-click="vm.modalDonateChallenger=true">$DONATE$</button>
       </div>
     </div>
 
@@ -150,7 +150,7 @@
 </div>
 
 <div ng-show="vm.modalDonateCreator===true" class="modal-bg">
-    <form id="payment-form" ng-submit="vm.sendStripeDonation(vm.card, vm.bet.creator, vm.donation.amount)" class="user-stripe-form">
+    <form id="payment-form" ng-submit="vm.sendStripeDonationCreator(vm.card, vm.bet.creator, vm.donation.amount)" class="user-stripe-form">
       <span class="payment-errors"></span>
       <h3>Pay With Stripe</h3>
       <!-- <div class="stripe-detail-label">Bet on {{vm.bet.creator_name}}</div> -->
@@ -158,7 +158,7 @@
 
       <div class="form-row">
         <label>
-          <span>You are donating {{vm.bet.creator_name}}</span>
+          <span>Amount to Bet on {{vm.bet.creator_name}}</span>
           <input size="5" ng-model="vm.donation.amount">
       </div>
 
@@ -181,11 +181,53 @@
       <div class="form-row">
         <label>
           <span>CVC</span>
-          <input type="text" size="4" ng-model="vm.card.cvc" data-stripe="cvc"/>
+          <input type="text" size="4" ng-model="vm.card.cvc" max-length="4" data-stripe="cvc"/>
+        </label>
+      </div>
+      <div class="donation-disclaimer">All money donated will go to the winner of the bet's charity.</div>
+      <button class="stripe-form-submit-button" ng-click="vm.modalaction=false" type="submit">Pay with Stripe</button>
+      <button ng-click="vm.modalDonateCreator=false" class="close-modal">x</button>
+    </form>
+</div>
+
+
+<div ng-show="vm.modalDonateChallenger===true" class="modal-bg">
+    <form id="payment-form" ng-submit="vm.sendStripeDonationChallenger(vm.card, vm.bet.challenger, vm.donation.amount)" class="user-stripe-form">
+      <span class="payment-errors"></span>
+      <h3>Pay With Stripe</h3>
+      <!-- <div class="stripe-detail-label">Bet on {{vm.bet.creator_name}}</div> -->
+
+
+      <div class="form-row">
+        <label>
+          <span>Amount to Bet on {{vm.bet.challenger_name}}</span>
+          <input size="5" ng-model="vm.donation.amount">
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>Card Number</span>
+          <input type="text" size="20" ng-model="vm.card.number" data-stripe="number"/>
         </label>
       </div>
 
+      <div class="form-row">
+        <label>
+          <span>Expiration (MM/YYYY)</span>
+          <input type="text" size="2" ng-model="vm.card.exp_month" data-stripe="exp-month"/>
+        </label>
+        <span> / </span>
+        <input type="text" size="4" ng-model="vm.card.exp_year" data-stripe="exp-year"/>
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>CVC</span>
+          <input type="text" size="4" ng-model="vm.card.cvc" max-length="4" data-stripe="cvc"/>
+        </label>
+      </div>
+      <div class="donation-disclaimer">All money donated will go to the winner of the bet's charity.</div>
       <button class="stripe-form-submit-button" ng-click="vm.modalaction=false" type="submit">Pay with Stripe</button>
-    <button ng-click="vm.modalDonateCreator=false" class="close-modal">x</button>
+      <button ng-click="vm.modalDonateChallenger=false" class="close-modal">x</button>
     </form>
 </div>

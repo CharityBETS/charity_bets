@@ -108,19 +108,29 @@ app.config(['$routeProvider', function($routeProvider) {
     });
   };
 
-  self.sendStripeDonation = function (card, creatorid, amount) {
+  self.sendStripeDonationCreator = function (card, creatorid, amount) {
     console.log(card);
     console.log(creatorid);
     console.log(amount);
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
-      // betService.addDonation(self.bet.id, creatorid, self.amount, result.id).then(self.goToBet);
+      betService.addDonationCreator(self.bet.id, creatorid, amount, result.id).then(self.goToBet);
     });
   };
 
-  self.addDonation = function () {
-    betService.addDonation(self.bet.id, self.Donation).then(self.goToBet);
+  self.sendStripeDonationChallenger = function (card, challengerid, amount) {
+    console.log(card);
+    console.log(challengerid);
+    console.log(amount);
+    Stripe.card.createToken(card, function (status, result) {
+      console.log('GOT', result);
+      betService.addDonationChallenger(self.bet.id, challengerid, amount, result.id).then(self.goToBet);
+    });
   };
+
+  // self.addDonation = function () {
+  //   betService.addDonation(self.bet.id, self.Donation).then(self.goToBet);
+  // };
 
 
 

@@ -13,6 +13,33 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
     templateUrl: '/static/bet-view/bet.html',
@@ -121,19 +148,29 @@ app.config(['$routeProvider', function($routeProvider) {
     });
   };
 
-  self.sendStripeDonation = function (card, creatorid, amount) {
+  self.sendStripeDonationCreator = function (card, creatorid, amount) {
     console.log(card);
     console.log(creatorid);
     console.log(amount);
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
-      // betService.addDonation(self.bet.id, creatorid, self.amount, result.id).then(self.goToBet);
+      betService.addDonationCreator(self.bet.id, creatorid, amount, result.id).then(self.goToBet);
     });
   };
 
-  self.addDonation = function () {
-    betService.addDonation(self.bet.id, self.Donation).then(self.goToBet);
+  self.sendStripeDonationChallenger = function (card, challengerid, amount) {
+    console.log(card);
+    console.log(challengerid);
+    console.log(amount);
+    Stripe.card.createToken(card, function (status, result) {
+      console.log('GOT', result);
+      betService.addDonationChallenger(self.bet.id, challengerid, amount, result.id).then(self.goToBet);
+    });
   };
+
+  // self.addDonation = function () {
+  //   betService.addDonation(self.bet.id, self.Donation).then(self.goToBet);
+  // };
 
 
 
@@ -234,33 +271,6 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   };
 
-
-
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
 
 
 }]);
@@ -397,9 +407,13 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
       return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
     },
 
-    addDonation: function(betid, donation) {
-      console.log('api/bets/' + betid + '/fund_bettor', donation);
-      return post('api/bets/' + betid + '/fund_bettor', donation);
+    addDonationCreator: function(betid, creatorId, amount, resultid) {
+      console.log('api/bets/' + betid + '/fund_bettor', {'creatorid': creatorId, 'amount': amount, 'token': resultid});
+      return post('api/bets/' + betid + '/fund_bettor', {'creatorid': creatorId, 'amount': amount, 'token': resultid});
+    },
+
+    addDonationChallenger: function(betid, challengerId, amount, resultid) {
+      return post('api/bets/' + betid + '/fund_bettor', {'challengerid': challengerId, 'amount': amount, 'token': resultid});
     }
 
 

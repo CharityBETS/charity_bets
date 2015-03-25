@@ -77,9 +77,13 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
       return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
     },
 
-    addDonation: function(betid, donation) {
-      console.log('api/bets/' + betid + '/fund_bettor', donation);
-      return post('api/bets/' + betid + '/fund_bettor', donation);
+    addDonationCreator: function(betid, creatorId, amount, resultid) {
+      console.log('api/bets/' + betid + '/fund_bettor', {'creatorid': creatorId, 'amount': amount, 'token': resultid});
+      return post('api/bets/' + betid + '/fund_bettor', {'creatorid': creatorId, 'amount': amount, 'token': resultid});
+    },
+
+    addDonationChallenger: function(betid, challengerId, amount, resultid) {
+      return post('api/bets/' + betid + '/fund_bettor', {'challengerid': challengerId, 'amount': amount, 'token': resultid});
     }
 
 
