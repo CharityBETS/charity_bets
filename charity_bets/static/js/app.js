@@ -298,20 +298,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-      return StringUtil.startsWith($location.path(), path);
-    };
-
-}]);
-
 app.factory('betService', ['$http', '$log', function($http, $log) {
 
   function get(url) {
@@ -464,6 +450,29 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
   };
 }]);
 
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+      return StringUtil.startsWith($location.path(), path);
+    };
+
+}]);
+
+app.factory('StringUtil', function() {
+  return {
+    startsWith: function (str, subStr) {
+      str = str || '';
+      return str.slice(0, subStr.length) === subStr;
+    }
+  };
+});
+
 // app.directive('paymentForm', function() {
 //   return {
 //     restrict: 'E',
@@ -579,15 +588,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 
 }]);
-
-app.factory('StringUtil', function() {
-  return {
-    startsWith: function (str, subStr) {
-      str = str || '';
-      return str.slice(0, subStr.length) === subStr;
-    }
-  };
-});
 
 app.controller('Error404Ctrl', ['$location', function ($location) {
   this.message = 'Could not find: ' + $location.url();
