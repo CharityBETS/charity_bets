@@ -22,10 +22,19 @@ def send_email(subject, sender, recipients, text_body, html_body):
 def bet_creation_notification(creator, challenger, bet):
     send_email("You've been challenged to a bet!",
                "betsforcharity@gmail.com",
-               [creator.email],
+               [challenger.email],
                render_template("new_bet_email.txt",
                                creator=creator, challenger=challenger, bet=bet),
                render_template("new_bet_email.html",
+                               creator=creator, challenger=challenger, bet=bet))
+
+def bet_acceptance_notification(creator, challenger, bet):
+    send_email("{} has accepted your bet!".format(challenger.name),
+               "betsforcharity@gmail.com",
+               [creator.email],
+               render_template("accepted_bet_email.txt",
+                               creator=creator, challenger=challenger, bet=bet),
+               render_template("accepted_bet_email.html",
                                creator=creator, challenger=challenger, bet=bet))
 
 

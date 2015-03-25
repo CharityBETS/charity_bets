@@ -1,0 +1,9 @@
+Dear {{ creator.name }},
+
+{{ challenger.name }} has accepted your bet titled {{ bet.title }} on betti!
+View your bet at:
+http://localhost:5000/email/{{ bet.id }}
+
+Good luck,
+
+The betti team
