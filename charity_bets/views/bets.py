@@ -41,7 +41,7 @@ def charge_funders(bet):
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
 
     stripe.api_key = charity.access_token
-    for funder in losing_funders:
+    for funder in funders:
         stripe.Charge.create(
             amount = int(funder.amount)*100,
             currency = "usd",
