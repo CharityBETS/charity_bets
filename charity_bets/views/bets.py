@@ -80,10 +80,12 @@ def create_bet():
         if 'location' in data:
             bet.location = data['location']
 
+        db.session.add(bet)
+        db.session.commit()
+
         # Message sent to the other party of the bet
         # bet_creation_notification(current_user, challenger, bet)
         bet.mail_track = "new_bet"
-
         db.session.add(bet)
         db.session.commit()
 
@@ -209,11 +211,26 @@ def update_bet(id):
                 setattr(bet, key, data[key])
                 db.session.commit()
 
+        # Emailing at various bet states:
+        creator = User.query.filter_by(id = bet.creator).first()
+        challenger = User.query.filter_by(id = bet.challenger).first()
+
         if bet.mail_track == 'new_bet':
             if bet.status == 'active':
-                creator = User.query.filter_by(id = bet.creator).first()
-                challenger = User.query.filter_by(id = bet.challenger).first()
                 # bet_acceptance_notification(creator, challenger, bet)
+                bet.mail_track = 'bet_accepted'
+                db.session.commit()
+
+        if bet.mail_track == 'bet_accepted':
+            if bet.challenger_outcome or bet.creator_outcome:
+                if bet.verified_loser:
+                    # loss_claim_notification(bet)
+                    bet.mail_track = "bet_over"
+                    db.session.commit()
+                else:
+                    # win_claim_notification(bet)
+                    bet.mail_track = 'win_claimed'
+                    db.session.commit()
 
         return jsonify({"data": bet.make_dict()}), 201
 
