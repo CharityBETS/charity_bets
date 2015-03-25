@@ -121,7 +121,7 @@ app.config(['$routeProvider', function($routeProvider) {
     console.log(amount);
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
-      // betService.addDonation(self.bet.id, creatorid, self.amount, result.id).then(self.goToBet);
+      betService.addDonation(self.bet.id, creatorid, self.amount, result.id).then(self.goToBet);
     });
   };
 
@@ -392,8 +392,8 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     },
 
     addDonation: function(betid, donation) {
-      console.log('api/bets/' + betid + '/donation', donation);
-      return post('api/bets/' + betid + '/donation', donation);
+      console.log('api/bets/' + betid + '/fund_better', donation);
+      return post('api/bets/' + betid + '/fund_better', donation);
     }
 
 
