@@ -154,12 +154,25 @@ def view_all_bets():
     for bet in bets:
         challenger = User.query.filter_by(id=bet.challenger).first()
         bet = bet.make_dict()
+        print(bet)
         all_bets.append(bet)
 
     if bets:
         return jsonify({'data': all_bets}), 201
     else:
-        return jsonify({"ERROR": "No bets available."}), 401
+        betti = User.query.filter_by(email="betsforcharity@gmail.com").first()
+        return jsonify({"data": {'id':1,
+                                 'title': 'Sample',
+                                 'description': 'Give more info about your bet here',
+                                 'status': 'pending',
+                                 'amount': 10,
+                                 'date': '2020-01-01T04:00:00.000Z',
+                                 'location': 'The place where your bet will happen',
+                                 'creator': betti.id,
+                                 'challenger': current_user.id,
+                                 
+
+                                 }}), 201
 
 
 @bets.route("/bets/<int:id>", methods = ["GET"])

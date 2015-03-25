@@ -7,6 +7,7 @@ from .views.home import home
 from .views.users import users
 from .views.bets import bets
 from .views.charities import charities
+from .views.admin import admin
 from .views.charity_signup import charity_signup
 
 
