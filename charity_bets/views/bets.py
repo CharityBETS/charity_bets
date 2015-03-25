@@ -21,27 +21,31 @@ bets = Blueprint("bets", __name__)
 
 #check if a bets outcome is resolved
 def check_resolution(bet):
-    if bet.creator_outcome == bet.challenger_outcome:
-        bet.status = "complete"
-        if bet.creator_outcome == bet.creator:
-            bet.verified_winner = bet.creator
-            bet.verified_loser = bet.challenger
+    if bet.creator_outcome and bet.challenger_outcome:
+        if bet.creator_outcome == bet.challenger_outcome:
+            bet.status = "complete"
+            if bet.creator_outcome == bet.creator:
+                bet.verified_winner = bet.creator
+                bet.verified_loser = bet.challenger
+            else:
+                bet.verified_winner = bet.challenger
+                bet.verified_loser = bet.creator
+
+            user = User.query.filter_by(id = bet.verified_loser).first()
+            user.losses = user.losses + 1
+            user.win_streak = 0
+            user.money_lost = user.money_lost + bet.amount
+
+            user = User.query.filter_by(id = bet.verified_winner).first()
+            user.wins = user.wins + 1
+            user.win_streak = user.win_streak + 1
+            user.money_won = user.money_won + bet.amount
+
+            bet.loser_paid = "unpaid"
+            #db.session.commit()
         else:
-            bet.verified_winner = bet.challenger
-            bet.verified_loser = bet.creator
-
-        user = User.query.filter_by(id = bet.verified_loser).first()
-        user.losses = user.losses + 1
-        user.win_streak = 0
-        user.money_lost = user.money_lost + bet.amount
-
-        user = User.query.filter_by(id = bet.verified_winner).first()
-        user.wins = user.wins + 1
-        user.win_streak = user.win_streak + 1
-        user.money_won = user.money_won + bet.amount
-
-        bet.loser_paid = "unpaid"
-        #db.session.commit()
+            bet.status = "conflict"
+            db.session.commit()
     else:
         bet.status = "unresolved"
         db.session.commit()
