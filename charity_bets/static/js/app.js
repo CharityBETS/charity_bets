@@ -50,6 +50,12 @@ app.config(['$routeProvider', function($routeProvider) {
   self.donation=Donation();
   self.charities=charities;
   self.modalaction=false;
+  self.creatorWinner = function () {
+    return (bet.creator === bet.verified_winner);
+  };
+  self.challengerWinner = function () {
+    return (bet.challenger === bet.verified_winner);
+  };
   // self.showme=true;
 
   self.isBettor = function () {
@@ -392,8 +398,8 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     },
 
     addDonation: function(betid, donation) {
-      console.log('api/bets/' + betid + '/donation', donation);
-      return post('api/bets/' + betid + '/donation', donation);
+      console.log('api/bets/' + betid + '/fund_bettor', donation);
+      return post('api/bets/' + betid + '/fund_bettor', donation);
     }
 
 

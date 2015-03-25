@@ -78,8 +78,8 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     },
 
     addDonation: function(betid, donation) {
-      console.log('api/bets/' + betid + '/donation', donation);
-      return post('api/bets/' + betid + '/donation', donation);
+      console.log('api/bets/' + betid + '/fund_bettor', donation);
+      return post('api/bets/' + betid + '/fund_bettor', donation);
     }
 
 

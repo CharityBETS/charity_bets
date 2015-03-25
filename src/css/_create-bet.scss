@@ -108,7 +108,17 @@
 
 .better-profile {
   display: inline-block;
+  position: relative;
   padding-top: 1rem;
+}
+
+.winner-img {
+  position: absolute;
+  width: 70px;
+  height: auto;
+  top: -30px;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .bettor-name {
@@ -266,6 +276,7 @@
   font-style: italic;
   color: $main-accent-color;
 }
+
 
 
 @media only screen and (max-width : 920px) {

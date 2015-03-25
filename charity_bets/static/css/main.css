@@ -363,7 +363,17 @@ footer {
 
 .better-profile {
   display: inline-block;
+  position: relative;
   padding-top: 1rem; }
+
+.winner-img {
+  position: absolute;
+  width: 70px;
+  height: auto;
+  top: -30px;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%); }
 
 .bettor-name {
   font-size: 1.5em;
