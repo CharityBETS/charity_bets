@@ -53,16 +53,10 @@ def callback():
     stripe.api_key = token
     charity_email = stripe.Account.retrieve()["email"]
     charity = Charity(token=token, email = charity_email)
-    duplicate = Charity.query.filter_by(email = charity_email).first()
+    duplicate = Charity.query.filterg_by(email = charity_email).first()
     if duplicate:
         return render_template('duplicate.html')
     else:
         db.session.add(charity)
         db.session.commit()
         return render_template('thank_you.html')
-
-
-
-@charity_signup.route('/PAYMENT_TEST')
-def make_payment():
-    return render_template('PAYMENT_TEST.html')
