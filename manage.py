@@ -106,7 +106,7 @@ def charity_seed():
         charity = Charity.query.filter_by(email=seed['email']).first()
         if not charity:
             charity=Charity(name=seed['name'],
-                            token=seed['access_token'],
+                            access_token=seed['access_token'],
                             email=seed['email'],
                             description = seed['description']
                             )
