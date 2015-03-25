@@ -552,20 +552,24 @@ footer {
 .bets-li {
   padding: 2rem 0;
   position: relative;
-  background-color: #4BBADA;
-  color: white;
-  border-bottom: black 1px solid; }
+  color: black;
+  border-bottom: 2px solid #e7e7e7; }
 
 .bets-title {
   font-size: 1.2em; }
+  .bets-title a {
+    color: #f05f5c; }
 
 .bets-users {
   font-size: 1.3em; }
+  .bets-users a {
+    color: black; }
 
 .bets-pic {
   width: 100px;
   height: 100px;
-  border-radius: 50px; }
+  border-radius: 50px;
+  border: 3px solid #4BBADA; }
 
 .bets-flex-container {
   display: -webkit-flex;
@@ -597,7 +601,7 @@ footer {
 
 .profile-top-section {
   background-color: #4BBADA;
-  padding: 2rem;
+  padding: 6rem;
   color: white;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -611,6 +615,8 @@ footer {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap; }
+  .profile-top-section a {
+    color: black; }
   .profile-top-section h3 {
     margin: 0;
     font-size: 2em;
@@ -632,8 +638,6 @@ footer {
   border: 5px solid #f05f5c; }
 
 .profile-section-two {
-  background-color: #484848;
-  height: 1000px;
   color: white; }
 
 .charity-edit {
@@ -641,16 +645,15 @@ footer {
   padding-left: 1rem; }
 
 .user-bets-li {
-  padding: 2rem 0;
+  padding: 4rem 0;
   position: relative;
-  background-color: #484848;
-  color: white; }
+  color: black;
+  border-bottom: 2px solid #e7e7e7; }
   .user-bets-li img {
     border: 3px #4BBADA solid; }
 
 .user-bets-li:nth-child(even) {
-  background-color: #4BBADA;
-  color: white; }
+  color: black; }
   .user-bets-li:nth-child(even) img {
     border: 3px #f05f5c solid; }
 

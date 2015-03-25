@@ -1,13 +1,16 @@
 .profile-top-section {
 
   background-color: $secondary-accent-color;
-  padding: 2rem;
+  padding: 6rem;
   color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
 
+  a {
+    color: black;
+  }
 
   h3 {
     margin: 0;
@@ -41,8 +44,7 @@
 }
 
 .profile-section-two {
-  background-color: $my-black;
-  height: 1000px;
+  // height: 1000px;
   color: white;
 }
 
@@ -52,10 +54,10 @@
 }
 
 .user-bets-li {
-  padding: 2rem 0;
+  padding: 4rem 0;
   position: relative;
-  background-color: $my-black;
-  color: white;
+  color: black;
+  border-bottom: 2px solid #e7e7e7;
 
   img {
     border: 3px $secondary-accent-color solid;
@@ -63,8 +65,7 @@
 }
 
 .user-bets-li:nth-child(even) {
-  background-color: $secondary-accent-color;
-  color: white;
+  color: black;
 
   img{
     border: 3px $main-accent-color solid;
@@ -102,7 +103,6 @@
     }
 
 }
-
 
 
 

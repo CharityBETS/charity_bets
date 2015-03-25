@@ -19,6 +19,9 @@
       <div class="bets-amount">
         {{bet.amount | currency}}
       </div>
+      <div ng-show="isVerifiedWinner()" class="bet-status">
+      {{bet.winner_name}}
+      </div>
     </div>
 
     <!-- <div class="prize-purse">

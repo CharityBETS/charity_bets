@@ -13,6 +13,37 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+  self.isVerifiedWinner = function () {
+    return (self.winner_name !== null);
+  }
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
     templateUrl: '/static/bet-view/bet.html',
@@ -128,6 +159,7 @@ app.config(['$routeProvider', function($routeProvider) {
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
       betService.addDonationCreator(self.bet.id, creatorid, amount, result.id).then(self.goToBet);
+      location.reload();
     });
   };
 
@@ -138,6 +170,7 @@ app.config(['$routeProvider', function($routeProvider) {
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
       betService.addDonationChallenger(self.bet.id, challengerid, amount, result.id).then(self.goToBet);
+      location.reload();
     });
   };
 
@@ -244,33 +277,6 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   };
 
-
-
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
 
 
 }]);

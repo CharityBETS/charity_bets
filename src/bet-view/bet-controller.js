@@ -115,6 +115,7 @@ app.config(['$routeProvider', function($routeProvider) {
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
       betService.addDonationCreator(self.bet.id, creatorid, amount, result.id).then(self.goToBet);
+      location.reload();
     });
   };
 
@@ -125,6 +126,7 @@ app.config(['$routeProvider', function($routeProvider) {
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
       betService.addDonationChallenger(self.bet.id, challengerid, amount, result.id).then(self.goToBet);
+      location.reload();
     });
   };
 
