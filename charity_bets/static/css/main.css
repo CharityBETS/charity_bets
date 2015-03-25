@@ -335,7 +335,8 @@ footer {
 .bet-title {
   max-width: 95%;
   font-size: 1.7em;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding-bottom: 1rem; }
 
 .donate-button {
   background-color: #4BBADA; }
@@ -348,7 +349,6 @@ footer {
   border-radius: 6px; }
 
 .profile-details-wrap {
-  min-height: 350px;
   padding: 0 0;
   color: white;
   font-family: 'Oswald', sans-serif;
@@ -382,8 +382,9 @@ footer {
   width: 200px;
   height: 200px;
   margin: 0 auto;
-  border-radius: 100px;
-  border: 3px #f05f5c; }
+  border-radius: 100px; }
+  .user-pic img {
+    border: 5px #4BBADA solid; }
 
 .hero-bettor {
   left: 8%; }
@@ -402,7 +403,7 @@ footer {
   padding-right: .5rem; }
 
 .comment-section h3 {
-  padding-top: 1rem; }
+  padding-top: 3rem; }
 
 .user-comment {
   font-weight: bold;
@@ -479,7 +480,8 @@ footer {
   height: 35%; }
 
 .comment-section {
-  text-align: center; }
+  text-align: center;
+  padding-bottom: 3rem; }
 
 .comment-date {
   font-weight: bold; }

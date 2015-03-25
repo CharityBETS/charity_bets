@@ -128,6 +128,7 @@ app.config(['$routeProvider', function($routeProvider) {
       self.comment=result.comment;
     });
     self.comment="";
+    location.reload();
   };
 
   self.sendStripe = function (card) {
@@ -297,6 +298,20 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+      return StringUtil.startsWith($location.path(), path);
+    };
+
+}]);
+
 app.factory('betService', ['$http', '$log', function($http, $log) {
 
   function get(url) {
@@ -447,20 +462,6 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
     // }
 
   };
-}]);
-
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-      return StringUtil.startsWith($location.path(), path);
-    };
-
 }]);
 
 // app.directive('paymentForm', function() {

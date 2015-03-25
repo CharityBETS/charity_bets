@@ -88,6 +88,7 @@ app.config(['$routeProvider', function($routeProvider) {
       self.comment=result.comment;
     });
     self.comment="";
+    location.reload();
   };
 
   self.sendStripe = function (card) {
