@@ -129,7 +129,27 @@ def view_bets():
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets}), 201
-    return jsonify({"ERROR": "No bets available."}), 401
+    betti = User.query.filter_by(email="betsforcharity@gmail.com").first()
+    fake_bet_list = []
+    fake_bet = Bet(title="Sample Bet",
+                  id = 0,
+                  amount=10,
+                  creator = betti.id,
+                  challenger = current_user.id,
+                  challenger_name = current_user.name,
+                  challenger_facebook_id = current_user.facebook_id,
+                  creator_name = betti.name,
+                  creator_facebook_id = betti.facebook_id,
+                  charity_creator = "The Human Fund",
+                  charity_creator_id = 2,
+                  status = "pending",
+                  date = "2020-01-01T04:00:00.000Z",
+                  description = "Give more info about your bet here",
+                  location = "The place where your bet will happen",
+                  )
+    fake_bet_list.append(fake_bet)
+    fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
+    return jsonify({"data": fake_bets}), 201
 
 
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
@@ -143,32 +163,8 @@ def view_users_bets(id):
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets}), 201
-    return jsonify({"data": {
-                             "amount": 10,
-                             "challenger": current_user.id,
-                             "challenger_facebook_id": "1384281321892330",
-                             "challenger_name": current_user.name,
-                             "challenger_outcome": None,
-                             "charity_challenger": "Your chosen charity",
-                             "charity_challenger_id": 1,
-                             "charity_creator": "The Human Fund",
-                             "charity_creator_id": 2,
-                             "creator": betti.id,
-                             "creator_facebook_id": "10100983997732464",
-                             "creator_name": "Betti",
-                             "creator_outcome": None,
-                             "date": "2020-01-01T04:00:00.000Z",
-                             "description": "Give more info about your bet here",
-                             "id": 1,
-                             "location": "The place where your bet will happen",
-                             "loser_paid": None,
-                             "mail_track": "new_bet",
-                             "status": "pending",
-                             "title": "Sample",
-                             "verified_loser": None,
-                             "verified_winner": None
+    return jsonify({"ERROR": "No bets available."}), 401
 
-                             }}), 201
 
 @bets.route("/bets", methods = ["GET"])
 @login_required
@@ -184,32 +180,26 @@ def view_all_bets():
         return jsonify({'data': all_bets}), 201
     else:
         betti = User.query.filter_by(email="betsforcharity@gmail.com").first()
-        return jsonify({"data": {
-                                 "amount": 10,
-                                 "challenger": current_user.id,
-                                 "challenger_facebook_id": "1384281321892330",
-                                 "challenger_name": current_user.name,
-                                 "challenger_outcome": None,
-                                 "charity_challenger": "Your chosen charity",
-                                 "charity_challenger_id": 1,
-                                 "charity_creator": "The Human Fund",
-                                 "charity_creator_id": 2,
-                                 "creator": betti.id,
-                                 "creator_facebook_id": "10100983997732464",
-                                 "creator_name": "Betti",
-                                 "creator_outcome": None,
-                                 "date": "2020-01-01T04:00:00.000Z",
-                                 "description": "Give more info about your bet here",
-                                 "id": 1,
-                                 "location": "The place where your bet will happen",
-                                 "loser_paid": None,
-                                 "mail_track": "new_bet",
-                                 "status": "pending",
-                                 "title": "Sample",
-                                 "verified_loser": None,
-                                 "verified_winner": None
-
-                                 }}), 201
+        fake_bet_list = []
+        fake_bet = Bet(title="Sample Bet",
+                      id = 0,
+                      amount=10,
+                      creator = betti.id,
+                      challenger = current_user.id,
+                      challenger_name = current_user.name,
+                      challenger_facebook_id = current_user.facebook_id,
+                      creator_name = betti.name,
+                      creator_facebook_id = betti.facebook_id,
+                      charity_creator = "The Human Fund",
+                      charity_creator_id = 2,
+                      status = "pending",
+                      date = "2020-01-01T04:00:00.000Z",
+                      description = "Give more info about your bet here",
+                      location = "The place where your bet will happen",
+                      )
+        fake_bet_list.append(fake_bet)
+        fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
+        return jsonify({"data": fake_bets}), 201
 
 
 @bets.route("/bets/<int:id>", methods = ["GET"])
