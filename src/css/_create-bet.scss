@@ -67,6 +67,7 @@
   max-width: 95%;
   font-size: 1.7em;
   margin: 0 auto;
+  padding-bottom: 1rem;
   // padding-bottom: .5rem;
 }
 
@@ -86,7 +87,7 @@
 
 .profile-details-wrap {
   // border: 1px black solid;
-  min-height: 350px;
+  // min-height: 350px;
   padding: 0 0;
   // background-color: $my-black;
   color: white;
@@ -131,7 +132,11 @@
   height: 200px;
   margin: 0 auto;
   border-radius: 100px;
-  border: 3px $main-accent-color;
+
+  img {
+    border: 5px $secondary-accent-color solid;
+  }
+
 }
 
 .hero-bettor {
@@ -156,7 +161,7 @@
 }
 
 .comment-section h3 {
-  padding-top: 1rem;
+  padding-top: 3rem;
 }
 
 .user-comment {
@@ -249,6 +254,7 @@
 
 .comment-section {
   text-align: center;
+  padding-bottom: 3rem;
 }
 
 .comment-date {

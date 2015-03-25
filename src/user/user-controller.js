@@ -57,14 +57,14 @@ app.config(['$routeProvider', function($routeProvider) {
 
   //self.sendToken = function ( )
 
-  self.sendStripe = function (bet) {
-    console.log(bet);
-    Stripe.card.createToken(bet.card, function (status, result) {
-      console.log('GOT', result);
-      console.log(result.id)
-      userService.sendStripe(bet.id, result.id);
-    });
-  };
+  // self.sendStripe = function (bet) {
+  //   console.log(bet);
+  //   Stripe.card.createToken(bet.card, function (status, result) {
+  //     console.log('GOT', result);
+  //     console.log(result.id);
+  //     userService.sendStripe(bet.id, result.id);
+  //   });
+  // };
 
   // self.sendStripe = function (id) {
   //  alert("striping!");
@@ -93,6 +93,15 @@ app.config(['$routeProvider', function($routeProvider) {
   //     elem.append(angular.element(form));
   //   };
   // }]);
+      $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+      $scope.series = ['Series A', 'Series B'];
+      $scope.data = [
+        [65, 59, 80, 81, 56, 55, 40],
+        [28, 48, 40, 19, 86, 27, 90]
+      ];
+      $scope.onClick = function (points, evt) {
+        console.log(points, evt);
+      };
 
 
 
