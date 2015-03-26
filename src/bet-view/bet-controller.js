@@ -91,8 +91,8 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.deleteBet = function () {
     betService.deleteBet(bet.id).then(function(result) {
-      self.bet = result;
-    } );
+      self.goToProfile();
+    });
   };
 
   self.addComment = function () {
@@ -128,6 +128,10 @@ app.config(['$routeProvider', function($routeProvider) {
       betService.addDonationChallenger(self.bet.id, challengerid, amount, result.id).then(self.goToBet);
       location.reload();
     });
+  };
+
+  self.goToProfile = function () {
+    $location.path('/user/user-profile');
   };
 
 
