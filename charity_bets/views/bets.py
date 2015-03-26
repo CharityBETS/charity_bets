@@ -133,10 +133,7 @@ def create_bet():
 
         db.session.add(user_bet)
         db.session.commit()
-        # Message sent to the other party of the bet
-        bet_creation_notification(current_user, challenger, bet)
-        bet = bet.make_dict()
-
+        
         return (jsonify({ 'data': bet }), 201)
 
     else:
