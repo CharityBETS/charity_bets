@@ -9,7 +9,10 @@ admin = Blueprint("admin", __name__)
 
 def verify_user(current_user):
     email_list = ["betsforcharity@gmail.com",
-                  "bret.runestad@gmail.com"]
+                  "bret.runestad@gmail.com",
+                  "bbatty32@yahoo.com",
+                  "dn78685@appstate.edu",
+                  "tomrau@gmail.com"]
     if current_user.email in email_list:
         return True
     else:
