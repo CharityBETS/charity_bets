@@ -308,8 +308,6 @@ def update_bet(id):
         if user.bets_made == 0:
                 user.average_bet_size = user.money_won + user.money_lost
 
-
-
         # Emailing at various bet states:
         creator = User.query.filter_by(id = bet.creator).first()
         challenger = User.query.filter_by(id = bet.challenger).first()
@@ -320,11 +318,11 @@ def update_bet(id):
                 bet.mail_track = 'bet_accepted'
                 db.session.commit()
 
-        if bet.mail_track == 'bet_accepted':
+        if bet.mail_track == 'bet_accepted' or "win_claimed":
             if bet.challenger_outcome or bet.creator_outcome:
                 if bet.verified_loser:
-                    # loss_claim_notification(bet)
-                    # you_lost_notification(bet)
+                    loss_claim_notification(bet)
+                    you_lost_notification(bet)
                     bet.mail_track = "bet_over"
                     db.session.commit()
                 else:
