@@ -1,0 +1,11 @@
+Dear {{ challenger.name}},
+
+{{ creator.name }} has canceled your bet, {{ bet.title }}, on betti.
+Maybe you didn't respond in time, or maybe {{ challenger.name }} got scared.
+
+Either way, go ahead and make another bet at:
+http://localhost:5000/#/createbet
+
+
+Good luck,
+The betti team

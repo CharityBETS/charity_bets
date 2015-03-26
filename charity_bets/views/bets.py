@@ -234,13 +234,13 @@ def cancel_bet(id):
                 db.session.delete(bet)
                 db.session.commit()
                 # Email other bet participant
-                bet_canceled(creator, challenger, bet)
+                # bet_canceled(creator, challenger, bet)
                 return jsonify({"Success": "Bet Deleted"})
             if current_user.id == bet.challenger:
                 db.session.delete(bet)
                 db.session.commit()
                 #Email other bet participant
-                bet_declined(creator, challenger, bet)
+                # bet_declined(creator, challenger, bet)
                 return jsonify({"Success": "Bet Deleted"})
         else:
             return ({"UNAUTHORIZED": "You can't delete this bet."}), 401
