@@ -5,9 +5,9 @@ Your bet with {{ winner.name }} on betti is over, and you, alas, have lost.
 View your bet, {{ bet.title }}, at:
 http://betti.co/email/{{ bet.id }}
 
-Please promptly follow the directions to reward {{ winner.charity }} with ${{ bet.amount }} via stripe.
+Thank you for rewarding {{ winner_charity }} with ${{ bet.amount }} via stripe.
 
-And remember, this was for charity!  So even in losing, you win, because you're giving to a great cause!
+Again, we're sorry that you lost, but happy that {{ winner_charity }} is a little richer.
 
 Thanks,
 
