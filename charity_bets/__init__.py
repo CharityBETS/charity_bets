@@ -2,7 +2,6 @@ from flask import Flask, render_template
 
 from . import models
 from .extensions import db, migrate, config, oauth, assets, login_manager, mail
-# from .views.views import coaction
 from .views.home import home
 from .views.users import users
 from .views.bets import bets

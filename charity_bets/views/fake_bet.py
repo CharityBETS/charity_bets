@@ -27,5 +27,3 @@ def fake_bet():
                 #   winner_name = current_user.name
                   )
     return fake_bet
-
-# "loser_paid": null,
