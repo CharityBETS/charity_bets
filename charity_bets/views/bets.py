@@ -1,4 +1,3 @@
-from functools import wraps
 from ..models import Bet, UserBet, User, Comment, Charity, Funder
 from flask import (session, Blueprint, url_for, request, redirect, flash,
                     render_template, jsonify, current_app)

@@ -1,5 +1,4 @@
 from functools import wraps
-
 from flask import session, Blueprint, url_for, request, redirect, flash, render_template, jsonify
 from flask.ext.login import current_user, abort, login_user, logout_user, login_required
 import json
@@ -50,12 +49,9 @@ def facebook_login():
 
 @users.route('/login/facebook/authorized', methods=["GET", "POST"])
 def facebook_authorized():
-    next_url = "http://espn.go.com/"
-    # next_url = request.args.get('next') or url_for('repolister.index')
     resp = facebook.authorized_response()
     if resp is None:
-        flash('You denied the request to sign in.')
-        return redirect(next_url)
+        return redirect('/#/')
 
     session['facebook_token'] = (resp['access_token'],)
     me = facebook.get('/me')
