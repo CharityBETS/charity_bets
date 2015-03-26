@@ -133,7 +133,7 @@ def create_bet():
 
         db.session.add(user_bet)
         db.session.commit()
-        
+
         return (jsonify({ 'data': bet }), 201)
 
     else:
@@ -274,7 +274,7 @@ def update_bet(id):
                 bet.mail_track = 'bet_accepted'
                 db.session.commit()
 
-        if bet.mail_track == 'bet_accepted':
+        if bet.mail_track == 'bet_accepted' or 'win_claimed':
             if bet.challenger_outcome or bet.creator_outcome:
                 if bet.verified_loser:
                     loss_claim_notification(bet)
