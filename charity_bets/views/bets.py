@@ -85,8 +85,6 @@ def check_resolution(bet):
         bet.status = "unresolved"
         db.session.commit()
 
-# this needs to be tested
-
 
 @bets.route("/user/bets", methods = ["POST"])
 @login_required
@@ -112,7 +110,9 @@ def create_bet():
                   creator_name = current_user.name,
                   creator_facebook_id = current_user.facebook_id,
                   charity_creator = charity.name,
-                  charity_creator_id = charity.id
+                  charity_creator_id = charity.id,
+                  creator_money_raised = form.amount.data,
+                  challenger_money_raised = form.amount.data,
                   )
 
         # Enter Optional Data Into Model
@@ -182,7 +182,7 @@ def view_users_bets(id):
     bet_list = bet_aggregator(challenger_bets, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
-        return jsonify({"data": bets}), 201
+        return jsonify({"data": bets }), 201
     return jsonify({"ERROR": "No bets available."}), 401
 
 
@@ -365,13 +365,20 @@ def fund_bet(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
+    amount = int(data["amount"])
 
     if "creatorid" in data.keys():
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
         isfunding = bet.creator
+        bet.creator_money_raised += amount
+        bet.total_money_raised += amount
+        db.session.commit()
     if "challengerid" in data.keys():
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
         isfunding = bet.challenger
+        bet.challenger_money_raised += amount
+        bet.total_money_raised += amount
+        db.session.commit()
 
     stripe.api_key = charity.access_token
     customer = stripe.Customer.create(
@@ -382,10 +389,12 @@ def fund_bet(id):
     funder = Funder(is_funding = isfunding,
                     user_id = current_user.id,
                     bet_id = id,
-                    amount = data["amount"],
+                    amount = str(amount),
                     stripe_customer_id = customer.id,
                     charity = charity.name,
                     charity_token = charity.access_token)
+
+
     db.session.add(funder)
     db.session.commit()
     return jsonify({"Data":funder.make_dict()})
