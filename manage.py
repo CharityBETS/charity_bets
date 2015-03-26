@@ -36,6 +36,11 @@ def createdb():
 @manager.command
 def seed():
     user_seed_data = [{
+                    'name': "Betti",
+                    'email': "betsforcharity@gmail.com",
+                    'facebook_id': "1384281321892330"
+                    },
+                    {
                     'name': "Daniel Newell",
                     'email': "dn78685@appstate.edu",
                     'facebook_id': "10101587473382708"
@@ -74,31 +79,33 @@ def charity_seed():
                     'name': "Profiles Without Faces (ben)",
                     'description': "Raising awareness for the difficulties of copying and pasting",
                     'email': "bbatty32@yahoo.com",
-                    'token': os.environ['ben_stripe']
+                    'access_token': os.environ['ben_stripe']
                     },
                     {
                     'name': "Kids With Faces (ben)",
                     'email': "kidswithfaces@notanemail.com",
                     'description': "sadly, at this time we cannot serve kids without faces",
-                    'token': os.environ['ben_stripe']
+                    'access_token': os.environ['ben_stripe']
+
                     },
                     {
                     'name': "Girl Scouts (daniel)",
                     'email': "dknewell1@gmail.com",
                     'description': "Buy our cookies!",
-                    'token': os.environ['dan_stripe']
+                    'access_token': os.environ['dan_stripe']
+
                     },
                     {
                     'name': "The Human Fund (bret)",
                     'email': "georgecostanza@seinfeldjoke.com",
                     'description': "Have younger people watched Seinfeld?",
-                    'token': os.environ['bret_stripe']
+                    'access_token': os.environ['bret_stripe']
                     },
                     {
                     'name': "The Bret Fund(bret)",
                     'email': "bret.runestad@gmail.com",
                     'description': "The money just goes right to Bret.  He deserves this.",
-                    'token': os.environ['bret_stripe']
+                    'access_token': os.environ['bret_stripe']
                     }
                     ]
 
@@ -106,7 +113,7 @@ def charity_seed():
         charity = Charity.query.filter_by(email=seed['email']).first()
         if not charity:
             charity=Charity(name=seed['name'],
-                            token=seed['token'],
+                            access_token=seed['access_token'],
                             email=seed['email'],
                             description = seed['description']
                             )

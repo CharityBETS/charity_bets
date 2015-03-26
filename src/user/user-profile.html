@@ -9,6 +9,10 @@
       </div>
 
       <div class="profile-stats">
+        <h3 class="user-stats">Stats</h3>
+        <div class="stat-title-label">
+          Record
+        </div>
         <div class="user-record">
           {{vm.currentUser.wins}} - {{vm.currentUser.losses}}
         </div>
@@ -16,6 +20,16 @@
         <div class="money-won">{{vm.currentUser.money_won | currency}}</div>
         <div class="stat-title-label">Money Lost For Charity</div>
         <div class="money-won">{{vm.currentUser.money_lost | currency }}</div>
+        <div class="stat-title-label">Win Streak</div>
+        <div class="win-streak">{{vm.currentUser.win_streak}}</div>
+        <!-- <canvas id="line" class="chart chart-line" data="data"
+          labels="labels" legend="true" series="series"
+          click="onClick">
+        </canvas> -->
+
+
+
+
       </div>
   </div>
 
@@ -74,7 +88,7 @@
             <button class="stripe-form-submit-button" type="submit">Pay with Stripe</button>
           </form> -->
 
-        <payment-form ng-show="vm.showpayment===true"></payment-form>
+        <!-- <payment-form ng-show="vm.showpayment===true"></payment-form> -->
 
         </div>
 

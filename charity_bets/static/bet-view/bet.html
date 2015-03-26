@@ -5,15 +5,15 @@
     <div class="bet-essentials flex-section-1">
       <div class="bet-title">{{vm.bet.title}}</div>
       <div class="creator-pending" ng-show="vm.isPendingCreator">Waiting For Challenger</div>
+      <h3>Money Pledged</h3>
+      <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$723</h4></div>
       <div class="info-title">Bet Amount</div>
       <div class="bet-size">{{vm.bet.amount | currency}}</div>
 
-      <h3>Money Pledged</h3>
-      <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$723</h4></div>
 
-      <div ng-show="vm.isActive()" class="crowd-funding-section">
+      <!-- <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button">$DONATE$</button>
-      </div>
+      </div> -->
 
       <!-- <button class="loser-status" ng-show="vm.isDonator">PAY BET</button> -->
 
@@ -26,20 +26,28 @@
     </div>
 
     <div class="better-profile hero-bettor flex-section-2">
+      <div class="winner-status" ng-show="vm.creatorWinner()"><img class="winner-img" src="https://s3-us-west-2.amazonaws.com/betti/Golden_Crown.png"></div>
       <div class="bettor-name">{{vm.bet.creator_name}}</div>
       <div class="charity">{{vm.bet.charity_creator}}</div>
       <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.creator_facebook_id}}/picture?type=large"></div>
       <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
       <div class="location">Durham, NC</div>
+      <div ng-show="vm.isActive()" class="crowd-funding-section">
+        <button class="donate-button" ng-click="vm.modalDonateCreator=true">$DONATE$</button>
+      </div>
     </div>
 
     <div class="better-profile villian-bettor flex-section-3">
+      <div class="winner-status" ng-show="vm.challengerWinner()"><img class="winner-img" src="https://s3-us-west-2.amazonaws.com/betti/Golden_Crown.png"></div>
       <div class="bettor-name">{{vm.bet.challenger_name}}</div>
       <div class="charity">{{vm.bet.charity_challenger}}</div>
       <!-- <div class="charity">Girl Scouts of America</div> -->
       <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.challenger_facebook_id}}/picture?type=large"></div>
       <div class="wins-losses"><span class="user-descriptor">Record:</span>12-29</div>
       <div class="location">Chapel Hill, NC</div>
+      <div ng-show="vm.isActive()" class="crowd-funding-section">
+        <button class="donate-button" ng-click="vm.modalDonateChallenger=true">$DONATE$</button>
+      </div>
     </div>
 
  </div>
@@ -57,9 +65,6 @@
         <!-- <div ng-if="(vm.isBettor() && vm.isActive())" class="choose-winner-div"> -->
 
           <div ng-show="vm.showResolutionButton()" class="choose-winner-div">
-
-
-          <!-- <button class="end-bet" ng-click="showme=true;" ng-hide="showme===true">WHO WON?</button> -->
             <div class="choose-winner-wrapper">
                 <!-- <p ng-hide="showme">It will appear here!</p> -->
                  <div>
@@ -91,21 +96,7 @@
   </div>
 
 
-        <div class="better-profile flex-section-b">
-          <!-- <div class="bettor-name">{{vm.bet.creator_name}}</div>
-          <div class="charity">{{vm.bet.charity_creator}}</div>
-          <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.creator_facebook_id}}/picture?type=large"></div>
-          <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
-          <div class="location">Durham, NC</div> -->
-        </div>
 
-        <div class="better-profile flex-section-c">
-          <!-- <div class="bettor-name">{{vm.bet.challenger_name}}</div>
-          <div class="charity">{{vm.bet.charity_challenger}}</div>
-          <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.challenger_facebook_id}}/picture?type=large"></div>
-          <div class="wins-losses"><span class="user-descriptor">Record:</span>12-29</div>
-          <div class="location">Chapel Hill, NC</div> -->
-        </div>
     </div>
  </div>
 
@@ -154,6 +145,89 @@
       </div>
 
       <button class="stripe-form-submit-button" ng-click="vm.modalaction=false" type="submit">Pay with Stripe</button>
-    <button ng-click="vm.modalaction=false" class="close-modal">x</button>
+    <button ng-click="$event.stopPropagation();$event.preventDefault();vm.modalaction=false" class="close-modal">x</button>
+    </form>
+</div>
+
+<div ng-show="vm.modalDonateCreator===true" class="modal-bg">
+    <form id="payment-form" ng-submit="vm.sendStripeDonationCreator(vm.card, vm.bet.creator, vm.donation.amount)" class="user-stripe-form">
+      <span class="payment-errors"></span>
+      <h3>Pay With Stripe</h3>
+      <!-- <div class="stripe-detail-label">Bet on {{vm.bet.creator_name}}</div> -->
+
+
+      <div class="form-row">
+        <label>
+          <span>Amount to Bet on {{vm.bet.creator_name}}</span>
+          <input size="5" ng-model="vm.donation.amount">
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>Card Number</span>
+          <input type="text" size="20" ng-model="vm.card.number" data-stripe="number"/>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>Expiration (MM/YYYY)</span>
+          <input type="text" size="2" ng-model="vm.card.exp_month" data-stripe="exp-month"/>
+        </label>
+        <span> / </span>
+        <input type="text" size="4" ng-model="vm.card.exp_year" data-stripe="exp-year"/>
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>CVC</span>
+          <input type="text" size="4" ng-model="vm.card.cvc" max-length="4" data-stripe="cvc"/>
+        </label>
+      </div>
+      <div class="donation-disclaimer">All money donated will go to the winner of the bet's charity.</div>
+      <button class="stripe-form-submit-button" ng-click="vm.modalaction=false" type="submit">Pay with Stripe</button>
+      <button ng-click="vm.modalDonateCreator=false" class="close-modal">x</button>
+    </form>
+</div>
+
+
+<div ng-show="vm.modalDonateChallenger===true" class="modal-bg">
+    <form id="payment-form" ng-submit="vm.sendStripeDonationChallenger(vm.card, vm.bet.challenger, vm.donation.amount)" class="user-stripe-form">
+      <span class="payment-errors"></span>
+      <h3>Pay With Stripe</h3>
+      <!-- <div class="stripe-detail-label">Bet on {{vm.bet.creator_name}}</div> -->
+
+
+      <div class="form-row">
+        <label>
+          <span>Amount to Bet on {{vm.bet.challenger_name}}</span>
+          <input size="5" ng-model="vm.donation.amount">
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>Card Number</span>
+          <input type="text" size="20" ng-model="vm.card.number" data-stripe="number"/>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>Expiration (MM/YYYY)</span>
+          <input type="text" size="2" ng-model="vm.card.exp_month" data-stripe="exp-month"/>
+        </label>
+        <span> / </span>
+        <input type="text" size="4" ng-model="vm.card.exp_year" data-stripe="exp-year"/>
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>CVC</span>
+          <input type="text" size="4" ng-model="vm.card.cvc" max-length="4" data-stripe="cvc"/>
+        </label>
+      </div>
+      <div class="donation-disclaimer">All money donated will go to the winner of the bet's charity.</div>
+      <button class="stripe-form-submit-button" ng-click="vm.modalaction=false" type="submit">Pay with Stripe</button>
+      <button ng-click="vm.modalDonateChallenger=false" class="close-modal">x</button>
     </form>
 </div>

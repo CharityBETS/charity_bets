@@ -1,6 +1,6 @@
 // Declare our app module, and import the ngRoute and ngAnimate
 // modules into it.
-var app = angular.module('app', ['mgcrea.ngStrap', 'angularPayments', 'ngRoute']);
+var app = angular.module('app', ['mgcrea.ngStrap', 'angularPayments','ngRoute']);
 
 // Set up our 404 handler
 app.config(['$routeProvider', function ($routeProvider) {
@@ -41,11 +41,21 @@ app.config(['$routeProvider', function($routeProvider) {
   };
   $routeProvider.when('/bet/:id', routeDefinition);
 }])
-.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', 'charities', function ($location, bet, betService, currentUser, Comment, charities) {
+.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', 'charities', 'Donation', function ($location, bet, betService, currentUser, Comment, charities, Donation) {
 
   var self = this;
   self.bet = bet;
   self.currentUser = currentUser;
+  self.comment=Comment();
+  self.donation=Donation();
+  self.charities=charities;
+  self.modalaction=false;
+  self.creatorWinner = function () {
+    return (bet.creator === bet.verified_winner);
+  };
+  self.challengerWinner = function () {
+    return (bet.challenger === bet.verified_winner);
+  };
   // self.showme=true;
 
   self.isBettor = function () {
@@ -62,21 +72,15 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.isWaitingOnCurrentUser = function () {
-    var resolverId = Number(bet.challenger_outcome < 0 ? bet.creator_outcome : bet.challenger_outcome);
+    var resolverId = Number((bet.challenger_outcome < 0 ? bet.creator_outcome : bet.challenger_outcome || bet.creator_outcome < 0 ? bet.challenger_outcome : bet.creator_outcome));
     return (bet.status === 'unresolved' && resolverId !== currentUser.id);
   };
 
 
-self.showResolutionButton = function () {
-    return self.isBettor() && (self.isWaitingOnCurrentUser() || self.isActive());
-};
+  self.showResolutionButton = function () {
+      return self.isBettor() && (self.isWaitingOnCurrentUser() || self.isActive());
+  };
 
-
-
-  self.comment=Comment();
-  self.charities=charities;
-  self.modalaction=false;
-  // self.hideme=false;
 
   self.betOutcomeWin = function (id) {
      betService.betOutcomeWin(bet.id, currentUser.id).then(function (result) {
@@ -99,8 +103,11 @@ self.showResolutionButton = function () {
   };
 
   self.addComment = function () {
-    betService.addComment(bet.id, self.comment);
+    betService.addComment(bet.id, self.comment).then(function(result) {
+      self.comment=result.comment;
+    });
     self.comment="";
+    location.reload();
   };
 
   self.sendStripe = function (card) {
@@ -110,12 +117,36 @@ self.showResolutionButton = function () {
       console.log('GOT', result);
       console.log(bet.id)
       betService.sendStripe(self.bet.id, result.id);
+      location.reload();
     });
   };
 
-  // self.challengerCharity = function (id, charity) {
-  //   betService.challengerCharity(id, charity);
-  // }
+  self.sendStripeDonationCreator = function (card, creatorid, amount) {
+    console.log(card);
+    console.log(creatorid);
+    console.log(amount);
+    Stripe.card.createToken(card, function (status, result) {
+      console.log('GOT', result);
+      betService.addDonationCreator(self.bet.id, creatorid, amount, result.id).then(self.goToBet);
+      location.reload();
+    });
+  };
+
+  self.sendStripeDonationChallenger = function (card, challengerid, amount) {
+    console.log(card);
+    console.log(challengerid);
+    console.log(amount);
+    Stripe.card.createToken(card, function (status, result) {
+      console.log('GOT', result);
+      betService.addDonationChallenger(self.bet.id, challengerid, amount, result.id).then(self.goToBet);
+      location.reload();
+    });
+  };
+
+  // self.addDonation = function () {
+  //   betService.addDonation(self.bet.id, self.Donation).then(self.goToBet);
+  // };
+
 
 
 
@@ -146,6 +177,17 @@ app.factory('Comment', function () {
     return {
       comment: spec.comment
       
+    };
+  };
+});
+
+app.factory('Donation', function () {
+  return function (spec) {
+    spec = spec || {};
+    return {
+        amount: spec.donation_amount,
+        challenger_id: spec.challenger_id,
+        creator_id: spec.creator_id,
     };
   };
 });
@@ -231,6 +273,10 @@ app.config(['$routeProvider', function($routeProvider) {
   self.goToBet = function (id) {
     $location.path('/bet/' + id );
     };
+
+  // self.isVerifiedWinner = function () {
+  //   return (bets.winner_name !== null);
+  // }
 
 
 }]);
@@ -365,6 +411,15 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     sendStripe: function (betid, resultid) {
       console.log('api/bets/' + betid + '/pay_bet', resultid);
       return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
+    },
+
+    addDonationCreator: function(betid, creatorId, amount, resultid) {
+      console.log('api/bets/' + betid + '/fund_bettor', {'creatorid': creatorId, 'amount': amount, 'token': resultid});
+      return post('api/bets/' + betid + '/fund_bettor', {'creatorid': creatorId, 'amount': amount, 'token': resultid});
+    },
+
+    addDonationChallenger: function(betid, challengerId, amount, resultid) {
+      return post('api/bets/' + betid + '/fund_bettor', {'challengerid': challengerId, 'amount': amount, 'token': resultid});
     }
 
 
@@ -435,12 +490,45 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
   };
 }]);
 
-app.directive('paymentForm', function() {
-  return {
-    restrict: 'E',
-    templateUrl: 'static/directives/user-payment-form-template.html'
-  }
-});
+// app.config(['$routeProvider', function($routeProvider) {
+//   var routeDefinition = {
+//     templateUrl: 'static/user/user-profile.html',
+//     controller: 'OtherUserCtrl',
+//     controllerAs: 'vm',
+//     resolve: {
+//           user: ['userService', '$route', function (userService, $route) {
+//             var id = $route.current.params.id;
+//             return userService.getByUserId(id);
+//           }],
+//           thisUser: ['userService', function (userService) {
+//           return userService.getByUserId.then(function (result) {
+//             return result.data;
+//           });
+//           }],
+//           thisUserBets: ['userService', function (userService) {
+//           console.log(userService.getBetsByUser());
+//           return userService.getBetsByUser.then(function (result) {
+//             return result.data;
+//           });
+//           }]
+//       }
+//   };
+//   $routeProvider.when('/user/:userid', routeDefinition);
+// }])
+// .controller('OtherUserCtrl', ['$location', 'userService', 'user', 'thisUser', 'thisUserBets', function ($location, userService, user, thisUser, thisUserBets) {
+//
+//   var self = this;
+//   self.thisUser = thisUser;
+//   self.thisUserBets = thisUserBets;
+//
+// }]);
+
+// app.directive('paymentForm', function() {
+//   return {
+//     restrict: 'E',
+//     templateUrl: 'static/directives/user-payment-form-template.html'
+//   };
+// });
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -501,14 +589,14 @@ app.config(['$routeProvider', function($routeProvider) {
 
   //self.sendToken = function ( )
 
-  self.sendStripe = function (bet) {
-    console.log(bet);
-    Stripe.card.createToken(bet.card, function (status, result) {
-      console.log('GOT', result);
-      console.log(result.id)
-      userService.sendStripe(bet.id, result.id);
-    });
-  };
+  // self.sendStripe = function (bet) {
+  //   console.log(bet);
+  //   Stripe.card.createToken(bet.card, function (status, result) {
+  //     console.log('GOT', result);
+  //     console.log(result.id);
+  //     userService.sendStripe(bet.id, result.id);
+  //   });
+  // };
 
   // self.sendStripe = function (id) {
   //  alert("striping!");
@@ -537,6 +625,15 @@ app.config(['$routeProvider', function($routeProvider) {
   //     elem.append(angular.element(form));
   //   };
   // }]);
+      $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+      $scope.series = ['Series A', 'Series B'];
+      $scope.data = [
+        [65, 59, 80, 81, 56, 55, 40],
+        [28, 48, 40, 19, 86, 27, 90]
+      ];
+      $scope.onClick = function (points, evt) {
+        console.log(points, evt);
+      };
 
 
 

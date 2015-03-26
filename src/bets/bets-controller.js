@@ -22,5 +22,9 @@ app.config(['$routeProvider', function($routeProvider) {
     $location.path('/bet/' + id );
     };
 
+  // self.isVerifiedWinner = function () {
+  //   return (bets.winner_name !== null);
+  // }
+
 
 }]);

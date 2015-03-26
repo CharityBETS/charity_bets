@@ -28,6 +28,15 @@ def bet_creation_notification(creator, challenger, bet):
                render_template("new_bet_email.html",
                                creator=creator, challenger=challenger, bet=bet))
 
+def bet_acceptance_notification(creator, challenger, bet):
+    send_email("{} has accepted your bet!".format(challenger.name),
+               "betsforcharity@gmail.com",
+               [creator.email],
+               render_template("accepted_bet_email.txt",
+                               creator=creator, challenger=challenger, bet=bet),
+               render_template("accepted_bet_email.html",
+                               creator=creator, challenger=challenger, bet=bet))
+
 
 def win_claim_notification(bet):
     """Sends an email to a bet participant, notifying them that the other

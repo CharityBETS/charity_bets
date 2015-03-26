@@ -28,11 +28,21 @@ app.config(['$routeProvider', function($routeProvider) {
   };
   $routeProvider.when('/bet/:id', routeDefinition);
 }])
-.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', 'charities', function ($location, bet, betService, currentUser, Comment, charities) {
+.controller('ViewBetCtrl', ['$location', 'bet', 'betService', 'currentUser', 'Comment', 'charities', 'Donation', function ($location, bet, betService, currentUser, Comment, charities, Donation) {
 
   var self = this;
   self.bet = bet;
   self.currentUser = currentUser;
+  self.comment=Comment();
+  self.donation=Donation();
+  self.charities=charities;
+  self.modalaction=false;
+  self.creatorWinner = function () {
+    return (bet.creator === bet.verified_winner);
+  };
+  self.challengerWinner = function () {
+    return (bet.challenger === bet.verified_winner);
+  };
   // self.showme=true;
 
   self.isBettor = function () {
@@ -49,21 +59,15 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.isWaitingOnCurrentUser = function () {
-    var resolverId = Number(bet.challenger_outcome < 0 ? bet.creator_outcome : bet.challenger_outcome);
+    var resolverId = Number((bet.challenger_outcome < 0 ? bet.creator_outcome : bet.challenger_outcome || bet.creator_outcome < 0 ? bet.challenger_outcome : bet.creator_outcome));
     return (bet.status === 'unresolved' && resolverId !== currentUser.id);
   };
 
 
-self.showResolutionButton = function () {
-    return self.isBettor() && (self.isWaitingOnCurrentUser() || self.isActive());
-};
+  self.showResolutionButton = function () {
+      return self.isBettor() && (self.isWaitingOnCurrentUser() || self.isActive());
+  };
 
-
-
-  self.comment=Comment();
-  self.charities=charities;
-  self.modalaction=false;
-  // self.hideme=false;
 
   self.betOutcomeWin = function (id) {
      betService.betOutcomeWin(bet.id, currentUser.id).then(function (result) {
@@ -86,8 +90,11 @@ self.showResolutionButton = function () {
   };
 
   self.addComment = function () {
-    betService.addComment(bet.id, self.comment);
+    betService.addComment(bet.id, self.comment).then(function(result) {
+      self.comment=result.comment;
+    });
     self.comment="";
+    location.reload();
   };
 
   self.sendStripe = function (card) {
@@ -97,12 +104,36 @@ self.showResolutionButton = function () {
       console.log('GOT', result);
       console.log(bet.id)
       betService.sendStripe(self.bet.id, result.id);
+      location.reload();
     });
   };
 
-  // self.challengerCharity = function (id, charity) {
-  //   betService.challengerCharity(id, charity);
-  // }
+  self.sendStripeDonationCreator = function (card, creatorid, amount) {
+    console.log(card);
+    console.log(creatorid);
+    console.log(amount);
+    Stripe.card.createToken(card, function (status, result) {
+      console.log('GOT', result);
+      betService.addDonationCreator(self.bet.id, creatorid, amount, result.id).then(self.goToBet);
+      location.reload();
+    });
+  };
+
+  self.sendStripeDonationChallenger = function (card, challengerid, amount) {
+    console.log(card);
+    console.log(challengerid);
+    console.log(amount);
+    Stripe.card.createToken(card, function (status, result) {
+      console.log('GOT', result);
+      betService.addDonationChallenger(self.bet.id, challengerid, amount, result.id).then(self.goToBet);
+      location.reload();
+    });
+  };
+
+  // self.addDonation = function () {
+  //   betService.addDonation(self.bet.id, self.Donation).then(self.goToBet);
+  // };
+
 
 
 

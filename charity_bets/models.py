@@ -17,6 +17,9 @@ class User(db.Model, UserMixin):
     losses = db.Column(db.Integer, default=0)
     money_lost = db.Column(db.Integer, default=0)
     money_won = db.Column(db.Integer, default=0)
+    win_streak = db.Column(db.Integer, default=0)
+    bet_conflicts = db.Column(db.Integer, default=0)
+    bets_made = db.Column(db.Integer, default=0)
 
     def make_dict(self):
         return {"id": self.id,
@@ -28,7 +31,11 @@ class User(db.Model, UserMixin):
                 "wins": self.wins,
                 "losses": self.losses,
                 "money_lost": self.money_lost,
-                "money_won": self.money_won}
+                "money_won": self.money_won,
+                "win_streak": self.win_streak,
+                "bet_conflicts": self.bet_conflicts,
+                "bets_made": self.bets_made}
+
 
 
 class Bet(db.Model):
@@ -54,6 +61,8 @@ class Bet(db.Model):
     charity_challenger = db.Column(db.String(255))
     charity_creator_id = db.Column(db.Integer)
     charity_challenger_id = db.Column(db.Integer)
+    mail_track = db.Column(db.String(255))
+    winner_name = db.Column(db.String(255))
 
 
     def make_dict(self):
@@ -78,7 +87,9 @@ class Bet(db.Model):
                 "charity_creator": self.charity_creator,
                 "charity_challenger": self.charity_challenger,
                 "charity_creator_id": self.charity_creator_id,
-                "charity_challenger_id": self.charity_challenger_id}
+                "charity_challenger_id": self.charity_challenger_id,
+                "mail_track": self.mail_track,
+                "winner_name": self.winner_name}
 
 
 class UserBet(db.Model):
@@ -92,17 +103,19 @@ class Charity(db.Model):
     name = db.Column(db.String(255))
     description = db.Column(db.String(255))
     email = db.Column(db.String(255))
-    token = db.Column(db.String(255))
     image = db.Column(db.String(255))
     website = db.Column(db.String(255))
+    access_token = db.Column(db.String(255))
     amount_earned = db.Column(db.Integer, default=0)
+    stripe_publishable_key = db.Column(db.String(255))
+    stripe_user_id = db.Column(db.String(255))
+    stripe_refresh_token = db.Column(db.String(255))
 
     def make_dict(self):
         return {"id": self.id,
                 "name": self.name,
                 "description": self.description,
                 "email": self.email,
-                "token": self.token,
                 "image": self.image,
                 "website": self.website,
                 "amount_earned": self.amount_earned}
@@ -125,23 +138,21 @@ class Comment(db.Model):
                 "timestamp": self.timestamp}
 
 
-# To be used when we implement crowd sourcing, we'll filter by verified_loser &
-# bet.id, and then charge them for the amount we stored at time of authorization
 
-# class Funder(db.model):
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     is_funding: = db.Column(db.Integer)
-#     bet_id = db.Column(db.Integer)
-#     email = db.Column(db.String)
-#     amount = db.Column(db.String)
-#     stripe_customer_id = db.Column(db.Integer)
-#     charity = db.Column(db.String)
-#     charity_token = db.Column(db.String)
+class Funder(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    is_funding = db.Column(db.Integer)
+    bet_id = db.Column(db.Integer)
+    email = db.Column(db.String)
+    amount = db.Column(db.String)
+    stripe_customer_id = db.Column(db.String)
+    charity = db.Column(db.String)
+    charity_token = db.Column(db.String)
+    paid_out = db.Column(db.String)
 
-    # def make_dict(self):
-    #     return {"id": self.id,
-    #             "is_funding": self.is_funding,
-    #             "email": self.email,
-    #             "amount": self.comment,
-    #             "timestamp": self.timestamp,
-    #             "charity": self.charity}
+    def make_dict(self):
+        return {"id": self.id,
+                "is_funding": self.is_funding,
+                "email": self.email,
+                "amount": self.amount,
+                "charity": self.charity}

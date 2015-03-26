@@ -1,0 +1,122 @@
+<header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
+
+<div class="profile-top-section">
+    <div class="profile-details-container">
+        <h3>{{vm.thisUser.name}}</h3>
+        <!-- <h4>{{vm.currentUser.charity}}</h4> -->
+        <h4>Kids with Faces</h4>
+        <img class="profile-img" src="http://graph.facebook.com/{{vm.thisUser.facebook_id}}/picture?type=large">
+    </div>
+
+    <div class="profile-stats">
+      <h3 class="user-stats">Stats</h3>
+      <div class="stat-title-label">
+        Record
+      </div>
+      <div class="user-record">
+        {{vm.thisUser.wins}} - {{vm.thisUser.losses}}
+      </div>
+      <div class="stat-title-label">Money Won For Charity</div>
+      <div class="money-won">{{vm.thisUser.money_won | currency}}</div>
+      <div class="stat-title-label">Money Lost For Charity</div>
+      <div class="money-won">{{vm.thisUser.money_lost | currency }}</div>
+      <div class="stat-title-label">Win Streak</div>
+      <div class="win-streak">{{vm.thisUser.win_streak}}</div>
+      <!-- <canvas id="line" class="chart chart-line" data="data"
+        labels="labels" legend="true" series="series"
+        click="onClick">
+      </canvas> -->
+
+
+
+
+    </div>
+</div>
+
+<div class="profile-section-two">
+
+  <ul class="bets-ul">
+    <li class="user-bets-li" ng-repeat="bet in vm.thisUserBets">
+
+    <div class="bets-flex-container">
+
+      <div class="bets-section-1">
+        <div class="bets-users">
+          <a href="#/bet/{{bet.id}}">{{bet.creator_name}} Vs. {{bet.challenger_name}}</a>
+        </div>
+        <div class="bets-title">
+          <a href="#/bet/{{bet.id}}">{{bet.title}}</a>
+        </div>
+        <div class="bets-date">
+          {{bet.date | date:'EEEE, MMM d'}}
+        </div>
+        <div class="bets-amount">
+          {{bet.amount | currency}}
+        </div>
+
+        <!-- <button class="stripe-button" ng-show="!vm.isBetLoser"><a href="/PAYMENT_TEST">Pay with Stripe</a></button> -->
+        <button class="stripe-button" ng-show="vm.isBetLoser" ng-click="">PAY BET</button>
+
+
+        <!-- <form id="payment-form" ng-submit="vm.sendStripe(bet)" class="user-stripe-form">
+          <span class="payment-errors"></span>
+          <h3>Pay With Stripe</h3>
+          <span class="stripe-detail-label">Bet:</span><span>{{bet.amount | currency}}</span>
+          <div class="form-row">
+            <label>
+              <span>Card Number</span>
+              <input type="text" size="20" ng-model="bet.card.number" data-stripe="number"/>
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label>
+              <span>Expiration (MM/YYYY)</span>
+              <input type="text" size="2" ng-model="bet.card.exp_month" data-stripe="exp-month"/>
+            </label>
+            <span> / </span>
+            <input type="text" size="4" ng-model="bet.card.exp_year" data-stripe="exp-year"/>
+          </div>
+
+          <div class="form-row">
+            <label>
+              <span>CVC</span>
+              <input type="text" size="4" ng-model="bet.card.cvc" data-stripe="cvc"/>
+            </label>
+          </div>
+
+          <button class="stripe-form-submit-button" type="submit">Pay with Stripe</button>
+        </form> -->
+
+      <!-- <payment-form ng-show="vm.showpayment===true"></payment-form> -->
+
+      </div>
+
+      <!-- <div class="prize-purse">
+        {{}}
+      </div> -->
+      <div class="bets-section-2">
+        <div class="profile-wrap creator-wrap">
+          <div class="creator-pic-div">
+
+            <img class="bets-pic" src="http://graph.facebook.com/{{bet.creator_facebook_id}}/picture?type=large"></img>
+          </div>
+        </div>
+      </div>
+
+      <div class="bets-section-3">
+        <div class="profile-wrap challenger-wrap">
+          <div class="challenger-pic">
+            <img class="bets-pic" src="http://graph.facebook.com/{{bet.challenger_facebook_id}}/picture?type=large"></img>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </li>
+  </ul>
+
+
+
+
+</div>
