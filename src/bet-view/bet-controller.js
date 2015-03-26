@@ -123,6 +123,7 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.sendStripeDonationChallenger = function (card, challengerid, amount) {
+    console.log(card);
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
       betService.addDonationChallenger(self.bet.id, challengerid, amount, result.id).then(self.goToBet);

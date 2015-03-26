@@ -1,7 +1,10 @@
 <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
 <div class="create-bet-wrapper">
+
+
  <div class="bet-section-top">
+
     <div class="bet-essentials flex-section-1">
       <div class="bet-title">{{vm.bet.title}}</div>
       <div class="creator-pending" ng-show="vm.isPendingCreator">Waiting For Challenger</div>
@@ -9,6 +12,7 @@
       <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$723</h4></div>
       <div class="info-title">Bet Amount</div>
       <div class="bet-size">{{vm.bet.amount | currency}}</div>
+      <div class="bet-description">{{vm.bet.description}}</div>
 
 
       <!-- <div ng-show="vm.isActive()" class="crowd-funding-section">
@@ -19,19 +23,18 @@
 
 
       <div class="bet-date">{{vm.bet.date | date:'EEEE, MMM d'}}</div>
-      <div class="info-title">Location:</div>
-      <div class="location">{{vm.bet.location}}</div>
-      <div class="info-title">Description:</div>
-      <div class="bet-description">{{vm.bet.description}}</div>
+      <div ng-show="vm.isLocation()">
+        <div class="info-title">Location:</div>
+        <div class="location">{{vm.bet.location}}</div>
+      </div>
     </div>
 
     <div class="better-profile hero-bettor flex-section-2">
       <div class="winner-status" ng-show="vm.creatorWinner()"><img class="winner-img" src="https://s3-us-west-2.amazonaws.com/betti/Golden_Crown.png"></div>
       <div class="bettor-name">{{vm.bet.creator_name}}</div>
+      <div class="wins-losses">37-0</div>
       <div class="charity">{{vm.bet.charity_creator}}</div>
       <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.creator_facebook_id}}/picture?type=large"></div>
-      <div class="wins-losses"><span class="user-descriptor">Record:</span>37-0</div>
-      <div class="location">Durham, NC</div>
       <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button" ng-click="vm.modalDonateCreator=true">$DONATE$</button>
       </div>
@@ -43,8 +46,7 @@
       <div class="charity">{{vm.bet.charity_challenger}}</div>
       <!-- <div class="charity">Girl Scouts of America</div> -->
       <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.challenger_facebook_id}}/picture?type=large"></div>
-      <div class="wins-losses"><span class="user-descriptor">Record:</span>12-29</div>
-      <div class="location">Chapel Hill, NC</div>
+      <div class="wins-losses">12-29</div>
       <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button" ng-click="vm.modalDonateChallenger=true">$DONATE$</button>
       </div>
@@ -138,13 +140,25 @@
             <input placeholder="Card Number" type="text" size="20" ng-model="vm.card.number"  payments-format="card" payments-validate="card" data-stripe="number"/>
           </label>
         </div>
+
         <div class="form-row">
+          <label>
+            <input placeholder="MM" type="text" size="3" maxlength="2" ng-model="vm.card.exp_month">
+          </label>
+        </div>
+
+        <div class="form-row">
+          <label>
+            <input placeholder="YY" type="text" size="3" maxlength="2" ng-model="vm.card.exp_year">
+          </label>
+        </div>
+          <!-- <div class="form-row">
           <label>
             <input placeholder="MMYY" type="text" size="5" ng-model="vm.card.exp_month" payments-format="expiry" payments-validate="expiry" data-stripe="exp-month"/>
           </label>
           <!-- <span> / </span> -->
           <!-- <input type="text" size="4" ng-model="vm.card.exp_year" payments-format="cvc" payments-validate="cvc" data-stripe="exp-year"/> -->
-        </div>
+        <!-- </div> -->
       </div>
       <button class="stripe-form-submit-button" ng-click="vm.modalaction=false" type="submit">Pay Bet</button>
       <button ng-click="$event.stopPropagation();$event.preventDefault();vm.modalaction=false" class="close-modal">x</button>
@@ -186,11 +200,15 @@
 
         <div class="form-row">
           <label>
-            <input placeholder="MMYY" type="text" size="2" ng-model="vm.card.exp_month" payments-format="expiry" payments-validate="expiry" data-stripe="exp-month"/>
+            <input placeholder="MM" type="text" size="3" maxlength="2" ng-model="vm.card.exp_month">
           </label>
-          <!-- <span> / </span>
-          <input type="text" size="4" ng-model="vm.card.exp_year" data-stripe="exp-year"/> -->
         </div>
+
+        <div class="form-row">
+          <label>
+            <input placeholder="YY" type="text" size="3" maxlength="2" ng-model="vm.card.exp_year">
+          </label>
+       </div>
 
       </div>
 
@@ -223,23 +241,27 @@
 
       <div class="form-row">
         <label>
-          <input placeholder="CVC" type="text" size="5" ng-model="vm.card.cvc" payments-format="cvc" payments-validate="cvc" max-length="4" data-stripe="cvc"/>
+          <input placeholder="CVC" type="text" size="5" ng-model="vm.card.cvc" payments-format="cvc" payments-validate="cvc" max-length="4" data-stripe="cvc">
         </label>
       </div>
 
       <div class="form-row">
         <label>
-          <input placholder="Card Number" type="text" size="20" ng-model="vm.card.number" payments-format="card" payments-validate="card" data-stripe="number"/>
+          <input placeholder="Card Number" type="text" size="20" ng-model="vm.card.number" payments-format="card" payments-validate="card" data-stripe="number">
         </label>
       </div>
 
       <div class="form-row">
         <label>
-          <input placeholder="MMYY" type="text" size="5" ng-model="vm.card.exp_month" payments-format="expiry" payments-validate="expiry" data-stripe="exp-month"/>
+          <input placeholder="MM" type="text" size="3" maxlength="2" ng-model="vm.card.exp_month">
         </label>
-        <!-- <span> / </span>
-        <input type="text" size="4" ng-model="vm.card.exp_year" data-stripe="exp-year"/> -->
-         </div>
+      </div>
+
+       <div class="form-row">
+         <label>
+           <input placeholder="YY" type="text" size="3" maxlength="2" ng-model="vm.card.exp_year">
+         </label>
+      </div>
 
       <div class="donation-disclaimer">All money donated will go to the winner of the bet's charity.</div>
       <button class="stripe-form-submit-button" ng-click="vm.modalaction=false" type="submit">Pay with Stripe</button>

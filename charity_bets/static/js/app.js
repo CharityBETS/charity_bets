@@ -167,6 +167,7 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.sendStripeDonationChallenger = function (card, challengerid, amount) {
+    console.log(card);
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
       betService.addDonationChallenger(self.bet.id, challengerid, amount, result.id).then(self.goToBet);
@@ -537,6 +538,7 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     },
 
     addDonationChallenger: function(betid, challengerId, amount, resultid) {
+      console.log('api/bets/' + betid + '/fund_bettor', {'creatorid': challengerId, 'amount': amount, 'token': resultid});
       return post('api/bets/' + betid + '/fund_bettor', {'challengerid': challengerId, 'amount': amount, 'token': resultid});
     }
 
