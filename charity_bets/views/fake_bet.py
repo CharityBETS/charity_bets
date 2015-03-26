@@ -5,7 +5,7 @@ def fake_bet():
     betti = User.query.filter_by(email="betsforcharity@gmail.com").first()
     fake_bet = Bet(title="Sample Bet",
                   id = 0,
-                  amount=10,
+                  amount=20,
                   creator = betti.id,
                   challenger = current_user.id,
                   challenger_name = current_user.name,
@@ -22,8 +22,9 @@ def fake_bet():
                   date = "2020-01-01T04:00:00.000Z",
                   description = "More details about your bet!",
                   location = "The place where your bet will happen",
-                  verified_winner = current_user.id,
-                  verified_loser = betti.id
+                #   verified_winner = current_user.id,
+                #   verified_loser = betti.id,
+                #   winner_name = current_user.name
                   )
     return fake_bet
 
