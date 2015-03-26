@@ -36,14 +36,18 @@ def add_wins_losses(bet):
 def charge_funders(bet):
     """At the resolution of the bet, this charges all the losing funders"""
     user = User.query.filter_by(id = bet.verified_winner).first()
-    funders = Funder.query.filter_by(bet_id = bet.id).all()
+
     if user.id == bet.creator:
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
     if user.id == bet.challenger:
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
 
+    funders = Funder.query.filter_by(bet_id = bet.id,
+                                     charity_token = charity.access_token).all()
+
     stripe.api_key = charity.access_token
     for funder in funders:
+        print("THIS IS THE FUNDER.................", funder.user_id)
         stripe.Charge.create(
             amount = int(funder.amount)*100,
             currency = "usd",
@@ -364,10 +368,10 @@ def fund_bet(id):
     bet = Bet.query.filter_by(id = id).first()
 
     if "creatorid" in data.keys():
-        charity = Charity.query.filter_by(name = bet.charity_creator).first()
+        charity = Charity.query.filter_by(name = bet.charity_challenger).first()
         isfunding = bet.creator
     if "challengerid" in data.keys():
-        charity = Charity.query.filter_by(name = bet.charity_challenger).first()
+        charity = Charity.query.filter_by(name = bet.charity_creator).first()
         isfunding = bet.challenger
 
     stripe.api_key = charity.access_token
@@ -377,6 +381,7 @@ def fund_bet(id):
         )
 
     funder = Funder(is_funding = isfunding,
+                    user_id = current_user.id,
                     bet_id = id,
                     amount = data["amount"],
                     stripe_customer_id = customer.id,
