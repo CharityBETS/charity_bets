@@ -59,6 +59,10 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
       return put('/api/bets/' + id, {"status": "active"});
     },
 
+    deleteBet: function (id) {
+      return remove('/api/bets/' + id);
+    },
+
     addComment: function (id, comment) {
       return post('/api/bets/' + id + '/comments', comment);
     },

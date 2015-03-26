@@ -8,7 +8,7 @@
 
     <div class="bets-section-1">
       <div class="bets-users">
-        {{bet.creator_name}} Vs. {{bet.challenger_name}}
+        <a href="#/user/user-profile/{{bet.creator}}">{{bet.creator_name}}</a> Vs. <a href="#/user/user-profile/{{bet.challenger}}">{{bet.challenger_name}}</a>
       </div>
       <div class="bets-title">
         <a href="#/bet/{{bet.id}}">{{bet.title}}</a>

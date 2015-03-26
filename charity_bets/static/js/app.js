@@ -13,6 +13,37 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+  // self.isVerifiedWinner = function () {
+  //   return (bets.winner_name !== null);
+  // }
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
     templateUrl: '/static/bet-view/bet.html',
@@ -102,6 +133,12 @@ app.config(['$routeProvider', function($routeProvider) {
     betService.challengerCharity(bet.id, bet.charity_challenger);
   };
 
+  self.deleteBet = function () {
+    betService.deleteBet(bet.id).then(function(result) {
+      self.bet = result;
+    } );
+  };
+
   self.addComment = function () {
     betService.addComment(bet.id, self.comment).then(function(result) {
       self.comment=result.comment;
@@ -122,10 +159,7 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.sendStripeDonationCreator = function (card, creatorid, amount) {
-    console.log(card);
-    console.log(creatorid);
-    console.log(amount);
-    Stripe.card.createToken(card, function (status, result) {
+      Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
       betService.addDonationCreator(self.bet.id, creatorid, amount, result.id).then(self.goToBet);
       location.reload();
@@ -133,15 +167,13 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.sendStripeDonationChallenger = function (card, challengerid, amount) {
-    console.log(card);
-    console.log(challengerid);
-    console.log(amount);
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
       betService.addDonationChallenger(self.bet.id, challengerid, amount, result.id).then(self.goToBet);
       location.reload();
     });
   };
+
 
   // self.addDonation = function () {
   //   betService.addDonation(self.bet.id, self.Donation).then(self.goToBet);
@@ -250,43 +282,121 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-  // self.isVerifiedWinner = function () {
-  //   return (bets.winner_name !== null);
-  // }
-
-
-}]);
-
 app.directive('betPaymentForm', function() {
   return {
     restrict: 'E',
     templateUrl: 'static/directives/bet-payment-form-temp.html'
   }
 });
+
+app.directive('donutChart', function () {
+  return {
+      restrict: "EA",
+      replace: true,
+      scope: {
+        dataset: '='
+      },
+      link: function(scope, element, attrs) {
+
+        var dataset = scope.dataset;
+
+        var width = 320,
+           height = 330,
+           radius = Math.min(width, height) / 2;
+
+        var color = d3.scale.category20();
+
+        var pie = d3.layout.pie()
+          .sort(null);
+
+        var arc = d3.svg.arc()
+          .innerRadius(radius - 80)
+          .outerRadius(radius - 50);
+
+        var svg = d3.select(element[0]).append("svg")
+           .attr("width", width)
+           .attr("height", height)
+           .append("g")
+           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        var path = svg.selectAll("path")
+           .data(pie(dataset))
+           .enter().append("path")
+           .attr("fill", function (d, i) {
+             return color(i);
+           })
+           .attr("d", arc);
+
+      // d3 is the raw d3 object
+    }
+
+  }
+});
+
+// app.factory('d3Service', [function(){
+//
+//     var data = [{
+//         name: "one",
+//         value: 75
+//       }, {
+//         name: "two",
+//         value: 25
+//       }, ];
+//
+//       var width = 100;
+//         height = width;
+//
+//       var chart = d3.select("#circle-4")
+//         .append('svg')
+//         .attr("width", width)
+//         .attr("height", height)
+//         .append("gh")
+//         .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+//
+//
+//       var radius = Math.min(width, height) / 2;
+//
+//       var arc = d3.svg.arc()
+//         .outerRadius(radius / 2)
+//         .innerRadius(radius - 15);
+//
+//       var pie = d3.layout.pie()
+//         .sort(null)
+//         .startAngle(0)
+//         .endAngle(2 * Math.PI)
+//         .value(function (d) {
+//         return d.value;
+//       });
+//
+//       var color = d3.scale.ordinal()
+//         .range(["#3399FF", "#e1e1e1"]);
+//
+//       var gh = chart.selectAll(".arc")
+//         .data(pie(data))
+//         .enter().append("gh")
+//         .attr("class", "arc");
+//
+//       gh.append("path")
+//         .attr("fill", function (d, i) {
+//         return color(i);
+//       })
+//         .transition()
+//         .ease("exp")
+//         .duration(1000)
+//         .attrTween("d", dpie);
+//
+//       function dpie(b) {
+//         var i = d3.interpolate({
+//             startAngle: 0,
+//             endAngle: 1 * Math.PI
+//         }, b);
+//         return function (t) {
+//             return arc(i(t));
+//         };
+//       }
+//
+//     return d3;
+//   }];
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -395,6 +505,10 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
       return put('/api/bets/' + id, {"status": "active"});
     },
 
+    deleteBet: function (id) {
+      return remove('/api/bets/' + id);
+    },
+
     addComment: function (id, comment) {
       return post('/api/bets/' + id + '/comments', comment);
     },
@@ -458,8 +572,7 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
       if (!userId) {
         throw new Error('getByUserId requires a user id');
       }
-
-      return get('/api/users/' + userId);
+      return get('/api/user/' + userId);
     },
 
     addUser: function (user) {
@@ -478,9 +591,9 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
       return get('/api/user/bets');
     },
 
-    getBetsByUser: function () {
+    getBetsByUser: function (id) {
       return get ('api/user/' + id + '/bets');
-    },
+    }
 
     // sendStripe: function (betid, resultid) {
     //   console.log('api/bets/' + betid + '/pay_bet', resultid);
@@ -490,38 +603,38 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
   };
 }]);
 
-// app.config(['$routeProvider', function($routeProvider) {
-//   var routeDefinition = {
-//     templateUrl: 'static/user/user-profile.html',
-//     controller: 'OtherUserCtrl',
-//     controllerAs: 'vm',
-//     resolve: {
-//           user: ['userService', '$route', function (userService, $route) {
-//             var id = $route.current.params.id;
-//             return userService.getByUserId(id);
-//           }],
-//           thisUser: ['userService', function (userService) {
-//           return userService.getByUserId.then(function (result) {
-//             return result.data;
-//           });
-//           }],
-//           thisUserBets: ['userService', function (userService) {
-//           console.log(userService.getBetsByUser());
-//           return userService.getBetsByUser.then(function (result) {
-//             return result.data;
-//           });
-//           }]
-//       }
-//   };
-//   $routeProvider.when('/user/:userid', routeDefinition);
-// }])
-// .controller('OtherUserCtrl', ['$location', 'userService', 'user', 'thisUser', 'thisUserBets', function ($location, userService, user, thisUser, thisUserBets) {
-//
-//   var self = this;
-//   self.thisUser = thisUser;
-//   self.thisUserBets = thisUserBets;
-//
-// }]);
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/user/other-users.html',
+    controller: 'OtherUserCtrl',
+    controllerAs: 'vm',
+    resolve: {
+          // user: ['userService', '$route', function (userService, $route) {
+          //   var id = $route.current.params.id;
+          //   return userService.getByUserId(id);
+          // }],
+          thisUser: ['userService', '$route', function (userService, $route) {
+          return userService.getByUserId($route.current.params.id).then(function (result) {
+            return result.data;
+          });
+          }],
+          thisUserBets: ['userService', '$route', function (userService, $route) {
+          return userService.getBetsByUser($route.current.params.id).then(function (result) {
+          console.log(result.data);
+            return result.data;
+          });
+          }]
+      }
+  };
+  $routeProvider.when('/user/user-profile/:id', routeDefinition);
+}])
+.controller('OtherUserCtrl', ['$location', 'userService', 'thisUser', 'thisUserBets', function ($location, userService, thisUser, thisUserBets) {
+
+  var self = this;
+  self.thisUser = thisUser;
+  self.thisUserBets = thisUserBets;
+
+}]);
 
 // app.directive('paymentForm', function() {
 //   return {
@@ -557,18 +670,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
-
-  // self.thisBetId = angular.element(document.querySelector('.user-stripe-form'))
-  // var stripeButton = document.querySelector('.form-stripe-button');
-  // var id;
-  // stripeButton.addEventListener("click", function (e) {
-  //   var button = e.target;
-  //   id = button.parentNode.getAttribute('data-id');
-  // });
-  // console.log(id);
-  // var thisStripeId = this.aStripeForm.getAttribute('data-id');
-  // var thisStripeId = this.aStripeForm.data('id');
-
+  self.foo = [currentUser.wins, currentUser.losses];
 
 
   $scope.stripeCallback = function (code, result) {
@@ -583,48 +685,8 @@ app.config(['$routeProvider', function($routeProvider) {
       }
   };
 
-  self.stripeTest = function (dataID) {
-    alert(dataID);
-  };
-
-  //self.sendToken = function ( )
-
-  // self.sendStripe = function (bet) {
-  //   console.log(bet);
-  //   Stripe.card.createToken(bet.card, function (status, result) {
-  //     console.log('GOT', result);
-  //     console.log(result.id);
-  //     userService.sendStripe(bet.id, result.id);
-  //   });
-  // };
-
-  // self.sendStripe = function (id) {
-  //  alert("striping!");
-  //  userService.sendStripe(id);
-  // }
 
 
-
-  // app.directive('stripeForm', ['$log', function($log) {
-  //   return function(scope, elem, attrs) {
-  //     console.log('x');
-  //     var form =  document.createElement("form");;
-  //     form.action = "charge";
-  //     form.method = "POST";
-  //     var script =  document.createElement("script");
-  //     script.src = "https://checkout.stripe.com/checkout.js";
-  //     script.className = "stripe-button";
-  //     script.setAttribute("data-key", "pk_test_6pRNASCoBOKtIshFeQd4XMUh");
-  //     script.setAttribute("data-image", "square-image.png");
-  //     script.setAttribute("data-name", "Demo Site");
-  //     script.setAttribute("data-description", "2 widgets ($20.00)");
-  //     script.setAttribute("data-amount", "2000");
-  //
-  //     form.appendChild(script);
-  //
-  //     elem.append(angular.element(form));
-  //   };
-  // }]);
       $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
       $scope.series = ['Series A', 'Series B'];
       $scope.data = [

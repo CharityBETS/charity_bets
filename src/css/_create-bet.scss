@@ -347,6 +347,14 @@
   color: black;
 }
 
+input.ng-invalid.ng-dirty {
+ background-color: #FA787E;
+}
+
+input.ng-valid.ng-dirty {
+ background-color: #78FA89;
+}
+
 @media only screen and (max-width : 480px) {
 
 
