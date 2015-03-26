@@ -28,6 +28,8 @@ def add_wins_losses(bet):
     user = User.query.filter_by(id = bet.verified_winner).first()
     user.wins = user.wins + 1
     user.win_streak = user.win_streak + 1
+    if user.win_streak > user.longest_win_streak:
+        user.longest_win_streak = user.win_streak
     user.money_won = user.money_won + bet.amount
 
 
