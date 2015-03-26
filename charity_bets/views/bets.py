@@ -47,7 +47,6 @@ def charge_funders(bet):
 
     stripe.api_key = charity.access_token
     for funder in funders:
-        print("THIS IS THE FUNDER.................", funder.user_id)
         stripe.Charge.create(
             amount = int(funder.amount)*100,
             currency = "usd",
