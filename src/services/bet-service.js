@@ -12,7 +12,7 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     return processAjaxPromise($http.post(url, share));
   }
 
-  function delete(url) {
+  function remove(url) {
     return processAjaxPromise($http.delete(url));
 
   }
@@ -60,8 +60,8 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     },
 
     deleteBet: function (id) {
-      return delete('/api/bets/' + id);
-    }
+      return remove('/api/bets/' + id);
+    },
 
     addComment: function (id, comment) {
       return post('/api/bets/' + id + '/comments', comment);
