@@ -9,6 +9,7 @@ from ..emails import (send_email, bet_creation_notification,
                        win_claim_notification, loss_claim_notification,
                        disputed_bet_notification, you_lost_notification,
                        bet_acceptance_notification)
+from .fake_bet import fake_bet
 import json
 from charity_bets import mail
 from flask_mail import Message
@@ -129,25 +130,9 @@ def view_bets():
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets}), 201
-    betti = User.query.filter_by(email="betsforcharity@gmail.com").first()
     fake_bet_list = []
-    fake_bet = Bet(title="Sample Bet",
-                  id = 0,
-                  amount=10,
-                  creator = betti.id,
-                  challenger = current_user.id,
-                  challenger_name = current_user.name,
-                  challenger_facebook_id = current_user.facebook_id,
-                  creator_name = betti.name,
-                  creator_facebook_id = betti.facebook_id,
-                  charity_creator = "The Human Fund",
-                  charity_creator_id = 2,
-                  status = "pending",
-                  date = "2020-01-01T04:00:00.000Z",
-                  description = "Give more info about your bet here",
-                  location = "The place where your bet will happen",
-                  )
-    fake_bet_list.append(fake_bet)
+    seed_bet = fake_bet()
+    fake_bet_list.append(seed_bet)
     fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
     return jsonify({"data": fake_bets}), 201
 
@@ -179,25 +164,9 @@ def view_all_bets():
     if bets:
         return jsonify({'data': all_bets}), 201
     else:
-        betti = User.query.filter_by(email="betsforcharity@gmail.com").first()
         fake_bet_list = []
-        fake_bet = Bet(title="Sample Bet",
-                      id = 0,
-                      amount=10,
-                      creator = betti.id,
-                      challenger = current_user.id,
-                      challenger_name = current_user.name,
-                      challenger_facebook_id = current_user.facebook_id,
-                      creator_name = betti.name,
-                      creator_facebook_id = betti.facebook_id,
-                      charity_creator = "The Human Fund",
-                      charity_creator_id = 2,
-                      status = "pending",
-                      date = "2020-01-01T04:00:00.000Z",
-                      description = "Give more info about your bet here",
-                      location = "The place where your bet will happen",
-                      )
-        fake_bet_list.append(fake_bet)
+        seed_bet = fake_bet()
+        fake_bet_list.append(seed_bet)
         fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
         return jsonify({"data": fake_bets}), 201
 
@@ -206,25 +175,8 @@ def view_all_bets():
 @login_required
 def view_bet(id):
     if id==0:
-        betti = User.query.filter_by(email="betsforcharity@gmail.com").first()
-        fake_bet = Bet(title="Sample Bet",
-                      id = 0,
-                      amount=10,
-                      creator = betti.id,
-                      challenger = current_user.id,
-                      challenger_name = current_user.name,
-                      challenger_facebook_id = current_user.facebook_id,
-                      creator_name = betti.name,
-                      creator_facebook_id = betti.facebook_id,
-                      charity_creator = "The Human Fund",
-                      charity_creator_id = 2,
-                      status = "pending",
-                      date = "2020-01-01T04:00:00.000Z",
-                      description = "Give more info about your bet here",
-                      location = "The place where your bet will happen",
-                      )
-        fake_bet = fake_bet.make_dict()
-        return jsonify({'data': fake_bet})
+        seed_bet = fake_bet().make_dict()
+        return jsonify({'data': seed_bet})
     else:
         bet = Bet.query.filter_by(id = id).first()
         comments = Comment.query.filter_by(bet_id=id).all()
