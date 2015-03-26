@@ -7,7 +7,8 @@ from ..extensions import db
 from ..emails import (send_email, bet_creation_notification,
                        win_claim_notification, loss_claim_notification,
                        disputed_bet_notification, you_lost_notification,
-                       bet_acceptance_notification)
+                       bet_acceptance_notification, bet_canceled,
+                       bet_declined)
 from .fake_bet import fake_bet
 import json
 from charity_bets import mail
@@ -219,7 +220,32 @@ def view_bet(id):
             bet["comments"] = all_comments
             return jsonify({'data': bet})
         else:
-            return jsonify({"ERROR": "Bet does not exist."}), 401
+            return jsonify({"ERROR": "Bet does not exist."}), 400
+
+@bets.route("/bets/<int:id>", methods = ["DELETE"])
+@login_required
+def cancel_bet(id):
+    bet = Bet.query.get(id)
+    creator = User.query.filter_by(id=bet.creator).first()
+    challenger = User.query.filter_by(id=bet.challenger).first()
+    if bet:
+        if bet.status == "pending":
+            if current_user.id == bet.creator:
+                db.session.delete(bet)
+                db.session.commit()
+                # Email other bet participant
+                bet_canceled(creator, challenger, bet)
+                return jsonify({"Success": "Bet Deleted"})
+            if current_user.id == bet.challenger:
+                db.session.delete(bet)
+                db.session.commit()
+                #Email other bet participant
+                bet_declined(creator, challenger, bet)
+                return jsonify({"Success": "Bet Deleted"})
+        else:
+            return ({"UNAUTHORIZED": "You can't delete this bet."}), 401
+    else:
+        return jsonify({"ERROR": "Bet does not exist."}), 400
 
 
 @bets.route("/bets/<int:id>", methods = ["PUT"])
