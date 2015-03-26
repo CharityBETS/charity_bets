@@ -2,7 +2,7 @@ Dear {{ creator.name }},
 
 {{ challenger.name }} has accepted your bet titled {{ bet.title }} on betti!
 View your bet at:
-http://localhost:5000/email/{{ bet.id }}
+http://betti.co/email/{{ bet.id }}
 
 Good luck,
 
