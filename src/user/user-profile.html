@@ -22,11 +22,8 @@
         <div class="money-won">{{vm.currentUser.money_lost | currency }}</div>
         <div class="stat-title-label">Win Streak</div>
         <div class="win-streak">{{vm.currentUser.win_streak}}</div>
-        <!-- <canvas id="line" class="chart chart-line" data="data"
-          labels="labels" legend="true" series="series"
-          click="onClick">
-        </canvas> -->
 
+        <donut-chart  dataset="vm.foo"></donut-chart>
 
 
 
@@ -56,6 +53,11 @@
 
           <!-- <button class="stripe-button" ng-show="!vm.isBetLoser"><a href="/PAYMENT_TEST">Pay with Stripe</a></button> -->
           <button class="stripe-button" ng-show="vm.isBetLoser" ng-click="">PAY BET</button>
+
+
+
+
+
 
 
           <!-- <form id="payment-form" ng-submit="vm.sendStripe(bet)" class="user-stripe-form">

@@ -16,7 +16,7 @@
   top: 17em;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
+  width: 600px;
 
   .bet-modal-button {
     padding: .6em;
@@ -59,21 +59,32 @@
   top: 20em;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 2em;
+  padding: 1em 2rem;
   background: white;
   color: black;
   border-radius: .5em;
+  outline: none;
   margin: 0 auto;
+  border: 0px;
+  width: 400px;
+  text-align: center;
+
+  img {
+    padding-top: 1.6rem;
+    width: 75%;
+
+  }
 
 
   input {
     margin-bottom: 1rem;
     color: black;
     padding: .1rem .7rem;
-    // border-radius: .3em;
+    border-radius: .3em;
+    display: inline-block;
   }
   .stripe-form-submit-button {
-    width: 65%;
+    width: 50%;
     margin: 0 auto;
     background-color: blue;
     color: white;
@@ -81,14 +92,27 @@
 
   h3  {
     margin: 0;
+    padding: 0;
   }
 
   .form-row {
     text-align: left;
+    display: inline-block;
   }
 
 }
 
+.donation-disclaimer {
+  font-style: italic;
+  font-size: .6em;
+  font-weight: bold;
+
+}
+
+.payment-inputs {
+  padding-top: 1.5rem;
+  text-align: left;
+}
 .stripe-form-submit-button:hover {
   border: 2px solid $secondary-accent-color;
   background-color: white;
