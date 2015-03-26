@@ -293,8 +293,22 @@ def update_bet(id):
             else:
                 setattr(bet, key, data[key])
                 db.session.commit()
+                
         user = User.query.filter_by(id = bet.creator).first()
         user.bets_made = user.wins + user.losses + user.bet_conflicts
+        if user.bets_made > 0:
+            user.average_bet_size = (user.money_won + user.money_lost) / user.bets_made
+        if user.bets_made == 0:
+                user.average_bet_size = user.money_won + user.money_lost
+
+        user = User.query.filter_by(id = bet.challenger).first()
+        user.bets_made = user.wins + user.losses + user.bet_conflicts
+        if user.bets_made > 0:
+            user.average_bet_size = (user.money_won + user.money_lost) / user.bets_made
+        if user.bets_made == 0:
+                user.average_bet_size = user.money_won + user.money_lost
+
+
 
         # Emailing at various bet states:
         creator = User.query.filter_by(id = bet.creator).first()
