@@ -123,7 +123,7 @@ def create_bet():
         db.session.commit()
 
         # Message sent to the other party of the bet
-        # bet_creation_notification(current_user, challenger, bet)
+        bet_creation_notification(current_user, challenger, bet)
         bet.mail_track = "new_bet"
         db.session.add(bet)
         db.session.commit()
@@ -273,24 +273,24 @@ def update_bet(id):
 
         if bet.mail_track == 'new_bet':
             if bet.status == 'active':
-                # bet_acceptance_notification(creator, challenger, bet)
+                bet_acceptance_notification(creator, challenger, bet)
                 bet.mail_track = 'bet_accepted'
                 db.session.commit()
 
         if bet.mail_track == 'bet_accepted':
             if bet.challenger_outcome or bet.creator_outcome:
                 if bet.verified_loser:
-                    # loss_claim_notification(bet)
-                    # you_lost_notification(bet)
+                    loss_claim_notification(bet)
+                    you_lost_notification(bet)
                     bet.mail_track = "bet_over"
                     db.session.commit()
                 else:
-                    # win_claim_notification(bet)
+                    win_claim_notification(bet)
                     bet.mail_track = 'win_claimed'
                     db.session.commit()
 
         if bet.mail_track == 'conflict':
-            # disputed_bet_notification(bet)
+            disputed_bet_notification(bet)
             bet.mail_track == 'no_more_mail'
             db.session.commit()
 
