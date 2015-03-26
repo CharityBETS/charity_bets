@@ -141,6 +141,7 @@ class Comment(db.Model):
 
 class Funder(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer)
     is_funding = db.Column(db.Integer)
     bet_id = db.Column(db.Integer)
     email = db.Column(db.String)
