@@ -52,4 +52,4 @@ def edit_charity(id):
             db.session.commit()
             return jsonify({"data":charity.make_dict()})
     else:
-        return jsonify("data":"Charity doesn't exhist")
+        return jsonify({"data":"Charity doesn't exist"})
