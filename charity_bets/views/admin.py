@@ -9,14 +9,17 @@ admin = Blueprint("admin", __name__)
 
 def verify_user(current_user):
     email_list = ["betsforcharity@gmail.com",
-                  "bret.runestad@gmail.com"]
+                  "bret.runestad@gmail.com",
+                  "bbatty32@yahoo.com",
+                  "dn78685@appstate.edu",
+                  "tomrau@gmail.com"]
     if current_user.email in email_list:
         return True
     else:
         return False
 
 
-@admin.route("/api/user/<int:id>", methods=["DELETE"])
+@admin.route("/api/admin/user/<int:id>", methods=["DELETE"])
 @login_required
 def delete_user(id):
     if verify_user(current_user):
@@ -30,7 +33,7 @@ def delete_user(id):
     else:
         return jsonify({"ERROR": "Not authorized to make this request"}), 401
 
-@admin.route("/api/bets/<int:id>", methods=["DELETE"])
+@admin.route("/api/admin/bets/<int:id>", methods=["DELETE"])
 @login_required
 def delete_bet(id):
     if verify_user(current_user):
@@ -44,7 +47,7 @@ def delete_bet(id):
     else:
         return jsonify({"ERROR": "Not authorized to make this request"}), 401
 
-@admin.route("/api/charities/<int:id>", methods=["DELETE"])
+@admin.route("/api/admin/charities/<int:id>", methods=["DELETE"])
 @login_required
 def delete_charity(id):
     if verify_user(current_user):

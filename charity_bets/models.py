@@ -20,6 +20,8 @@ class User(db.Model, UserMixin):
     win_streak = db.Column(db.Integer, default=0)
     bet_conflicts = db.Column(db.Integer, default=0)
     bets_made = db.Column(db.Integer, default=0)
+    longest_win_streak = db.Column(db.Integer, default=0)
+    average_bet_size = db.Column(db.Integer, default=0)
 
     def make_dict(self):
         return {"id": self.id,
@@ -34,7 +36,9 @@ class User(db.Model, UserMixin):
                 "money_won": self.money_won,
                 "win_streak": self.win_streak,
                 "bet_conflicts": self.bet_conflicts,
-                "bets_made": self.bets_made}
+                "bets_made": self.bets_made,
+                "longest_win_streak": self.longest_win_streak,
+                "average_bet_size": self.average_bet_size}
 
 
 
@@ -63,7 +67,9 @@ class Bet(db.Model):
     charity_challenger_id = db.Column(db.Integer)
     mail_track = db.Column(db.String(255))
     winner_name = db.Column(db.String(255))
-
+    creator_money_raised = db.Column(db.Integer, default = 0)
+    challenger_money_raised = db.Column(db.Integer, default = 0)
+    total_money_raised = db.Column(db.Integer, default = 0)
 
     def make_dict(self):
         return {"id": self.id,
@@ -89,7 +95,11 @@ class Bet(db.Model):
                 "charity_creator_id": self.charity_creator_id,
                 "charity_challenger_id": self.charity_challenger_id,
                 "mail_track": self.mail_track,
-                "winner_name": self.winner_name}
+                "winner_name": self.winner_name,
+                "creator_money_raised": self.creator_money_raised,
+                "challenger_money_raised": self.challenger_money_raised,
+                "total_money_raised": self.total_money_raised,
+            }
 
 
 class UserBet(db.Model):
@@ -141,6 +151,7 @@ class Comment(db.Model):
 
 class Funder(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer)
     is_funding = db.Column(db.Integer)
     bet_id = db.Column(db.Integer)
     email = db.Column(db.String)

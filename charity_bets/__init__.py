@@ -26,9 +26,17 @@ def create_app():
     app.config['MAIL_USERNAME'] = os.environ['MAIL_USERNAME']
     app.config['MAIL_PASSWORD'] = os.environ['MAIL_PASSWORD']
 
-    app.logger.addHandler(logging.StreamHandler(sys.stdout))
-    app.logger.setLevel(logging.ERROR)
-
+    app.config['DEBUG']
+    app.config['SECRET_KEY']
+    app.config['FACEBOOK']
+    app.config['MAIL_SERVER']
+    app.config['MAIL_PORT']
+    app.config['MAIL_USE_TLS']
+    app.config['MAIL_USE_SSL']
+    app.config['MAIL_USERNAME']
+    app.config['MAIL_PASSWORD']
+    app.config['CLIENT_SECRET']
+    app.config['CLIENT_ID']
 
     app.register_blueprint(home)
     app.register_blueprint(users)

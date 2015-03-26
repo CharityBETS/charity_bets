@@ -1,4 +1,4 @@
-from ..models import Bet, User
+from ..models import Bet, User, Charity
 from flask.ext.login import current_user
 
 def fake_bet():
@@ -27,3 +27,8 @@ def fake_bet():
                 #   winner_name = current_user.name
                   )
     return fake_bet
+
+def fake_charity():
+    fake_charity = Charity(name="Sample Charity",
+                           id=0)
+    return fake_charity

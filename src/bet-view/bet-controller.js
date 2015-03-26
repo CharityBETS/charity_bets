@@ -89,6 +89,12 @@ app.config(['$routeProvider', function($routeProvider) {
     betService.challengerCharity(bet.id, bet.charity_challenger);
   };
 
+  self.deleteBet = function () {
+    betService.deleteBet(bet.id).then(function(result) {
+      self.goToProfile();
+    });
+  };
+
   self.addComment = function () {
     betService.addComment(bet.id, self.comment).then(function(result) {
       self.comment=result.comment;
@@ -109,10 +115,7 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.sendStripeDonationCreator = function (card, creatorid, amount) {
-    console.log(card);
-    console.log(creatorid);
-    console.log(amount);
-    Stripe.card.createToken(card, function (status, result) {
+      Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
       betService.addDonationCreator(self.bet.id, creatorid, amount, result.id).then(self.goToBet);
       location.reload();
@@ -121,14 +124,17 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.sendStripeDonationChallenger = function (card, challengerid, amount) {
     console.log(card);
-    console.log(challengerid);
-    console.log(amount);
     Stripe.card.createToken(card, function (status, result) {
       console.log('GOT', result);
       betService.addDonationChallenger(self.bet.id, challengerid, amount, result.id).then(self.goToBet);
       location.reload();
     });
   };
+
+  self.goToProfile = function () {
+    $location.path('/user/user-profile');
+  };
+
 
   // self.addDonation = function () {
   //   betService.addDonation(self.bet.id, self.Donation).then(self.goToBet);

@@ -79,33 +79,31 @@ def charity_seed():
                     'name': "Profiles Without Faces (ben)",
                     'description': "Raising awareness for the difficulties of copying and pasting",
                     'email': "bbatty32@yahoo.com",
-                    'access_token': os.environ['ben_stripe']
+                    'access_token': "sk_test_8H01iPxORNegr3wWFhm9sU6G"
                     },
                     {
                     'name': "Kids With Faces (ben)",
                     'email': "kidswithfaces@notanemail.com",
                     'description': "sadly, at this time we cannot serve kids without faces",
-                    'access_token': os.environ['ben_stripe']
-
+                    'access_token': "sk_test_8H01iPxORNegr3wWFhm9sU6G"
                     },
                     {
                     'name': "Girl Scouts (daniel)",
                     'email': "dknewell1@gmail.com",
                     'description': "Buy our cookies!",
-                    'access_token': os.environ['dan_stripe']
-
+                    'access_token': "sk_test_nuOUpuXCOa6EXXtcBmHeWb36"
                     },
                     {
                     'name': "The Human Fund (bret)",
                     'email': "georgecostanza@seinfeldjoke.com",
                     'description': "Have younger people watched Seinfeld?",
-                    'access_token': os.environ['bret_stripe']
+                    'access_token': "sk_test_q4G07kp7KTix0KCQPU7GnyFk"
                     },
                     {
                     'name': "The Bret Fund(bret)",
                     'email': "bret.runestad@gmail.com",
                     'description': "The money just goes right to Bret.  He deserves this.",
-                    'access_token': os.environ['bret_stripe']
+                    'access_token': "sk_test_q4G07kp7KTix0KCQPU7GnyFk"
                     }
                     ]
 

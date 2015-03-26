@@ -26,8 +26,7 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
       if (!userId) {
         throw new Error('getByUserId requires a user id');
       }
-
-      return get('/api/users/' + userId);
+      return get('/api/user/' + userId);
     },
 
     addUser: function (user) {
@@ -46,9 +45,9 @@ app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
       return get('/api/user/bets');
     },
 
-    getBetsByUser: function () {
+    getBetsByUser: function (id) {
       return get ('api/user/' + id + '/bets');
-    },
+    }
 
     // sendStripe: function (betid, resultid) {
     //   console.log('api/bets/' + betid + '/pay_bet', resultid);
