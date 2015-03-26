@@ -3,6 +3,7 @@ from flask import session, Blueprint, request, jsonify
 from flask.ext.login import current_user, login_required
 from ..extensions import db
 from .fake_bet import fake_charity
+import json
 
 charities = Blueprint("charities", __name__)
 
@@ -31,3 +32,22 @@ def view_charity(id):
         return jsonify({'data': charity})
     else:
         return jsonify({"ERROR": "Charity does not exist."}), 401
+
+
+@charities.route("/charities/<int:id>", methods=["PUT"])
+@login_required
+def edit_charity(id):
+    charity = Charity.query.filter_by(id = id).first()
+    if charity:
+        body = request.get_data(as_text=True)
+        data = json.loads(body)
+        keys = data.keys()
+    for key in keys:
+        if key == "delete":
+            db.session.delete(charity)
+            db.session.commit()
+            return jsonify({"data":"charity_deleted"})
+        else:
+            setattr(charity, key, data[key])
+            db.session.commit()
+            return jsonify({"data":charity.make_dict()})

@@ -50,10 +50,9 @@ def callback():
     url = 'https://connect.stripe.com' + '/oauth/token'
     resp = requests.post(url, params=data)
     resp = resp.json()
-    print(resp)
     stripe.api_key = resp ['access_token']
     charity_email = stripe.Account.retrieve()["email"]
-
+    charity_name = stripe.Account.retrieve()["business_name"]
     charity = Charity(stripe_publishable_key = resp['stripe_publishable_key'],
                       stripe_user_id = resp['stripe_user_id'],
                       stripe_refresh_token = resp['refresh_token'],
