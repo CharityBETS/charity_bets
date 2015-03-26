@@ -38,6 +38,25 @@ def bet_acceptance_notification(creator, challenger, bet):
                                creator=creator, challenger=challenger, bet=bet))
 
 
+def bet_declined(creator, challenger, bet):
+    send_email("{} has declined your bet.".format(challenger.name),
+               "betsforcharity@gmail.com",
+               [creator.email],
+               render_template("declined_bet_email.txt",
+                               creator=creator, challenger=challenger, bet=bet),
+               render_template("declined_bet_email.html",
+                               creator=creator, challenger=challenger, bet=bet))
+
+def bet_canceled(creator, challenger, bet):
+    send_email("Nevermind, {} has canceled your bet.".format(challenger.name),
+               "betsforcharity@gmail.com",
+               [challenger.email],
+               render_template("canceled_bet_email.txt",
+                               creator=creator, challenger=challenger, bet=bet),
+               render_template("canceled_bet_email.html",
+                               creator=creator, challenger=challenger, bet=bet))
+
+
 def win_claim_notification(bet):
     """Sends an email to a bet participant, notifying them that the other
     participant has claimed victory, and directs them to the bet page to
