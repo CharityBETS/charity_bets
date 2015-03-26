@@ -7,6 +7,7 @@ from .views.home import home
 from .views.users import users
 from .views.bets import bets
 from .views.charities import charities
+from .views.admin import admin
 from .views.charity_signup import charity_signup
 
 
@@ -30,6 +31,7 @@ def create_app():
 
     app.register_blueprint(home)
     app.register_blueprint(users)
+    app.register_blueprint(admin)
     app.register_blueprint(charities, url_prefix='/api')
     app.register_blueprint(charity_signup)
     app.register_blueprint(bets, url_prefix='/api')

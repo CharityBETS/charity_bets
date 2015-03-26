@@ -36,6 +36,11 @@ def createdb():
 @manager.command
 def seed():
     user_seed_data = [{
+                    'name': "Betti",
+                    'email': "betsforcharity@gmail.com",
+                    'facebook_id': "1384281321892330"
+                    },
+                    {
                     'name': "Daniel Newell",
                     'email': "dn78685@appstate.edu",
                     'facebook_id': "10101587473382708"

@@ -9,6 +9,7 @@ from ..emails import (send_email, bet_creation_notification,
                        win_claim_notification, loss_claim_notification,
                        disputed_bet_notification, you_lost_notification,
                        bet_acceptance_notification)
+from .fake_bet import fake_bet
 import json
 from charity_bets import mail
 from flask_mail import Message
@@ -160,7 +161,11 @@ def view_bets():
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets}), 201
-    return jsonify({"ERROR": "No bets available."}), 401
+    fake_bet_list = []
+    seed_bet = fake_bet()
+    fake_bet_list.append(seed_bet)
+    fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
+    return jsonify({"data": fake_bets}), 201
 
 
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
@@ -190,24 +195,32 @@ def view_all_bets():
     if bets:
         return jsonify({'data': all_bets}), 201
     else:
-        return jsonify({"ERROR": "No bets available."}), 401
+        fake_bet_list = []
+        seed_bet = fake_bet()
+        fake_bet_list.append(seed_bet)
+        fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
+        return jsonify({"data": fake_bets}), 201
 
 
 @bets.route("/bets/<int:id>", methods = ["GET"])
 @login_required
 def view_bet(id):
-    bet = Bet.query.filter_by(id = id).first()
-    comments = Comment.query.filter_by(bet_id=id).all()
-    all_comments = []
-    if bet:
-        bet = bet.make_dict()
-        for comment in comments:
-            comment = comment.make_dict()
-            all_comments.append(comment)
-        bet["comments"] = all_comments
-        return jsonify({'data': bet})
+    if id==0:
+        seed_bet = fake_bet().make_dict()
+        return jsonify({'data': seed_bet})
     else:
-        return jsonify({"ERROR": "Bet does not exist."}), 401
+        bet = Bet.query.filter_by(id = id).first()
+        comments = Comment.query.filter_by(bet_id=id).all()
+        all_comments = []
+        if bet:
+            bet = bet.make_dict()
+            for comment in comments:
+                comment = comment.make_dict()
+                all_comments.append(comment)
+            bet["comments"] = all_comments
+            return jsonify({'data': bet})
+        else:
+            return jsonify({"ERROR": "Bet does not exist."}), 401
 
 
 @bets.route("/bets/<int:id>", methods = ["PUT"])
