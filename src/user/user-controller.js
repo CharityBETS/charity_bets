@@ -25,18 +25,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
-
-  // self.thisBetId = angular.element(document.querySelector('.user-stripe-form'))
-  // var stripeButton = document.querySelector('.form-stripe-button');
-  // var id;
-  // stripeButton.addEventListener("click", function (e) {
-  //   var button = e.target;
-  //   id = button.parentNode.getAttribute('data-id');
-  // });
-  // console.log(id);
-  // var thisStripeId = this.aStripeForm.getAttribute('data-id');
-  // var thisStripeId = this.aStripeForm.data('id');
-
+  self.foo = [currentUser.wins, currentUser.losses];
 
 
   $scope.stripeCallback = function (code, result) {
@@ -51,48 +40,8 @@ app.config(['$routeProvider', function($routeProvider) {
       }
   };
 
-  self.stripeTest = function (dataID) {
-    alert(dataID);
-  };
-
-  //self.sendToken = function ( )
-
-  // self.sendStripe = function (bet) {
-  //   console.log(bet);
-  //   Stripe.card.createToken(bet.card, function (status, result) {
-  //     console.log('GOT', result);
-  //     console.log(result.id);
-  //     userService.sendStripe(bet.id, result.id);
-  //   });
-  // };
-
-  // self.sendStripe = function (id) {
-  //  alert("striping!");
-  //  userService.sendStripe(id);
-  // }
 
 
-
-  // app.directive('stripeForm', ['$log', function($log) {
-  //   return function(scope, elem, attrs) {
-  //     console.log('x');
-  //     var form =  document.createElement("form");;
-  //     form.action = "charge";
-  //     form.method = "POST";
-  //     var script =  document.createElement("script");
-  //     script.src = "https://checkout.stripe.com/checkout.js";
-  //     script.className = "stripe-button";
-  //     script.setAttribute("data-key", "pk_test_6pRNASCoBOKtIshFeQd4XMUh");
-  //     script.setAttribute("data-image", "square-image.png");
-  //     script.setAttribute("data-name", "Demo Site");
-  //     script.setAttribute("data-description", "2 widgets ($20.00)");
-  //     script.setAttribute("data-amount", "2000");
-  //
-  //     form.appendChild(script);
-  //
-  //     elem.append(angular.element(form));
-  //   };
-  // }]);
       $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
       $scope.series = ['Series A', 'Series B'];
       $scope.data = [

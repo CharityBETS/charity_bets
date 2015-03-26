@@ -16,12 +16,20 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     uglify = require('gulp-uglify');
 
-gulp.task('js', function() {
+gulp.task('vendorjs', function () {
+  if (scriptDefinitions.vendor && scriptDefinitions.vendor.length) {
+    gulp.src(scriptDefinitions.vendor)
+      .pipe(concat('vendor.js'))
+      .pipe(gulp.dest(config.dest.js));
+  }
+});
+
+gulp.task('js', ['vendorjs'], function() {
   return buildJs()
     .pipe(livereload());
 });
 
-gulp.task('js:release', function () {
+gulp.task('js:release', ['vendorjs'], function () {
   return buildJs({ minify: true });
 });
 
@@ -44,14 +52,6 @@ function buildJs(options) {
         .pipe(gulpif(options.minify, uglify()))
         .pipe(sourcemaps.write('./'));
     }));
-
-  // Grab vendor scripts and concat them, if any exist
-  if (scriptDefinitions.vendor && scriptDefinitions.vendor.length) {
-    result = merge(result, gulp.src(scriptDefinitions.vendor)
-      .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(concat('vendor.js'))
-      .pipe(sourcemaps.write('./')));
-  }
 
   // Merge vendor and app scripts into one stream
   return result.pipe(gulp.dest(config.dest.js));

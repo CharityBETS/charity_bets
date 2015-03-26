@@ -165,7 +165,7 @@ button:hover {
   color: #4BBADA; }
 
 @media only screen and (max-width: 620px) {
-  .app-header {
+  .app-header, .header-nav {
     -webkit-justify-content: flex-start;
     -ms-flex-pack: start;
     justify-content: flex-start;
@@ -246,7 +246,7 @@ footer {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 2em;
-  margin-top: 14rem;
+  margin-top: 7rem;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
@@ -269,7 +269,10 @@ footer {
   .sign-up-button {
     margin-bottom: 1rem !important; }
   .bottom-hero-line {
-    padding-top: 5em; } }
+    padding-top: 5em;
+    font-size: .5em; }
+  .top-hero-line {
+    font-size: .5em; } }
 
 .create-bet-wrapper {
   text-align: center; }
@@ -542,6 +545,12 @@ footer {
 .bet-pay-form {
   color: black; }
 
+input.ng-invalid.ng-dirty {
+  background-color: #FA787E; }
+
+input.ng-valid.ng-dirty {
+  background-color: #78FA89; }
+
 .bets-title, .bets-date, .bets-amount, .bets-users {
   text-align: center; }
 
@@ -594,6 +603,12 @@ footer {
   -webkit-order: 3;
   -ms-flex-order: 3;
   order: 3; }
+
+@media only screen and (max-width: 480px) {
+  .bets-pic {
+    margin-top: 1.5rem;
+    height: 60px;
+    width: 60px; } }
 
 .profile-top-section {
   background-color: #4BBADA;
@@ -675,7 +690,11 @@ footer {
   .profile-top-section {
     display: block;
     padding: 2rem;
-    text-align: center; } }
+    text-align: center; }
+  .user-bets-li img {
+    margin-top: 1rem;
+    width: 60px;
+    height: 60px; } }
 
 .datepicker button {
   width: auto;
@@ -837,7 +856,7 @@ footer {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  width: 400px; }
+  width: 600px; }
   .modal-template .bet-modal-button {
     padding: .6em;
     display: block;
@@ -870,24 +889,44 @@ footer {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  padding: 2em;
+  padding: 1em 2rem;
   background: white;
   color: black;
   border-radius: .5em;
-  margin: 0 auto; }
+  outline: none;
+  margin: 0 auto;
+  border: 0px;
+  width: 400px;
+  text-align: center; }
+  .user-stripe-form img {
+    padding-top: 1.6rem;
+    width: 75%; }
   .user-stripe-form input {
     margin-bottom: 1rem;
     color: black;
-    padding: .1rem .7rem; }
+    padding: .1rem .7rem;
+    border-radius: .3em;
+    display: inline-block; }
   .user-stripe-form .stripe-form-submit-button {
-    width: 65%;
+    width: 50%;
     margin: 0 auto;
     background-color: blue;
     color: white; }
   .user-stripe-form h3 {
-    margin: 0; }
+    margin: 0;
+    padding: 0; }
   .user-stripe-form .form-row {
-    text-align: left; }
+    text-align: left;
+    display: inline-block; }
+
+.donation-disclaimer {
+  font-style: italic;
+  font-size: .6em;
+  font-weight: bold; }
+
+.payment-inputs {
+  padding-top: 1.5rem;
+  text-align: left; }
 
 .stripe-form-submit-button:hover {
   border: 2px solid #4BBADA;
@@ -943,7 +982,7 @@ footer {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  width: 400px; }
+  width: 600px; }
   .modal-template .bet-modal-button {
     padding: .6em;
     display: block;
@@ -976,24 +1015,44 @@ footer {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  padding: 2em;
+  padding: 1em 2rem;
   background: white;
   color: black;
   border-radius: .5em;
-  margin: 0 auto; }
+  outline: none;
+  margin: 0 auto;
+  border: 0px;
+  width: 400px;
+  text-align: center; }
+  .user-stripe-form img {
+    padding-top: 1.6rem;
+    width: 75%; }
   .user-stripe-form input {
     margin-bottom: 1rem;
     color: black;
-    padding: .1rem .7rem; }
+    padding: .1rem .7rem;
+    border-radius: .3em;
+    display: inline-block; }
   .user-stripe-form .stripe-form-submit-button {
-    width: 65%;
+    width: 50%;
     margin: 0 auto;
     background-color: blue;
     color: white; }
   .user-stripe-form h3 {
-    margin: 0; }
+    margin: 0;
+    padding: 0; }
   .user-stripe-form .form-row {
-    text-align: left; }
+    text-align: left;
+    display: inline-block; }
+
+.donation-disclaimer {
+  font-style: italic;
+  font-size: .6em;
+  font-weight: bold; }
+
+.payment-inputs {
+  padding-top: 1.5rem;
+  text-align: left; }
 
 .stripe-form-submit-button:hover {
   border: 2px solid #4BBADA;
