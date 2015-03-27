@@ -287,268 +287,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.directive('betPaymentForm', function() {
-  return {
-    restrict: 'E',
-    templateUrl: 'static/directives/bet-payment-form-temp.html'
-  }
-});
-
-app.directive('donutChart', function () {
-  return {
-      restrict: "EA",
-      replace: true,
-      scope: {
-        dataset: '='
-      },
-      link: function(scope, element, attrs) {
-
-        var dataset = scope.dataset;
-
-        var width = 320,
-           height = 330,
-           radius = Math.min(width, height) / 2;
-
-        var color = d3.scale.category20();
-
-        var pie = d3.layout.pie()
-          .sort(null);
-
-        var arc = d3.svg.arc()
-          .innerRadius(radius - 80)
-          .outerRadius(radius - 50);
-
-        var svg = d3.select(element[0]).append("svg")
-           .attr("width", width)
-           .attr("height", height)
-           .append("g")
-           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-
-        var path = svg.selectAll("path")
-           .data(pie(dataset))
-           .enter().append("path")
-           .attr("fill", function (d, i) {
-             return color(i);
-           })
-           .attr("d", arc);
-            // svg.insert("text", "g")
-            // .text("{{vm.currentUser}}")
-            // .attr("class", "css-label-class")
-            // .attr("text-anchor", "middle");
-      }
-
-  };
-});
-
-// app.factory('d3Service', [function(){
-//
-//     var data = [{
-//         name: "one",
-//         value: 75
-//       }, {
-//         name: "two",
-//         value: 25
-//       }, ];
-//
-//       var width = 100;
-//         height = width;
-//
-//       var chart = d3.select("#circle-4")
-//         .append('svg')
-//         .attr("width", width)
-//         .attr("height", height)
-//         .append("gh")
-//         .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
-//
-//
-//       var radius = Math.min(width, height) / 2;
-//
-//       var arc = d3.svg.arc()
-//         .outerRadius(radius / 2)
-//         .innerRadius(radius - 15);
-//
-//       var pie = d3.layout.pie()
-//         .sort(null)
-//         .startAngle(0)
-//         .endAngle(2 * Math.PI)
-//         .value(function (d) {
-//         return d.value;
-//       });
-//
-//       var color = d3.scale.ordinal()
-//         .range(["#3399FF", "#e1e1e1"]);
-//
-//       var gh = chart.selectAll(".arc")
-//         .data(pie(data))
-//         .enter().append("gh")
-//         .attr("class", "arc");
-//
-//       gh.append("path")
-//         .attr("fill", function (d, i) {
-//         return color(i);
-//       })
-//         .transition()
-//         .ease("exp")
-//         .duration(1000)
-//         .attrTween("d", dpie);
-//
-//       function dpie(b) {
-//         var i = d3.interpolate({
-//             startAngle: 0,
-//             endAngle: 1 * Math.PI
-//         }, b);
-//         return function (t) {
-//             return arc(i(t));
-//         };
-//       }
-//
-//     return d3;
-//   }];
-
-app.directive('moneyBar', function () {
-  return {
-      restrict: "EA",
-      replace: true,
-      scope: {
-        dataset: '='
-      },
-      link: function(scope, element, attrs) {
-
-
-        var dataset = scope.dataset;
-
-        var margins = {
-         top: 12,
-         left: 50,
-         right: 24,
-         bottom: 24
-       },
-
-      width = 500 - margins.left - margins.right,
-         height = 70 - margins.top - margins.bottom,
-         dataset = [{
-             data: [{
-                 count: 600
-             }],
-         }, {
-             data: [{
-                 count: 235
-             }],
-         }],
-
-    dataset = dataset.map(function (d) {
-           return d.data.map(function (o, i) {
-           // Structure it so that your numeric
-           // axis (the stacked amount) is y
-           return {
-               y: o.count,
-               x: o.money
-           };
-       });
-   }),
-   stack = d3.layout.stack();
-
-      stack(dataset);
-
-    dataset = dataset.map(function (group) {
-         return group.map(function (d) {
-             // Invert the x and y values, and y0 becomes x0
-             return {
-                 x: d.y,
-                 y: d.x,
-                 x0: d.y0
-             };
-         });
-      }),
-         svg = d3.select('body')
-             .append('svg')
-             .attr('width', width + margins.left + margins.right)
-             .attr('height', height + margins.top + margins.bottom)
-             .append('g')
-             .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')'),
-         xMax = d3.max(dataset, function (group) {
-             return d3.max(group, function (d) {
-                 return d.x + d.x0;
-             });
-         }),
-      xScale = d3.scale.linear()
-             .domain([0, xMax])
-             .range([0, width]),
-         money_spent = dataset[0].map(function (d) {
-             return d.y;
-         }),
-         _ = console.log(money_spent),
-         yScale = d3.scale.ordinal()
-             .domain(money_spent)
-             .rangeRoundBands([0, height]),
-
-         yAxis = d3.svg.axis()
-             .scale(yScale)
-             .orient('left'),
-         colors = ["#85bb65 ","#73706F "]
-         groups = svg.selectAll('g')
-             .data(dataset)
-             .enter()
-             .append('g')
-             .style('fill', function (d, i) {
-             return colors[i];
-         }),
-         rects = groups.selectAll('rect')
-             .data(function (d) {
-             return d;
-         })
-             .enter()
-             .append('rect')
-             .attr('x', function (d) {
-             return xScale(d.x0);
-         })
-             .attr('y', function (d, i) {
-             return yScale(d.y);
-         })
-             .attr('height', function (d) {
-             return yScale.rangeBand();
-         })
-             .attr('width', function (d) {
-             return xScale(d.x);
-         })
-             .on('mouseover', function (d) {
-             var xPos = parseFloat(d3.select(this).attr('x')) / 2 + width / 2;
-             var yPos = parseFloat(d3.select(this).attr('y')) + yScale.rangeBand() / 2;
-
-             d3.select('#tooltip')
-                 .style('left', xPos + 'px')
-                 .style('top', yPos + 'px')
-                 .select('#value')
-                 .text(d.x);
-
-             d3.select('#tooltip').classed('hidden', false);
-         })
-             .on('mouseout', function () {
-             d3.select('#tooltip').classed('hidden', true);
-         })
-
-         svg.append('g')
-             .attr('class', 'axis')
-             .attr('transform', 'translate(0,' + height + ')')
-             .call();
-
-        svg.append('g')
-           .attr('class', 'axis')
-           .call(yAxis);
-
-        series.forEach(function (s, i) {
-           svg.append('text')
-               .attr('fill', 'black')
-               .attr('x', width + margins.left + 8)
-               .attr('y', i * 24 + 24)
-               .text(s);
-      });
-
-    }
-  }
-});
-
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
     templateUrl: '/static/landing/organizations.html',
@@ -860,6 +598,288 @@ app.factory('StringUtil', function() {
       return str.slice(0, subStr.length) === subStr;
     }
   };
+});
+
+app.directive('betPaymentForm', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'static/directives/bet-payment-form-temp.html'
+  }
+});
+
+app.directive('donutChart', function () {
+  return {
+      restrict: "EA",
+      replace: true,
+      scope: {
+        dataset: '='
+      },
+      link: function(scope, element, attrs) {
+
+        var dataset = scope.dataset;
+
+        var width = 320,
+           height = 330,
+           radius = Math.min(width, height) / 2;
+
+        var color = d3.scale.category20();
+
+        var pie = d3.layout.pie()
+          .sort(null);
+
+        var arc = d3.svg.arc()
+          .innerRadius(radius - 80)
+          .outerRadius(radius - 50);
+
+        var svg = d3.select(element[0]).append("svg")
+           .attr("width", width)
+           .attr("height", height)
+           .append("g")
+           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
+        var path = svg.selectAll("path")
+           .data(pie(dataset))
+           .enter().append("path")
+           .attr("fill", function (d, i) {
+             return color(i);
+           })
+           .attr("d", arc);
+            // svg.insert("text", "g")
+            // .text("{{vm.currentUser}}")
+            // .attr("class", "css-label-class")
+            // .attr("text-anchor", "middle");
+      }
+
+  };
+});
+
+// app.factory('d3Service', [function(){
+//
+//     var data = [{
+//         name: "one",
+//         value: 75
+//       }, {
+//         name: "two",
+//         value: 25
+//       }, ];
+//
+//       var width = 100;
+//         height = width;
+//
+//       var chart = d3.select("#circle-4")
+//         .append('svg')
+//         .attr("width", width)
+//         .attr("height", height)
+//         .append("gh")
+//         .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
+//
+//
+//       var radius = Math.min(width, height) / 2;
+//
+//       var arc = d3.svg.arc()
+//         .outerRadius(radius / 2)
+//         .innerRadius(radius - 15);
+//
+//       var pie = d3.layout.pie()
+//         .sort(null)
+//         .startAngle(0)
+//         .endAngle(2 * Math.PI)
+//         .value(function (d) {
+//         return d.value;
+//       });
+//
+//       var color = d3.scale.ordinal()
+//         .range(["#3399FF", "#e1e1e1"]);
+//
+//       var gh = chart.selectAll(".arc")
+//         .data(pie(data))
+//         .enter().append("gh")
+//         .attr("class", "arc");
+//
+//       gh.append("path")
+//         .attr("fill", function (d, i) {
+//         return color(i);
+//       })
+//         .transition()
+//         .ease("exp")
+//         .duration(1000)
+//         .attrTween("d", dpie);
+//
+//       function dpie(b) {
+//         var i = d3.interpolate({
+//             startAngle: 0,
+//             endAngle: 1 * Math.PI
+//         }, b);
+//         return function (t) {
+//             return arc(i(t));
+//         };
+//       }
+//
+//     return d3;
+//   }];
+
+app.directive('line-graph', function () {
+  return {
+      restrict: "EA",
+      replace: true,
+      scope: {
+        dataset: '='
+      },
+      link: function(scope, element, attrs) {
+
+        var dataset = scope.dataset;
+
+
+
+
+
+      }
+
+  };
+});
+
+app.directive('moneyBar', function () {
+  return {
+      restrict: "EA",
+      replace: true,
+      scope: {
+        dataset: '='
+      },
+      link: function(scope, element, attrs) {
+
+
+        var dataset = scope.dataset;
+
+        var margins = {
+         top: 12,
+         left: 50,
+         right: 24,
+         bottom: 24
+       },
+
+      width = 400- margins.left - margins.right,
+         height = 70 - margins.top - margins.bottom,
+         dataset = [{
+             data: [{
+                 count: 600
+             }],
+         }, {
+             data: [{
+                 count: 235
+             }],
+         }],
+
+    dataset = dataset.map(function (d) {
+           return d.data.map(function (o, i) {
+           // Structure it so that your numeric
+           // axis (the stacked amount) is y
+           return {
+               y: o.count,
+               x: o.money
+           };
+       });
+   }),
+   stack = d3.layout.stack();
+
+      stack(dataset);
+
+    dataset = dataset.map(function (group) {
+         return group.map(function (d) {
+             // Invert the x and y values, and y0 becomes x0
+             return {
+                 x: d.y,
+                 y: d.x,
+                 x0: d.y0
+             };
+         });
+      }),
+         svg = d3.select('body')
+             .append('svg')
+             .attr('width', width + margins.left + margins.right)
+             .attr('height', height + margins.top + margins.bottom)
+             .append('g')
+             .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')'),
+         xMax = d3.max(dataset, function (group) {
+             return d3.max(group, function (d) {
+                 return d.x + d.x0;
+             });
+         }),
+      xScale = d3.scale.linear()
+             .domain([0, xMax])
+             .range([0, width]),
+         money_spent = dataset[0].map(function (d) {
+             return d.y;
+         }),
+         _ = console.log(money_spent),
+         yScale = d3.scale.ordinal()
+             .domain(money_spent)
+             .rangeRoundBands([0, height]),
+
+         yAxis = d3.svg.axis()
+             .scale(yScale)
+             .orient('left'),
+         colors = ["#85bb65 ","#73706F "]
+         groups = svg.selectAll('g')
+             .data(dataset)
+             .enter()
+             .append('g')
+             .style('fill', function (d, i) {
+             return colors[i];
+         }),
+         rects = groups.selectAll('rect')
+             .data(function (d) {
+             return d;
+         })
+             .enter()
+             .append('rect')
+             .attr('x', function (d) {
+             return xScale(d.x0);
+         })
+             .attr('y', function (d, i) {
+             return yScale(d.y);
+         })
+             .attr('height', function (d) {
+             return yScale.rangeBand();
+         })
+             .attr('width', function (d) {
+             return xScale(d.x);
+         })
+             .on('mouseover', function (d) {
+             var xPos = parseFloat(d3.select(this).attr('x')) / 2 + width / 2;
+             var yPos = parseFloat(d3.select(this).attr('y')) + yScale.rangeBand() / 2;
+
+             d3.select('#tooltip')
+                 .style('left', xPos + 'px')
+                 .style('top', yPos + 'px')
+                 .select('#value')
+                 .text(d.x);
+
+             d3.select('#tooltip').classed('hidden', false);
+         })
+             .on('mouseout', function () {
+             d3.select('#tooltip').classed('hidden', true);
+         })
+
+         svg.append('g')
+             .attr('class', 'axis')
+             .attr('transform', 'translate(0,' + height + ')')
+             .call();
+
+        svg.append('g')
+           .attr('class', 'axis')
+           .call(yAxis);
+
+        series.forEach(function (s, i) {
+           svg.append('text')
+               .attr('fill', 'black')
+               .attr('x', width + margins.left + 8)
+               .attr('y', i * 24 + 24)
+               .text(s);
+      });
+
+    }
+  }
 });
 
 app.controller('Error404Ctrl', ['$location', function ($location) {

@@ -12,17 +12,8 @@
       <div class="info-title">Bet Wager</div>
       <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">{{vm.bet.total_money_raised | currency:"$":0}}</h4></div>
       <div class="info-title">Donations</div>
-      <div class="bet-description">{{vm.bet.description}}</div>
-
-
-      <!-- <div ng-show="vm.isActive()" class="crowd-funding-section">
-        <button class="donate-button">$DONATE$</button>
-      </div> -->
-
-      <!-- <button class="loser-status" ng-show="vm.isDonator">PAY BET</button> -->
-
-
       <div class="bet-date">{{vm.bet.date | date:'EEEE, MMM d'}}</div>
+      <div class="bet-description">{{vm.bet.description}}</div>
       <div ng-show="vm.isLocation()">
         <div class="info-title">Location:</div>
         <div class="location">{{vm.bet.location}}</div>
