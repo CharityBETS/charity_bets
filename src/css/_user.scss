@@ -113,6 +113,19 @@
 }
 
 
+.actionable {
+  background-color: $secondary-accent-color;
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  color: white;
+  height: 13%;
+  width: 9%;
+  text-align: center;
+  padding-top: .2rem;
+  font-weight: bold;
+}
+
 
 
 .pay-button {

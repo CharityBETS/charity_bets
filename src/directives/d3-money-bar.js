@@ -19,22 +19,22 @@ app.directive('moneyBar', function () {
 
       width = 400- margins.left - margins.right,
          height = 70 - margins.top - margins.bottom,
-         dataset = [{
-             data: [{
-                 count: 600
-             }],
-         }, {
-             data: [{
-                 count: 235
-             }],
-         }],
+        //  dataset = [{
+        //      data: [{
+        //          count: 600
+        //      }],
+        //  }, {
+        //      data: [{
+        //          count: 235
+        //      }],
 
-    dataset = dataset.map(function (d) {
+
+     dataset = dataset.map(function (d) {
            return d.data.map(function (o, i) {
            // Structure it so that your numeric
            // axis (the stacked amount) is y
            return {
-               y: o.count,
+               y: o.dataset,
                x: o.money
            };
        });

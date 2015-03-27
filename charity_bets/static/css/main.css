@@ -725,6 +725,18 @@ input.ng-valid.ng-dirty {
   .user-bets-li:nth-child(even) img {
     border: 3px #f05f5c solid; }
 
+.actionable {
+  background-color: #4BBADA;
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  color: white;
+  height: 13%;
+  width: 9%;
+  text-align: center;
+  padding-top: .2rem;
+  font-weight: bold; }
+
 .pay-button {
   margin: 1rem auto;
   width: 10em; }
