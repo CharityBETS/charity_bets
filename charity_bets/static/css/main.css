@@ -1221,6 +1221,13 @@ svg {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
+.gauge-stat-inner-wrap {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%); }
+
 path.line {
   fill: none;
   stroke: #666;

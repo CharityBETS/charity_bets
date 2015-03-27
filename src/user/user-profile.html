@@ -23,7 +23,7 @@
 
         <div class="good-stats">
           <div class="left-stats">
-            <div class="total-money-raised">$12,235</div>
+            <div class="total-money-raised">{{vm.currentUser.donation_money_raised | currency:'$':0}}</div>
             <div class="stat-title-label">Total Money Raised</div>
           </div>
           <!-- <div class="right-stats">
@@ -45,12 +45,14 @@
 
         <div class="gauge-wrap">
           <gauge-chart dataset="vm.gaugeData" class="gauge"></gauge-chart>
-          <!-- <div class="donut-stat-inner-wrap">
-            <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
-          </div> -->
+          <div class="gauge-stat-inner-wrap">
+            <div class="user-win-streak-label">Win Streak Vs. Longest Win Streak</div>
+          </div>
         </div>
 
-      
+    
+
+
 
         <!-- <donut-chart  dataset="vm.doo"></donut-chart> -->
         <!-- <money-bar dataset="vm.goo"></money-bar> -->

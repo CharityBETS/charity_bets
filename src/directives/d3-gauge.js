@@ -17,8 +17,6 @@ app.directive('gaugeChart', function () {
 
         var x = dataset[0];
         var y = dataset[1];
-        alert(x);
-        alert(y);
         var winstreak = [x, y-x]
         var percentage = Math.floor((x/y) * 100);
 
@@ -55,6 +53,8 @@ app.directive('gaugeChart', function () {
          .enter().append("path")
            .attr("fill", function(d, i) { return color(i); })
            .attr("d", arc);
+
+
       }
 
   };
