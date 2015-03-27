@@ -7,66 +7,54 @@ app.directive('gaugeChart', function () {
       },
       link: function(scope, element, attrs) {
 
-        // var dataset = scope.dataset;
-
-        var x = 6
-        var y = 10
-        var winstreak = ['Win Streak', x]
-        var longest = ['Longest Win Streak', y-x]
-
-$('#container').highcharts({
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: 0,
-        plotShadow: false
-    },
-    title: {
-        text: 'Current Winstreak<br>vs.<br>Longest Winstreak',
-        align: 'center',
-        verticalAlign: 'middle',
-        y: 50
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            dataLabels: {
-                enabled: true,
-                distance: -50,
-                style: {
-                    fontWeight: 'bold',
-                    color: 'white',
-                    textShadow: '0px 1px 2px black'
-                }
-            },
-            startAngle: -90,
-            endAngle: 90,
-            center: ['50%', '75%']
-        }
-    },
-    series: [{
-        type: 'pie',
-        name: 'Completion Percent:',
-        innerSize: '55%',
-        data: [
-            winstreak,
-            longest,
-            {
-                y: 0,
-                dataLabels: {
-                    enabled: false
-                }
-            }
-        ]
-    }]
-});
+        var dataset = scope.dataset;
 
 
+        // var dataset = {
+        //  apples: [53245, 28479, 19697, 24037, 40245],
+        // };
 
 
+        var x = dataset[0];
+        var y = dataset[1];
+        alert(x);
+        alert(y);
+        var winstreak = [x, y-x]
+        var percentage = Math.floor((x/y) * 100);
 
 
+        var width = 460,
+           height = 300,
+           radius = Math.min(width, height) / 2;
+
+        var color = d3.scale.category20();
+
+        var pie = d3.layout.pie()
+           .sort(null)
+           pie.startAngle([-1.57079633])
+           pie.endAngle([1.57079633]);
+
+        var arc = d3.svg.arc()
+           .innerRadius(radius - 100)
+           .outerRadius(radius - 50);
+
+        var svg = d3.select(element[0]).append("svg")
+           .attr("width", width)
+           .attr("height", height)
+           .append("g")
+           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        var title = svg.append("text")
+         .attr("dy", ".35em")
+         .style("text-anchor", "middle")
+         .attr("class", "inside")
+         .text(function(d) { return percentage + "%"; })
+
+        var path = svg.selectAll("path")
+           .data(pie(winstreak))
+         .enter().append("path")
+           .attr("fill", function(d, i) { return color(i); })
+           .attr("d", arc);
       }
 
   };

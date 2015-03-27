@@ -630,7 +630,7 @@ input.ng-valid.ng-dirty {
 
 .profile-top-section {
   background-color: #4BBADA;
-  padding: 6rem;
+  padding: 4.5rem;
   color: white;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -651,7 +651,9 @@ input.ng-valid.ng-dirty {
     font-size: 2em;
     padding-bottom: .1em;
     text-align: center;
-    padding-bottom: 3rem; }
+    padding-bottom: 3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase; }
   .profile-top-section h4 {
     padding: .3rem 0 1rem;
     font-size: 1.2em; }
@@ -692,11 +694,16 @@ input.ng-valid.ng-dirty {
 .bad-stats {
   padding-top: 2.5rem; }
 
-.user-record, .money-won, .money-lost, .user-record-losses {
+.bets-made, .money-won, .money-lost, .user-record-losses, .total-money-raised {
   font-size: 4.4em;
   font-weight: 800;
   line-height: 1.4em;
   padding: 0 1.5rem; }
+
+.user-record {
+  padding-top: 1.2rem;
+  font-size: 3.2em;
+  font-weight: 800; }
 
 .money-won {
   padding: 0; }
@@ -704,6 +711,9 @@ input.ng-valid.ng-dirty {
 .money-lost, .user-record-losses {
   font-size: 2.7em;
   padding: 0 1.3rem; }
+
+.total-money-raised {
+  padding-top: 1.5rem; }
 
 .profile-section-two {
   color: white; }
@@ -1203,3 +1213,34 @@ donut-chart {
 
 svg {
   padding: 0; }
+
+.gauge-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+path.line {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px; }
+
+path.area {
+  fill: #e7e7e7; }
+
+.axis {
+  shape-rendering: crispEdges; }
+
+.x.axis line {
+  stroke: #fff; }
+
+.x.axis .minor {
+  stroke-opacity: .5; }
+
+.x.axis path {
+  display: none; }
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000; }
