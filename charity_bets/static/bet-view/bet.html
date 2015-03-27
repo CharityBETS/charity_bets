@@ -2,7 +2,6 @@
 
 <div class="create-bet-wrapper">
 
-
       <div class="bet-title">{{vm.bet.title}}</div>
  <div class="bet-section-top">
 
@@ -49,16 +48,16 @@
  </div>
 
     <div class="profile-details-wrap">
+
+
       <div class=bet-flex-wrap>
 
-        <div class="area-wrap">
+        <div class="area-wrap flex-section-b">
           <area-chart  class="area-chart"></area-chart>
           <!-- <div class="donut-stat-inner-wrap">
             <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
           </div> -->
         </div>
-
-
 
 
       <div class="bet-deets flex-section-a">
@@ -75,12 +74,6 @@
             </div>
          </div>
 
-         <div class="area-wrap">
-           <area-chart  class="area-chart"></area-chart>
-           <!-- <div class="donut-stat-inner-wrap">
-             <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
-           </div> -->
-         </div>
 
         <!-- <bet-payment-form ng-if="modalaction" class="bet-pay-form">Payment Form</bet-payment-form>  -->
         <!-- <button ng-if="vm.isChallengeable" ng-hide="!vm.hideme" ng-click="vm.hideme=false">ACCEPT BET</button> -->
@@ -98,8 +91,14 @@
 
         <button ng-click="vm.deleteBet()" class="bet-modal-button deny">DECLINE BET</button>
       </div>
+    </div>
 
-  </div>
+         <div class="area-wrap flex-section-c">
+           <area-chart  class="area-chart"></area-chart>
+           <!-- <div class="donut-stat-inner-wrap">
+             <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
+           </div> -->
+         </div>
 
 
 
