@@ -165,12 +165,18 @@ def view_bets():
     bet_list = bet_aggregator(challenger_bets, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
+        for bet in bets:
+            if bet['challenger']==current_user.id and bet['status']=='pending':
+                bet['needs_accepting'] = 'y'
+            else:
+                bet['needs_accepting'] = 'n'
         return jsonify({"data": bets}), 201
-    fake_bet_list = []
-    seed_bet = fake_bet()
-    fake_bet_list.append(seed_bet)
-    fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
-    return jsonify({"data": fake_bets}), 201
+    else:
+        fake_bet_list = []
+        seed_bet = fake_bet()
+        fake_bet_list.append(seed_bet)
+        fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
+        return jsonify({"data": fake_bets}), 201
 
 
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
