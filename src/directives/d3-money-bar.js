@@ -17,7 +17,7 @@ app.directive('moneyBar', function () {
          bottom: 24
        },
 
-      width = 500 - margins.left - margins.right,
+      width = 400- margins.left - margins.right,
          height = 70 - margins.top - margins.bottom,
          dataset = [{
              data: [{
