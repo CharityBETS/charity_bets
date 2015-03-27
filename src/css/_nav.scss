@@ -8,7 +8,7 @@
 
 
   li {
-    padding: 1rem 3rem .5rem 2rem;
+    // padding: 1rem 3rem .5rem 2rem;
     font-size: 1.2em;
   }
 
@@ -26,6 +26,7 @@
   a {
     color: black;
     text-decoration: none;
+    padding: .75rem 2.5rem .75rem 2.5rem;
   }
 
 }
@@ -35,8 +36,15 @@
 }
 
 .active {
-  color: $secondary-accent-color;
+  background-color: $main-accent-color;
+  width: 100%;
+
 }
+
+// .nav-item-explode {
+//   height: 100%;
+//   width: 100%;
+// }
 
 // .create-new-bet-li {
 //   font-size: 1.4em;
@@ -70,12 +78,19 @@
 
 .app-header li a{
   color: white;
+  display: block;
+  // height: 100%;
+  // width: 100%;
+
 }
+
 
 .logo-li {
   font-family: 'McLaren', cursive;
   letter-spacing: 3px;
   color: $secondary-accent-color;
+  padding: .75rem 2.5rem .75rem 2.5rem;
+
 }
 
 @media only screen and (max-width : 920px) {

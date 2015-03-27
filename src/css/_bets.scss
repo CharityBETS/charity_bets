@@ -13,7 +13,8 @@
 }
 
 .bets-title {
-  font-size: 1.2em;
+  font-size: 2.2em;
+  padding-bottom: 1rem;
 
   a {
     color: $main-accent-color;
@@ -29,17 +30,21 @@
 
 }
 
+.bets-amount {
+  font-size: 1em;
+}
+
 .bets-pic {
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
+  width: 140px;
+  height: 140px;
+  border-radius: 70px;
   border: 3px solid $secondary-accent-color;
 }
 
 .bets-flex-container {
   display: flex;
   flex-direction: row;
-  max-width: 640px;
+  max-width: 680px;
   justify-content: space-between;
   margin: 0 auto;
 }
@@ -58,6 +63,8 @@
   order: 3;
 
 }
+
+
 
 // .creator-pic-div {
 //   position: absolute;

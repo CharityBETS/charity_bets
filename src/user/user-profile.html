@@ -4,31 +4,48 @@
       <div class="profile-details-container">
           <h3>{{vm.currentUser.name}}</h3>
           <!-- <h4>{{vm.currentUser.charity}}</h4> -->
-          <h4>Kids with Faces</h4>
+
           <img class="profile-img" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large">
       </div>
 
       <div class="profile-stats">
         <h3 class="user-stats">Stats</h3>
-        <div class="stat-title-label">
-          Record
+
+        <div class="good-stats">
+          <div class="left-stats">
+            <div class="user-record">{{vm.currentUser.wins}}</div>
+            <div class="stat-title-label">Wins</div>
+          </div>
+          <div class="right-stats">
+            <div class="money-won">{{vm.currentUser.money_won | currency:"$":0}}</div>
+            <div class="stat-title-label">Money Won</div>
+         </div>
         </div>
-        <div class="user-record">
-          {{vm.currentUser.wins}} - {{vm.currentUser.losses}}
+
+        <div class="bad-stats">
+          <div class="left-stats">
+            <div class="user-record-losses">{{vm.currentUser.losses}}</div>
+            <div class="stat-title-label">Losses</div>
+          </div>
+          <div class="right-stats">
+            <div class="money-lost">{{vm.currentUser.money_lost | currency:"$":0 }}</div>
+            <div class="stat-title-label">Money Lost</div>
+          </div>
         </div>
-        <div class="stat-title-label">Money Won For Charity</div>
-        <div class="money-won">{{vm.currentUser.money_won | currency}}</div>
-        <div class="stat-title-label">Money Lost For Charity</div>
-        <div class="money-won">{{vm.currentUser.money_lost | currency }}</div>
-        <div class="stat-title-label">Win Streak</div>
-        <div class="win-streak">{{vm.currentUser.win_streak}}</div>
-
-        <donut-chart  dataset="vm.foo"></donut-chart>
-
-
-
       </div>
   </div>
+
+    <div class="stats-vis-section">
+        <h2 class="user-stats-header">User Stats</h2>
+        <div class="donut-wrap">
+          <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
+          <div class="donut-stat-inner-wrap">
+            <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
+          </div>
+        </div>
+        <!-- <donut-chart  dataset="vm.doo"></donut-chart> -->
+        <money-bar dataset="vm.goo"></money-bar>
+    </div>
 
   <div class="profile-section-two">
 
@@ -38,11 +55,11 @@
       <div class="bets-flex-container">
 
         <div class="bets-section-1">
-          <div class="bets-users">
-            <a href="#/bet/{{bet.id}}">{{bet.creator_name}} Vs. {{bet.challenger_name}}</a>
-          </div>
           <div class="bets-title">
             <a href="#/bet/{{bet.id}}">{{bet.title}}</a>
+          </div>
+          <div class="bets-users">
+            <a href="#/bet/{{bet.id}}">{{bet.creator_name}} Vs. {{bet.challenger_name}}</a>
           </div>
           <div class="bets-date">
             {{bet.date | date:'EEEE, MMM d'}}
@@ -117,8 +134,4 @@
       </div>
       </li>
     </ul>
-
-
-
-
   </div>
