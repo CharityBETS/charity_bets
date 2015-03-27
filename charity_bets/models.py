@@ -22,6 +22,7 @@ class User(db.Model, UserMixin):
     bets_made = db.Column(db.Integer, default=0)
     longest_win_streak = db.Column(db.Integer, default=0)
     average_bet_size = db.Column(db.Integer, default=0)
+    donation_money_raised = db.Column(db.Integer, default=0)
 
     def make_dict(self):
         return {"id": self.id,
@@ -38,7 +39,8 @@ class User(db.Model, UserMixin):
                 "bet_conflicts": self.bet_conflicts,
                 "bets_made": self.bets_made,
                 "longest_win_streak": self.longest_win_streak,
-                "average_bet_size": self.average_bet_size}
+                "average_bet_size": self.average_bet_size,
+                "donation_money_raised": self.donation_money_raised}
 
 
 
