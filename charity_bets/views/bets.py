@@ -193,7 +193,7 @@ def view_all_bets():
     bets = Bet.query.all()
     all_bets = []
     for bet in bets:
-        challenger = User.query.filter_by(id=bet.challenger).first()
+        # challenger = User.query.filter_by(id=bet.challenger).first()
         bet = bet.make_dict()
         all_bets.append(bet)
 
@@ -321,8 +321,8 @@ def update_bet(id):
         if bet.mail_track == 'bet_accepted' or "win_claimed":
             if bet.challenger_outcome or bet.creator_outcome:
                 if bet.verified_loser:
-                    loss_claim_notification(bet)
-                    you_lost_notification(bet)
+                    # loss_claim_notification(bet)
+                    # you_lost_notification(bet)
                     bet.mail_track = "bet_over"
                     db.session.commit()
                 else:
