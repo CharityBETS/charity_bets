@@ -2,7 +2,6 @@
 
 <div class="create-bet-wrapper">
 
-
       <div class="bet-title">{{vm.bet.title}}</div>
  <div class="bet-section-top">
 
@@ -49,16 +48,19 @@
  </div>
 
     <div class="profile-details-wrap">
+
+
       <div class=bet-flex-wrap>
 
-      <div class="bet-deets flex-section-a">
-        <!-- <div class="bet-date">{{vm.bet.date | date:'EEEE, MMM d'}}</div>
-        <div class="info-title">Location:</div>
-        <div class="location">{{vm.bet.location}}</div>
-        <div class="info-title">Description:</div>
-        <div class="bet-description">{{vm.bet.description}}</div> -->
+        <div class="area-wrap flex-section-b">
+          <area-chart  class="area-chart"></area-chart>
+          <!-- <div class="donut-stat-inner-wrap">
+            <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
+          </div> -->
+        </div>
 
-        <!-- <div ng-if="(vm.isBettor() && vm.isActive())" class="choose-winner-div"> -->
+
+      <div class="bet-deets flex-section-a">
 
           <div ng-show="vm.showResolutionButton()" class="choose-winner-div">
             <div class="choose-winner-wrapper">
@@ -71,6 +73,7 @@
                 </div>
             </div>
          </div>
+
 
         <!-- <bet-payment-form ng-if="modalaction" class="bet-pay-form">Payment Form</bet-payment-form>  -->
         <!-- <button ng-if="vm.isChallengeable" ng-hide="!vm.hideme" ng-click="vm.hideme=false">ACCEPT BET</button> -->
@@ -88,8 +91,14 @@
 
         <button ng-click="vm.deleteBet()" class="bet-modal-button deny">DECLINE BET</button>
       </div>
+    </div>
 
-  </div>
+         <div class="area-wrap flex-section-c">
+           <area-chart  class="area-chart"></area-chart>
+           <!-- <div class="donut-stat-inner-wrap">
+             <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
+           </div> -->
+         </div>
 
 
 
@@ -146,13 +155,6 @@
             <input placeholder="YY" type="text" size="3" maxlength="2" ng-model="vm.card.exp_year">
           </label>
         </div>
-          <!-- <div class="form-row">
-          <label>
-            <input placeholder="MMYY" type="text" size="5" ng-model="vm.card.exp_month" payments-format="expiry" payments-validate="expiry" data-stripe="exp-month"/>
-          </label>
-          <!-- <span> / </span> -->
-          <!-- <input type="text" size="4" ng-model="vm.card.exp_year" payments-format="cvc" payments-validate="cvc" data-stripe="exp-year"/> -->
-        <!-- </div> -->
       </div>
       <button class="stripe-form-submit-button" ng-click="vm.modalaction=false" type="submit">Pay Bet</button>
       <button ng-click="$event.stopPropagation();$event.preventDefault();vm.modalaction=false" class="close-modal">x</button>

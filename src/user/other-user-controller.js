@@ -28,5 +28,6 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
   self.thisUser = thisUser;
   self.thisUserBets = thisUserBets;
+  self.winDonutData = [thisUser.wins, thisUser.losses]
 
 }]);

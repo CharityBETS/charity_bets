@@ -72,3 +72,52 @@ donut-chart {
 svg {
   padding: 0;
 }
+
+.gauge-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  // top: 0;
+  // left: 0;
+}
+
+.gauge-stat-inner-wrap {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+
+
+path.line {
+ fill: none;
+ stroke: #666;
+ stroke-width: 1.5px;
+}
+
+path.area {
+ fill: #e7e7e7 ;
+}
+
+.axis {
+ shape-rendering: crispEdges;
+}
+
+.x.axis line {
+ stroke: #fff;
+}
+
+.x.axis .minor {
+ stroke-opacity: .5;
+}
+
+.x.axis path {
+ display: none;
+}
+
+.y.axis line, .y.axis path {
+ fill: none;
+ stroke: #000;
+}

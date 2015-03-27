@@ -223,8 +223,8 @@
 .bet-flex-wrap {
   display: flex;
   flex-direction: row;
-  max-width: 900px;
-  justify-content: space-between;
+  max-width: 1000px;
+  justify-content: space-around;
   margin: 0 auto;
   flex-wrap: wrap;
 }
