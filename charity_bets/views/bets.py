@@ -39,11 +39,11 @@ def user_money_raised(bet):
     if creator.id == bet.verified_winner:
         donation_money_raised = bet.creator_money_raised - bet.amount
         creator.donation_money_raised += donation_money_raised
-        db.commit()
+        
     if challenger.id == bet.verified_winner:
         donation_money_raised = bet.challenger_money_raised - bet.amount
         challenger.donation_money_raised += donation_money_raised
-        db.commit()
+
 
 def charge_funders(bet):
     """At the resolution of the bet, this charges all the losing funders"""
