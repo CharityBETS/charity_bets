@@ -16,6 +16,8 @@
     margin: 0;
     font-size: 2em;
     padding-bottom: .1em;
+    text-align: center;
+    padding-bottom: 3rem;
   }
 
   h4 {
@@ -36,12 +38,50 @@
 
 }
 
+.stat-title-label {
+  text-align: center;
+}
+
+.right-stats {
+  padding-left: 4em;
+}
+
 .profile-img {
   width: 200px;
   height: 200px;
   border-radius: 100px;
-  border: 5px solid $main-accent-color;
+  border: 10px solid white;
 }
+
+.good-stats, .bad-stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.bad-stats {
+  padding-top: 2.5rem;
+}
+
+
+.user-record, .money-won, .money-lost, .user-record-losses {
+  font-size: 4.4em;
+  font-weight: 800;
+  line-height: 1.4em;
+  padding: 0 1.5rem;
+}
+
+.money-won {
+  padding: 0;
+}
+
+.money-lost, .user-record-losses {
+  font-size: 2.7em;
+  padding: 0 1.3rem;
+}
+
 
 .profile-section-two {
   // height: 1000px;
@@ -71,6 +111,8 @@
     border: 3px $main-accent-color solid;
   }
 }
+
+
 
 
 .pay-button {

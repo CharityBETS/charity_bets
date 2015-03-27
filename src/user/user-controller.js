@@ -25,7 +25,9 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
-  self.foo = [currentUser.wins, currentUser.losses];
+  self.winDonutData = [currentUser.wins, currentUser.losses];
+  self.doo = [1000, 650];
+  self.goo = [currentUser.money_won, currentUser.money_lost];
 
 
   $scope.stripeCallback = function (code, result) {

@@ -7,9 +7,6 @@
   <div class="bets-flex-container">
 
     <div class="bets-section-1">
-      <div class="bets-users">
-        <a href="#/user/user-profile/{{bet.creator}}">{{bet.creator_name}}</a> Vs. <a href="#/user/user-profile/{{bet.challenger}}">{{bet.challenger_name}}</a>
-      </div>
       <div class="bets-title">
         <a href="#/bet/{{bet.id}}">{{bet.title}}</a>
       </div>
@@ -33,8 +30,10 @@
     <div class="bets-section-2">
       <div class="profile-wrap creator-wrap">
         <div class="creator-pic-div">
-
           <img class="bets-pic" src="http://graph.facebook.com/{{bet.creator_facebook_id}}/picture?type=large"></img>
+        </div>
+        <div class="bets-users">
+          <a href="#/user/user-profile/{{bet.creator}}">{{bet.creator_name}}</a>
         </div>
       </div>
     </div>
@@ -43,6 +42,9 @@
       <div class="profile-wrap challenger-wrap">
         <div class="challenger-pic">
           <img class="bets-pic" src="http://graph.facebook.com/{{bet.challenger_facebook_id}}/picture?type=large"></img>
+        </div>
+        <div class="bets-users">
+          <a href="#/user/user-profile/{{bet.challenger}}">{{bet.challenger_name}}</a>
         </div>
       </div>
     </div>
