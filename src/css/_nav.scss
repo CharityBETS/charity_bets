@@ -36,9 +36,10 @@
 }
 
 .active {
-  background-color: $main-accent-color;
+  background-color: $secondary-accent-color;
   width: 100%;
 }
+
 
 // .nav-item-explode {
 //   height: 100%;
@@ -76,12 +77,14 @@
 }
 
 .app-header li a{
-  color: white;
   display: block;
+  color: white;
   // height: 100%;
   // width: 100%;
-
 }
+
+
+
 
 
 .logo-li {
@@ -89,8 +92,10 @@
   letter-spacing: 3px;
   color: $secondary-accent-color;
   padding: .75rem 2.5rem .75rem 2.5rem;
-
 }
+
+
+
 
 @media only screen and (max-width : 920px) {
 //   li:first-child {

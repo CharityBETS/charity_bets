@@ -39,7 +39,7 @@ table {
 body {
   font-family: 'Noto Sans', sans-serif;
   line-height: 1.8em;
-  background: #FFF;
+  background: #F4F4F4;
   color: #444; }
 
 h1 {
@@ -132,7 +132,7 @@ button:hover {
   color: white; }
 
 .active {
-  background-color: #f05f5c;
+  background-color: #4BBADA;
   width: 100%; }
 
 .app-header {
@@ -158,8 +158,8 @@ button:hover {
   margin-right: auto; }
 
 .app-header li a {
-  color: white;
-  display: block; }
+  display: block;
+  color: white; }
 
 .logo-li {
   font-family: 'McLaren', cursive;
@@ -280,7 +280,7 @@ footer {
 .create-bet-wrapper {
   text-align: center;
   background-color: #F4F4F4;
-  color: #484848; }
+  color: #4BBADA; }
   .create-bet-wrapper button {
     display: block;
     margin: 1rem auto 0; }
@@ -349,7 +349,7 @@ footer {
   font-size: 2.4em;
   margin: 0 auto;
   padding: 2.5rem 0 2rem;
-  color: #f05f5c; }
+  color: #4BBADA; }
 
 .donate-button {
   background-color: #4BBADA; }
@@ -393,6 +393,10 @@ footer {
   font-weight: 700;
   letter-spacing: 4px;
   padding-top: 1rem; }
+  .bettor-name a {
+    color: #4BBADA; }
+  .bettor-name a:hover {
+    color: #f05f5c; }
 
 .charity {
   padding-bottom: 0em; }
@@ -569,16 +573,20 @@ input.ng-valid.ng-dirty {
   text-align: center; }
 
 .bets-li {
+  background-color: #F4F4F4;
   padding: 2rem 0;
   position: relative;
   color: black;
   border-bottom: 2px solid #e7e7e7; }
 
+.user-stats-header {
+  color: #4BBADA; }
+
 .bets-title {
   font-size: 2.2em;
   padding-bottom: 1rem; }
   .bets-title a {
-    color: #f05f5c; }
+    color: #4BBADA; }
 
 .bets-users {
   font-size: 1.3em; }
@@ -629,9 +637,9 @@ input.ng-valid.ng-dirty {
     width: 60px; } }
 
 .profile-top-section {
-  background-color: #4BBADA;
+  background-color: #F4F4F4;
   padding: 4.5rem;
-  color: white;
+  color: #4BBADA;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -674,7 +682,7 @@ input.ng-valid.ng-dirty {
   width: 200px;
   height: 200px;
   border-radius: 100px;
-  border: 10px solid white; }
+  border: 10px solid #4BBADA; }
 
 .good-stats, .bad-stats {
   display: -webkit-flex;

@@ -25,9 +25,9 @@
     <div class="better-profile hero-bettor flex-section-2">
       <div class="winner-status" ng-show="vm.creatorWinner()"><img class="winner-img" src="https://s3-us-west-2.amazonaws.com/betti/Golden_Crown.png"></div>
       <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.creator_facebook_id}}/picture?type=large"></div>
-      <div class="bettor-name">{{vm.bet.creator_name}}</div>
+      <div class="bettor-name"><a href="#/user/user-profile/{{vm.bet.creator}}">{{vm.bet.creator_name}}</a></div>
       <div class="charity">{{vm.bet.charity_creator}}</div>
-      <div class="wins-losses">37-0</div>
+      <div class="wins-losses">{{vm.bet.creator_record}}</div>
       <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button" ng-click="vm.modalDonateCreator=true">$DONATE$</button>
       </div>
@@ -36,10 +36,9 @@
     <div class="better-profile villian-bettor flex-section-3">
       <div class="winner-status" ng-show="vm.challengerWinner()"><img class="winner-img" src="https://s3-us-west-2.amazonaws.com/betti/Golden_Crown.png"></div>
       <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.challenger_facebook_id}}/picture?type=large"></div>
-      <div class="bettor-name">{{vm.bet.challenger_name}}</div>
+      <div class="bettor-name"><a href="#/user/user-profile/{{vm.bet.challenger}}">{{vm.bet.challenger_name}}</a></div>
       <div class="charity">{{vm.bet.charity_challenger}}</div>
-      <!-- <div class="charity">Girl Scouts of America</div> -->
-      <div class="wins-losses">12-29</div>
+      <div class="wins-losses">{{vm.bet.challenger_record}}</div>
       <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button" ng-click="vm.modalDonateChallenger=true">$DONATE$</button>
       </div>

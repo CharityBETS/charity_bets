@@ -1,8 +1,8 @@
 .profile-top-section {
 
-  background-color: $secondary-accent-color;
+  background-color: $my-white;
   padding: 4.5rem;
-  color: white;
+  color: $secondary-accent-color;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -52,7 +52,7 @@
   width: 200px;
   height: 200px;
   border-radius: 100px;
-  border: 10px solid white;
+  border: 10px solid $secondary-accent-color;;
 }
 
 .good-stats, .bad-stats {

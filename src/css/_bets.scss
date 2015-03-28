@@ -5,11 +5,15 @@
 }
 
 .bets-li {
+  background-color: $my-white;
   padding: 2rem 0;
   position: relative;
   color: black;
   border-bottom: 2px solid #e7e7e7;
+}
 
+.user-stats-header {
+  color: $secondary-accent-color;
 }
 
 .bets-title {
@@ -17,7 +21,7 @@
   padding-bottom: 1rem;
 
   a {
-    color: $main-accent-color;
+    color: $secondary-accent-color;
   }
 }
 
