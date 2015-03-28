@@ -21,7 +21,7 @@ app.directive('gaugeChart', function () {
         var percentage = Math.floor((x/y) * 100);
 
 
-        var width = 460,
+        var width = 400,
            height = 300,
            radius = Math.min(width, height) / 2;
 

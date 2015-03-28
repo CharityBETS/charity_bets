@@ -13,6 +13,37 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+  // self.isVerifiedWinner = function () {
+  //   return (bets.winner_name !== null);
+  // }
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
     templateUrl: '/static/bet-view/bet.html',
@@ -256,37 +287,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-  // self.isVerifiedWinner = function () {
-  //   return (bets.winner_name !== null);
-  // }
-
-
-}]);
-
 app.directive('betPaymentForm', function() {
   return {
     restrict: 'E',
@@ -426,7 +426,7 @@ app.directive('gaugeChart', function () {
         var percentage = Math.floor((x/y) * 100);
 
 
-        var width = 460,
+        var width = 400,
            height = 300,
            radius = Math.min(width, height) / 2;
 
@@ -608,6 +608,28 @@ app.directive('gaugeChart', function () {
 //   }
 // });
 
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+      return StringUtil.startsWith($location.path(), path);
+    };
+
+    self.addToLi = function () {
+      var navItem = document.querySelector('.')
+      return
+        if (isActive) {
+
+        }
+    }
+
+}]);
+
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
     templateUrl: '/static/landing/organizations.html',
@@ -637,28 +659,6 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
 
 
-
-}]);
-
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-      return StringUtil.startsWith($location.path(), path);
-    };
-
-    self.addToLi = function () {
-      var navItem = document.querySelector('.')
-      return
-        if (isActive) {
-
-        }
-    }
 
 }]);
 
