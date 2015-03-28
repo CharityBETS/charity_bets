@@ -172,10 +172,11 @@ def bet_aggregator(bets, bet_list):
 @bets.route("/user/bets", methods = ["GET"])
 @login_required
 def view_bets():
-    bets = Bet.query.filter(or_(creator==current_user.id, challenger==current_user.id))
+    bets = Bet.query.filter(or_(Bet.creator==current_user.id, Bet.challenger==current_user.id))
     bet_list = []
-    bet_list = bet_aggregator(creator_bets, bet_list)
-    bet_list = bet_aggregator(challenger_bets, bet_list)
+    bet_list = bet_aggregator(bets, bet_list)
+    # bet_list = bet_aggregator(creator_bets, bet_list)
+    # bet_list = bet_aggregator(challenger_bets, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         for bet in bets:
@@ -198,8 +199,9 @@ def view_bets():
 def view_users_bets(id):
     bets = Bet.query.filter(or_(creator==current_user.id, challenger==current_user.id))
     bet_list = []
-    bet_list = bet_aggregator(creator_bets, bet_list)
-    bet_list = bet_aggregator(challenger_bets, bet_list)
+    bet_list = bet_aggregator(bets, bet_list)
+    # bet_list = bet_aggregator(creator_bets, bet_list)
+    # bet_list = bet_aggregator(challenger_bets, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets }), 201
