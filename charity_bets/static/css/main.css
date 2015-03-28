@@ -115,7 +115,6 @@ button:hover {
   justify-content: flex-end;
   letter-spacing: 1px; }
   .header-nav li, .app-header li {
-    padding: 1rem 3rem .5rem 2rem;
     font-size: 1.2em; }
   .header-nav li:first-child, .app-header li:first-child {
     margin-right: auto;
@@ -126,13 +125,15 @@ button:hover {
     color: black; }
   .header-nav a, .app-header a {
     color: black;
-    text-decoration: none; }
+    text-decoration: none;
+    padding: .75rem 2.5rem .75rem 2.5rem; }
 
 .app-header li:first-child {
   color: white; }
 
 .active {
-  color: #4BBADA; }
+  background-color: #f05f5c;
+  width: 100%; }
 
 .app-header {
   display: -webkit-flex;
@@ -157,12 +158,14 @@ button:hover {
   margin-right: auto; }
 
 .app-header li a {
-  color: white; }
+  color: white;
+  display: block; }
 
 .logo-li {
   font-family: 'McLaren', cursive;
   letter-spacing: 3px;
-  color: #4BBADA; }
+  color: #4BBADA;
+  padding: .75rem 2.5rem .75rem 2.5rem; }
 
 @media only screen and (max-width: 620px) {
   .app-header, .header-nav {
@@ -275,7 +278,9 @@ footer {
     font-size: .5em; } }
 
 .create-bet-wrapper {
-  text-align: center; }
+  text-align: center;
+  background-color: #F4F4F4;
+  color: #484848; }
   .create-bet-wrapper button {
     display: block;
     margin: 1rem auto 0; }
@@ -308,7 +313,7 @@ footer {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 4em 0 1em; }
+  padding: 0em 0 1em; }
 
 .flex-section-1 {
   -webkit-order: 2;
@@ -331,12 +336,20 @@ footer {
   margin: 0 auto; }
 
 .bet-size {
-  text-align: center; }
+  text-align: center;
+  font-size: 3em;
+  font-weight: 800; }
+
+.wins-losses {
+  padding: 0;
+  font-size: 1em; }
 
 .bet-title {
   max-width: 95%;
-  font-size: 1.7em;
-  margin: 0 auto; }
+  font-size: 2.4em;
+  margin: 0 auto;
+  padding: 2.5rem 0 2rem;
+  color: #f05f5c; }
 
 .donate-button {
   background-color: #4BBADA; }
@@ -344,7 +357,7 @@ footer {
 .bet-money-earned {
   width: 6em;
   margin: 0 auto;
-  font-size: 2em;
+  font-size: 3em;
   border-radius: 6px; }
 
 .profile-details-wrap {
@@ -378,10 +391,11 @@ footer {
   font-size: 1.5em;
   color: #f05f5c;
   font-weight: 700;
-  letter-spacing: 4px; }
+  letter-spacing: 4px;
+  padding-top: 1rem; }
 
 .charity {
-  padding-bottom: .3em; }
+  padding-bottom: 0em; }
 
 .select-org {
   color: black;
@@ -403,7 +417,7 @@ footer {
 
 .info-title {
   font-weight: bold;
-  padding-top: .75rem; }
+  padding: .65rem 0 2.7rem; }
 
 .end-bet {
   margin: 1.5em auto !important; }
@@ -425,7 +439,7 @@ footer {
   font-weight: bold; }
 
 .creator-pending {
-  padding-top: 1rem;
+  padding: 1rem;
   font-size: 1.4em; }
 
 .creator-pending {
@@ -447,10 +461,10 @@ footer {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  max-width: 900px;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+  max-width: 1000px;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
   margin: 0 auto;
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
@@ -561,7 +575,8 @@ input.ng-valid.ng-dirty {
   border-bottom: 2px solid #e7e7e7; }
 
 .bets-title {
-  font-size: 1.2em; }
+  font-size: 2.2em;
+  padding-bottom: 1rem; }
   .bets-title a {
     color: #f05f5c; }
 
@@ -570,10 +585,13 @@ input.ng-valid.ng-dirty {
   .bets-users a {
     color: black; }
 
+.bets-amount {
+  font-size: 1em; }
+
 .bets-pic {
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
+  width: 140px;
+  height: 140px;
+  border-radius: 70px;
   border: 3px solid #4BBADA; }
 
 .bets-flex-container {
@@ -583,7 +601,7 @@ input.ng-valid.ng-dirty {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  max-width: 640px;
+  max-width: 680px;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
@@ -612,7 +630,7 @@ input.ng-valid.ng-dirty {
 
 .profile-top-section {
   background-color: #4BBADA;
-  padding: 6rem;
+  padding: 4.5rem;
   color: white;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -631,7 +649,11 @@ input.ng-valid.ng-dirty {
   .profile-top-section h3 {
     margin: 0;
     font-size: 2em;
-    padding-bottom: .1em; }
+    padding-bottom: .1em;
+    text-align: center;
+    padding-bottom: 3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase; }
   .profile-top-section h4 {
     padding: .3rem 0 1rem;
     font-size: 1.2em; }
@@ -642,11 +664,56 @@ input.ng-valid.ng-dirty {
   -ms-flex-pack: center;
   justify-content: center; }
 
+.stat-title-label {
+  text-align: center; }
+
+.right-stats {
+  padding-left: 4em; }
+
 .profile-img {
   width: 200px;
   height: 200px;
   border-radius: 100px;
-  border: 5px solid #f05f5c; }
+  border: 10px solid white; }
+
+.good-stats, .bad-stats {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  text-align: left; }
+
+.bad-stats {
+  padding-top: 2.5rem; }
+
+.bets-made, .money-won, .money-lost, .user-record-losses, .total-money-raised {
+  font-size: 4.4em;
+  font-weight: 800;
+  line-height: 1.4em;
+  padding: 0 1.5rem; }
+
+.user-record {
+  padding-top: 1.2rem;
+  font-size: 3.2em;
+  font-weight: 800; }
+
+.money-won {
+  padding: 0; }
+
+.money-lost, .user-record-losses {
+  font-size: 2.7em;
+  padding: 0 1.3rem; }
+
+.total-money-raised {
+  padding-top: 1.5rem; }
 
 .profile-section-two {
   color: white; }
@@ -667,6 +734,18 @@ input.ng-valid.ng-dirty {
   color: black; }
   .user-bets-li:nth-child(even) img {
     border: 3px #f05f5c solid; }
+
+.actionable {
+  background-color: #4BBADA;
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  color: white;
+  height: 13%;
+  width: 9%;
+  text-align: center;
+  padding-top: .2rem;
+  font-weight: bold; }
 
 .pay-button {
   margin: 1rem auto;
@@ -1072,3 +1151,103 @@ input.ng-valid.ng-dirty {
 
 .close-modal:hover {
   background: none; }
+
+axis path, .axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges; }
+
+.axis text {
+  font-family: sans-serif;
+  font-size: 11px; }
+
+#tooltip {
+  position: absolute;
+  text-align: center;
+  width: 40px;
+  height: auto;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none; }
+
+#tooltip.hidden {
+  display: none; }
+
+#tooltip p {
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 20px; }
+
+.stats-vis-section {
+  position: relative;
+  min-height: 500px;
+  background-color: #F4F4F4;
+  padding: 2rem; }
+
+.donut-wrap {
+  position: absolute; }
+
+donut-chart {
+  display: inline-block;
+  padding-left: 5rem; }
+
+.donut {
+  position: relative; }
+
+.donut-stat-inner-wrap {
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  font-weight: bold; }
+
+.user-win-streak {
+  font-size: 3.4em; }
+
+.user-win-streak-label {
+  font-size: .9rem;
+  padding: .6rem 0 0 .4rem; }
+
+svg {
+  padding: 0; }
+
+.gauge-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.gauge-stat-inner-wrap {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%); }
+
+path.line {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px; }
+
+path.area {
+  fill: #e7e7e7; }
+
+.axis {
+  shape-rendering: crispEdges; }
+
+.x.axis line {
+  stroke: #fff; }
+
+.x.axis .minor {
+  stroke-opacity: .5; }
+
+.x.axis path {
+  display: none; }
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000; }

@@ -1,7 +1,7 @@
 .profile-top-section {
 
   background-color: $secondary-accent-color;
-  padding: 6rem;
+  padding: 4.5rem;
   color: white;
   display: flex;
   flex-direction: row;
@@ -16,6 +16,10 @@
     margin: 0;
     font-size: 2em;
     padding-bottom: .1em;
+    text-align: center;
+    padding-bottom: 3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
   }
 
   h4 {
@@ -36,11 +40,58 @@
 
 }
 
+.stat-title-label {
+  text-align: center;
+}
+
+.right-stats {
+  padding-left: 4em;
+}
+
 .profile-img {
   width: 200px;
   height: 200px;
   border-radius: 100px;
-  border: 5px solid $main-accent-color;
+  border: 10px solid white;
+}
+
+.good-stats, .bad-stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.bad-stats {
+  padding-top: 2.5rem;
+}
+
+
+.bets-made, .money-won, .money-lost, .user-record-losses, .total-money-raised {
+  font-size: 4.4em;
+  font-weight: 800;
+  line-height: 1.4em;
+  padding: 0 1.5rem;
+}
+
+.user-record {
+  padding-top: 1.2rem;
+  font-size: 3.2em;
+  font-weight: 800;
+}
+
+.money-won {
+  padding: 0;
+}
+
+.money-lost, .user-record-losses {
+  font-size: 2.7em;
+  padding: 0 1.3rem;
+}
+
+.total-money-raised {
+  padding-top: 1.5rem;
 }
 
 .profile-section-two {
@@ -71,6 +122,21 @@
     border: 3px $main-accent-color solid;
   }
 }
+
+
+.actionable {
+  background-color: $secondary-accent-color;
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  color: white;
+  height: 13%;
+  width: 9%;
+  text-align: center;
+  padding-top: .2rem;
+  font-weight: bold;
+}
+
 
 
 .pay-button {

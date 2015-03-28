@@ -33,6 +33,17 @@ def add_wins_losses(bet):
         user.longest_win_streak = user.win_streak
     user.money_won = user.money_won + bet.amount
 
+def user_money_raised(bet):
+    creator = User.query.filter_by(id = bet.creator).first()
+    challenger = User.query.filter_by(id=bet.challenger).first()
+    if creator.id == bet.verified_winner:
+        donation_money_raised = bet.creator_money_raised - bet.amount
+        creator.donation_money_raised += donation_money_raised
+
+    if challenger.id == bet.verified_winner:
+        donation_money_raised = bet.challenger_money_raised - bet.amount
+        challenger.donation_money_raised += donation_money_raised
+
 
 def charge_funders(bet):
     """At the resolution of the bet, this charges all the losing funders"""
@@ -67,6 +78,8 @@ def check_resolution(bet):
                 bet.verified_loser = bet.creator
 
             add_wins_losses(bet)
+            user_money_raised(bet)
+
             bet.loser_paid = "unpaid"
             winner = User.query.filter_by(id=bet.verified_winner).first()
             bet.winner_name = winner.name
@@ -165,12 +178,20 @@ def view_bets():
     bet_list = bet_aggregator(challenger_bets, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
+        for bet in bets:
+            if bet['challenger']==current_user.id and bet['status']=='pending':
+                bet['needs_accepting'] = 'y'
+            if bet['status'] == 'unresolved':
+                if current_user.id != bet['creator_outcome'] or bet['challenger_outcome']:
+                    bet['maybe_you_lost'] = 'y'
+
         return jsonify({"data": bets}), 201
-    fake_bet_list = []
-    seed_bet = fake_bet()
-    fake_bet_list.append(seed_bet)
-    fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
-    return jsonify({"data": fake_bets}), 201
+    else:
+        fake_bet_list = []
+        seed_bet = fake_bet()
+        fake_bet_list.append(seed_bet)
+        fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
+        return jsonify({"data": fake_bets}), 201
 
 
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
@@ -215,6 +236,8 @@ def view_bet(id):
         return jsonify({'data': seed_bet})
     else:
         bet = Bet.query.filter_by(id = id).first()
+        creator = User.query.get(bet.creator)
+        challenger = User.query.get(bet.challenger)
         comments = Comment.query.filter_by(bet_id=id).all()
         all_comments = []
         if bet:
@@ -223,6 +246,10 @@ def view_bet(id):
                 comment = comment.make_dict()
                 all_comments.append(comment)
             bet["comments"] = all_comments
+            creator_record = "{} - {}".format(creator.wins, creator.losses)
+            bet['creator_record'] = creator_record
+            challenger_record = "{} - {}".format(challenger.wins, challenger.losses)
+            bet['challenger_record'] = challenger_record
             return jsonify({'data': bet})
         else:
             return jsonify({"ERROR": "Bet does not exist."}), 400
@@ -399,6 +426,7 @@ def charge_loser(id):
 # To be added when we implement crowdsourcing, hasn't been tested yet
 
 @bets.route("/bets/<int:id>/fund_bettor", methods = ["POST"])
+@login_required
 def fund_bet(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)

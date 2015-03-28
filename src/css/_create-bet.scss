@@ -1,5 +1,7 @@
 .create-bet-wrapper {
   text-align: center;
+  background-color: $my-white;
+  color: $my-black;
 
   h3 {
     // padding: 1rem;
@@ -35,7 +37,7 @@
   justify-content: space-between;
   margin: 0 auto;
   flex-wrap: wrap;
-  padding: 4em 0 1em;
+  padding: 0em 0 1em;
 }
 
 .flex-section-1 {
@@ -60,13 +62,22 @@
 
 .bet-size {
   text-align: center;
+  font-size: 3em;
+  font-weight: 800;
 
+}
+
+.wins-losses {
+  padding:0;
+  font-size: 1em;
 }
 
 .bet-title {
   max-width: 95%;
-  font-size: 1.7em;
+  font-size: 2.4em;
   margin: 0 auto;
+  padding: 2.5rem 0 2rem;
+  color: $main-accent-color;
   // padding-bottom: 1rem;
   // padding-bottom: .5rem;
 }
@@ -79,7 +90,7 @@
   // border: 1px solid black;
   width: 6em;
   margin: 0 auto;
-  font-size: 2em;
+  font-size: 3em;
   // padding-top: 1rem;
   border-radius: 6px;
 }
@@ -126,10 +137,11 @@
   color: $main-accent-color;
   font-weight: 700;
   letter-spacing: 4px;
+  padding-top: 1rem;
 }
 
 .charity {
-  padding-bottom: .3em;
+  padding-bottom: 0em;
 }
 
 .select-org {
@@ -159,7 +171,7 @@
 
 .info-title {
   font-weight: bold;
-  padding-top: .75rem;
+  padding: .65rem 0 2.7rem;
 }
 
 .end-bet {
@@ -188,7 +200,7 @@
 
 
 .creator-pending {
-  padding-top: 1rem;
+  padding: 1rem;
   font-size: 1.4em;
 }
 
@@ -211,8 +223,8 @@
 .bet-flex-wrap {
   display: flex;
   flex-direction: row;
-  max-width: 900px;
-  justify-content: space-between;
+  max-width: 1000px;
+  justify-content: space-around;
   margin: 0 auto;
   flex-wrap: wrap;
 }

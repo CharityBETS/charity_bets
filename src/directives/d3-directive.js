@@ -28,6 +28,7 @@ app.directive('donutChart', function () {
            .append("g")
            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+
         var path = svg.selectAll("path")
            .data(pie(dataset))
            .enter().append("path")
@@ -35,9 +36,11 @@ app.directive('donutChart', function () {
              return color(i);
            })
            .attr("d", arc);
+            // svg.insert("text", "g")
+            // .text("{{vm.currentUser}}")
+            // .attr("class", "css-label-class")
+            // .attr("text-anchor", "middle");
+      }
 
-      // d3 is the raw d3 object
-    }
-
-  }
+  };
 });
