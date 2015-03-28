@@ -39,7 +39,7 @@ def user_money_raised(bet):
     if creator.id == bet.verified_winner:
         donation_money_raised = bet.creator_money_raised - bet.amount
         creator.donation_money_raised += donation_money_raised
-        
+
     if challenger.id == bet.verified_winner:
         donation_money_raised = bet.challenger_money_raised - bet.amount
         challenger.donation_money_raised += donation_money_raised
@@ -235,6 +235,8 @@ def view_bet(id):
         return jsonify({'data': seed_bet})
     else:
         bet = Bet.query.filter_by(id = id).first()
+        creator = User.query.get(bet.creator)
+        challenger = User.query.get(bet.challenger)
         comments = Comment.query.filter_by(bet_id=id).all()
         all_comments = []
         if bet:
@@ -243,6 +245,10 @@ def view_bet(id):
                 comment = comment.make_dict()
                 all_comments.append(comment)
             bet["comments"] = all_comments
+            creator_record = "{} - {}".format(creator.wins, creator.losses)
+            bet['creator_record'] = creator_record
+            challenger_record = "{} - {}".format(challenger.wins, challenger.losses)
+            bet['challenger_record'] = challenger_record
             return jsonify({'data': bet})
         else:
             return jsonify({"ERROR": "Bet does not exist."}), 400
