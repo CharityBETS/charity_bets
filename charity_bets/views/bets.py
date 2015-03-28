@@ -184,7 +184,6 @@ def view_bets():
             if bet['status'] == 'unresolved':
                 if current_user.id != bet['creator_outcome'] or bet['challenger_outcome']:
                     bet['maybe_you_lost'] = 'y'
-
         return jsonify({"data": bets}), 201
     else:
         fake_bet_list = []
@@ -217,7 +216,7 @@ def view_all_bets():
         # challenger = User.query.filter_by(id=bet.challenger).first()
         bet = bet.make_dict()
         all_bets.append(bet)
-
+    all_bets = [bet for bet in all_bets if bet["status"]!='pending']
     if bets:
         return jsonify({'data': all_bets}), 201
     else:
