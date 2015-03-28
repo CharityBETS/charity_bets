@@ -1,3 +1,8 @@
+.number {
+  font-family: 'Montserrat', sans-serif;
+}
+
+
 .profile-top-section {
 
   background-color: $my-white;
@@ -9,15 +14,14 @@
   flex-wrap: wrap;
 
   a {
-    color: black;
+    color: $my-black;
   }
 
   h3 {
     margin: 0;
-    font-size: 2em;
-    padding-bottom: .1em;
+    font-size: 1.3em;
     text-align: center;
-    padding-bottom: 3rem;
+    padding: .75rem 0;
     letter-spacing: 2px;
     text-transform: uppercase;
   }
@@ -40,6 +44,11 @@
 
 }
 
+.profile-user-name {
+  font-family: 'Raleway', sans-serif;
+  font-weight: normal;
+}
+
 .stat-title-label {
   text-align: center;
 }
@@ -52,7 +61,7 @@
   width: 200px;
   height: 200px;
   border-radius: 100px;
-  border: 10px solid $secondary-accent-color;;
+  border: 5px solid $secondary-accent-color;;
 }
 
 .good-stats, .bad-stats {
@@ -107,8 +116,9 @@
 .user-bets-li {
   padding: 4rem 0;
   position: relative;
-  color: black;
+  color: $my-black;
   border-bottom: 2px solid #e7e7e7;
+  background-color: $my-gray;
 
   img {
     border: 3px $secondary-accent-color solid;
@@ -116,11 +126,7 @@
 }
 
 .user-bets-li:nth-child(even) {
-  color: black;
-
-  img{
-    border: 3px $main-accent-color solid;
-  }
+  color: $my-black;
 }
 
 
@@ -131,10 +137,23 @@
   left: 0;
   color: white;
   height: 13%;
-  width: 9%;
+  width: 6em;
   text-align: center;
-  padding-top: .2rem;
+  padding-top: .3rem;
   font-weight: bold;
+}
+
+.actionable a {
+  color: white;
+}
+
+.actionable a:hover {
+  color: $main-accent-color;
+
+}
+
+.actionable:hover {
+  background: $my-gray;
 }
 
 
@@ -173,7 +192,9 @@
 
 
 @media only screen and (max-width : 920px) {
-
+  .actionable {
+    top: 0;
+  }
 
 }
 

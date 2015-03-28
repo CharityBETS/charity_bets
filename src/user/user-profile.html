@@ -2,8 +2,8 @@
 
   <div class="profile-top-section">
       <div class="profile-details-container">
-          <h3>{{vm.currentUser.name}}</h3>
           <img class="profile-img" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large">
+          <h3 class="profile-user-name">{{vm.currentUser.name}}</h3>
           <div class="user-record">{{vm.currentUser.wins}} - {{vm.currentUser.losses}}</div>
       </div>
 
@@ -65,20 +65,17 @@
 
       <div class="bets-flex-container">
 
-        <div class="actionable" ng-show="{{bet.needs_accepting==='y'}}">ACCEPT?</div>
-        <div class="actionable" ng-show="{{bet.maybe_you_lost==='y'}}">YOU LOST?</div>
+        <div class="actionable" ng-show="{{bet.needs_accepting==='y'}}"><a href="#/bet/{{bet.id}}">ACCEPT?</a></div>
+        <div class="actionable" ng-show="{{bet.maybe_you_lost==='y'}}"><a href="#/bet/{{bet.id}}">YOU LOST?</a></div>
         <div class="bets-section-1">
           <div class="bets-title">
             <a href="#/bet/{{bet.id}}">{{bet.title}}</a>
           </div>
-          <div class="bets-users">
-            <a href="#/bet/{{bet.id}}">{{bet.creator_name}} Vs. {{bet.challenger_name}}</a>
-          </div>
           <div class="bets-date">
             {{bet.date | date:'EEEE, MMM d'}}
           </div>
-          <div class="bets-amount">
-            {{bet.amount | currency}}
+          <div class="bets-amount number">
+            {{bet.amount | currency:"$":0}}
           </div>
 
           <!-- <button class="stripe-button" ng-show="!vm.isBetLoser"><a href="/PAYMENT_TEST">Pay with Stripe</a></button> -->
@@ -133,6 +130,7 @@
 
               <img class="bets-pic" src="http://graph.facebook.com/{{bet.creator_facebook_id}}/picture?type=large"></img>
             </div>
+            <div class="bettor-name"><a href="#/user/user-profile/{{bet.creator}}">{{bet.creator_name}}</a></div>
           </div>
         </div>
 
@@ -141,6 +139,7 @@
             <div class="challenger-pic">
               <img class="bets-pic" src="http://graph.facebook.com/{{bet.challenger_facebook_id}}/picture?type=large"></img>
             </div>
+            <div class="bettor-name"><a href="#/user/user-profile/{{bet.challenger}}">{{bet.challenger_name}}</a></div>
           </div>
         </div>
 

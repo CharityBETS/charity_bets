@@ -1,5 +1,7 @@
 .edit-bet-wrapper {
 
+  background-color: $my-white;
+
   input, select {
     padding: 1em;
     width: 14em;
@@ -15,6 +17,8 @@
   .input-primary {
     height: 45px;
     margin-bottom: 1rem;
+    background: $my-white;
+    color: #999999;
     // margin-left: 2rem;
   }
 
@@ -25,11 +29,13 @@
   }
 
   option {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Raleway', sans-serif;
+    font-size: .75em;
   }
 
   .bet-amount-input {
     width: 7em;
+    text-align: center;
   }
 
   .bet-challenger-input {
@@ -44,6 +50,7 @@
     text-align: center;
     display: block;
     margin: 1rem auto;
+    background: $my-white;
   }
 
   .info-title {
@@ -87,7 +94,7 @@
 }
 
 .select-style select {
-    color: gray;
+    color: #A9A9A9;
     padding: 5px 8px;
     width: 130%;
     text-align: center;
@@ -124,8 +131,8 @@
      text-align: center;
 
      h4 {
-       color: black;
-       font-family: 'Noto Sans', sans-serif;
+       color: $secondary-accent-color;
+       font-family: 'Raleway', sans-serif;
      }
    }
    @media only screen and (max-width : 920px) {

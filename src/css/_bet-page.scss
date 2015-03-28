@@ -1,7 +1,8 @@
 .create-bet-wrapper {
   text-align: center;
-  background-color: $my-white;
+  background-color: $my-gray;
   color: $secondary-accent-color;
+  font-family: 'Raleway', sans-serif;
 
   h3 {
     // padding: 1rem;
@@ -68,8 +69,9 @@
 }
 
 .wins-losses {
-  padding:0;
-  font-size: 1em;
+  padding:.65rem;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .bet-title {
@@ -78,6 +80,7 @@
   margin: 0 auto;
   padding: 2.5rem 0 2rem;
   color: $secondary-accent-color;
+  font-family: 'Raleway', sans-serif;
   // padding-bottom: 1rem;
   // padding-bottom: .5rem;
 }
@@ -102,7 +105,7 @@
   padding: 0 0;
   // background-color: $my-black;
   color: white;
-  font-family: 'Oswald', sans-serif;
+  // font-family: 'Oswald', sans-serif;
   letter-spacing: 1px;
   margin: 0 auto;
   // max-width: 1200px;
@@ -134,21 +137,37 @@
 
 .bettor-name {
   font-size: 1.5em;
-  color: $main-accent-color;
-  font-weight: 700;
+  color: $secondary-accent-color;
   letter-spacing: 4px;
   padding-top: 1rem;
+  text-align: center;
 
   a {
     color: $secondary-accent-color;
+    font-family: 'Raleway', sans-serif;
   }
 
   a:hover {
     color: $main-accent-color;
+    -webkit-animation-name: 'pulse_animation';
+    -webkit-animation-duration: 5000ms;
+    -webkit-transform-origin:70% 70%;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
   }
 }
 
 
+@-webkit-keyframes pulse_animation {
+ 0% { -webkit-transform: scale(1); }
+ 30% { -webkit-transform: scale(1); }
+ 40% { -webkit-transform: scale(1.08); }
+ 50% { -webkit-transform: scale(1); }
+ 60% { -webkit-transform: scale(1); }
+ 70% { -webkit-transform: scale(1.05); }
+ 80% { -webkit-transform: scale(1); }
+ 100% { -webkit-transform: scale(1); }
+}
 
 .charity {
   padding-bottom: 0em;
@@ -180,7 +199,6 @@
 }
 
 .info-title {
-  font-weight: bold;
   padding: .65rem 0 2.7rem;
 }
 
@@ -237,6 +255,7 @@
   justify-content: space-around;
   margin: 0 auto;
   flex-wrap: wrap;
+  padding-bottom: 3rem;
 }
 
 .flex-section-a {

@@ -8,7 +8,7 @@
   background-color: $my-white;
   padding: 2rem 0;
   position: relative;
-  color: black;
+  color: $my-black;
   border-bottom: 2px solid #e7e7e7;
 }
 
@@ -19,23 +19,30 @@
 .bets-title {
   font-size: 2.2em;
   padding-bottom: 1rem;
+  letter-spacing: 2px;
+  line-height: 1.25em;
+
 
   a {
     color: $secondary-accent-color;
+    font-family: 'Raleway', serif;
   }
+}
+
+.bets-title:hover {
+  a {
+    color: $main-accent-color;
+    }
 }
 
 .bets-users {
   font-size: 1.3em;
-
-  a {
-    color: black;
-  }
-
+  color: $my-black ;
 }
 
 .bets-amount {
-  font-size: 1em;
+  font-size: 1.4em;
+  color: $secondary-accent-color;
 }
 
 .bets-pic {
@@ -68,6 +75,9 @@
 
 }
 
+.number {
+  font-family: 'Montserrat', sans-serif;
+}
 
 
 // .creator-pic-div {

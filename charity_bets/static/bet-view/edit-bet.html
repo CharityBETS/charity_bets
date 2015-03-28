@@ -37,14 +37,14 @@
         <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large"></div>
         <div class="bettor-name">{{vm.currentUser.name}}</div>
         <div class="charity">{{vm.bet.charity_creator}}</div>
-        <div class="wins-losses"><span class="user-descriptor">Record:</span>{{vm.bet.creator_record}}</div>
+        <div class="wins-losses">{{vm.bet.creator_record}}</div>
       </div>
 
       <div class="better-profile villian-bettor flex-section-3">
         <div class="user-pic"><img class="user-pic" src="http://1.bp.blogspot.com/-lYpXSzJUQQA/TVVpZAw1i1I/AAAAAAAAABg/UQCaYfGfe4g/s220/profile_blank_gray.jpg"></div>
         <div class="bettor-name">{{vm.bet.challenger}}</div>
         <div class="charity">Charity: Unknown</div>
-        <div class="wins-losses"><span class="user-descriptor">Record:</span>{{vm.bet.challenger_record}}</div>
+        <div class="wins-losses"><span class="user-descriptor">{{vm.bet.challenger_record}}</div>
       </div>
     </div>
 

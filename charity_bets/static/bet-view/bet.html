@@ -7,9 +7,9 @@
 
     <div class="bet-essentials flex-section-1">
       <div class="creator-pending" ng-show="vm.isPendingCreator">Waiting For Challenger</div>
-      <div class="bet-size">{{vm.bet.amount | currency:"$":0}}</div>
+      <div class="bet-size number">{{vm.bet.amount | currency:"$":0}}</div>
       <div class="info-title">Bet Wager</div>
-      <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">{{vm.bet.total_money_raised | currency:"$":0}}</h4></div>
+      <div class="bet-money-earned-wrap number"><h4 class="bet-money-earned">{{vm.bet.total_money_raised | currency:"$":0}}</h4></div>
       <div class="info-title">Donations</div>
       <div class="bet-date">{{vm.bet.date | date:'EEEE, MMM d'}}</div>
       <div class="bet-description">{{vm.bet.description}}</div>
@@ -26,8 +26,8 @@
       <div class="winner-status" ng-show="vm.creatorWinner()"><img class="winner-img" src="https://s3-us-west-2.amazonaws.com/betti/Golden_Crown.png"></div>
       <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.creator_facebook_id}}/picture?type=large"></div>
       <div class="bettor-name"><a href="#/user/user-profile/{{vm.bet.creator}}">{{vm.bet.creator_name}}</a></div>
+      <div class="wins-losses number">{{vm.bet.creator_record}}</div>
       <div class="charity">{{vm.bet.charity_creator}}</div>
-      <div class="wins-losses">{{vm.bet.creator_record}}</div>
       <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button" ng-click="vm.modalDonateCreator=true">$DONATE$</button>
       </div>
@@ -37,8 +37,8 @@
       <div class="winner-status" ng-show="vm.challengerWinner()"><img class="winner-img" src="https://s3-us-west-2.amazonaws.com/betti/Golden_Crown.png"></div>
       <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.challenger_facebook_id}}/picture?type=large"></div>
       <div class="bettor-name"><a href="#/user/user-profile/{{vm.bet.challenger}}">{{vm.bet.challenger_name}}</a></div>
+      <div class="wins-losses number">{{vm.bet.challenger_record}}</div>
       <div class="charity">{{vm.bet.charity_challenger}}</div>
-      <div class="wins-losses">{{vm.bet.challenger_record}}</div>
       <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button" ng-click="vm.modalDonateChallenger=true">$DONATE$</button>
       </div>

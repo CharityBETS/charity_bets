@@ -1,5 +1,5 @@
 body {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Raleway', sans-serif;
     line-height: 1.8em;
     background: $my-white;
     color: #444;
@@ -21,12 +21,12 @@ p {
 }
 
 a {
-  color: white;
+  color: $my-black;
   text-decoration: none;
 }
 
 a:hover {
-  color: white;
+  color: $main-accent-color;
   text-decoration: none;
 }
 
@@ -39,7 +39,7 @@ button {
   font-size: .875em;
   letter-spacing: 1px;
   border-radius: 6px;
-  background-color: $main-accent-color;
+  background-color: $secondary-accent-color;
   border: 0px;
   padding: .75em;
   color: white;
@@ -51,6 +51,10 @@ button {
 button:hover {
   background-color:white;
   color: $secondary-accent-color;
+}
+
+input {
+  background-color: $my-white;
 }
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
