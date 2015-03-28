@@ -60,3 +60,17 @@ def delete_charity(id):
             return jsonify({"ERROR": "Could not delete"}), 400
     else:
         return jsonify({"ERROR": "Not authorized to make this request"}), 401
+
+@admin.route("/api/admin/bets", methods=["GET"])
+@login_required
+def really_get_all_bets():
+    if verify_user(current_user):
+        bets = Bet.query.all()
+        all_bets = []
+        for bet in bets:
+            bet = bet.make_dict()
+            all_bets.append(bet)
+        return jsonify({"data": all_bets}), 201
+
+    else:
+        return jsonify({"ERROR": "Not authorized to make this request"}), 401

@@ -168,15 +168,25 @@ def bet_aggregator(bets, bet_list):
             bet_list.append(bet)
     return bet_list
 
+def current_user_filter(bet_status):
+    return Bet.query.filter(or_(Bet.creator==current_user.id,
+                                 Bet.challenger==current_user.id)
+                             ).filter_by(status=bet_status).all()
 
 @bets.route("/user/bets", methods = ["GET"])
 @login_required
 def view_bets():
-    bets = Bet.query.filter(or_(Bet.creator==current_user.id, Bet.challenger==current_user.id))
+    bets1 = current_user_filter("pending")
+    bets2 = current_user_filter("active")
+    bets3 = current_user_filter("unresolved")
+    bets4 = current_user_filter("complete")
+    bets5 = current_user_filter("conflict")
     bet_list = []
-    bet_list = bet_aggregator(bets, bet_list)
-    # bet_list = bet_aggregator(creator_bets, bet_list)
-    # bet_list = bet_aggregator(challenger_bets, bet_list)
+    bet_list = bet_aggregator(bets1, bet_list)
+    bet_list = bet_aggregator(bets2, bet_list)
+    bet_list = bet_aggregator(bets3, bet_list)
+    bet_list = bet_aggregator(bets4, bet_list)
+    bet_list = bet_aggregator(bets5, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         for bet in bets:
@@ -193,15 +203,17 @@ def view_bets():
         fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
         return jsonify({"data": fake_bets}), 201
 
+def user_filter(bet_status, id):
+    return Bet.query.filter(or_(Bet.creator==id,
+                                 Bet.challenger==id)
+                             ).filter_by(status=bet_status).all()
 
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
 @login_required
 def view_users_bets(id):
-    bets = Bet.query.filter(or_(creator==current_user.id, challenger==current_user.id))
+    bets1 = user_filter("active", id)
     bet_list = []
-    bet_list = bet_aggregator(bets, bet_list)
-    # bet_list = bet_aggregator(creator_bets, bet_list)
-    # bet_list = bet_aggregator(challenger_bets, bet_list)
+    bet_list = bet_aggregator(bets1, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets }), 201
@@ -218,6 +230,7 @@ def view_all_bets():
         bet = bet.make_dict()
         all_bets.append(bet)
     all_bets = [bet for bet in all_bets if bet["status"]!='pending']
+    all_bets = [bet for bet in all_bets if bet["status"]!='conflict']
     if bets:
         return jsonify({'data': all_bets}), 201
     else:
