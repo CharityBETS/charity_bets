@@ -162,7 +162,7 @@ class Funder(db.Model):
     charity = db.Column(db.String)
     charity_token = db.Column(db.String)
     paid_out = db.Column(db.String)
-
+    date = db.Column(db.DateTime)
     def make_dict(self):
         return {"id": self.id,
                 "is_funding": self.is_funding,
