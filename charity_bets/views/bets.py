@@ -16,6 +16,7 @@ from flask_mail import Message
 import stripe
 from flask import current_app as app
 from datetime import datetime
+from sqlalchemy import or_
 
 
 bets = Blueprint("bets", __name__)
@@ -171,8 +172,7 @@ def bet_aggregator(bets, bet_list):
 @bets.route("/user/bets", methods = ["GET"])
 @login_required
 def view_bets():
-    creator_bets = Bet.query.filter_by(creator=current_user.id).all()
-    challenger_bets = Bet.query.filter_by(challenger=current_user.id).all()
+    bets = Bet.query.filter(or_(creator==current_user.id, challenger==current_user.id))
     bet_list = []
     bet_list = bet_aggregator(creator_bets, bet_list)
     bet_list = bet_aggregator(challenger_bets, bet_list)
@@ -184,7 +184,6 @@ def view_bets():
             if bet['status'] == 'unresolved':
                 if current_user.id != bet['creator_outcome'] or bet['challenger_outcome']:
                     bet['maybe_you_lost'] = 'y'
-
         return jsonify({"data": bets}), 201
     else:
         fake_bet_list = []
@@ -197,8 +196,7 @@ def view_bets():
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
 @login_required
 def view_users_bets(id):
-    creator_bets = Bet.query.filter_by(creator=id).all()
-    challenger_bets = Bet.query.filter_by(challenger=id).all()
+    bets = Bet.query.filter(or_(creator==current_user.id, challenger==current_user.id))
     bet_list = []
     bet_list = bet_aggregator(creator_bets, bet_list)
     bet_list = bet_aggregator(challenger_bets, bet_list)
@@ -211,12 +209,13 @@ def view_users_bets(id):
 @bets.route("/bets", methods = ["GET"])
 @login_required
 def view_all_bets():
-    bets = Bet.query.all()
+    bets = Bet.query.order_by(Bet.amount.desc()).all()
     all_bets = []
     for bet in bets:
+        # challenger = User.query.filter_by(id=bet.challenger).first()
         bet = bet.make_dict()
         all_bets.append(bet)
-
+    all_bets = [bet for bet in all_bets if bet["status"]!='pending']
     if bets:
         return jsonify({'data': all_bets}), 201
     else:
