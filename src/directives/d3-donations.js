@@ -1,5 +1,8 @@
-var lineData = [ { "x": "6-May-16",    "y": 10},  { "x": "1-May-16",   "y": 35},
-               ];
+
+
+//needs to be hooked up
+
+var lineData = [ { "x": "1-May-16" ,"y": 35},{ "x": "6-May-16",    "y": 10}, { "x": "8-May-16",   "y": 15}  ];
 
 function getDate(d) {
      return new Date(d.x);
@@ -25,7 +28,7 @@ lineData.forEach(function(d) {
     });
 
 var	x = d3.time.scale().range([0, width]);
-var	y = d3.scale.linear().range([200, 0 ]);
+var	y = d3.scale.linear().range([height, 0 ]);
 
 
 var area = d3.svg.area()
