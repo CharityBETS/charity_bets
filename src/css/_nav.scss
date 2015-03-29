@@ -1,4 +1,4 @@
-.header-nav, .app-header {
+.app-header, .header-nav {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -8,26 +8,27 @@
 
 
   li {
-    padding: 1rem 3rem .5rem 2rem;
     font-size: 1.2em;
+
+    a {
+      display: block;
+      color: $secondary-accent-color;
+      text-decoration: none;
+      padding: .75rem 2.5rem .75rem 2.5rem;
+      // border: 1px solid black;
+    }
   }
 
   li:first-child {
     margin-right: auto;
     font-size: 1.6em;
-    padding-bottom: .6rem;
+    // padding-bottom: .6rem;
     font-weight: bold;
  }
 
   li:last-child {
     color: black;
   }
-
-  a {
-    color: black;
-    text-decoration: none;
-  }
-
 }
 
 .app-header li:first-child {
@@ -35,8 +36,15 @@
 }
 
 .active {
-  color: $secondary-accent-color;
+  background-color: $secondary-accent-color;
+  width: 100%;
 }
+
+
+// .nav-item-explode {
+//   height: 100%;
+//   width: 100%;
+// }
 
 // .create-new-bet-li {
 //   font-size: 1.4em;
@@ -44,19 +52,17 @@
 
 
 .app-header {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: flex-end;
   background: $my-black;
   color: white;
-
 }
-
 
 
 .app-header li:hover {
   background-color: $main-accent-color;
+}
+
+.app-header li:first-child:hover {
+  background-color: $my-black;
 }
 
 // .log-out:hover {
@@ -69,6 +75,7 @@
 }
 
 .app-header li a{
+  display: block;
   color: white;
 }
 
@@ -76,7 +83,15 @@
   font-family: 'McLaren', cursive;
   letter-spacing: 3px;
   color: $secondary-accent-color;
+  padding: .75rem 2.5rem .75rem 2.5rem;
 }
+
+.header-nav-a {
+  padding: .75rem 2.5rem .75rem 2.5rem;
+}
+
+
+
 
 @media only screen and (max-width : 920px) {
 //   li:first-child {

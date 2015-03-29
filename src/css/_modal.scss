@@ -8,7 +8,7 @@
 }
 
 .modal-template {
-  background-color: white;
+  background-color: $my-gray;
   height: 290px;
   z-index: 10000;
   border-radius: .3em;
@@ -60,7 +60,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 1em 2rem;
-  background: white;
+  background: $my-gray;
   color: black;
   border-radius: .5em;
   outline: none;
@@ -82,6 +82,8 @@
     padding: .1rem .7rem;
     border-radius: .3em;
     display: inline-block;
+    text-align: left;
+    border: none;
   }
   .stripe-form-submit-button {
     width: 50%;

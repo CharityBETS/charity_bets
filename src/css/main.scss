@@ -3,11 +3,10 @@
 @import 'fonts';
 @import 'angular';
 @import 'defaults';
-@import 'nav';
 @import 'footer';
 @import 'landing';
-@import 'create-bet';
-@import 'bets';
+@import 'nav';
+@import 'bet-page';
 @import 'user';
 @import 'datepicker';
 @import 'edit-bet';
@@ -15,3 +14,5 @@
 @import 'modal';
 @import 'organizations';
 @import 'modal';
+@import 'charts';
+@import 'bets';

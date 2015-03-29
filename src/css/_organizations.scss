@@ -1,4 +1,4 @@
-.org-page {
+.org-page, .about-page {
 
   h2 {
     padding: 1rem 0 .8rem;
@@ -6,25 +6,49 @@
   }
 }
 
-.org-page-img {
-  background: url(https://s3-us-west-2.amazonaws.com/betti/black-and-white-photograph-wallpaper_1920x1200_84148.jpg) no-repeat center center fixed;
+.org-page-img, .about-page-img, .contact-page-img {
+  background: url(http://upload.wikimedia.org/wikipedia/commons/1/1b/Frankfurter_stand_LOC_det.4a13502.jpg) no-repeat bottom center fixed;
   background-size: cover;
-  height: 50vh;
+  height: 60vh;
 }
 
-.org-content {
-  width: 85%;
+.about-page-img {
+  background: url(https://s3-us-west-2.amazonaws.com/betti/football.jpg) no-repeat top center fixed;
+  background-size: cover;
+
+}
+
+.contact-page-img {
+  background: url(https://s3-us-west-2.amazonaws.com/betti/cars-racing.jpg) no-repeat bottom center fixed;
+  background-size: cover;
+}
+
+.org-content, .about-content {
+  width: 80%;
   margin: 0 auto;
+  // padding: 2rem;
 
 }
 
+.org-pic {
+  width: 125px;
+  height: auto;
+  padding-bottom: 1rem;
+}
 
 
 .org-wrap {
   width: 100%;
   margin: 0 auto;
+  padding-bottom: 2rem;
 
   p {
 
+  }
+}
+
+.about-page {
+  a {
+    color: $main-accent-color;
   }
 }

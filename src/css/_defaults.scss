@@ -1,12 +1,12 @@
 body {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Raleway', sans-serif;
     line-height: 1.8em;
-    background: #FFF;
+    background: $my-white;
     color: #444;
 }
 
 h1 { font-size: 4em; margin: 0}
-h2 { font-size: 1.5em; margin: .75em 0 }
+h2 { font-size: 1.8em; margin: .75em 0 }
 h3 { font-size: 1.17em; margin: .83em 0 }
 h5 { font-size: .83em; margin: 1.5em 0 }
 h6 { font-size: .75em; margin: 1.67em 0 }
@@ -21,12 +21,12 @@ p {
 }
 
 a {
-  color: white;
+  color: $secondary-accent-color;
   text-decoration: none;
 }
 
 a:hover {
-  color: white;
+  color: $main-accent-color;
   text-decoration: none;
 }
 
@@ -39,7 +39,7 @@ button {
   font-size: .875em;
   letter-spacing: 1px;
   border-radius: 6px;
-  background-color: $main-accent-color;
+  background-color: $secondary-accent-color;
   border: 0px;
   padding: .75em;
   color: white;
@@ -48,9 +48,19 @@ button {
   outline: none;
 }
 
+
+
 button:hover {
-  background-color:white;
+  background-color: #e7e7e7;
   color: $secondary-accent-color;
+}
+
+h2 {
+  color: $secondary-accent-color;
+}
+
+input {
+  background-color: $my-white;
 }
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

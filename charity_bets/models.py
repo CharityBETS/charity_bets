@@ -22,6 +22,7 @@ class User(db.Model, UserMixin):
     bets_made = db.Column(db.Integer, default=0)
     longest_win_streak = db.Column(db.Integer, default=0)
     average_bet_size = db.Column(db.Integer, default=0)
+    donation_money_raised = db.Column(db.Integer, default=0)
 
     def make_dict(self):
         return {"id": self.id,
@@ -38,7 +39,8 @@ class User(db.Model, UserMixin):
                 "bet_conflicts": self.bet_conflicts,
                 "bets_made": self.bets_made,
                 "longest_win_streak": self.longest_win_streak,
-                "average_bet_size": self.average_bet_size}
+                "average_bet_size": self.average_bet_size,
+                "donation_money_raised": self.donation_money_raised}
 
 
 
@@ -111,7 +113,7 @@ class UserBet(db.Model):
 class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255))
-    description = db.Column(db.String(255))
+    description = db.Column(db.String(1000))
     email = db.Column(db.String(255))
     image = db.Column(db.String(255))
     website = db.Column(db.String(255))
@@ -155,12 +157,12 @@ class Funder(db.Model):
     is_funding = db.Column(db.Integer)
     bet_id = db.Column(db.Integer)
     email = db.Column(db.String)
-    amount = db.Column(db.String)
+    amount = db.Column(db.Integer)
     stripe_customer_id = db.Column(db.String)
     charity = db.Column(db.String)
     charity_token = db.Column(db.String)
     paid_out = db.Column(db.String)
-
+    date = db.Column(db.String)
     def make_dict(self):
         return {"id": self.id,
                 "is_funding": self.is_funding,

@@ -15,7 +15,8 @@ from charity_bets import mail
 from flask_mail import Message
 import stripe
 from flask import current_app as app
-from datetime import datetime
+import datetime
+from sqlalchemy import or_
 
 
 bets = Blueprint("bets", __name__)
@@ -32,6 +33,17 @@ def add_wins_losses(bet):
     if user.win_streak > user.longest_win_streak:
         user.longest_win_streak = user.win_streak
     user.money_won = user.money_won + bet.amount
+
+def user_money_raised(bet):
+    creator = User.query.filter_by(id = bet.creator).first()
+    challenger = User.query.filter_by(id=bet.challenger).first()
+    if creator.id == bet.verified_winner:
+        donation_money_raised = bet.creator_money_raised - bet.amount
+        creator.donation_money_raised += donation_money_raised
+
+    if challenger.id == bet.verified_winner:
+        donation_money_raised = bet.challenger_money_raised - bet.amount
+        challenger.donation_money_raised += donation_money_raised
 
 
 def charge_funders(bet):
@@ -67,6 +79,8 @@ def check_resolution(bet):
                 bet.verified_loser = bet.creator
 
             add_wins_losses(bet)
+            user_money_raised(bet)
+
             bet.loser_paid = "unpaid"
             winner = User.query.filter_by(id=bet.verified_winner).first()
             bet.winner_name = winner.name
@@ -87,6 +101,30 @@ def check_resolution(bet):
         db.session.commit()
 
 # this needs to be tested
+
+
+def bet_chart_data(bet):
+    # pulls funding data for bet challenger
+
+    challenger_funders = Funder.query.filter_by(bet_id = bet.id,
+                                                is_funding = bet.challenger).all()
+    challenger_donations = []
+    if challenger_funders:
+        for funder in challenger_funders:
+            challenger_donations.append({funder.amount: funder.date})
+
+    # pulls funding data for bet creator
+
+    creator_funders = Funder.query.filter_by(bet_id = bet.id,
+                                             is_funding = bet.creator).all()
+
+    creator_donations = []
+    if creator_funders:
+        for funder in creator_funders:
+            creator_donations.append({"x": funder.date, "y":int(funder.amount)})
+
+    return {"creator_data":creator_donations,
+            "challenger_data":challenger_donations}
 
 
 @bets.route("/user/bets", methods = ["POST"])
@@ -114,8 +152,7 @@ def create_bet():
                   creator_facebook_id = current_user.facebook_id,
                   charity_creator = charity.name,
                   charity_creator_id = charity.id,
-                  creator_money_raised = form.amount.data,
-                  challenger_money_raised = form.amount.data,
+                  total_money_raised = form.amount.data
                   )
 
         # Enter Optional Data Into Model
@@ -156,49 +193,75 @@ def bet_aggregator(bets, bet_list):
             bet_list.append(bet)
     return bet_list
 
+def current_user_filter(bet_status):
+    return Bet.query.filter(or_(Bet.creator==current_user.id,
+                                 Bet.challenger==current_user.id)
+                             ).filter_by(status=bet_status).all()
 
 @bets.route("/user/bets", methods = ["GET"])
 @login_required
 def view_bets():
-    creator_bets = Bet.query.filter_by(creator=current_user.id).all()
-    challenger_bets = Bet.query.filter_by(challenger=current_user.id).all()
+    bets1 = current_user_filter("pending")
+    bets2 = current_user_filter("active")
+    bets3 = current_user_filter("unresolved")
+    bets4 = current_user_filter("complete")
+    bets5 = current_user_filter("conflict")
     bet_list = []
-    bet_list = bet_aggregator(creator_bets, bet_list)
-    bet_list = bet_aggregator(challenger_bets, bet_list)
+    bet_list = bet_aggregator(bets1, bet_list)
+    bet_list = bet_aggregator(bets2, bet_list)
+    bet_list = bet_aggregator(bets3, bet_list)
+    bet_list = bet_aggregator(bets4, bet_list)
+    bet_list = bet_aggregator(bets5, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
+        for bet in bets:
+            if bet['challenger']==current_user.id and bet['status']=='pending':
+                bet['needs_accepting'] = 'y'
+            if bet['status'] == 'unresolved':
+                if current_user.id != bet['creator_outcome'] or bet['challenger_outcome']:
+                    bet['maybe_you_lost'] = 'y'
         return jsonify({"data": bets}), 201
-    fake_bet_list = []
-    seed_bet = fake_bet()
-    fake_bet_list.append(seed_bet)
-    fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
-    return jsonify({"data": fake_bets}), 201
+    else:
+        fake_bet_list = []
+        seed_bet = fake_bet()
+        fake_bet_list.append(seed_bet)
+        fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
+        return jsonify({"data": fake_bets}), 201
 
+def user_filter(bet_status, id):
+    return Bet.query.filter(or_(Bet.creator==id,
+                                 Bet.challenger==id)
+                             ).filter_by(status=bet_status).all()
 
 @bets.route("/user/<int:id>/bets", methods = ["GET"])
 @login_required
 def view_users_bets(id):
-    creator_bets = Bet.query.filter_by(creator=id).all()
-    challenger_bets = Bet.query.filter_by(challenger=id).all()
+    bets1 = user_filter("active", id)
+    bets2 = user_filter("complete", id)
+    bets3 = user_filter("unresolved", id)
+    bets4 = user_filter("pending", id)
     bet_list = []
-    bet_list = bet_aggregator(creator_bets, bet_list)
-    bet_list = bet_aggregator(challenger_bets, bet_list)
+    bet_list = bet_aggregator(bets1, bet_list)
+    bet_list = bet_aggregator(bets2, bet_list)
+    bet_list = bet_aggregator(bets3, bet_list)
+    bet_list = bet_aggregator(bets4, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets }), 201
-    return jsonify({"ERROR": "No bets available."}), 401
+    else:
+        fake_bet_list = []
+        seed_bet = fake_bet()
+        fake_bet_list.append(seed_bet)
+        fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
+        return jsonify({"data": fake_bets}), 201
 
 
 @bets.route("/bets", methods = ["GET"])
 @login_required
 def view_all_bets():
-    bets = Bet.query.all()
-    all_bets = []
-    for bet in bets:
-        challenger = User.query.filter_by(id=bet.challenger).first()
-        bet = bet.make_dict()
-        all_bets.append(bet)
-
+    bets = Bet.query.order_by(Bet.amount.desc()).all()
+    all_bets = [bet.make_dict() for bet in bets]
+    all_bets = [bet for bet in all_bets if bet["status"]!='conflict']
     if bets:
         return jsonify({'data': all_bets}), 201
     else:
@@ -207,6 +270,23 @@ def view_all_bets():
         fake_bet_list.append(seed_bet)
         fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
         return jsonify({"data": fake_bets}), 201
+
+@bets.route("/bets/<filter>/<sorter>", methods = ["GET"])
+@login_required
+def view_filtered_sorted_bets(filter, sorter):
+    if filter == "all":
+        bets = Bet.query.order_by((getattr(Bet, sorter)).desc()).all()
+    else:
+        bets = Bet.query.filter_by(status=filter).order_by((getattr(Bet, sorter)).desc()).all()
+
+    all_bets = [bet.make_dict() for bet in bets]
+    all_bets = [bet for bet in all_bets if bet["status"]!='conflict']
+    if bets:
+        return jsonify({'data':all_bets}), 201
+    else:
+        bets = Bet.query.all()
+        all_bets = [bet.make_dict() for bet in bets]
+        return jsonify({'data': all_bets})
 
 
 @bets.route("/bets/<int:id>", methods = ["GET"])
@@ -217,7 +297,10 @@ def view_bet(id):
         return jsonify({'data': seed_bet})
     else:
         bet = Bet.query.filter_by(id = id).first()
+        creator = User.query.get(bet.creator)
+        challenger = User.query.get(bet.challenger)
         comments = Comment.query.filter_by(bet_id=id).all()
+        chart_data = bet_chart_data(bet)
         all_comments = []
         if bet:
             bet = bet.make_dict()
@@ -225,6 +308,12 @@ def view_bet(id):
                 comment = comment.make_dict()
                 all_comments.append(comment)
             bet["comments"] = all_comments
+            creator_record = "{} - {}".format(creator.wins, creator.losses)
+            bet['creator_record'] = creator_record
+            challenger_record = "{} - {}".format(challenger.wins, challenger.losses)
+            bet['challenger_record'] = challenger_record
+            bet['chart_data'] = chart_data
+
             return jsonify({'data': bet})
         else:
             return jsonify({"ERROR": "Bet does not exist."}), 400
@@ -352,8 +441,8 @@ def update_bet(id):
         if bet.mail_track == 'bet_accepted' or "win_claimed":
             if bet.challenger_outcome or bet.creator_outcome:
                 if bet.verified_loser:
-                    loss_claim_notification(bet)
-                    you_lost_notification(bet)
+                    # loss_claim_notification(bet)
+                    # you_lost_notification(bet)
                     bet.mail_track = "bet_over"
                     db.session.commit()
                 else:
@@ -427,15 +516,14 @@ def charge_loser(id):
     return jsonify({"SUCESSFUL PAYMENT":"SUCCESSFUL PAYMENT"})
 
 
-# To be added when we implement crowdsourcing, hasn't been tested yet
-
 @bets.route("/bets/<int:id>/fund_bettor", methods = ["POST"])
+@login_required
 def fund_bet(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
+    print("THIS IS THE DATA....", data)
     amount = int(data["amount"])
-    print("THIS IS THE DATA...", data)
     if "creatorid" in data.keys():
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
         isfunding = bet.creator
@@ -453,15 +541,15 @@ def fund_bet(id):
         source = data['token'],
         description="payinguser@example.com"
         )
-
+    print(customer)
     funder = Funder(is_funding = isfunding,
                     user_id = current_user.id,
                     bet_id = id,
-                    amount = str(amount),
+                    amount = amount,
                     stripe_customer_id = customer.id,
                     charity = charity.name,
-                    charity_token = charity.access_token)
-
+                    charity_token = charity.access_token,
+                    date = str(datetime.datetime.now())[:10])
 
     db.session.add(funder)
     db.session.commit()

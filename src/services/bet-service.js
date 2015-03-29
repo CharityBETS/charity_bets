@@ -89,6 +89,10 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     addDonationChallenger: function(betid, challengerId, amount, resultid) {
       console.log('api/bets/' + betid + '/fund_bettor', {'creatorid': challengerId, 'amount': amount, 'token': resultid});
       return post('api/bets/' + betid + '/fund_bettor', {'challengerid': challengerId, 'amount': amount, 'token': resultid});
+    },
+
+    filterBet: function (filter, sort) {
+        return get ('api/bets/' + filter + '/' + sort);
     }
 
 

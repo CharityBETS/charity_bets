@@ -1,5 +1,22 @@
 <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
+<div class="bets-secondary-action-div">
+  <h2 class="bets-page-header">Bets</h2>
+
+  <div class="filter-sort-wrap">
+    <div class="bets-filter">
+      <button ng-click="vm.sortBetComplete()" class="bets-filter">Completed</button>
+      <button ng-click="vm.sortBetActive()" class="bets-filter">Active</button>
+      <button ng-click="vm.sortBetPending()" class="bets-filter">Pending</button>
+    </div>
+    <div class="bet-sort">
+      <button ng-click="vm.sort='amount'" class="bets-sort">Bet Size</button>
+      <button ng-click="vm.sort='total_money_raised'" class="bets-sort">Funding</button>
+      <button ng-click="vm.sort='id'" class="bets-sort">Date</button>
+    </div>
+  </div>
+</div>
+
 
 <ul class="bets-ul">
   <li class="bets-li" ng-repeat="bet in vm.bets" ng-click="vm.goToBet(bet.id)">
@@ -7,23 +24,18 @@
   <div class="bets-flex-container">
 
     <div class="bets-section-1">
-      <div class="bets-users">
-        <a href="#/user/user-profile/{{bet.creator}}">{{bet.creator_name}}</a> Vs. <a href="#/user/user-profile/{{bet.challenger}}">{{bet.challenger_name}}</a>
-      </div>
       <div class="bets-title">
         <a href="#/bet/{{bet.id}}">{{bet.title}}</a>
       </div>
-      <div ng-show="bet.winner_name !== null" class="bet-status">
-        <div>
-          The Winner is...
-        </div>
+      <div ng-show="bet.winner_name !== null" class="bet-status number">
+        <div id="stat-title-label-winner">Winner</div>
       {{bet.winner_name}}
       </div>
       <div class="bets-date">
         {{bet.date | date:'EEEE, MMM d'}}
       </div>
       <div class="bets-amount">
-        {{bet.amount | currency}}
+        {{bet.amount | currency:"$":0}}
       </div>
     </div>
 
@@ -33,9 +45,12 @@
     <div class="bets-section-2">
       <div class="profile-wrap creator-wrap">
         <div class="creator-pic-div">
-
           <img class="bets-pic" src="http://graph.facebook.com/{{bet.creator_facebook_id}}/picture?type=large"></img>
         </div>
+        <div class="bets-users">
+          <a href="#/user/user-profile/{{bet.creator}}">{{bet.creator_name}}</a>
+        </div>
+        <div></div>
       </div>
     </div>
 
@@ -43,6 +58,9 @@
       <div class="profile-wrap challenger-wrap">
         <div class="challenger-pic">
           <img class="bets-pic" src="http://graph.facebook.com/{{bet.challenger_facebook_id}}/picture?type=large"></img>
+        </div>
+        <div class="bets-users">
+          <a href="#/user/user-profile/{{bet.challenger}}">{{bet.challenger_name}}</a>
         </div>
       </div>
     </div>

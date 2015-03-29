@@ -1,0 +1,54 @@
+{% block body %}
+
+      <h1>Charity Info</h1>
+      <table>
+      <form method="POST" action="{{ url_for("admin.post_charity") }}">
+        {{ form.hidden_tag() }}
+          <div class="row">
+            <div>
+              {{ form.name.label }} {{ form.name(size=50) }}
+            </div>
+          <br>
+          <div>
+              {{ form.description.label }} {{ form.description(size=50) }}
+          </div>
+          <br>
+          <div>
+              {{ form.email.label }} {{ form.email(size=50) }}
+          </div>
+          <br>
+          <div>
+              {{ form.image.label }} {{ form.image(size=50) }}
+          </div>
+          <br>
+          <div>
+              {{ form.website.label }} {{ form.website(size=50) }}
+          </div>
+          <br>
+          <div>
+              {{ form.access_token.label }} {{ form.access_token(size=50) }}
+          </div>
+          <br>
+          <div>
+              {{ form.amount_earned.label }} {{ form.amount_earned(size=50) }}
+          </div>
+          <br>
+          <div>
+              {{ form.stripe_publishable_key.label }} {{ form.stripe_publishable_key(size=50) }}
+          </div>
+          <br>
+          <div>
+              {{ form.stripe_user_id.label }} {{ form.stripe_user_id(size=50) }}
+          </div>
+          <br>
+          <div>
+              {{ form.stripe_refresh_token.label }} {{ form.stripe_refresh_token(size=50) }}
+          </div>
+          <br><br><br>
+
+          <input type="submit" value="Submit" class="button round">
+        </div>
+      </form>
+
+
+{% endblock %}

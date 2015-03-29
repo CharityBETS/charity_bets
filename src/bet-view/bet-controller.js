@@ -135,6 +135,14 @@ app.config(['$routeProvider', function($routeProvider) {
     $location.path('/user/user-profile');
   };
 
+  self.clearForm = function () {
+    self.card.name = "";
+    self.card.cvc = "";
+    self.card.number = "";
+    self.card.exp_month = "";
+    self.card.exp_year = "";
+  };
+
 
   // self.addDonation = function () {
   //   betService.addDonation(self.bet.id, self.Donation).then(self.goToBet);

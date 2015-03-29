@@ -25,8 +25,10 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
-  self.foo = [currentUser.wins, currentUser.losses];
-
+  self.winDonutData = [currentUser.money_won, currentUser.donation_money_raised, currentUser.money_lost];
+  self.doo = [1000, 650];
+  self.goo = [currentUser.money_won, currentUser.money_lost];
+  self.gaugeData = [currentUser.win_streak, currentUser.longest_win_streak];
 
   $scope.stripeCallback = function (code, result) {
       var buttons = document.querySelector('.form-stripe-button');
@@ -41,16 +43,6 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
 
-
-      $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-      $scope.series = ['Series A', 'Series B'];
-      $scope.data = [
-        [65, 59, 80, 81, 56, 55, 40],
-        [28, 48, 40, 19, 86, 27, 90]
-      ];
-      $scope.onClick = function (points, evt) {
-        console.log(points, evt);
-      };
 
 
 

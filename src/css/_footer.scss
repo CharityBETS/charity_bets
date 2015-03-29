@@ -1,5 +1,36 @@
 footer {
-  min-height: 250px;
+  min-height: 120px;
   background-color: $my-black;
   color: white;
+  position: relative;
+
+  a {
+    color: $my-white;
+    padding: 1.3rem 2rem;
+    display: block;
+  }
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 30em;
+  margin: 0 auto;
+  font-size: 1.1em;
+}
+
+.copywrite {
+  font-family: serif;
+  font-size: .6em;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.footer-logo {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  color: yellow;
+  font-size: 2em;
 }

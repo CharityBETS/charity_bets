@@ -54,7 +54,7 @@
   font-family: major-wager;
   text-align: center;
   font-size: 1.7em;
-  color: $main-accent-color;
+  color: $secondary-accent-color;
   padding-bottom: 1rem;
 }
 
@@ -62,11 +62,14 @@
   display: flex;
   flex-wrap: wrap;
   padding: 2em;
-  margin-top: 7rem;
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   justify-content: center;
 
   button {
-    margin: 0 2em;
+    margin: .4rem 2em;
   }
 
   button:hover {
@@ -80,8 +83,9 @@
 @media only screen and (max-width : 920px) {
   .three-items {
     display: block;
-
   }
+
+
 
   .landing-block {
     margin: 0 auto;
@@ -93,7 +97,7 @@
 @media only screen and (max-width : 535px) {
 
   .landing-action-buttons {
-    margin-top: 4rem;
+    margin-top: 0%;
   }
 
   .sign-up-button {

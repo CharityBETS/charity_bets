@@ -1,40 +1,34 @@
 <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
 <div class="create-bet-wrapper">
+  <h2 class="bet-page-header">Bet Page</h2>
 
-
+      <div class="bet-title">{{vm.bet.title}}</div>
  <div class="bet-section-top">
 
     <div class="bet-essentials flex-section-1">
-      <div class="bet-title">{{vm.bet.title}}</div>
       <div class="creator-pending" ng-show="vm.isPendingCreator">Waiting For Challenger</div>
-      <h3>Money Pledged</h3>
-      <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$723</h4></div>
-      <div class="info-title">Bet Amount</div>
-      <div class="bet-size">{{vm.bet.amount | currency}}</div>
-      <div class="bet-description">{{vm.bet.description}}</div>
-
-
-      <!-- <div ng-show="vm.isActive()" class="crowd-funding-section">
-        <button class="donate-button">$DONATE$</button>
-      </div> -->
-
-      <!-- <button class="loser-status" ng-show="vm.isDonator">PAY BET</button> -->
-
-
+      <div class="bet-size number">{{vm.bet.amount | currency:"$":0}}</div>
+      <div class="info-title">Bet Wager</div>
+      <div class="bet-money-earned-wrap number"><h4 class="bet-money-earned">{{vm.bet.total_money_raised | currency:"$":0}}</h4></div>
+      <div class="info-title">Donations</div>
       <div class="bet-date">{{vm.bet.date | date:'EEEE, MMM d'}}</div>
+      <div class="bet-description">{{vm.bet.description}}</div>
       <div ng-show="vm.isLocation()">
         <div class="info-title">Location:</div>
         <div class="location">{{vm.bet.location}}</div>
       </div>
+
+
+
     </div>
 
     <div class="better-profile hero-bettor flex-section-2">
       <div class="winner-status" ng-show="vm.creatorWinner()"><img class="winner-img" src="https://s3-us-west-2.amazonaws.com/betti/Golden_Crown.png"></div>
-      <div class="bettor-name">{{vm.bet.creator_name}}</div>
-      <div class="wins-losses">37-0</div>
-      <div class="charity">{{vm.bet.charity_creator}}</div>
       <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.creator_facebook_id}}/picture?type=large"></div>
+      <div class="bettor-name"><a href="#/user/user-profile/{{vm.bet.creator}}">{{vm.bet.creator_name}}</a></div>
+      <div class="wins-losses number">{{vm.bet.creator_record}}</div>
+      <div class="charity">{{vm.bet.charity_creator}}</div>
       <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button" ng-click="vm.modalDonateCreator=true">$DONATE$</button>
       </div>
@@ -42,11 +36,10 @@
 
     <div class="better-profile villian-bettor flex-section-3">
       <div class="winner-status" ng-show="vm.challengerWinner()"><img class="winner-img" src="https://s3-us-west-2.amazonaws.com/betti/Golden_Crown.png"></div>
-      <div class="bettor-name">{{vm.bet.challenger_name}}</div>
-      <div class="charity">{{vm.bet.charity_challenger}}</div>
-      <!-- <div class="charity">Girl Scouts of America</div> -->
       <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.bet.challenger_facebook_id}}/picture?type=large"></div>
-      <div class="wins-losses">12-29</div>
+      <div class="bettor-name"><a href="#/user/user-profile/{{vm.bet.challenger}}">{{vm.bet.challenger_name}}</a></div>
+      <div class="wins-losses number">{{vm.bet.challenger_record}}</div>
+      <div class="charity">{{vm.bet.charity_challenger}}</div>
       <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button" ng-click="vm.modalDonateChallenger=true">$DONATE$</button>
       </div>
@@ -55,16 +48,19 @@
  </div>
 
     <div class="profile-details-wrap">
+
+
       <div class=bet-flex-wrap>
 
-      <div class="bet-deets flex-section-a">
-        <!-- <div class="bet-date">{{vm.bet.date | date:'EEEE, MMM d'}}</div>
-        <div class="info-title">Location:</div>
-        <div class="location">{{vm.bet.location}}</div>
-        <div class="info-title">Description:</div>
-        <div class="bet-description">{{vm.bet.description}}</div> -->
+        <div class="area-wrap flex-section-b">
+          <area-chart  class="area-chart"></area-chart>
+          <!-- <div class="donut-stat-inner-wrap">
+            <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
+          </div> -->
+        </div>
 
-        <!-- <div ng-if="(vm.isBettor() && vm.isActive())" class="choose-winner-div"> -->
+
+      <div class="bet-deets flex-section-a">
 
           <div ng-show="vm.showResolutionButton()" class="choose-winner-div">
             <div class="choose-winner-wrapper">
@@ -77,6 +73,7 @@
                 </div>
             </div>
          </div>
+
 
         <!-- <bet-payment-form ng-if="modalaction" class="bet-pay-form">Payment Form</bet-payment-form>  -->
         <!-- <button ng-if="vm.isChallengeable" ng-hide="!vm.hideme" ng-click="vm.hideme=false">ACCEPT BET</button> -->
@@ -94,8 +91,14 @@
 
         <button ng-click="vm.deleteBet()" class="bet-modal-button deny">DECLINE BET</button>
       </div>
+    </div>
 
-  </div>
+         <div class="area-wrap flex-section-c">
+           <area-chart  class="area-chart"></area-chart>
+           <!-- <div class="donut-stat-inner-wrap">
+             <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
+           </div> -->
+         </div>
 
 
 
@@ -106,7 +109,7 @@
   <div class="comment-section">
     <h3>Comments & Trash Talk</h3>
     <ul class="comment-ul">
-        <li class="comment-li" ng-repeat="comment in vm.bet.comments"><span class="user-comment">{{comment.comment}}</span><span class="comment-name">{{comment.name}}</span><span class="comment-date">{{comment.timestamp | date:'medium'}}</span></li>
+        <li class="comment-li" ng-repeat="comment in vm.bet.comments"><span class="user-comment">{{comment.comment}}</span><span class="comment-name"><a href="#/user/user-profile/{{comment.user_id}}">{{comment.name}}</a></span><span class="comment-date">{{comment.timestamp | date:"short"}}</span></li>
     </ul>
 
     <form ng-submit="vm.addComment()" class="comment-form">
@@ -152,16 +155,9 @@
             <input placeholder="YY" type="text" size="3" maxlength="2" ng-model="vm.card.exp_year">
           </label>
         </div>
-          <!-- <div class="form-row">
-          <label>
-            <input placeholder="MMYY" type="text" size="5" ng-model="vm.card.exp_month" payments-format="expiry" payments-validate="expiry" data-stripe="exp-month"/>
-          </label>
-          <!-- <span> / </span> -->
-          <!-- <input type="text" size="4" ng-model="vm.card.exp_year" payments-format="cvc" payments-validate="cvc" data-stripe="exp-year"/> -->
-        <!-- </div> -->
       </div>
       <button class="stripe-form-submit-button" ng-click="vm.modalaction=false" type="submit">Pay Bet</button>
-      <button ng-click="$event.stopPropagation();$event.preventDefault();vm.modalaction=false" class="close-modal">x</button>
+      <button ng-click="$event.stopPropagation();$event.preventDefault();vm.modalaction=false;vm.clearForm();" class="close-modal">x</button>
       <img src="https://databaseindays.com/wp-content/themes/striking/stripe/stripe-payments.png">
     </form>
 </div>
@@ -178,7 +174,7 @@
           <label>
             <div>Donating for {{vm.bet.creator_name}}</div>
             <input size="7" class="donation-amount-input" placeholder="Amount" ng-model="vm.donation.amount">
-        </div>
+        </div><br>
 
         <div class="form-row">
           <label>
@@ -231,7 +227,7 @@
         <label>
           <div>Donating for {{vm.bet.challenger_name}}</div>
           <input size="7" class="donation-amount-input" placeholder="Amount" ng-model="vm.donation.amount">
-      </div>
+      </div><br>
 
       <div class="form-row">
         <label>

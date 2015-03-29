@@ -1,21 +1,29 @@
+.number {
+  font-family: 'Montserrat', sans-serif;
+}
+
+
 .profile-top-section {
 
-  background-color: $secondary-accent-color;
-  padding: 6rem;
-  color: white;
+  background-color: $my-white;
+  padding: 3.5rem 4.5rem 4.5rem;
+  color: $secondary-accent-color;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
 
   a {
-    color: black;
+    color: $my-black;
   }
 
   h3 {
     margin: 0;
-    font-size: 2em;
-    padding-bottom: .1em;
+    font-size: 1.5em;
+    text-align: center;
+    padding: .25rem 0 .75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
   }
 
   h4 {
@@ -23,24 +31,85 @@
     font-size: 1.2em;
   }
 
-
-  // h4:after {
-  //   content: "f";
-  //   font-family: major-wager;
-  // }
 }
 
 .profile-details-container {
   text-align: center;
   justify-content: center;
+}
 
+.user-page-header {
+  padding: 2rem 0 0 2rem;
+  color: $secondary-accent-color;
+}
+
+.profile-user-name {
+  font-family: 'Raleway', sans-serif;
+  font-weight: normal;
+  padding-top: .2rem;
+}
+
+.stat-title-label {
+  text-align: center;
+  font-size: 1.25em;
+}
+
+.right-stats {
+  padding-left: 4em;
 }
 
 .profile-img {
-  width: 200px;
-  height: 200px;
-  border-radius: 100px;
-  border: 5px solid $main-accent-color;
+  width: 300px;
+  height: 300px;
+  border-radius: 150px;
+  margin-top: 1rem;
+  border: 5px solid $secondary-accent-color;;
+}
+
+.good-stats, .bad-stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.bad-stats {
+  padding-top: 2.5rem;
+}
+
+
+.bets-made, .money-won, .money-lost, .user-record-losses, .total-money-raised {
+  font-size: 4.4em;
+  font-weight: 800;
+  line-height: 1.4em;
+  padding: 0 1.5rem;
+}
+
+.user-record {
+  padding-top: .75rem;
+  font-size: 3.2em;
+  font-weight: 800;
+}
+
+.money-won {
+  padding: 0;
+}
+
+.money-lost, .user-record-losses {
+  font-size: 2.7em;
+  padding: 0 1.3rem;
+}
+
+.total-money-raised {
+  padding-top: 1.5rem;
+}
+
+.stats-vis-section {
+  position: relative;
+  min-height: 500px;
+  background-color: $my-white;
+  padding: 2rem;
 }
 
 .profile-section-two {
@@ -56,8 +125,9 @@
 .user-bets-li {
   padding: 4rem 0;
   position: relative;
-  color: black;
-  border-bottom: 2px solid #e7e7e7;
+  color: $my-black;
+  border-top: 2px solid #e7e7e7;
+  background-color: $my-white;
 
   img {
     border: 3px $secondary-accent-color solid;
@@ -65,12 +135,41 @@
 }
 
 .user-bets-li:nth-child(even) {
-  color: black;
-
-  img{
-    border: 3px $main-accent-color solid;
-  }
+  color: $my-black;
 }
+
+.user-bets-header {
+  padding: 2rem;
+  color: $secondary-accent-color;
+}
+
+
+.actionable {
+  background-color: $secondary-accent-color;
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  color: white;
+  height: 13%;
+  width: 7.3em;
+  text-align: center;
+  padding-top: .4rem;
+  font-weight: bold;
+}
+
+.actionable a {
+  color: white;
+}
+
+.actionable a:hover {
+  color: $main-accent-color;
+
+}
+
+.actionable:hover {
+  background: $my-gray;
+}
+
 
 
 .pay-button {
@@ -107,7 +206,9 @@
 
 
 @media only screen and (max-width : 920px) {
-
+  .actionable {
+    top: 0;
+  }
 
 }
 

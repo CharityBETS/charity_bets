@@ -4,44 +4,96 @@
   text-align: center;
 }
 
-.bets-li {
-  padding: 2rem 0;
-  position: relative;
-  color: black;
-  border-bottom: 2px solid #e7e7e7;
+.bets-secondary-action-div {
+  // border-bottom: 1px $secondary-accent-color solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  button {
+    display: inline-block;
+    border-radius: 0;
+    padding: .5rem .5rem;
+  }
+}
+
+.filter-sort-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.bets-page-header {
+  padding-left: 2rem;
+  display: inline-block;
 
 }
 
+.bet-sort {
+  margin-top: .25rem;
+}
+
+
+
+
+.bets-li {
+  background-color: $my-white;
+  padding: 2rem 0;
+  position: relative;
+  color: $my-black;
+  border-bottom: 2px solid #e7e7e7;
+}
+
+.user-stats-header {
+  color: $secondary-accent-color;
+}
+
 .bets-title {
-  font-size: 1.2em;
+  font-size: 2.2em;
+  padding-bottom: 1rem;
+  letter-spacing: 2px;
+  line-height: 1.25em;
+
 
   a {
-    color: $main-accent-color;
+    color: $secondary-accent-color;
+    font-family: 'Raleway', serif;
   }
+}
+
+.bets-title:hover {
+  a {
+    color: $main-accent-color;
+    }
 }
 
 .bets-users {
   font-size: 1.3em;
+  color: $my-black ;
+}
 
-  a {
-    color: black;
-  }
-
+.bets-amount {
+  font-size: 1.4em;
+  color: $secondary-accent-color;
 }
 
 .bets-pic {
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
+  width: 140px;
+  height: 140px;
+  border-radius: 70px;
   border: 3px solid $secondary-accent-color;
 }
 
 .bets-flex-container {
   display: flex;
   flex-direction: row;
-  max-width: 640px;
-  justify-content: space-between;
+  max-width: 880px;
+  justify-content: space-around;
   margin: 0 auto;
+  font-family: 'Raleway', sans-serif;
+  color: $secondary-accent-color;
+}
+
+.stat-title-label {
+  font-weight: 400;
 }
 
 .bets-section-1 {
@@ -58,6 +110,17 @@
   order: 3;
 
 }
+
+.number {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+#stat-title-label-winner {
+  font-weight: 400;
+  font-family: 'Raleway', sans-serif;
+}
+
 
 // .creator-pic-div {
 //   position: absolute;
