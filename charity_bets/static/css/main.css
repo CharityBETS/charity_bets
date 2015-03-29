@@ -915,14 +915,11 @@ input.ng-valid.ng-dirty {
   text-align: center;
   margin-bottom: 1rem; }
 
-.submit-bet {
-  margin-top: 0; }
-
 .submit-bet:hover {
   border: 1px solid #3072a8; }
 
 .bet-date-input {
-  height: 34px !important; }
+  height: 53px !important; }
 
 .select-style {
   padding: 0;
