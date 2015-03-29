@@ -109,7 +109,7 @@ def bet_chart_data(bet):
     challenger_donations = []
     if challenger_funders:
         for funder in challenger_funders:
-            challenger_donations.append({funder.amount: funder.date})
+            challenger_donations.append({"x": funder.date, "y":int(funder.amount)})
 
     # pulls funding data for bet creator
 

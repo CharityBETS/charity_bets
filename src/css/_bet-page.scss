@@ -15,12 +15,20 @@
 }
   button {
     display: block;
-    margin: 1rem auto 0;
+    margin: 0 auto;
   }
 
   button:hover {
     border: 2px solid $secondary-accent-color;
+  }
 
+  .submit-bet {
+    margin-top: -3rem;
+  }
+
+  .bet-win {
+    margin-bottom: 1rem;
+    background-color: $secondary-accent-color;
   }
 
   .bet-lose {
@@ -152,9 +160,9 @@
 
 .winner-img {
   position: absolute;
-  width: 70px;
+  width: 110px;
   height: auto;
-  top: -30px;
+  top: -56px;
   left: 50%;
   transform: translate(-50%);
 }
@@ -285,6 +293,7 @@
   margin: 0 auto;
   flex-wrap: wrap;
   padding-bottom: 3rem;
+  padding-top: 6rem;
 }
 
 .flex-section-a {
@@ -307,9 +316,6 @@
    margin: 0 auto;
 }
 
-.bet-win {
-  background-color: $secondary-accent-color;
-}
 
 .bet-lose, .bet-win {
   margin: 0 auto;

@@ -6,7 +6,7 @@ app.directive('donutChart', function () {
         dataset: '='
       },
       link: function(scope, element, attrs) {
-
+        console.log(scope.dataset);
         var dataset = scope.dataset;
 
         var width = 600,

@@ -1,5 +1,6 @@
 <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
+<!-- <button ng-click="vm.testData()">HI DANIEL YOU FUCKER</button> -->
 <div class="create-bet-wrapper">
   <h2 class="bet-page-header">Bet Page</h2>
 
@@ -18,9 +19,6 @@
         <div class="info-title">Location:</div>
         <div class="location">{{vm.bet.location}}</div>
       </div>
-
-
-
     </div>
 
     <div class="better-profile hero-bettor flex-section-2">
@@ -48,15 +46,12 @@
  </div>
 
     <div class="profile-details-wrap">
-
+</button>
 
       <div class=bet-flex-wrap>
 
         <div class="area-wrap flex-section-b">
-          <area-chart dataset="vm.areaCreator"class="area-chart"></area-chart>
-          <!-- <div class="donut-stat-inner-wrap">
-            <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
-          </div> -->
+          <area-chart dataset="vm.cleanCreatorData" class="area-chart"></area-chart>
         </div>
 
 
@@ -94,7 +89,7 @@
     </div>
 
          <div class="area-wrap flex-section-c">
-           <area-chart dataset="vm.areaChallenger" class="area-chart"></area-chart>
+           <area-chart dataset="vm.cleanChallengerData" class="area-chart"></area-chart>
            <!-- <div class="donut-stat-inner-wrap">
              <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
            </div> -->

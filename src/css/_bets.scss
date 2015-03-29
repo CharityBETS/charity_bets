@@ -20,11 +20,13 @@
   .bets-filter {
     background-color: $my-gray;
     color: $secondary-accent-color;
+    margin: 0;
   }
 
   .bets-filter:hover {
     background-color: $secondary-accent-color;
-    color: $my-gray
+    color: $my-gray;
+    margin: 0;
   }
 
   .bets-filter-active {
@@ -48,7 +50,7 @@
 
 .bets-sort {
   margin-top: .15rem;
-  margin-left: .25rem;
+  // margin-left: .25rem;
   float: right;
 }
 

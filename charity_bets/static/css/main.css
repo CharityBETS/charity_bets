@@ -324,9 +324,14 @@ footer {
     margin-bottom: 0; }
   .create-bet-wrapper button {
     display: block;
-    margin: 1rem auto 0; }
+    margin: 0 auto; }
   .create-bet-wrapper button:hover {
     border: 2px solid #3072a8; }
+  .create-bet-wrapper .submit-bet {
+    margin-top: -3rem; }
+  .create-bet-wrapper .bet-win {
+    margin-bottom: 1rem;
+    background-color: #3072a8; }
   .create-bet-wrapper .bet-lose {
     background-color: #f4f4f4;
     border: 2px solid #3072a8;
@@ -433,9 +438,9 @@ footer {
 
 .winner-img {
   position: absolute;
-  width: 70px;
+  width: 110px;
   height: auto;
-  top: -30px;
+  top: -56px;
   left: 50%;
   -webkit-transform: translate(-50%);
   transform: translate(-50%); }
@@ -553,7 +558,8 @@ footer {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding-bottom: 3rem; }
+  padding-bottom: 3rem;
+  padding-top: 6rem; }
 
 .flex-section-a {
   -webkit-order: 2;
@@ -573,9 +579,6 @@ footer {
 .choose-winner-wrapper {
   width: 100%;
   margin: 0 auto; }
-
-.bet-win {
-  background-color: #3072a8; }
 
 .bet-lose, .bet-win {
   margin: 0 auto; }
@@ -697,7 +700,7 @@ input.ng-valid.ng-dirty {
   justify-content: center; }
 
 .user-page-header {
-  padding: 2rem 0 0 2rem;
+  padding: 0 0 0 2rem;
   color: #3072a8; }
 
 .profile-user-name {
@@ -925,10 +928,7 @@ input.ng-valid.ng-dirty {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 10em 0 1em; }
-
-.bet-flex-wrap {
-  padding-bottom: 0; }
+  padding: 6em 0 1em; }
 
 .bet-charity {
   height: 45px !important;
@@ -1394,10 +1394,12 @@ svg {
     width: 7em; }
   .bets-secondary-action-div .bets-filter {
     background-color: #d3d5d8;
-    color: #3072a8; }
+    color: #3072a8;
+    margin: 0; }
   .bets-secondary-action-div .bets-filter:hover {
     background-color: #3072a8;
-    color: #d3d5d8; }
+    color: #d3d5d8;
+    margin: 0; }
   .bets-secondary-action-div .bets-filter-active {
     background-color: purple;
     color: yellow; }
@@ -1416,7 +1418,6 @@ svg {
 
 .bets-sort {
   margin-top: .15rem;
-  margin-left: .25rem;
   float: right; }
 
 .bets-li {
