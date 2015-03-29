@@ -15,7 +15,7 @@ from charity_bets import mail
 from flask_mail import Message
 import stripe
 from flask import current_app as app
-from datetime import datetime
+import datetime
 from sqlalchemy import or_
 
 
@@ -453,6 +453,7 @@ def fund_bet(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
+    print("THIS IS THE DATA....", data)
     amount = int(data["amount"])
     if "creatorid" in data.keys():
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
@@ -472,15 +473,15 @@ def fund_bet(id):
         source = data['token'],
         description="payinguser@example.com"
         )
-
+    print(customer)
     funder = Funder(is_funding = isfunding,
                     user_id = current_user.id,
                     bet_id = id,
                     amount = str(amount),
                     stripe_customer_id = customer.id,
                     charity = charity.name,
-                    charity_token = charity.access_token)
-
+                    charity_token = charity.access_token,
+                    date = str(datetime.datetime.now())[:10])
 
     db.session.add(funder)
     db.session.commit()
