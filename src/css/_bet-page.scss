@@ -15,7 +15,7 @@
 }
   button {
     display: block;
-    margin: 0 auto 0;
+    margin: 1rem auto 0;
   }
 
   textarea {
@@ -211,6 +211,10 @@
 
 .end-bet {
   margin: 1.5em auto !important;
+}
+
+.accept {
+  margin-bottom: 1.5rem;
 }
 
 .user-descriptor {

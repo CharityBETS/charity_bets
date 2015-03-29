@@ -70,7 +70,7 @@ p {
   margin-bottom: 1em; }
 
 a {
-  color: #484848;
+  color: #3072a8;
   text-decoration: none; }
 
 a:hover {
@@ -324,7 +324,7 @@ footer {
     margin-bottom: 0; }
   .create-bet-wrapper button {
     display: block;
-    margin: 0 auto 0; }
+    margin: 1rem auto 0; }
   .create-bet-wrapper textarea {
     box-sizing: border-box;
     border: 1px solid #BEBEBE;
@@ -499,6 +499,9 @@ footer {
 
 .end-bet {
   margin: 1.5em auto !important; }
+
+.accept {
+  margin-bottom: 1.5rem; }
 
 .user-descriptor {
   padding-right: .5rem; }
@@ -786,9 +789,9 @@ input.ng-valid.ng-dirty {
   left: 0;
   color: white;
   height: 13%;
-  width: 6em;
+  width: 7.3em;
   text-align: center;
-  padding-top: .3rem;
+  padding-top: .4rem;
   font-weight: bold; }
 
 .actionable a {
