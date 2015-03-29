@@ -443,7 +443,6 @@ def fund_bet(id):
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
     amount = int(data["amount"])
-    print("THIS IS THE DATA...", data)
     if "creatorid" in data.keys():
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
         isfunding = bet.creator
