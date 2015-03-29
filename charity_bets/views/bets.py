@@ -38,12 +38,10 @@ def user_money_raised(bet):
     creator = User.query.filter_by(id = bet.creator).first()
     challenger = User.query.filter_by(id=bet.challenger).first()
     if creator.id == bet.verified_winner:
-        donation_money_raised = bet.creator_money_raised - bet.amount
-        creator.donation_money_raised += donation_money_raised
+        creator.donation_money_raised += bet.creator_money_raised
 
     if challenger.id == bet.verified_winner:
-        donation_money_raised = bet.challenger_money_raised - bet.amount
-        challenger.donation_money_raised += donation_money_raised
+        challenger.donation_money_raised += bet.challenger_money_raised
 
 
 def charge_funders(bet):
@@ -511,7 +509,7 @@ def fund_bet(id):
         source = data['token'],
         description="payinguser@example.com"
         )
-    print(customer)
+    # print(customer)
     funder = Funder(is_funding = isfunding,
                     user_id = current_user.id,
                     bet_id = id,
