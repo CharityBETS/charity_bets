@@ -7,21 +7,19 @@ app.directive('areaChart', function () {
       },
       link: function(scope, element, attrs) {
 
-        var lineData = [ { "x": "1-May-16" ,"y": 35},{ "x": "6-May-16",    "y": 10}, { "x": "8-May-16",   "y": 15}  ];
-
-        // var dataset = scope.dataset;
-
+        var lineData = [ { "x": '2015-03-15' ,"y": 35},{ "x": '2015-03-21', "y": 10}, { "x": '2015-03-31',   "y": 15}  ];
         function getDate(d) {
+
              return new Date(d.x);
          }
 
-        var margin = {top: 20, right: 30, bottom: 20, left: 30};
+        var margin = {top: 20, right: 30, bottom: 60, left: 30};
         var width = 300 - margin.left - margin.right,
-            height = 275 - margin.top - margin.bottom;
+            height = 250 - margin.top - margin.bottom;
 
-        var parseDate = d3.time.format("%d-%b-%y").parse;
+        var parseDate = d3.time.format("%Y-%m-%d").parse;
 
-        var svg = d3.select(element[0]).append("svg")
+        var svg = d3.select("body").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
           .append("g")
@@ -41,7 +39,7 @@ app.directive('areaChart', function () {
         var area = d3.svg.area()
                 .interpolate("monotone")
                 .x(function(d)  {  return x(d.x); })
-                .y0(230)
+                .y0(height)
                 .y1(function(d) {  return y(d.y); });
 
 
@@ -52,7 +50,7 @@ app.directive('areaChart', function () {
 
 
 
-        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(2);
+        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5);
 
         var yAxis = d3.svg.axis()
                           .scale(y)
@@ -69,7 +67,7 @@ app.directive('areaChart', function () {
         svg.append("path")
                     .attr("class", "line")
                     .attr("d", lineFunction(lineData))
-                    .attr("stroke", "blue")
+                    .attr("stroke", "black")
                     .attr("stroke-width", 1)
                     .attr("fill", "none");
 
@@ -77,12 +75,27 @@ app.directive('areaChart', function () {
         svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + (height) + ")")
-            .call(xAxis);
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", function(d) {
+                return "rotate(-65)"
+            });
 
             // Add the Y Axis
         svg.append("g")
             .attr("class", "y axis")
             .call(yAxis);
+
+        svg.append("text")
+            .attr("class", "x label")
+            .attr("text-anchor", "end")
+            .attr("x", width)
+            .attr("y", height + margin.bottom)
+            .text("Money Raised");
+
 
 
 
