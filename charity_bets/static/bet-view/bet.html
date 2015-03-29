@@ -109,7 +109,7 @@
   <div class="comment-section">
     <h3>Comments & Trash Talk</h3>
     <ul class="comment-ul">
-        <li class="comment-li" ng-repeat="comment in vm.bet.comments"><span class="user-comment">{{comment.comment}}</span><span class="comment-name">{{comment.name}}</span><span class="comment-date">{{comment.timestamp | date:'medium'}}</span></li>
+        <li class="comment-li" ng-repeat="comment in vm.bet.comments"><span class="user-comment">{{comment.comment}}</span><span class="comment-name"><a href="#/user/user-profile/{{comment.user_id}}">{{comment.name}}</a></span><span class="comment-date">{{comment.timestamp | date:"short"}}</span></li>
     </ul>
 
     <form ng-submit="vm.addComment()" class="comment-form">

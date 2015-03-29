@@ -28,6 +28,7 @@
       border-radius: 6px;
       resize: none;
       width: 40em;
+      background-color: $my-white;
   }
 
    textarea:focus {
@@ -221,7 +222,7 @@
 }
 
 .user-comment {
-  font-weight: bold;
+  // font-weight: ;
   font-size: .85em;
   padding:  0 9px;
   color: black;
@@ -230,6 +231,7 @@
 .comment-date {
   font-size: .85em;
   font-weight: bold;
+  color: $secondary-accent-color;
 }
 
 
@@ -297,6 +299,16 @@
   margin: 0 auto;
 }
 
+.comment-name {
+  a {
+    color: $secondary-accent-color;
+  }
+
+  a:hover {
+    color: $main-accent-color;
+  }
+}
+
 .submit-comment {
   display: inline-block;
   height: 35%;
@@ -319,9 +331,8 @@
 }
 
 .comment-date {
-  margin-left: .3rem;
+  margin-left: .5rem;
   font-style: italic;
-  color: $main-accent-color;
 }
 
 

@@ -94,7 +94,7 @@ button {
   outline: none; }
 
 button:hover {
-  background-color: white;
+  background-color: #e7e7e7;
   color: #3072a8; }
 
 h2 {
@@ -334,7 +334,8 @@ footer {
     outline: none;
     border-radius: 6px;
     resize: none;
-    width: 40em; }
+    width: 40em;
+    background-color: #F4F4F4; }
   .create-bet-wrapper textarea:focus {
     box-shadow: 0 0 8px #88D5E9;
     border: 1px solid #88D5E9; }
@@ -506,14 +507,14 @@ footer {
   padding-top: 3rem; }
 
 .user-comment {
-  font-weight: bold;
   font-size: .85em;
   padding: 0 9px;
   color: black; }
 
 .comment-date {
   font-size: .85em;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #3072a8; }
 
 .creator-pending {
   padding: 0 0 2.3rem;
@@ -576,6 +577,11 @@ footer {
 .comment-form {
   margin: 0 auto; }
 
+.comment-name a {
+  color: #3072a8; }
+.comment-name a:hover {
+  color: #f05f5c; }
+
 .submit-comment {
   display: inline-block;
   height: 35%; }
@@ -588,9 +594,8 @@ footer {
   font-weight: bold; }
 
 .comment-date {
-  margin-left: .3rem;
-  font-style: italic;
-  color: #f05f5c; }
+  margin-left: .5rem;
+  font-style: italic; }
 
 @media only screen and (max-width: 920px) {
   .better-profile {
@@ -762,7 +767,7 @@ input.ng-valid.ng-dirty {
   padding: 4rem 0;
   position: relative;
   color: #484848;
-  border-bottom: 2px solid #e7e7e7;
+  border-top: 2px solid #e7e7e7;
   background-color: #F4F4F4; }
   .user-bets-li img {
     border: 3px #3072a8 solid; }

@@ -31,14 +31,6 @@
     font-size: 1.2em;
   }
 
-
-
-
-
-  // h4:after {
-  //   content: "f";
-  //   font-family: major-wager;
-  // }
 }
 
 .profile-details-container {
@@ -132,7 +124,7 @@
   padding: 4rem 0;
   position: relative;
   color: $my-black;
-  border-bottom: 2px solid #e7e7e7;
+  border-top: 2px solid #e7e7e7;
   background-color: $my-white;
 
   img {
