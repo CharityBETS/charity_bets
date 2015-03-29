@@ -616,27 +616,6 @@ app.directive('gaugeChart', function () {
 //   }
 // });
 
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-      return StringUtil.startsWith($location.path(), path);
-    };
-
-    // self.addToLi = function () {
-    //   var navItem = document.querySelector('.')
-    //   return
-    //     if (isActive) {
-    //     }
-    // }
-
-}]);
-
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
     templateUrl: '/static/landing/about.html',
@@ -666,6 +645,20 @@ app.config(['$routeProvider', function($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
+    templateUrl: '/static/landing/contact.html',
+    controller: 'ContactCtrl',
+    controllerAs: 'vm',
+  };
+  $routeProvider.when('/contact', routeDefinition);
+}])
+.controller('ContactCtrl', ['$location', function ($location) {
+
+  var self = this;
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
     templateUrl: '/static/landing/landing.html',
     controller: 'LandingCtrl',
     controllerAs: 'vm',
@@ -677,6 +670,27 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
 
 
+
+}]);
+
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+      return StringUtil.startsWith($location.path(), path);
+    };
+
+    // self.addToLi = function () {
+    //   var navItem = document.querySelector('.')
+    //   return
+    //     if (isActive) {
+    //     }
+    // }
 
 }]);
 

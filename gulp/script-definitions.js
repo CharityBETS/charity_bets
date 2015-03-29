@@ -8,7 +8,7 @@ module.exports = {
   ],
 
   vendor: [
-    './bower_components/d3/d3.js', 
+    './bower_components/d3/d3.js',
     './bower_components/angular-payments/lib/angular-payments.js'
   ]
 };
