@@ -21,8 +21,8 @@ app.directive('gaugeChart', function () {
         var percentage = Math.floor((x/y) * 100);
 
 
-        var width = 400,
-           height = 300,
+        var width = 700,
+           height = 400,
            radius = Math.min(width, height) / 2;
 
         var color = d3.scale.category20();
@@ -37,10 +37,10 @@ app.directive('gaugeChart', function () {
            .outerRadius(radius - 50);
 
         var svg = d3.select(element[0]).append("svg")
-           .attr("width", width)
-           .attr("height", height)
+           .attr("width", width/ 2)
+           .attr("height", height/ 2)
            .append("g")
-           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+           .attr("transform", "translate(" + width / 4 + "," + width / 4 + ")");
 
         var title = svg.append("text")
          .attr("dy", ".35em")

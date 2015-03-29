@@ -110,9 +110,10 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.addComment = function () {
     betService.addComment(bet.id, self.comment).then(function(result) {
-      self.comment=result.comment;
+      console.log(result.comment);
+      self.bet.comments.comment=result.comment;
     });
-    self.comment="";
+     self.comment="";
     location.reload();
   };
 
@@ -265,66 +266,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  self.sort = "total_money_raised";
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-  // self.isVerifiedWinner = function () {
-  //   return (bets.winner_name !== null);
-  // }
-
-  self.sortBetComplete = function (filter, sort) {
-    var filter = "complete";
-    var sort = self.sort;
-    betService.filterBet(filter, sort).then(function (result) {
-      console.log(result);
-      self.bets = result;
-    });
-  };
-
-  self.sortBetActive = function (filter, sort) {
-    var filter = "active";
-    var sort = self.sort;
-    betService.filterBet(filter, sort).then(function (result) {
-      console.log(result);
-      self.bets = result;
-    });
-  };
-
-  self.sortBetPending = function (filter, sort) {
-    var filter = "pending";
-    var sort = self.sort;
-    betService.filterBet(filter, sort).then(function (result) {
-      console.log(result);
-      self.bets = result;
-    });
-  };
-
-
-
-}]);
-
 app.directive('betPaymentForm', function() {
   return {
     restrict: 'E',
@@ -437,8 +378,8 @@ app.directive('donutChart', function () {
 
         var dataset = scope.dataset;
 
-        var width = 320,
-           height = 330,
+        var width = 600,
+           height = 400,
            radius = Math.min(width, height) / 2;
 
         var color = d3.scale.category20();
@@ -447,14 +388,14 @@ app.directive('donutChart', function () {
           .sort(null);
 
         var arc = d3.svg.arc()
-          .innerRadius(radius - 80)
+          .innerRadius(radius - 100)
           .outerRadius(radius - 50);
 
         var svg = d3.select(element[0]).append("svg")
-           .attr("width", width)
-           .attr("height", height)
+           .attr("width", width/2)
+           .attr("height", width/2)
            .append("g")
-           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+           .attr("transform", "translate(" + width / 4 + "," + width / 4 + ")");
 
 
         var path = svg.selectAll("path")
@@ -496,8 +437,8 @@ app.directive('gaugeChart', function () {
         var percentage = Math.floor((x/y) * 100);
 
 
-        var width = 400,
-           height = 300,
+        var width = 700,
+           height = 400,
            radius = Math.min(width, height) / 2;
 
         var color = d3.scale.category20();
@@ -512,10 +453,10 @@ app.directive('gaugeChart', function () {
            .outerRadius(radius - 50);
 
         var svg = d3.select(element[0]).append("svg")
-           .attr("width", width)
-           .attr("height", height)
+           .attr("width", width/ 2)
+           .attr("height", height/ 2)
            .append("g")
-           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+           .attr("transform", "translate(" + width / 4 + "," + width / 4 + ")");
 
         var title = svg.append("text")
          .attr("dy", ".35em")
@@ -677,6 +618,118 @@ app.directive('gaugeChart', function () {
 //     }
 //   }
 // });
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  self.sort = "total_money_raised";
+  self.filterClassName = "bets-filter";
+  // self.filter = "all";
+
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+  // self.isVerifiedWinner = function () {
+  //   return (bets.winner_name !== null);
+  // }
+
+  self.filterBetComplete = function (filter, sort) {
+    var filter = "complete";
+    var sort = self.sort;
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+  };
+
+  self.filterBetActive = function (filter, sort) {
+    var filter = "active";
+    var sort = self.sort;
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+  };
+
+  self.filterBetPending = function (filter, sort) {
+    var filter = "pending";
+    var sort = self.sort;
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+  };
+
+  self.filterBetAll = function (filter, sort) {
+    var filter = "all";
+    var sort = self.sort;
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+  };
+
+  self.isActiveFilter = function () {
+    if (self.betsFilterClassName === "bets-filter") {
+      self.betsFilterClassName = "bets-filter-active";
+    }  else {
+      self.betsFilterClassName = "bets-filter";
+    }
+  };
+
+  self.sortDate = function () {
+    var filter = self.filter;
+    var sort = "id";
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+  };
+
+  self.sortFunding = function () {
+    var filter = self.filter;
+    var sort = "total_money_raised";
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+
+  };
+
+  self.sortBetSize = function () {
+    var filter = self.filter;
+    var sort = "amount";
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+
+  };
+
+
+
+
+
+
+}]);
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -988,7 +1041,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
-  self.winDonutData = [currentUser.money_won, currentUser.donation_money_raised, currentUser.money_lost];
+  self.winDonutData = [currentUser.money_won, currentUser.money_lost];
   self.doo = [1000, 650];
   self.goo = [currentUser.money_won, currentUser.money_lost];
   self.gaugeData = [currentUser.win_streak, currentUser.longest_win_streak];

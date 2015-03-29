@@ -110,6 +110,9 @@
   min-height: 500px;
   background-color: $my-white;
   padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .profile-section-two {
@@ -138,7 +141,7 @@
   color: $my-black;
 }
 
-.user-bets-header {
+.user-bets-header, .user-stats-header {
   padding: 2rem;
   color: $secondary-accent-color;
 }

@@ -97,9 +97,10 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.addComment = function () {
     betService.addComment(bet.id, self.comment).then(function(result) {
-      self.comment=result.comment;
+      console.log(result.comment);
+      self.bet.comments.comment=result.comment;
     });
-    self.comment="";
+     self.comment="";
     location.reload();
   };
 

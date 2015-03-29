@@ -9,12 +9,31 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
   button {
     display: inline-block;
     border-radius: 0;
-    padding: .5rem .5rem;
+    padding: .5rem 0;
+    width: 7em;
+  }
+
+  .bets-filter {
+    background-color: $my-gray;
+    color: $secondary-accent-color;
+  }
+
+  .bets-filter:hover {
+    background-color: $secondary-accent-color;
+    color: $my-gray
+  }
+
+  .bets-filter-active {
+    background-color: purple;
+    color: yellow;
   }
 }
+
+
 
 .filter-sort-wrap {
   display: flex;
@@ -27,8 +46,10 @@
 
 }
 
-.bet-sort {
-  margin-top: .25rem;
+.bets-sort {
+  margin-top: .15rem;
+  margin-left: .25rem;
+  float: right;
 }
 
 

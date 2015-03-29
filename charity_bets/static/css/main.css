@@ -382,7 +382,7 @@ footer {
   order: 3; }
 
 .bet-essentials {
-  padding: 2rem 0 4rem 0;
+  padding: 2rem 0 2rem 0;
   max-width: 35%;
   margin: 0 auto; }
 
@@ -762,7 +762,16 @@ input.ng-valid.ng-dirty {
   position: relative;
   min-height: 500px;
   background-color: #F4F4F4;
-  padding: 2rem; }
+  padding: 2rem;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around; }
 
 .profile-section-two {
   color: white; }
@@ -783,7 +792,7 @@ input.ng-valid.ng-dirty {
 .user-bets-li:nth-child(even) {
   color: #484848; }
 
-.user-bets-header {
+.user-bets-header, .user-stats-header {
   padding: 2rem;
   color: #3072a8; }
 
@@ -1289,18 +1298,11 @@ axis path, .axis line {
   font-size: 16px;
   line-height: 20px; }
 
-.stats-vis-section {
-  position: relative;
-  min-height: 500px;
-  background-color: #F4F4F4;
-  padding: 2rem; }
-
-.donut-wrap {
-  position: absolute; }
+.donut-wrap, .donut-wrap-2 {
+  position: relative; }
 
 donut-chart {
-  display: inline-block;
-  padding-left: 5rem; }
+  display: inline-block; }
 
 .donut {
   position: relative; }
@@ -1308,8 +1310,10 @@ donut-chart {
 .donut-stat-inner-wrap {
   text-align: center;
   position: absolute;
-  top: 40%;
+  top: 35%;
   left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   font-weight: bold; }
 
 .user-win-streak {
@@ -1322,19 +1326,13 @@ donut-chart {
 svg {
   padding: 0; }
 
-.gauge-wrap {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
-
 .gauge-stat-inner-wrap {
   position: absolute;
-  top: 150px;
+  top: 200px;
   left: 50%;
   -webkit-transform: translate(-50%);
-  transform: translate(-50%); }
+  transform: translate(-50%);
+  font-weight: bold; }
 
 path.line {
   fill: none;
@@ -1392,7 +1390,17 @@ svg {
   .bets-secondary-action-div button {
     display: inline-block;
     border-radius: 0;
-    padding: .5rem .5rem; }
+    padding: .5rem 0;
+    width: 7em; }
+  .bets-secondary-action-div .bets-filter {
+    background-color: #d3d5d8;
+    color: #3072a8; }
+  .bets-secondary-action-div .bets-filter:hover {
+    background-color: #3072a8;
+    color: #d3d5d8; }
+  .bets-secondary-action-div .bets-filter-active {
+    background-color: purple;
+    color: yellow; }
 
 .filter-sort-wrap {
   display: -webkit-flex;
@@ -1406,8 +1414,10 @@ svg {
   padding-left: 2rem;
   display: inline-block; }
 
-.bet-sort {
-  margin-top: .25rem; }
+.bets-sort {
+  margin-top: .15rem;
+  margin-left: .25rem;
+  float: right; }
 
 .bets-li {
   background-color: #F4F4F4;

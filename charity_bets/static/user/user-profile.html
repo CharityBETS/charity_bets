@@ -35,15 +35,15 @@
       </div>
   </div>
 
-    <div class="stats-vis-section">
         <h2 class="user-stats-header">User Stats</h2>
+    <div class="stats-vis-section">
 
 
 
         <div class="donut-wrap">
           <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
           <div class="donut-stat-inner-wrap">
-            <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
+            <div class="user-win-streak">{{vm.currentUser.money_won | currency:"$":0}}<div class="user-win-streak-label">Money Won</div></div>
           </div>
         </div>
 
@@ -53,6 +53,14 @@
           <gauge-chart dataset="vm.gaugeData" class="gauge"></gauge-chart>
           <div class="gauge-stat-inner-wrap">
             <div class="user-win-streak-label">Win Streak Vs. Longest Win Streak</div>
+          </div>
+        </div>
+
+
+        <div class="donut-wrap-2">
+          <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
+          <div class="donut-stat-inner-wrap">
+            <div class="user-win-streak">{{vm.currentUser.money_won | currency:"$":0}}<div class="user-win-streak-label">Money Won</div></div>
           </div>
         </div>
 
