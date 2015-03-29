@@ -119,6 +119,7 @@ def get_current_user():
     user = User.query.filter_by(id = current_user.id).first()
     if user:
         user = user.make_dict()
+        user['total_money_raised'] = user['money_won'] + user['donation_money_raised']
     return jsonify({'data': user})
 
 
