@@ -240,6 +240,18 @@ def view_all_bets():
         fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
         return jsonify({"data": fake_bets}), 201
 
+@bets.route("/bets/<filter>/<sorter>", methods = ["GET"])
+@login_required
+def view_filtered_sorted_bets(filter, sorter):
+    bets = Bet.query.filter_by(status=filter).order_by((getattr(Bet, sorter)).desc()).all()
+    all_bets = [bet.make_dict() for bet in bets]
+    if bets:
+        return jsonify({'data':all_bets}), 201
+    else:
+        bets = Bet.query.all()
+        all_bets = [bet.make_dict() for bet in bets]
+        return jsonify({'data': all_bets})
+
 
 @bets.route("/bets/<int:id>", methods = ["GET"])
 @login_required
