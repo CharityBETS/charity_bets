@@ -113,7 +113,7 @@ class UserBet(db.Model):
 class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255))
-    description = db.Column(db.String(255))
+    description = db.Column(db.String(1000))
     email = db.Column(db.String(255))
     image = db.Column(db.String(255))
     website = db.Column(db.String(255))

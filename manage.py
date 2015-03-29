@@ -76,10 +76,12 @@ def seed():
 def charity_seed():
     charity_seed_data = [
                     {
-                    'name': "Profiles Without Faces (ben)",
-                    'description': "Raising awareness for the difficulties of copying and pasting",
-                    'email': "bbatty32@yahoo.com",
-                    'access_token': "sk_test_8H01iPxORNegr3wWFhm9sU6G"
+                    'name': "Meals on Wheels of Durham (ben)",
+                    'description': "Meals on Wheels of Durham delivers a nutritious meal, a safety check and the smile that serve as a lifeline to seniors of limited mobility. This combination goes well beyond fighting the battle against the hunger that threatens one in six of America’s seniors – it provides the support and peace of mind that enable them to remain safely and securely in their own homes as they continue to age. Enabling seniors to stay in their own homes means they remain happier, extend their independence and can stay connected to the communities and surroundings that provide them comfort. The powerful side effect of this result is that it means seniors can stay out of expensive nursing facilities and hospitals.",
+                    'email': "info@mowdurham.org",
+                    'access_token': "sk_test_8H01iPxORNegr3wWFhm9sU6G",
+                    'image': "https://s3-us-west-2.amazonaws.com/betti/MealsonWheels-2014-logo.png",
+                    'website': "http://www.mowdurham.org/"
                     },
                     {
                     'name': "Kids With Faces (ben)",
