@@ -491,10 +491,13 @@ def view_comments(id):
 @login_required
 def charge_loser(id):
     body = request.get_data(as_text=True)
+    print("THIS IS THE BODY...... ", body)
     data = json.loads(body)
+    print("THIS IS THE DATA...... ", data)
     bet = Bet.query.filter_by(id = id).first()
+    print("THIS IS THE BET...... ", bet)
     user = User.query.filter_by(id = bet.verified_winner).first()
-
+    print("THIS IS THE USER...... ", user)
     if user.id == bet.creator:
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
     if user.id == bet.challenger:
@@ -505,7 +508,9 @@ def charge_loser(id):
     db.session.commit()
 
     stripe.api_key = charity.access_token
+    print("THIS IS THE CHARITY ACCESS TOKEN... ", charity.access_token)
     card_token = data['token']
+    print("THIS IS THE CARD TOKEN....... ", card_token)
     charge = stripe.Charge.create(
         amount = int(bet.amount)*100,
         currency='usd',
