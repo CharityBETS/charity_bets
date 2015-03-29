@@ -21,7 +21,7 @@
     margin: 0;
     font-size: 1.3em;
     text-align: center;
-    padding: .75rem 0;
+    padding: .25rem 0 .75rem;
     letter-spacing: 2px;
     text-transform: uppercase;
   }
@@ -30,6 +30,9 @@
     padding: .3rem 0 1rem;
     font-size: 1.2em;
   }
+
+
+
 
 
   // h4:after {
@@ -61,6 +64,7 @@
   width: 200px;
   height: 200px;
   border-radius: 100px;
+  margin-top: 1rem;
   border: 5px solid $secondary-accent-color;;
 }
 
@@ -85,7 +89,7 @@
 }
 
 .user-record {
-  padding-top: 1.2rem;
+  padding-top: .75rem;
   font-size: 3.2em;
   font-weight: 800;
 }
@@ -103,6 +107,13 @@
   padding-top: 1.5rem;
 }
 
+.stats-vis-section {
+  position: relative;
+  min-height: 500px;
+  background-color: $my-white;
+  padding: 2rem;
+}
+
 .profile-section-two {
   // height: 1000px;
   color: white;
@@ -118,7 +129,7 @@
   position: relative;
   color: $my-black;
   border-bottom: 2px solid #e7e7e7;
-  background-color: $my-gray;
+  background-color: $my-white;
 
   img {
     border: 3px $secondary-accent-color solid;
@@ -127,6 +138,11 @@
 
 .user-bets-li:nth-child(even) {
   color: $my-black;
+}
+
+.user-bets-header {
+  padding: 2rem;
+  color: $secondary-accent-color;
 }
 
 

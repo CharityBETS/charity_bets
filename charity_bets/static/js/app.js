@@ -13,37 +13,6 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
-    templateUrl: 'static/bets/bets.html',
-    controller: 'BetsCtrl',
-    controllerAs: 'vm',
-    resolve: {
-      bets: ['betService', function (betService){
-        return betService.getBets();
-      }]
-    }
-  };
-  $routeProvider.when('/bets', routeDefinition);
-}])
-.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
-
-  var self = this;
-  self.bets = bets;
-  // self.currentUser = currentUser;
-  // self.users = users;
-
-  self.goToBet = function (id) {
-    $location.path('/bet/' + id );
-    };
-
-  // self.isVerifiedWinner = function () {
-  //   return (bets.winner_name !== null);
-  // }
-
-
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
     controller: 'ViewBetCtrl',
     controllerAs: 'vm',
     templateUrl: '/static/bet-view/bet.html',
@@ -291,6 +260,37 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   };
 
+
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/bets/bets.html',
+    controller: 'BetsCtrl',
+    controllerAs: 'vm',
+    resolve: {
+      bets: ['betService', function (betService){
+        return betService.getBets();
+      }]
+    }
+  };
+  $routeProvider.when('/bets', routeDefinition);
+}])
+.controller('BetsCtrl', ['$location', 'betService', 'bets', function ($location, betService, bets) {
+
+  var self = this;
+  self.bets = bets;
+  // self.currentUser = currentUser;
+  // self.users = users;
+
+  self.goToBet = function (id) {
+    $location.path('/bet/' + id );
+    };
+
+  // self.isVerifiedWinner = function () {
+  //   return (bets.winner_name !== null);
+  // }
 
 
 }]);
@@ -922,7 +922,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
-  self.winDonutData = [currentUser.wins, currentUser.losses, 10];
+  self.winDonutData = [currentUser.money_won, currentUser.donation_money_raised, currentUser.money_lost];
   self.doo = [1000, 650];
   self.goo = [currentUser.money_won, currentUser.money_lost];
   self.gaugeData = [currentUser.win_streak, currentUser.longest_win_streak];

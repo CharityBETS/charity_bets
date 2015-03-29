@@ -665,7 +665,7 @@ input.ng-valid.ng-dirty {
     margin: 0;
     font-size: 1.3em;
     text-align: center;
-    padding: .75rem 0;
+    padding: .25rem 0 .75rem;
     letter-spacing: 2px;
     text-transform: uppercase; }
   .profile-top-section h4 {
@@ -692,6 +692,7 @@ input.ng-valid.ng-dirty {
   width: 200px;
   height: 200px;
   border-radius: 100px;
+  margin-top: 1rem;
   border: 5px solid #3072a8; }
 
 .good-stats, .bad-stats {
@@ -719,7 +720,7 @@ input.ng-valid.ng-dirty {
   padding: 0 1.5rem; }
 
 .user-record {
-  padding-top: 1.2rem;
+  padding-top: .75rem;
   font-size: 3.2em;
   font-weight: 800; }
 
@@ -733,6 +734,12 @@ input.ng-valid.ng-dirty {
 .total-money-raised {
   padding-top: 1.5rem; }
 
+.stats-vis-section {
+  position: relative;
+  min-height: 500px;
+  background-color: #F4F4F4;
+  padding: 2rem; }
+
 .profile-section-two {
   color: white; }
 
@@ -745,12 +752,16 @@ input.ng-valid.ng-dirty {
   position: relative;
   color: #484848;
   border-bottom: 2px solid #e7e7e7;
-  background-color: #d3d5d8; }
+  background-color: #F4F4F4; }
   .user-bets-li img {
     border: 3px #3072a8 solid; }
 
 .user-bets-li:nth-child(even) {
   color: #484848; }
+
+.user-bets-header {
+  padding: 2rem;
+  color: #3072a8; }
 
 .actionable {
   background-color: #3072a8;
@@ -1070,13 +1081,17 @@ input.ng-valid.ng-dirty {
   padding: 1rem 0 .8rem;
   text-align: center; }
 
-.org-page-img, .about-page-img {
+.org-page-img, .about-page-img, .contact-page-img {
   background: url(http://upload.wikimedia.org/wikipedia/commons/1/1b/Frankfurter_stand_LOC_det.4a13502.jpg) no-repeat bottom center fixed;
   background-size: cover;
   height: 60vh; }
 
 .about-page-img {
   background: url(https://s3-us-west-2.amazonaws.com/betti/football.jpg) no-repeat top center fixed;
+  background-size: cover; }
+
+.contact-page-img {
+  background: url(https://s3-us-west-2.amazonaws.com/betti/cars-racing.jpg) no-repeat bottom center fixed;
   background-size: cover; }
 
 .org-content, .about-content {
