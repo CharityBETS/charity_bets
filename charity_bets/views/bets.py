@@ -101,6 +101,30 @@ def check_resolution(bet):
         db.session.commit()
 
 
+def bet_chart_data(bet):
+    # pulls funding data for bet challenger
+
+    challenger_funders = Funder.query.filter_by(bet_id = bet.id,
+                                                is_funding = bet.challenger).all()
+    challenger_donations = []
+    if challenger_funders:
+        for funder in challenger_funders:
+            challenger_donations.append({funder.amount: funder.date})
+
+    # pulls funding data for bet creator
+
+    creator_funders = Funder.query.filter_by(bet_id = bet.id,
+                                             is_funding = bet.creator).all()
+
+    creator_donations = []
+    if creator_funders:
+        for funder in creator_funders:
+            creator_donations.append({"x": funder.date, "y":int(funder.amount)})
+
+    return {"creator_data":creator_donations,
+            "challenger_data":challenger_donations}
+
+
 @bets.route("/user/bets", methods = ["POST"])
 @login_required
 def create_bet():
@@ -263,6 +287,7 @@ def view_bet(id):
         creator = User.query.get(bet.creator)
         challenger = User.query.get(bet.challenger)
         comments = Comment.query.filter_by(bet_id=id).all()
+        chart_data = bet_chart_data(bet)
         all_comments = []
         if bet:
             bet = bet.make_dict()
@@ -274,6 +299,8 @@ def view_bet(id):
             bet['creator_record'] = creator_record
             challenger_record = "{} - {}".format(challenger.wins, challenger.losses)
             bet['challenger_record'] = challenger_record
+            bet['chart_data'] = chart_data
+
             return jsonify({'data': bet})
         else:
             return jsonify({"ERROR": "Bet does not exist."}), 400
@@ -477,7 +504,7 @@ def fund_bet(id):
     funder = Funder(is_funding = isfunding,
                     user_id = current_user.id,
                     bet_id = id,
-                    amount = str(amount),
+                    amount = amount,
                     stripe_customer_id = customer.id,
                     charity = charity.name,
                     charity_token = charity.access_token,

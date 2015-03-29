@@ -157,7 +157,7 @@ class Funder(db.Model):
     is_funding = db.Column(db.Integer)
     bet_id = db.Column(db.Integer)
     email = db.Column(db.String)
-    amount = db.Column(db.String)
+    amount = db.Column(db.Integer)
     stripe_customer_id = db.Column(db.String)
     charity = db.Column(db.String)
     charity_token = db.Column(db.String)
