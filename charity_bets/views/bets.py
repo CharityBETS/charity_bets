@@ -242,7 +242,10 @@ def view_all_bets():
 @bets.route("/bets/<filter>/<sorter>", methods = ["GET"])
 @login_required
 def view_filtered_sorted_bets(filter, sorter):
-    bets = Bet.query.filter_by(status=filter).order_by((getattr(Bet, sorter)).desc()).all()
+    if filter == "all":
+        bets = Bet.query.order_by((getattr(Bet, sorter)).desc()).all()
+    else:
+        bets = Bet.query.filter_by(status=filter).order_by((getattr(Bet, sorter)).desc()).all()
     all_bets = [bet.make_dict() for bet in bets]
     if bets:
         return jsonify({'data':all_bets}), 201
