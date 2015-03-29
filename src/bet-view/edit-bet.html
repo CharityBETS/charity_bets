@@ -10,7 +10,7 @@
 
   <div class="edit-bet-flex">
 
-    <div class="bet-essentials flex-section-1">
+    <div ng-show="vm.primaryItems===true" class="bet-essentials flex-section-1">
     <h2>Required Bet Items</h2>
     <input name="bet-title-input" class="bet-title-input input-primary" placeholder="Name Your Bet" ng-model="vm.bet.title" required>
     <!-- <input name="bet-challenger-input" class="bet-challenger-input" placeholder="Challenge a Friend" ng-model="vm.bet.challenger"> -->
@@ -31,7 +31,29 @@
     <input name="bet-amount-input" class="bet-amount-input input-primary" placeholder="$$$" ng-model="vm.bet.amount" required>
     <!-- <div class="bet-money-earned-wrap"><h4 class="bet-money-earned">$2,225,000</h4></div> -->
     <!-- <button class="donate-button">$DONATE$</button> -->
+  <button ng-click="vm.secondaryItems=true; vm.primaryItems=false; $event.preventDefault(); $event.stopPropagation()" class="secondary-create-bet-details">More Details</button>
   </div>
+
+  <div ng-show="vm.secondaryItems===true" class="profile-details-wrap flex-section-1">
+    <div class="bet-flex-wrap">
+      <div class="bet-deets flex-section-a">
+        <!-- <div class="info-title">Date:</div> -->
+        <h2>Secondary Bet Items</h2>
+        <div ng-class="{'has-error': datepickerForm.date.$invalid}">
+         <input type="text" class="form-control form-group date-input-wrap bet-date-input secondary-input"  ng-model="vm.bet.date" placeholder="Date" bs-datepicker>
+        </div>
+
+          <!-- <input class="bet-date-input secondary-input" name="bet-date-input" placeholder="When is the bet" ng-model="vm.bet.date"> -->
+        <!-- <div class="info-title">Location:</div> -->
+        <!-- <div class="location">Location: Unknown</div> -->
+        <input name="location-input" class="location-input secondary-input" placeholder="Location" ng-model="vm.bet.location">
+        <!-- <div class="info-title">Description:</div> -->
+        <textarea name="description-textarea" class="bet-description-textarea secondary-input" placeholder="Describe the Bet" ng-model="vm.bet.description"></textarea>
+        <button ng-click="vm.primaryItems=true; vm.secondaryItems=false; $event.preventDefault(); $event.stopPropagation()" class="secondary-create-bet-details">Required Items</button>
+      </div>
+    </div>
+  </div>
+
 
       <div class="better-profile hero-bettor flex-section-2">
         <div class="user-pic"><img class="user-pic" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large"></div>
@@ -44,29 +66,11 @@
         <div class="user-pic"><img class="user-pic" src="http://1.bp.blogspot.com/-lYpXSzJUQQA/TVVpZAw1i1I/AAAAAAAAABg/UQCaYfGfe4g/s220/profile_blank_gray.jpg"></div>
         <div class="bettor-name">{{vm.bet.challenger}}</div>
         <div class="charity">Charity: Unknown</div>
-        <div class="wins-losses"><span class="user-descriptor">{{vm.bet.challenger_record}}</div>
+        <div class="wins-losses"><span class="user-descriptor"></button>{{vm.bet.challenger_record}}</div>
       </div>
     </div>
 
-    <div class="profile-details-wrap">
-      <div class="bet-flex-wrap">
-        <div class="bet-deets flex-section-a">
-          <!-- <div class="info-title">Date:</div> -->
-          <h4>Secondary Bet Items</h4>
-          <div ng-class="{'has-error': datepickerForm.date.$invalid}">
-           <input type="text" class="form-control form-group date-input-wrap bet-date-input secondary-input"  ng-model="vm.bet.date" placeholder="Date" bs-datepicker>
-          </div>
-
-            <!-- <input class="bet-date-input secondary-input" name="bet-date-input" placeholder="When is the bet" ng-model="vm.bet.date"> -->
-          <!-- <div class="info-title">Location:</div> -->
-          <!-- <div class="location">Location: Unknown</div> -->
-          <input name="location-input" class="location-input secondary-input" placeholder="Location" ng-model="vm.bet.location">
-          <!-- <div class="info-title">Description:</div> -->
-          <textarea name="description-textarea" class="bet-description-textarea secondary-input" placeholder="Describe the Bet" ng-model="vm.bet.description"></textarea>
           <button class="submit-bet">SUBMIT BET</button>
-        </div>
-      </div>
-    </div>
 </form>
 
 

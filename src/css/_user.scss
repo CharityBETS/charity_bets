@@ -6,7 +6,7 @@
 .profile-top-section {
 
   background-color: $my-white;
-  padding: 4.5rem;
+  padding: 3.5rem 4.5rem 4.5rem;
   color: $secondary-accent-color;
   display: flex;
   flex-direction: row;
@@ -44,7 +44,11 @@
 .profile-details-container {
   text-align: center;
   justify-content: center;
+}
 
+.user-page-header {
+  padding: 2rem 0 0 2rem;
+  color: $secondary-accent-color;
 }
 
 .profile-user-name {

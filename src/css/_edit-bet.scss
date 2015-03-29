@@ -42,6 +42,16 @@
     margin-left: 1rem;
   }
 
+  .secondary-create-bet-details {
+    border: none;
+    padding: 0rem;
+    width: 14em;
+    margin: 0;
+    background: none;
+    color: $secondary-accent-color;
+    margin: 0 auto;
+  }
+
   .secondary-input {
     padding: .9em;
     width: 11em;
@@ -65,7 +75,11 @@
   justify-content: space-between;
   margin: 0 auto;
   flex-wrap: wrap;
-  padding: 4em 0;
+  padding: 4em 0 1em;
+}
+
+.bet-flex-wrap {
+  padding-bottom: 0;
 }
 
 .bet-charity {
@@ -76,9 +90,18 @@
   margin-bottom: 1rem;
 }
 
+.submit-bet {
+  margin-top: 0;
+}
+
 .submit-bet:hover {
   border: 1px solid $secondary-accent-color;
 }
+
+.bet-date-input {
+  height: 34px !important;
+}
+
 
 
 .select-style {
