@@ -446,7 +446,6 @@ def fund_bet(id):
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
         isfunding = bet.challenger
         bet.challenger_money_raised += amount
-        bet.total_money_raised += amount
         db.session.commit()
 
     stripe.api_key = charity.access_token
