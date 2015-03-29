@@ -282,6 +282,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
   var self = this;
   self.bets = bets;
+  self.sort = "total_money_raised";
   // self.currentUser = currentUser;
   // self.users = users;
 
@@ -292,6 +293,34 @@ app.config(['$routeProvider', function($routeProvider) {
   // self.isVerifiedWinner = function () {
   //   return (bets.winner_name !== null);
   // }
+
+  self.sortBetComplete = function (filter, sort) {
+    var filter = "complete";
+    var sort = self.sort;
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+  };
+
+  self.sortBetActive = function (filter, sort) {
+    var filter = "active";
+    var sort = self.sort;
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+  };
+
+  self.sortBetPending = function (filter, sort) {
+    var filter = "pending";
+    var sort = self.sort;
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+  };
+
 
 
 }]);
@@ -312,50 +341,82 @@ app.directive('areaChart', function () {
       },
       link: function(scope, element, attrs) {
 
+        var lineData = [ { "x": "1-May-16" ,"y": 35},{ "x": "6-May-16",    "y": 10}, { "x": "8-May-16",   "y": 15}  ];
+
         // var dataset = scope.dataset;
 
-        var lineData = [ { "x": 0,    "y": 250},  { "x": 40,   "y": 170},
-                { "x": 80,   "y": 140},  { "x": 120,  "y": 220},
-                { "x": 160,  "y": 220},  { "x": 200,  "y": 190},
-                { "x": 240,  "y": 170},  { "x": 280,  "y": 140},
-                { "x": 320,  "y": 200},  { "x": 360,  "y": 180},
-                { "x": 400,  "y": 190},  { "x": 440,  "y": 210},
-                { "x": 480,  "y": 300},  { "x": 500,  "y": 200},
-              ];
+        function getDate(d) {
+             return new Date(d.x);
+         }
 
+        var margin = {top: 20, right: 30, bottom: 20, left: 30};
+        var width = 300 - margin.left - margin.right,
+            height = 275 - margin.top - margin.bottom;
+
+        var parseDate = d3.time.format("%d-%b-%y").parse;
 
         var svg = d3.select(element[0]).append("svg")
-                                  .attr("width", 300)
-                                  .attr("height", 200);
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+        lineData.forEach(function(d) {
+                d.x = parseDate(d.x);
+                d.y = +d.y;
+            });
+
+        var	x = d3.time.scale().range([0, width]);
+        var	y = d3.scale.linear().range([height, 0 ]);
 
 
         var area = d3.svg.area()
-                       .interpolate("monotone")
-           .x(function(d)  {  return x(d.x); })
-           .y0(230)
-           .y1(function(d) {  return y(d.y); });
+                .interpolate("monotone")
+                .x(function(d)  {  return x(d.x); })
+                .y0(230)
+                .y1(function(d) {  return y(d.y); });
 
 
         var lineFunction = d3.svg.line()
-                      .x(function(d) { return d.x; })
-                      .y(function(d) { return d.y; });
+                       .x(function(d) { return x(d.x); })
+                       .y(function(d) { return y(d.y); })
+                       .interpolate("monotone");
 
-        var    x = d3.scale.linear().range([0, 300]);
-        var    y = d3.scale.linear().range([0, 200]);
+
+
+        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(2);
+
+        var yAxis = d3.svg.axis()
+                          .scale(y)
+                          .orient("left")
+                          .ticks(5);
 
         x.domain(d3.extent(lineData,  function(d) { return d.x; }));
         y.domain([0, d3.max(lineData, function(d) { return d.y; })]);
 
         svg.append("path")
-                .attr("class", "area")
-                .attr("d", area(lineData));
+        		.attr("class", "area")
+        		.attr("d", area(lineData));
+
+        svg.append("path")
+                    .attr("class", "line")
+                    .attr("d", lineFunction(lineData))
+                    .attr("stroke", "blue")
+                    .attr("stroke-width", 1)
+                    .attr("fill", "none");
 
 
-        var linegraph = svg.append("path")
-                   .attr("d", lineFunction(lineData))
-                   .attr("stroke", "red")
-                   .attr("stroke-width", 0)
-                   .attr("fill", "none");
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + (height) + ")")
+            .call(xAxis);
+
+            // Add the Y Axis
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis);
 
 
 
@@ -786,6 +847,10 @@ app.factory('betService', ['$http', '$log', function($http, $log) {
     addDonationChallenger: function(betid, challengerId, amount, resultid) {
       console.log('api/bets/' + betid + '/fund_bettor', {'creatorid': challengerId, 'amount': amount, 'token': resultid});
       return post('api/bets/' + betid + '/fund_bettor', {'challengerid': challengerId, 'amount': amount, 'token': resultid});
+    },
+
+    filterBet: function (filter, sort) {
+        return get ('api/bets/' + filter + '/' + sort);
     }
 
 

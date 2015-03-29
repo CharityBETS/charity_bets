@@ -235,24 +235,30 @@ def user_filter(bet_status, id):
 @login_required
 def view_users_bets(id):
     bets1 = user_filter("active", id)
+    bets2 = user_filter("complete", id)
+    bets3 = user_filter("unresolved", id)
+    bets4 = user_filter("pending", id)
     bet_list = []
     bet_list = bet_aggregator(bets1, bet_list)
+    bet_list = bet_aggregator(bets2, bet_list)
+    bet_list = bet_aggregator(bets3, bet_list)
+    bet_list = bet_aggregator(bets4, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets }), 201
-    return jsonify({"ERROR": "No bets available."}), 401
+    else:
+        fake_bet_list = []
+        seed_bet = fake_bet()
+        fake_bet_list.append(seed_bet)
+        fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
+        return jsonify({"data": fake_bets}), 201
 
 
 @bets.route("/bets", methods = ["GET"])
 @login_required
 def view_all_bets():
     bets = Bet.query.order_by(Bet.amount.desc()).all()
-    all_bets = []
-    for bet in bets:
-        # challenger = User.query.filter_by(id=bet.challenger).first()
-        bet = bet.make_dict()
-        all_bets.append(bet)
-    all_bets = [bet for bet in all_bets if bet["status"]!='pending']
+    all_bets = [bet.make_dict() for bet in bets]
     all_bets = [bet for bet in all_bets if bet["status"]!='conflict']
     if bets:
         return jsonify({'data': all_bets}), 201
@@ -266,8 +272,13 @@ def view_all_bets():
 @bets.route("/bets/<filter>/<sorter>", methods = ["GET"])
 @login_required
 def view_filtered_sorted_bets(filter, sorter):
-    bets = Bet.query.filter_by(status=filter).order_by((getattr(Bet, sorter)).desc()).all()
+    if filter == "all":
+        bets = Bet.query.order_by((getattr(Bet, sorter)).desc()).all()
+    else:
+        bets = Bet.query.filter_by(status=filter).order_by((getattr(Bet, sorter)).desc()).all()
+
     all_bets = [bet.make_dict() for bet in bets]
+    all_bets = [bet for bet in all_bets if bet["status"]!='conflict']
     if bets:
         return jsonify({'data':all_bets}), 201
     else:

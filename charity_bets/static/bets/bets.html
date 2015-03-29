@@ -1,5 +1,22 @@
 <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
+<div class="bets-secondary-action-div">
+  <h2 class="bets-page-header">Bets</h2>
+
+  <div class="filter-sort-wrap">
+    <div class="bets-filter">
+      <button ng-click="vm.sortBetComplete()" class="bets-filter">Completed</button>
+      <button ng-click="vm.sortBetActive()" class="bets-filter">Active</button>
+      <button ng-click="vm.sortBetPending()" class="bets-filter">Pending</button>
+    </div>
+    <div class="bet-sort">
+      <button ng-click="vm.sort='amount'" class="bets-sort">Bet Size</button>
+      <button ng-click="vm.sort='total_money_raised'" class="bets-sort">Funding</button>
+      <button ng-click="vm.sort='id'" class="bets-sort">Date</button>
+    </div>
+  </div>
+</div>
+
 
 <ul class="bets-ul">
   <li class="bets-li" ng-repeat="bet in vm.bets" ng-click="vm.goToBet(bet.id)">

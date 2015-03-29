@@ -93,7 +93,7 @@ svg {
 
 path.line {
  fill: none;
- stroke: #666;
+ stroke: $secondary-accent-color;
  stroke-width: 1.5px;
 }
 
@@ -106,7 +106,7 @@ path.area {
 }
 
 .x.axis line {
- stroke: #fff;
+ stroke: $secondary-accent-color;
 }
 
 .x.axis .minor {
@@ -119,5 +119,26 @@ path.area {
 
 .y.axis line, .y.axis path {
  fill: none;
- stroke: #000;
+ stroke: $secondary-accent-color;
+}
+
+path.area {
+ fill: #e7e7e7 ;
+}
+
+svg {
+   background: $my-white;
+}
+
+.axis path,
+.axis line {
+   fill: none;
+   stroke: $secondary-accent-color;
+   shape-rendering: crispEdges;
+}
+
+.axis text {
+   font-family: 'Raleway';
+   font-size: 12px;
+   stroke: $secondary-accent-color;
 }
