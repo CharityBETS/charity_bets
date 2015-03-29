@@ -126,8 +126,7 @@ def create_bet():
                   creator_facebook_id = current_user.facebook_id,
                   charity_creator = charity.name,
                   charity_creator_id = charity.id,
-                  creator_money_raised = form.amount.data,
-                  challenger_money_raised = form.amount.data,
+                  total_money_raised = form.amount.data
                   )
 
         # Enter Optional Data Into Model
