@@ -436,8 +436,6 @@ def charge_loser(id):
     return jsonify({"SUCESSFUL PAYMENT":"SUCCESSFUL PAYMENT"})
 
 
-# To be added when we implement crowdsourcing, hasn't been tested yet
-
 @bets.route("/bets/<int:id>/fund_bettor", methods = ["POST"])
 @login_required
 def fund_bet(id):
@@ -445,7 +443,6 @@ def fund_bet(id):
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
     amount = int(data["amount"])
-    print("THIS IS THE DATA...", data)
     if "creatorid" in data.keys():
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
         isfunding = bet.creator
@@ -456,7 +453,6 @@ def fund_bet(id):
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
         isfunding = bet.challenger
         bet.challenger_money_raised += amount
-        bet.total_money_raised += amount
         db.session.commit()
 
     stripe.api_key = charity.access_token
