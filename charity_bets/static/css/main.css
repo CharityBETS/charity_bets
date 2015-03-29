@@ -103,87 +103,6 @@ input {
 .nav, .pagination, .carousel, .panel-title a {
   cursor: pointer; }
 
-.header-nav, .app-header {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  letter-spacing: 1px; }
-  .header-nav li, .app-header li {
-    font-size: 1.2em; }
-  .header-nav li:first-child, .app-header li:first-child {
-    margin-right: auto;
-    font-size: 1.6em;
-    padding-bottom: .6rem;
-    font-weight: bold; }
-  .header-nav li:last-child, .app-header li:last-child {
-    color: black; }
-  .header-nav a, .app-header a {
-    color: black;
-    text-decoration: none;
-    padding: .75rem 2.5rem .75rem 2.5rem; }
-
-.app-header li:first-child {
-  color: white; }
-
-.active {
-  background-color: #3072a8;
-  width: 100%; }
-
-.app-header {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  background: #484848;
-  color: white; }
-
-.app-header li:hover {
-  background-color: #f05f5c; }
-
-.header-nav li:first-child {
-  margin-right: auto; }
-
-.app-header li a {
-  display: block;
-  color: white; }
-
-.logo-li {
-  font-family: 'McLaren', cursive;
-  letter-spacing: 3px;
-  color: #3072a8;
-  padding: .75rem 2.5rem .75rem 2.5rem; }
-
-@media only screen and (max-width: 620px) {
-  .app-header, .header-nav {
-    -webkit-justify-content: flex-start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column; }
-  li {
-    text-align: center;
-    padding: 1rem 0rem 1rem 0rem; }
-  li:first-child {
-    margin: 0 auto; } }
-
 footer {
   min-height: 250px;
   background-color: #484848;
@@ -252,12 +171,16 @@ footer {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 2em;
-  margin-top: 7rem;
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
   .landing-action-buttons button {
-    margin: 0 2em; }
+    margin: .4rem 2em; }
   .landing-action-buttons button:hover {
     background-color: white;
     color: #3072a8; }
@@ -271,7 +194,7 @@ footer {
 
 @media only screen and (max-width: 535px) {
   .landing-action-buttons {
-    margin-top: 4rem; }
+    margin-top: 0%; }
   .sign-up-button {
     margin-bottom: 1rem !important; }
   .bottom-hero-line {
@@ -280,9 +203,84 @@ footer {
   .top-hero-line {
     font-size: .5em; } }
 
+.app-header, .header-nav {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  letter-spacing: 1px; }
+  .app-header li, .header-nav li {
+    font-size: 1.2em; }
+    .app-header li a, .header-nav li a {
+      display: block;
+      color: black;
+      text-decoration: none;
+      padding: .75rem 2.5rem .75rem 2.5rem; }
+  .app-header li:first-child, .header-nav li:first-child {
+    margin-right: auto;
+    font-size: 1.6em;
+    font-weight: bold; }
+  .app-header li:last-child, .header-nav li:last-child {
+    color: black; }
+
+.app-header li:first-child {
+  color: white; }
+
+.active {
+  background-color: #3072a8;
+  width: 100%; }
+
+.app-header {
+  background: #484848;
+  color: white; }
+
+.app-header li:hover {
+  background-color: #f05f5c; }
+
+.app-header li:first-child:hover {
+  background-color: #484848; }
+
+.header-nav li:first-child {
+  margin-right: auto; }
+
+.app-header li a {
+  display: block;
+  color: white; }
+
+.logo-li {
+  font-family: 'McLaren', cursive;
+  letter-spacing: 3px;
+  color: #3072a8;
+  padding: .75rem 2.5rem .75rem 2.5rem; }
+
+.header-nav-a {
+  padding: .75rem 2.5rem .75rem 2.5rem; }
+
+@media only screen and (max-width: 620px) {
+  .app-header, .header-nav {
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+  li {
+    text-align: center;
+    padding: 1rem 0rem 1rem 0rem; }
+  li:first-child {
+    margin: 0 auto; } }
+
 .create-bet-wrapper {
   text-align: center;
-  background-color: #d3d5d8;
+  background-color: #F4F4F4;
   color: #3072a8;
   font-family: 'Raleway', sans-serif; }
   .create-bet-wrapper button {
@@ -353,8 +351,9 @@ footer {
   max-width: 95%;
   font-size: 2.4em;
   margin: 0 auto;
-  padding: 2.5rem 0 2rem;
+  padding: 3rem 0 1.5rem;
   color: #3072a8;
+  line-height: 1.3em;
   font-family: 'Raleway', sans-serif; }
 
 .donate-button {
@@ -478,7 +477,7 @@ footer {
   font-weight: bold; }
 
 .creator-pending {
-  padding: 1rem;
+  padding: 0 0 2.3rem;
   font-size: 1.4em; }
 
 .creator-pending {
@@ -581,6 +580,10 @@ footer {
     right: auto; }
   .villian-bettor {
     background-color: #3072a8; }
+    .villian-bettor a, .villian-bettor .wins-losses, .villian-bettor .charity {
+      color: #F4F4F4; }
+    .villian-bettor .donate-button {
+      border: white 1px solid; }
   .bet-description {
     max-width: 70%; }
   .hero-bettor {
@@ -770,82 +773,6 @@ input.ng-valid.ng-dirty {
     width: 60px;
     height: 60px; } }
 
-.bets-title, .bets-date, .bets-amount, .bets-users {
-  text-align: center; }
-
-.bets-li {
-  background-color: #F4F4F4;
-  padding: 2rem 0;
-  position: relative;
-  color: #484848;
-  border-bottom: 2px solid #e7e7e7; }
-
-.user-stats-header {
-  color: #3072a8; }
-
-.bets-title {
-  font-size: 2.2em;
-  padding-bottom: 1rem;
-  letter-spacing: 2px;
-  line-height: 1.25em; }
-  .bets-title a {
-    color: #3072a8;
-    font-family: 'Raleway', serif; }
-
-.bets-title:hover a {
-  color: #f05f5c; }
-
-.bets-users {
-  font-size: 1.3em;
-  color: #484848; }
-
-.bets-amount {
-  font-size: 1.4em;
-  color: #3072a8; }
-
-.bets-pic {
-  width: 140px;
-  height: 140px;
-  border-radius: 70px;
-  border: 3px solid #3072a8; }
-
-.bets-flex-container {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  max-width: 680px;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  margin: 0 auto; }
-
-.bets-section-1 {
-  -webkit-order: 2;
-  -ms-flex-order: 2;
-  order: 2; }
-
-.bets-section-2 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1; }
-
-.bets-section-3 {
-  -webkit-order: 3;
-  -ms-flex-order: 3;
-  order: 3; }
-
-.number {
-  font-family: 'Montserrat', sans-serif; }
-
-@media only screen and (max-width: 480px) {
-  .bets-pic {
-    margin-top: 1.5rem;
-    height: 60px;
-    width: 60px; } }
-
 .datepicker button {
   width: auto;
   border: none; }
@@ -983,7 +910,7 @@ input.ng-valid.ng-dirty {
     flex-direction: column; } }
 
 .charity-signup {
-  background: url(https://opinionize.files.wordpress.com/2012/08/01_20120713_arm_wrestle_00019-v211.jpg) no-repeat center center fixed;
+  background: url(http://cdn.judysvintagefair.co.uk/wp-content/uploads/2014/06/Country-week-tennis-5-January-1937.jpg) no-repeat center center fixed;
   background-size: cover; }
   .charity-signup a {
     font-size: 1.2em;
@@ -1005,7 +932,7 @@ input.ng-valid.ng-dirty {
   background: rgba(0, 0, 0, 0.8); }
 
 .modal-template {
-  background-color: white;
+  background-color: #d3d5d8;
   height: 290px;
   z-index: 10000;
   border-radius: .3em;
@@ -1048,7 +975,7 @@ input.ng-valid.ng-dirty {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   padding: 1em 2rem;
-  background: white;
+  background: #d3d5d8;
   color: black;
   border-radius: .5em;
   outline: none;
@@ -1064,7 +991,9 @@ input.ng-valid.ng-dirty {
     color: black;
     padding: .1rem .7rem;
     border-radius: .3em;
-    display: inline-block; }
+    display: inline-block;
+    text-align: left;
+    border: none; }
   .user-stripe-form .stripe-form-submit-button {
     width: 50%;
     margin: 0 auto;
@@ -1105,22 +1034,35 @@ input.ng-valid.ng-dirty {
 .close-modal:hover {
   background: none; }
 
-.org-page h2 {
+.org-page h2, .about-page h2 {
   padding: 1rem 0 .8rem;
   text-align: center; }
 
-.org-page-img {
-  background: url(https://s3-us-west-2.amazonaws.com/betti/black-and-white-photograph-wallpaper_1920x1200_84148.jpg) no-repeat center center fixed;
+.org-page-img, .about-page-img {
+  background: url(http://upload.wikimedia.org/wikipedia/commons/1/1b/Frankfurter_stand_LOC_det.4a13502.jpg) no-repeat bottom center fixed;
   background-size: cover;
-  height: 50vh; }
+  height: 60vh; }
 
-.org-content {
-  width: 85%;
+.about-page-img {
+  background: url(https://s3-us-west-2.amazonaws.com/betti/football.jpg) no-repeat top center fixed;
+  background-size: cover; }
+
+.org-content, .about-content {
+  width: 80%;
   margin: 0 auto; }
+
+.org-pic {
+  width: 125px;
+  height: auto;
+  padding-bottom: 1rem; }
 
 .org-wrap {
   width: 100%;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding-bottom: 2rem; }
+
+.about-page a {
+  color: #f05f5c; }
 
 .modal-bg {
   position: absolute;
@@ -1131,7 +1073,7 @@ input.ng-valid.ng-dirty {
   background: rgba(0, 0, 0, 0.8); }
 
 .modal-template {
-  background-color: white;
+  background-color: #d3d5d8;
   height: 290px;
   z-index: 10000;
   border-radius: .3em;
@@ -1174,7 +1116,7 @@ input.ng-valid.ng-dirty {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   padding: 1em 2rem;
-  background: white;
+  background: #d3d5d8;
   color: black;
   border-radius: .5em;
   outline: none;
@@ -1190,7 +1132,9 @@ input.ng-valid.ng-dirty {
     color: black;
     padding: .1rem .7rem;
     border-radius: .3em;
-    display: inline-block; }
+    display: inline-block;
+    text-align: left;
+    border: none; }
   .user-stripe-form .stripe-form-submit-button {
     width: 50%;
     margin: 0 auto;
@@ -1330,3 +1274,89 @@ path.area {
 .y.axis line, .y.axis path {
   fill: none;
   stroke: #000; }
+
+.bets-title, .bets-date, .bets-amount, .bets-users {
+  text-align: center; }
+
+.bets-li {
+  background-color: #F4F4F4;
+  padding: 2rem 0;
+  position: relative;
+  color: #484848;
+  border-bottom: 2px solid #e7e7e7; }
+
+.user-stats-header {
+  color: #3072a8; }
+
+.bets-title {
+  font-size: 2.2em;
+  padding-bottom: 1rem;
+  letter-spacing: 2px;
+  line-height: 1.25em; }
+  .bets-title a {
+    color: #3072a8;
+    font-family: 'Raleway', serif; }
+
+.bets-title:hover a {
+  color: #f05f5c; }
+
+.bets-users {
+  font-size: 1.3em;
+  color: #484848; }
+
+.bets-amount {
+  font-size: 1.4em;
+  color: #3072a8; }
+
+.bets-pic {
+  width: 140px;
+  height: 140px;
+  border-radius: 70px;
+  border: 3px solid #3072a8; }
+
+.bets-flex-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  max-width: 880px;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  margin: 0 auto;
+  font-family: 'Raleway', sans-serif;
+  color: #3072a8; }
+
+.stat-title-label {
+  font-weight: 400; }
+
+.bets-section-1 {
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2; }
+
+.bets-section-2 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1; }
+
+.bets-section-3 {
+  -webkit-order: 3;
+  -ms-flex-order: 3;
+  order: 3; }
+
+.number {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700; }
+
+#stat-title-label-winner {
+  font-weight: 400;
+  font-family: 'Raleway', sans-serif; }
+
+@media only screen and (max-width: 480px) {
+  .bets-pic {
+    margin-top: 1.5rem;
+    height: 60px;
+    width: 60px; } }

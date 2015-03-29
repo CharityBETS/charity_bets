@@ -55,9 +55,15 @@
 .bets-flex-container {
   display: flex;
   flex-direction: row;
-  max-width: 680px;
-  justify-content: space-between;
+  max-width: 880px;
+  justify-content: space-around;
   margin: 0 auto;
+  font-family: 'Raleway', sans-serif;
+  color: $secondary-accent-color;
+}
+
+.stat-title-label {
+  font-weight: 400;
 }
 
 .bets-section-1 {
@@ -77,6 +83,12 @@
 
 .number {
   font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+#stat-title-label-winner {
+  font-weight: 400;
+  font-family: 'Raleway', sans-serif;
 }
 
 

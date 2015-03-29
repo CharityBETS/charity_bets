@@ -179,6 +179,14 @@ app.config(['$routeProvider', function($routeProvider) {
     $location.path('/user/user-profile');
   };
 
+  self.clearForm = function () {
+    self.card.name = "";
+    self.card.cvc = "";
+    self.card.number = "";
+    self.card.exp_month = "";
+    self.card.exp_year = "";
+  };
+
 
   // self.addDonation = function () {
   //   betService.addDonation(self.bet.id, self.Donation).then(self.goToBet);
@@ -620,14 +628,27 @@ app.controller('MainNavCtrl',
       return StringUtil.startsWith($location.path(), path);
     };
 
-    self.addToLi = function () {
-      var navItem = document.querySelector('.')
-      return
-        if (isActive) {
+    // self.addToLi = function () {
+    //   var navItem = document.querySelector('.')
+    //   return
+    //     if (isActive) {
+    //     }
+    // }
 
-        }
-    }
+}]);
 
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: '/static/landing/about.html',
+    controller: 'AboutCtrl',
+    controllerAs: 'vm',
+  };
+  $routeProvider.when('/about', routeDefinition);
+}])
+.controller('AboutCtrl', ['$location', function ($location) {
+
+  var self = this;
+  
 }]);
 
 app.config(['$routeProvider', function($routeProvider) {
@@ -636,14 +657,11 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'OrgCtrl',
     controllerAs: 'vm',
   };
-  $routeProvider.when('/organizations', routeDefinition);
+  $routeProvider.when('/partners', routeDefinition);
 }])
 .controller('OrgCtrl', ['$location', function ($location) {
 
   var self = this;
-
-
-
 }]);
 
 app.config(['$routeProvider', function($routeProvider) {

@@ -10,12 +10,11 @@ app.controller('MainNavCtrl',
       return StringUtil.startsWith($location.path(), path);
     };
 
-    self.addToLi = function () {
-      var navItem = document.querySelector('.')
-      return
-        if (isActive) {
-
-        }
-    }
+    // self.addToLi = function () {
+    //   var navItem = document.querySelector('.')
+    //   return
+    //     if (isActive) {
+    //     }
+    // }
 
 }]);

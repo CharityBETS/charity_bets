@@ -156,7 +156,7 @@
         </div>
       </div>
       <button class="stripe-form-submit-button" ng-click="vm.modalaction=false" type="submit">Pay Bet</button>
-      <button ng-click="$event.stopPropagation();$event.preventDefault();vm.modalaction=false" class="close-modal">x</button>
+      <button ng-click="$event.stopPropagation();$event.preventDefault();vm.modalaction=false;vm.clearForm();" class="close-modal">x</button>
       <img src="https://databaseindays.com/wp-content/themes/striking/stripe/stripe-payments.png">
     </form>
 </div>
@@ -173,7 +173,7 @@
           <label>
             <div>Donating for {{vm.bet.creator_name}}</div>
             <input size="7" class="donation-amount-input" placeholder="Amount" ng-model="vm.donation.amount">
-        </div>
+        </div><br>
 
         <div class="form-row">
           <label>
@@ -226,7 +226,7 @@
         <label>
           <div>Donating for {{vm.bet.challenger_name}}</div>
           <input size="7" class="donation-amount-input" placeholder="Amount" ng-model="vm.donation.amount">
-      </div>
+      </div><br>
 
       <div class="form-row">
         <label>

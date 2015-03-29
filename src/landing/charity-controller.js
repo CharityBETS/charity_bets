@@ -4,12 +4,9 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'OrgCtrl',
     controllerAs: 'vm',
   };
-  $routeProvider.when('/organizations', routeDefinition);
+  $routeProvider.when('/partners', routeDefinition);
 }])
 .controller('OrgCtrl', ['$location', function ($location) {
 
   var self = this;
-
-
-
 }]);
