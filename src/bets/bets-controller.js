@@ -15,6 +15,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
   var self = this;
   self.bets = bets;
+  self.sort = "total_money_raised";
   // self.currentUser = currentUser;
   // self.users = users;
 
@@ -25,6 +26,28 @@ app.config(['$routeProvider', function($routeProvider) {
   // self.isVerifiedWinner = function () {
   //   return (bets.winner_name !== null);
   // }
+
+  self.sortBetComplete = function (filter, sort) {
+    var filter = "complete";
+    var sort = self.sort;
+    alert(filter, sort);
+    betService.filterBet(filter, sort);
+  };
+
+  self.sortBetActive = function (filter, sort) {
+    var filter = "active";
+    var sort = self.sort;
+    alert(filter, sort);
+    betService.filterBet(filter, sort);
+  };
+
+  self.sortBetPending = function (filter, sort) {
+    var filter = "pending";
+    var sort = self.sort;
+    alert(filter, sort);
+    betService.filterBet(filter, sort);
+  };
+
 
 
 }]);
