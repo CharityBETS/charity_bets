@@ -15,7 +15,7 @@ from charity_bets import mail
 from flask_mail import Message
 import stripe
 from flask import current_app as app
-from datetime import datetime
+import datetime
 from sqlalchemy import or_
 
 
@@ -99,6 +99,30 @@ def check_resolution(bet):
     else:
         bet.status = "unresolved"
         db.session.commit()
+
+
+def bet_chart_data(bet):
+    # pulls funding data for bet challenger
+
+    challenger_funders = Funder.query.filter_by(bet_id = bet.id,
+                                                is_funding = bet.challenger).all()
+    challenger_donations = []
+    if challenger_funders:
+        for funder in challenger_funders:
+            challenger_donations.append({funder.amount: funder.date})
+
+    # pulls funding data for bet creator
+
+    creator_funders = Funder.query.filter_by(bet_id = bet.id,
+                                             is_funding = bet.creator).all()
+
+    creator_donations = []
+    if creator_funders:
+        for funder in creator_funders:
+            creator_donations.append({"x": funder.date, "y":int(funder.amount)})
+
+    return {"creator_data":creator_donations,
+            "challenger_data":challenger_donations}
 
 
 @bets.route("/user/bets", methods = ["POST"])
@@ -211,24 +235,30 @@ def user_filter(bet_status, id):
 @login_required
 def view_users_bets(id):
     bets1 = user_filter("active", id)
+    bets2 = user_filter("complete", id)
+    bets3 = user_filter("unresolved", id)
+    bets4 = user_filter("pending", id)
     bet_list = []
     bet_list = bet_aggregator(bets1, bet_list)
+    bet_list = bet_aggregator(bets2, bet_list)
+    bet_list = bet_aggregator(bets3, bet_list)
+    bet_list = bet_aggregator(bets4, bet_list)
     if len(bet_list) > 0:
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets }), 201
-    return jsonify({"ERROR": "No bets available."}), 401
+    else:
+        fake_bet_list = []
+        seed_bet = fake_bet()
+        fake_bet_list.append(seed_bet)
+        fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
+        return jsonify({"data": fake_bets}), 201
 
 
 @bets.route("/bets", methods = ["GET"])
 @login_required
 def view_all_bets():
     bets = Bet.query.order_by(Bet.amount.desc()).all()
-    all_bets = []
-    for bet in bets:
-        # challenger = User.query.filter_by(id=bet.challenger).first()
-        bet = bet.make_dict()
-        all_bets.append(bet)
-    all_bets = [bet for bet in all_bets if bet["status"]!='pending']
+    all_bets = [bet.make_dict() for bet in bets]
     all_bets = [bet for bet in all_bets if bet["status"]!='conflict']
     if bets:
         return jsonify({'data': all_bets}), 201
@@ -242,8 +272,13 @@ def view_all_bets():
 @bets.route("/bets/<filter>/<sorter>", methods = ["GET"])
 @login_required
 def view_filtered_sorted_bets(filter, sorter):
-    bets = Bet.query.filter_by(status=filter).order_by((getattr(Bet, sorter)).desc()).all()
+    if filter == "all":
+        bets = Bet.query.order_by((getattr(Bet, sorter)).desc()).all()
+    else:
+        bets = Bet.query.filter_by(status=filter).order_by((getattr(Bet, sorter)).desc()).all()
+
     all_bets = [bet.make_dict() for bet in bets]
+    all_bets = [bet for bet in all_bets if bet["status"]!='conflict']
     if bets:
         return jsonify({'data':all_bets}), 201
     else:
@@ -263,6 +298,7 @@ def view_bet(id):
         creator = User.query.get(bet.creator)
         challenger = User.query.get(bet.challenger)
         comments = Comment.query.filter_by(bet_id=id).all()
+        chart_data = bet_chart_data(bet)
         all_comments = []
         if bet:
             bet = bet.make_dict()
@@ -274,6 +310,8 @@ def view_bet(id):
             bet['creator_record'] = creator_record
             challenger_record = "{} - {}".format(challenger.wins, challenger.losses)
             bet['challenger_record'] = challenger_record
+            bet['chart_data'] = chart_data
+
             return jsonify({'data': bet})
         else:
             return jsonify({"ERROR": "Bet does not exist."}), 400
@@ -453,6 +491,7 @@ def fund_bet(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
+    print("THIS IS THE DATA....", data)
     amount = int(data["amount"])
     if "creatorid" in data.keys():
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
@@ -472,15 +511,15 @@ def fund_bet(id):
         source = data['token'],
         description="payinguser@example.com"
         )
-
+    print(customer)
     funder = Funder(is_funding = isfunding,
                     user_id = current_user.id,
                     bet_id = id,
-                    amount = str(amount),
+                    amount = amount,
                     stripe_customer_id = customer.id,
                     charity = charity.name,
-                    charity_token = charity.access_token)
-
+                    charity_token = charity.access_token,
+                    date = str(datetime.datetime.now())[:10])
 
     db.session.add(funder)
     db.session.commit()
