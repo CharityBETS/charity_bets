@@ -25,7 +25,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
-  self.winDonutData = [currentUser.wins, currentUser.losses, 10];
+  self.winDonutData = [currentUser.money_won, currentUser.donation_money_raised, currentUser.money_lost];
   self.doo = [1000, 650];
   self.goo = [currentUser.money_won, currentUser.money_lost];
   self.gaugeData = [currentUser.win_streak, currentUser.longest_win_streak];
