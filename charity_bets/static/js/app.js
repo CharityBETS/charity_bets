@@ -297,22 +297,28 @@ app.config(['$routeProvider', function($routeProvider) {
   self.sortBetComplete = function (filter, sort) {
     var filter = "complete";
     var sort = self.sort;
-    alert(filter, sort);
-    betService.filterBet(filter, sort);
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
   };
 
   self.sortBetActive = function (filter, sort) {
     var filter = "active";
     var sort = self.sort;
-    alert(filter, sort);
-    betService.filterBet(filter, sort);
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
   };
 
   self.sortBetPending = function (filter, sort) {
     var filter = "pending";
     var sort = self.sort;
-    alert(filter, sort);
-    betService.filterBet(filter, sort);
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
   };
 
 
