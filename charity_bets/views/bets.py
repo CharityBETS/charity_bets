@@ -211,9 +211,9 @@ def user_filter(bet_status, id):
 @login_required
 def view_users_bets(id):
     bets1 = user_filter("active", id)
-    bets2 = current_user_filter("complete", id)
-    bets3 = current_user_filter("unresolved", id)
-    bets4 = current_user_filter("pending", id)
+    bets2 = user_filter("complete", id)
+    bets3 = user_filter("unresolved", id)
+    bets4 = user_filter("pending", id)
     bet_list = []
     bet_list = bet_aggregator(bets1, bet_list)
     bet_list = bet_aggregator(bets2, bet_list)
