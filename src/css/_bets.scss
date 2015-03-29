@@ -4,6 +4,26 @@
   text-align: center;
 }
 
+.bets-secondary-action-div {
+  border-bottom: 1px $secondary-accent-color solid;
+  position: relative;
+}
+
+.bets-page-header {
+  padding-left: 2rem;
+
+}
+
+.bets-filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  right: 50%;
+  top: 0
+}
+
+
 .bets-li {
   background-color: $my-white;
   padding: 2rem 0;

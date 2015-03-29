@@ -1,5 +1,14 @@
 <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
+<div class="bets-secondary-action-div">
+  <h2 class="bets-page-header">Bets</h2>
+  <div class="bets-filter">
+    <button class="bets-filter">Completed</button>
+    <button class="bets-filter">Active</button>
+    <button class="bets-filter">Pending</button>
+  </div>
+</div>
+
 
 <ul class="bets-ul">
   <li class="bets-li" ng-repeat="bet in vm.bets" ng-click="vm.goToBet(bet.id)">
