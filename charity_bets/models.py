@@ -130,7 +130,11 @@ class Charity(db.Model):
                 "email": self.email,
                 "image": self.image,
                 "website": self.website,
-                "amount_earned": self.amount_earned}
+                "amount_earned": self.amount_earned,
+                "access_token": self.access_token,
+                "stripe_publishable_key": self.stripe_publishable_key,
+                "stripe_user_id": self.stripe_user_id,
+                "stripe_refresh_token": self.stripe_refresh_token}
 
 
 class Comment(db.Model):
