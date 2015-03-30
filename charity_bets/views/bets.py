@@ -280,7 +280,7 @@ def view_filtered_sorted_bets(filter, sorter):
     if bets:
         return jsonify({'data':all_bets}), 201
     else:
-        return jsonify({'data': [{}]})
+        return jsonify({'data': {}})
 
 
 @bets.route("/bets/<int:id>", methods = ["GET"])
