@@ -280,9 +280,7 @@ def view_filtered_sorted_bets(filter, sorter):
     if bets:
         return jsonify({'data':all_bets}), 201
     else:
-        bets = Bet.query.all()
-        all_bets = [bet.make_dict() for bet in bets]
-        return jsonify({'data': all_bets})
+        return jsonify({'data': [{}]})
 
 
 @bets.route("/bets/<int:id>", methods = ["GET"])
