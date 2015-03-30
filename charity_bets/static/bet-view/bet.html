@@ -20,7 +20,7 @@
         <div class="location">{{vm.bet.location}}</div>
       </div>
 
-    <div class="who-won-div">
+    <div class="who-won-div" ng-hide="vm.bet.status !== 'active'">
         <h4>Who Won</h4>
          <button class="bet-win" ng-click="vm.betOutcomeWin()">I WON</button>
          <button class="bet-lose" ng-click="vm.modalaction=true">I LOST</button>

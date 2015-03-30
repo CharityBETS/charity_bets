@@ -1404,6 +1404,9 @@ svg {
     background-color: purple;
     color: yellow; }
 
+.bets-filter {
+  margin: 0; }
+
 .filter-sort-wrap {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1451,13 +1454,13 @@ svg {
   color: #484848; }
 
 .bets-amount {
-  font-size: 1.4em;
+  font-size: 1.6em;
   color: #3072a8; }
 
 .bets-pic {
-  width: 140px;
-  height: 140px;
-  border-radius: 70px;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
   border: 3px solid #3072a8; }
 
 .bets-flex-container {
@@ -1467,7 +1470,7 @@ svg {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  max-width: 880px;
+  max-width: 990px;
   -webkit-justify-content: space-around;
   -ms-flex-pack: distribute;
   justify-content: space-around;
