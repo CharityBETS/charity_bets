@@ -231,11 +231,7 @@ def view_bets():
                         bet['maybe_you_lost'] = 'y'
         return jsonify({"data": bets}), 201
     else:
-        fake_bet_list = []
-        seed_bet = fake_bet()
-        fake_bet_list.append(seed_bet)
-        fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
-        return jsonify({"data": fake_bets}), 201
+        return jsonify({'data': {}})
 
 def user_filter(bet_status, id):
     return Bet.query.filter(or_(Bet.creator==id,
@@ -258,11 +254,7 @@ def view_users_bets(id):
         bets = [bet.make_dict() for bet in bet_list]
         return jsonify({"data": bets }), 201
     else:
-        fake_bet_list = []
-        seed_bet = fake_bet()
-        fake_bet_list.append(seed_bet)
-        fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
-        return jsonify({"data": fake_bets}), 201
+        return jsonify({'data': {}})
 
 
 @bets.route("/bets", methods = ["GET"])
@@ -274,11 +266,7 @@ def view_all_bets():
     if bets:
         return jsonify({'data': all_bets}), 201
     else:
-        fake_bet_list = []
-        seed_bet = fake_bet()
-        fake_bet_list.append(seed_bet)
-        fake_bets = [fake_bet.make_dict() for fake_bet in fake_bet_list]
-        return jsonify({"data": fake_bets}), 201
+        return jsonify({'data': {}})
 
 @bets.route("/bets/<filter>/<sorter>", methods = ["GET"])
 @login_required
