@@ -413,7 +413,8 @@ footer {
   padding: 3rem 0 1.5rem;
   color: #3072a8;
   line-height: 1.3em;
-  font-family: 'Raleway', sans-serif; }
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700; }
 
 .donate-button {
   background-color: #3072a8; }
@@ -817,10 +818,10 @@ input.ng-valid.ng-dirty {
   top: 2rem;
   left: 0;
   color: white;
-  height: 13%;
+  height: 40px;
   width: 7.3em;
   text-align: center;
-  padding-top: .4rem;
+  padding-top: .35rem;
   font-weight: bold; }
 
 .actionable a {
@@ -1391,6 +1392,9 @@ svg {
 .bets-title, .bets-date, .bets-amount, .bets-users {
   text-align: center; }
 
+.bets-date {
+  font-size: 1.4em; }
+
 .bettor-name {
   max-width: 300px; }
 
@@ -1454,7 +1458,7 @@ svg {
 
 .bets-funding-title {
   font-size: 1.5rem;
-  padding-top: .4rem; }
+  padding-top: .8rem; }
 
 .bets-li {
   background-color: #F4F4F4;
@@ -1527,6 +1531,9 @@ svg {
   -webkit-order: 3;
   -ms-flex-order: 3;
   order: 3; }
+
+.profile-wrap {
+  text-align: center; }
 
 .number {
   font-family: 'Montserrat', sans-serif;
