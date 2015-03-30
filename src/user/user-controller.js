@@ -41,7 +41,7 @@ app.config(['$routeProvider', function($routeProvider) {
   //         alert(id, result.id);
   //         userService.sendStripe(id, result.id);
   //     }
-  };
+  // };
 
 
 

@@ -21,8 +21,8 @@ app.directive('gaugeChart', function () {
         var percentage = Math.floor((x/y) * 100);
 
 
-        var width = 700,
-           height = 400,
+        var width = 500,
+           height = 350,
            radius = Math.min(width, height) / 2;
 
         var color = d3.scale.category20();

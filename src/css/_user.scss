@@ -6,13 +6,14 @@
 .profile-top-section {
 
   background-color: $my-white;
-  padding: 3.5rem 4.5rem 4.5rem;
+  padding: 3.5rem 0rem 4.5rem;
   color: $secondary-accent-color;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
   max-width: 1000px;
+  margin: 0 auto;
 
   a {
     color: $my-black;
@@ -112,18 +113,22 @@
 
 .stats-vis-section {
   position: relative;
-  min-height: 500px;
+  min-height: 200px;
   background-color: $my-white;
-  padding: 2rem;
+  padding: 3.5rem 2rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin: 0 auto;
   max-width: 1000px;
+
 }
 
 .profile-section-two {
   // height: 1000px;
   color: white;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .charity-edit {
@@ -152,19 +157,20 @@
   color: $secondary-accent-color;
 }
 
-.user-bets-header, .user-stats-header {
-  padding: 2rem;
-  color: $secondary-accent-color;
+.user-bets-header, .user-stats-header, .user-page-header {
+  text-align: center;
+  color: #AEC7E8;
 }
 
 
 .actionable {
   background-color: $secondary-accent-color;
   position: absolute;
-  top: 2rem;
-  left: 0;
+  top: 0;
+  left: 50%;
   color: white;
   height: 40px;
+  transform: translate(-50%);
   width: 7.3em;
   text-align: center;
   padding-top: .35rem;
