@@ -224,7 +224,10 @@ def view_bets():
                 bet['needs_accepting'] = 'y'
             if bet['status'] == 'unresolved':
                 if current_user.id != bet['creator_outcome']:
-                    if bet['challenger_outcome']:
+                    if current_user.id != bet['challenger_outcome']:
+                        bet['maybe_you_lost'] = 'y'
+                if current_user.id != bet['challenger_outcome']:
+                    if current_user.id != bet['creator_outcome']:
                         bet['maybe_you_lost'] = 'y'
         return jsonify({"data": bets}), 201
     else:
@@ -449,7 +452,7 @@ def view_comments(id):
                                user_id = current_user.id,
                                bet_id = bet.id,
                                name = current_user.name,
-                               timestamp = datetime.now())
+                               timestamp = datetime.datetime.now())
 
         db.session.add(user_comment)
         db.session.commit()
