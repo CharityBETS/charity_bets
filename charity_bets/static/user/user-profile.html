@@ -3,48 +3,32 @@
   <h2 class="user-page-header">User</h2>
   <div class="profile-top-section">
       <div class="profile-details-container">
-          <img class="profile-img" src="http://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large">
+          <img class="profile-img" src="https://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large">
           <h3 class="profile-user-name">{{vm.currentUser.name}}</h3>
           <div class="user-record">{{vm.currentUser.wins}} - {{vm.currentUser.losses}}</div>
       </div>
 
       <div class="profile-stats">
         <h3 class="user-stats">Stats</h3>
-
         <div class="good-stats">
           <div class="left-stats">
-            <div class="bets-made">{{vm.currentUser.bets_made}}</div>
-            <div class="stat-title-label">Bets Made</div>
-          </div>
-          <div class="right-stats">
-            <div class="money-won">{{vm.currentUser.money_won | currency:"$":0}}</div>
-            <div class="stat-title-label">Money Won</div>
-         </div>
-        </div>
-
-        <div class="good-stats">
-          <div class="left-stats">
-            <div class="total-money-raised">{{vm.currentUser.donation_money_raised | currency:'$':0}}</div>
+            <div class="total-money-raised">{{vm.totalMoneyStat | currency:"$":0}}</div>
             <div class="stat-title-label">Total Money Raised</div>
           </div>
-          <!-- <div class="right-stats">
-            <div class="money-lost">{{vm.currentUser.money_lost | currency:"$":0 }}</div>
-            <div class="stat-title-label">Money Lost</div>
-          </div> -->
         </div>
       </div>
   </div>
 
-        <h2 class="user-stats-header">User Stats</h2>
+    <h2 class="user-stats-header">User Stats</h2>
     <div class="stats-vis-section">
-
-
 
         <div class="donut-wrap">
           <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
           <div class="donut-stat-inner-wrap">
             <div class="user-win-streak">{{vm.currentUser.money_won | currency:"$":0}}<div class="user-win-streak-label">Money Won</div></div>
+            <div class="user-lose-streak">{{vm.currentUser.money_lost | currency:"$":0}}<div class="user-lose-streak-label">Money Lost</div></div>
           </div>
+          <div class="user-win-streak-label">Money Won vs Money Lost</div>
         </div>
 
 
@@ -53,6 +37,7 @@
           <gauge-chart dataset="vm.gaugeData" class="gauge"></gauge-chart>
           <div class="gauge-stat-inner-wrap">
             <div class="user-win-streak-label">Win Streak Vs. Longest Win Streak</div>
+            <div class="user-win-streak">{{vm.currentUser.win_streak}}/{{vm.currentUser.longest_win_streak}}</div>
           </div>
         </div>
 
@@ -62,7 +47,10 @@
           <div class="donut-stat-inner-wrap">
             <div class="user-win-streak">{{vm.currentUser.money_won | currency:"$":0}}<div class="user-win-streak-label">Money Won</div></div>
           </div>
+            <div class="user-win-streak-label">Charity Distribution</div>
         </div>
+
+    </div>
 
 
 
@@ -74,7 +62,6 @@
 
         <!-- <donut-chart  dataset="vm.doo"></donut-chart> -->
         <!-- <money-bar dataset="vm.goo"></money-bar> -->
-    </div>
 
   <div class="profile-section-two">
     <h2 class="user-bets-header">User Bets</h2>
@@ -90,53 +77,19 @@
           <div class="bets-title">
             <a href="#/bet/{{bet.id}}">{{bet.title}}</a>
           </div>
+          <div ng-show="bet.winner_name !== null" class="bet-status number">
+            <div id="stat-title-label-winner">Winner</div>
+          <div class="bets-actual-winner">{{bet.winner_name}}</div>
+          </div>
+          <div ng-show="bet.winning_charity_name !== null" class="bet-status number">
+            <div id="stat-title-label-winner">Winning Charity</div>
+          <div class="bets-actual-winner">{{bet.winning_charity_name}}</div>
+          </div>
           <div class="bets-date">
             {{bet.date | date:'EEEE, MMM d'}}
           </div>
-          <div class="bets-amount number">
-            {{bet.amount | currency:"$":0}}
-          </div>
-
-      
-
-
-
-
-
-
-
-
-          <!-- <form id="payment-form" ng-submit="vm.sendStripe(bet)" class="user-stripe-form">
-            <span class="payment-errors"></span>
-            <h3>Pay With Stripe</h3>
-            <span class="stripe-detail-label">Bet:</span><span>{{bet.amount | currency}}</span>
-            <div class="form-row">
-              <label>
-                <span>Card Number</span>
-                <input type="text" size="20" ng-model="bet.card.number" data-stripe="number"/>
-              </label>
-            </div>
-
-            <div class="form-row">
-              <label>
-                <span>Expiration (MM/YYYY)</span>
-                <input type="text" size="2" ng-model="bet.card.exp_month" data-stripe="exp-month"/>
-              </label>
-              <span> / </span>
-              <input type="text" size="4" ng-model="bet.card.exp_year" data-stripe="exp-year"/>
-            </div>
-
-            <div class="form-row">
-              <label>
-                <span>CVC</span>
-                <input type="text" size="4" ng-model="bet.card.cvc" data-stripe="cvc"/>
-              </label>
-            </div>
-
-            <button class="stripe-form-submit-button" type="submit">Pay with Stripe</button>
-          </form> -->
-
-        <!-- <payment-form ng-show="vm.showpayment===true"></payment-form> -->
+          <div class="bets-funding-title">Money Pledged</div>
+          <div class="bets-funding">{{bet.total_money_raised | currency:"$":0}}</div>
 
         </div>
 

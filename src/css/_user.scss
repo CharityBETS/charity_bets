@@ -6,12 +6,14 @@
 .profile-top-section {
 
   background-color: $my-white;
-  padding: 3.5rem 4.5rem 4.5rem;
+  padding: 3.5rem 0rem 4.5rem;
   color: $secondary-accent-color;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
 
   a {
     color: $my-black;
@@ -36,12 +38,9 @@
 .profile-details-container {
   text-align: center;
   justify-content: center;
+  max-width: 1000px;
 }
 
-.user-page-header {
-  padding: 0 0 0 2rem;
-  color: $secondary-accent-color;
-}
 
 .profile-user-name {
   font-family: 'Raleway', sans-serif;
@@ -51,7 +50,7 @@
 
 .stat-title-label {
   text-align: center;
-  font-size: 1.25em;
+  font-size: 1.5em;
 }
 
 .right-stats {
@@ -63,7 +62,11 @@
   height: 300px;
   border-radius: 150px;
   margin-top: 1rem;
-  border: 5px solid $secondary-accent-color;;
+  border: 5px solid $secondary-accent-color;
+}
+
+.bets-made {
+  text-align: center;
 }
 
 .good-stats, .bad-stats {
@@ -81,10 +84,12 @@
 
 .bets-made, .money-won, .money-lost, .user-record-losses, .total-money-raised {
   font-size: 4.4em;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.4em;
   padding: 0 1.5rem;
 }
+
+
 
 .user-record {
   padding-top: .75rem;
@@ -103,21 +108,27 @@
 
 .total-money-raised {
   padding-top: 1.5rem;
+  font-size: 7.5em;
 }
 
 .stats-vis-section {
   position: relative;
-  min-height: 500px;
+  min-height: 200px;
   background-color: $my-white;
-  padding: 2rem;
+  padding: 3.5rem 2rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1000px;
+
 }
 
 .profile-section-two {
   // height: 1000px;
   color: white;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .charity-edit {
@@ -129,7 +140,7 @@
   padding: 4rem 0;
   position: relative;
   color: $my-black;
-  border-top: 2px solid #e7e7e7;
+  border-bottom: 2px solid #e7e7e7;
   background-color: $my-white;
 
   img {
@@ -141,19 +152,25 @@
   color: $my-black;
 }
 
-.user-bets-header, .user-stats-header {
-  padding: 2rem;
+.user-page-header {
+  padding: 0 0 0 2rem;
   color: $secondary-accent-color;
+}
+
+.user-bets-header, .user-stats-header, .user-page-header {
+  text-align: center;
+  color: #AEC7E8;
 }
 
 
 .actionable {
   background-color: $secondary-accent-color;
   position: absolute;
-  top: 2rem;
-  left: 0;
+  top: 0;
+  left: 50%;
   color: white;
   height: 40px;
+  transform: translate(-50%);
   width: 7.3em;
   text-align: center;
   padding-top: .35rem;
@@ -227,8 +244,6 @@
   .user-bets-li {
     img {
       margin-top: 1rem;
-      width: 60px;
-      height: 60px;
     }
   }
 
