@@ -280,9 +280,7 @@ def view_filtered_sorted_bets(filter, sorter):
     if bets:
         return jsonify({'data':all_bets}), 201
     else:
-        bets = Bet.query.all()
-        all_bets = [bet.make_dict() for bet in bets]
-        return jsonify({'data': all_bets})
+        return jsonify({'data': {}})
 
 
 @bets.route("/bets/<int:id>", methods = ["GET"])
@@ -517,7 +515,7 @@ def fund_bet(id):
                     stripe_customer_id = customer.id,
                     charity = charity.name,
                     charity_token = charity.access_token,
-                    date = str(datetime.datetime.now())[:10])
+                    date = str(datetime.datetime.now())[:16])
 
     db.session.add(funder)
     db.session.commit()
