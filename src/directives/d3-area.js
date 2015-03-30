@@ -11,15 +11,13 @@ app.directive('areaChart', function () {
         var dataset = scope.dataset;
         var cleanData = JSON.parse(dataset);
 
-        dataset = cleanData;
+        lineData = cleanData;
 
-        var margin = {top: 20, right: 30, bottom: 60, left: 30};
+        var margin = {top: 20, right: 30, bottom: 50, left: 30};
         var width = 300 - margin.left - margin.right,
             height = 250 - margin.top - margin.bottom;
 
-        var parseDate = d3.time.format("%Y-%m-%d %H:%M").parse;
-
-        var svg = d3.select(element[0]).append("svg")
+        var svg = d3.select("body").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
           .append("g")
@@ -27,12 +25,7 @@ app.directive('areaChart', function () {
 
 
 
-        dataset.forEach(function(d) {
-                d.x = parseDate(d.x);
-                d.y = +d.y;
-            });
-
-        var	x = d3.time.scale().range([0, width]);
+        var	x = d3.scale.linear().range([0, width]);
         var	y = d3.scale.linear().range([height, 0 ]);
 
 
@@ -50,23 +43,23 @@ app.directive('areaChart', function () {
 
 
 
-        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5);
+        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(lineData.length);
 
         var yAxis = d3.svg.axis()
                           .scale(y)
                           .orient("left")
                           .ticks(5);
 
-        x.domain(d3.extent(dataset,  function(d) { return d.x; }));
-        y.domain([0, d3.max(dataset, function(d) { return d.y; })]);
+        x.domain(d3.extent(lineData,  function(d) { return d.x; }));
+        y.domain([0, d3.max(lineData, function(d) { return d.y; })]);
 
         svg.append("path")
         		.attr("class", "area")
-        		.attr("d", area(dataset));
+        		.attr("d", area(lineData));
 
         svg.append("path")
                     .attr("class", "line")
-                    .attr("d", lineFunction(dataset))
+                    .attr("d", lineFunction(lineData))
                     .attr("stroke", "black")
                     .attr("stroke-width", 1)
                     .attr("fill", "none");
@@ -75,14 +68,7 @@ app.directive('areaChart', function () {
         svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + (height) + ")")
-            .call(xAxis)
-            .selectAll("text")
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", function(d) {
-                return "rotate(-65)"
-            });
+            .call(xAxis);
 
             // Add the Y Axis
         svg.append("g")
@@ -95,8 +81,6 @@ app.directive('areaChart', function () {
             .attr("x", width)
             .attr("y", height + margin.bottom)
             .text("Money Raised");
-
-
 
 
 

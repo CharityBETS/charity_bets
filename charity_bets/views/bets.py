@@ -101,23 +101,32 @@ def check_resolution(bet):
 
 def bet_chart_data(bet):
     # pulls funding data for bet challenger
-
     challenger_funders = Funder.query.filter_by(bet_id = bet.id,
                                                 is_funding = bet.challenger).all()
-    challenger_donations = []
+
+    challenger_donations =[{"x":0, "y": 0}]
     if challenger_funders:
-        for funder in challenger_funders:
-            challenger_donations.append({"x": funder.date, "y":int(funder.amount)})
+        total_donations = 0
+        funder_tick = 0
+
+    for funder in challenger_funders:
+        total_donations += funder.amount
+        funder_tick += 1
+        challenger_donations.append({"x": funder_tick, "y": total_donations})
 
     # pulls funding data for bet creator
 
     creator_funders = Funder.query.filter_by(bet_id = bet.id,
                                              is_funding = bet.creator).all()
-
-    creator_donations = []
+    creator_donations =[{"x":0, "y": 0}]
     if creator_funders:
-        for funder in creator_funders:
-            creator_donations.append({"x": funder.date, "y":int(funder.amount)})
+        total_donations = 0
+        funder_tick = 0
+
+    for funder in creator_funders:
+        total_donations += funder.amount
+        funder_tick += 1
+        creator_donations.append({"x": funder_tick, "y": total_donations})
 
     return {"creator_data":creator_donations,
             "challenger_data":challenger_donations}
@@ -487,7 +496,6 @@ def fund_bet(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
-    print("THIS IS THE DATA....", data)
     amount = int(data["amount"])
     if "creatorid" in data.keys():
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
