@@ -101,23 +101,32 @@ def check_resolution(bet):
 
 def bet_chart_data(bet):
     # pulls funding data for bet challenger
-
     challenger_funders = Funder.query.filter_by(bet_id = bet.id,
                                                 is_funding = bet.challenger).all()
-    challenger_donations = []
+
+    challenger_donations =[{"x":0, "y": 0}]
     if challenger_funders:
-        for funder in challenger_funders:
-            challenger_donations.append({"x": funder.date, "y":int(funder.amount)})
+        total_donations = 0
+        funder_tick = 0
+
+    for funder in challenger_funders:
+        total_donations += funder.amount
+        funder_tick += 1
+        challenger_donations.append({"x": funder_tick, "y": total_donations})
 
     # pulls funding data for bet creator
 
     creator_funders = Funder.query.filter_by(bet_id = bet.id,
                                              is_funding = bet.creator).all()
-
-    creator_donations = []
+    creator_donations =[{"x":0, "y": 0}]
     if creator_funders:
-        for funder in creator_funders:
-            creator_donations.append({"x": funder.date, "y":int(funder.amount)})
+        total_donations = 0
+        funder_tick = 0
+
+    for funder in creator_funders:
+        total_donations += funder.amount
+        funder_tick += 1
+        creator_donations.append({"x": funder_tick, "y": total_donations})
 
     return {"creator_data":creator_donations,
             "challenger_data":challenger_donations}
@@ -214,8 +223,9 @@ def view_bets():
             if bet['challenger']==current_user.id and bet['status']=='pending':
                 bet['needs_accepting'] = 'y'
             if bet['status'] == 'unresolved':
-                if current_user.id != bet['creator_outcome'] or bet['challenger_outcome']:
-                    bet['maybe_you_lost'] = 'y'
+                if current_user.id != bet['creator_outcome']:
+                    if bet['challenger_outcome']:
+                        bet['maybe_you_lost'] = 'y'
         return jsonify({"data": bets}), 201
     else:
         fake_bet_list = []
@@ -462,8 +472,12 @@ def charge_loser(id):
 
     if user.id == bet.creator:
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
+        bet.winning_charity = charity.id
+        bet.winning_charity_name = charity.name
     if user.id == bet.challenger:
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
+        bet.winning_charity = charity.id
+        bet.winning_charity_name = charity.name
 
     charity.amount_earned = charity.amount_earned + bet.amount
     bet.loser_paid = "paid"
@@ -487,7 +501,6 @@ def fund_bet(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)
     bet = Bet.query.filter_by(id = id).first()
-    print("THIS IS THE DATA....", data)
     amount = int(data["amount"])
     if "creatorid" in data.keys():
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
