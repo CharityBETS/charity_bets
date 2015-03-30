@@ -4,6 +4,10 @@
   text-align: center;
 }
 
+.bets-date {
+    font-size: 1.4em;
+}
+
 .bettor-name {
   // text-align: center;
   max-width: 300px;
@@ -70,7 +74,7 @@
 
 .bets-funding-title {
   font-size: 1.5rem;
-  padding-top: .4rem;
+  padding-top: .8rem;
 }
 
 
@@ -153,7 +157,10 @@
 
 .bets-section-3 {
   order: 3;
+}
 
+.profile-wrap {
+  text-align: center;
 }
 
 .number {
