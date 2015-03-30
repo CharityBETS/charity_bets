@@ -123,8 +123,6 @@ def get_current_user():
     for bet in bets:
         for charity in charities:
             if charity.id == bet.winning_charity:
-                print("WINNING CHARITY:")
-                print(charity.name)
                 if charity.name in charity_dict:
                     charity_dict[charity.name] += bet.total_money_raised
                 else:
