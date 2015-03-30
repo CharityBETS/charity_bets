@@ -69,7 +69,7 @@ def facebook_authorized():
 
     login_user(user)
 
-    return redirect('/#createbet')
+    return redirect('/#user/user-profile')
 
 @users.route("/logout")
 @login_required
