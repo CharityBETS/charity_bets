@@ -359,6 +359,25 @@ footer {
     box-shadow: 0 0 8px #88D5E9;
     border: 1px solid #88D5E9; }
 
+.charity-bet-page-total {
+  font-size: 2em;
+  padding-top: .5rem;
+  font-family: monserrat, sans-serif;
+  font-weight: 700; }
+
+.added-donations {
+  font-size: 1em;
+  padding-top: .5rem; }
+
+.winner-status {
+  font-family: major-wager;
+  position: absolute;
+  font-size: 5em;
+  top: -37px;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%); }
+
 .bet-section-top {
   display: -webkit-flex;
   display: -ms-flexbox;
