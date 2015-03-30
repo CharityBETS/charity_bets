@@ -4,11 +4,16 @@
   text-align: center;
 }
 
+.bettor-name {
+  // text-align: center;
+  max-width: 300px;
+}
 .bets-secondary-action-div {
   // border-bottom: 1px $secondary-accent-color solid;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   button {
     display: inline-block;
@@ -36,7 +41,9 @@
 }
 
 .bets-filter {
-  margin: 0;
+  margin: 0 !important;
+  display:flex;
+  justify-content: flex-end;
 }
 
 .filter-sort-wrap {
@@ -51,14 +58,19 @@
 }
 
 .bets-sort {
-  margin-top: .15rem;
   // margin-left: .25rem;
   float: right;
 }
 
 .bets-funding {
-  font-size: 1.3em;
-  font-weight: 700;
+  font-size: 2em;
+  // font-weight: 700;
+  padding-top: .4rem;
+}
+
+.bets-funding-title {
+  font-size: 1.5rem;
+  padding-top: .4rem;
 }
 
 
@@ -80,6 +92,7 @@
   padding-bottom: 1rem;
   letter-spacing: 2px;
   line-height: 1.25em;
+  max-width: 475px;
 
 
   a {
@@ -97,11 +110,13 @@
 .bets-users {
   font-size: 1.3em;
   color: $my-black ;
+  max-width: 200px;
 }
 
 .bets-amount {
-  font-size: 1.6em;
+  font-size: 2em;
   color: $secondary-accent-color;
+  padding-top: .4rem;
 }
 
 .bets-pic {
@@ -149,26 +164,73 @@
 #stat-title-label-winner {
   font-weight: 400;
   font-family: 'Raleway', sans-serif;
+  font-size: 1.5em;
+}
+
+.bets-actual-winner {
+  padding-top: .4rem;
+  font-size: 1.5em;
 }
 
 
-// .creator-pic-div {
-//   position: absolute;
-//   top: 2rem;
-//   left: 15%
-// }
-//
-// .challenger-pic {
-//   position: absolute;
-//   top: 2rem;
-//   right: 15%
-// }
 
+@media only screen and (max-width : 960px) {
+
+  .bets-flex-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 0;
+    min-width: 300px;
+    margin: 0 auto;
+    //
+    // min-width: 0px;
+    // justify-content: center;
+    // margin: 0 auto;
+    font-family: 'Raleway', sans-serif;
+    color: $secondary-accent-color;
+  }
+
+  .bets-ul {
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  .bets-section-1 {
+    order: 1;
+  }
+
+  .bets-section-2 {
+    order: 2;
+    text-align: center
+  }
+
+  .bets-section-3 {
+    order: 3;
+    text-align: center
+  }
+
+  .bets-title {
+
+    a {
+
+    text-align: center;
+    }
+  }
+
+  .bets-user {
+
+    a {
+    text-align: center;
+    }
+  }
+
+  .profile-wrap {
+    padding-top: 2rem;
+  }
+
+
+}
 
 @media only screen and (max-width : 480px) {
-  .bets-pic {
-    margin-top: 1.5rem;
-    height: 60px;
-    width: 60px;
-  }
+
 }

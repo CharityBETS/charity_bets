@@ -7,14 +7,16 @@
 }
 
 .org-page-img, .about-page-img, .contact-page-img {
-  background: url(http://upload.wikimedia.org/wikipedia/commons/1/1b/Frankfurter_stand_LOC_det.4a13502.jpg) no-repeat bottom center fixed;
+  background: url(http://upload.wikimedia.org/wikipedia/commons/1/1b/Frankfurter_stand_LOC_det.4a13502.jpg) no-repeat center center fixed;
   background-size: cover;
   height: 60vh;
+  width: 100%;
 }
 
 .about-page-img {
-  background: url(https://s3-us-west-2.amazonaws.com/betti/football.jpg) no-repeat top center fixed;
+  background: url(https://s3-us-west-2.amazonaws.com/betti/football.jpg) no-repeat center center fixed;
   background-size: cover;
+  height: 60vh;
 
 }
 

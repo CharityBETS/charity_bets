@@ -30,7 +30,7 @@
       </div>
       <div ng-show="bet.winner_name !== null" class="bet-status number">
         <div id="stat-title-label-winner">Winner</div>
-      {{bet.winner_name}}
+      <div class="bets-actual-winner">{{bet.winner_name}}</div>
       </div>
       <div class="bets-date">
         {{bet.date | date:'EEEE, MMM d'}}

@@ -59,6 +59,11 @@ def seed():
                     'name': "Bret Runestad",
                     'email': "bret.runestad@gmail.com",
                     'facebook_id': "10100983997732464"
+                    },
+                    {
+                    'name': "Jose Maria Olazabal Jesus Christos",
+                    'email': "notarealemail@gmail.com",
+                    'facebook_id': "10100983997732465"
                     }
                     ]
     for seed in user_seed_data:
