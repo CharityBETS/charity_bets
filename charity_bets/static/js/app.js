@@ -57,13 +57,6 @@ app.config(['$routeProvider', function($routeProvider) {
   self.cleanChallengerData = angular.toJson(self.challengerData);
   console.log(self.challengerData);
 
-  self.testData = function () {
-  alert(self.cleanCreatorData);
-};
-
-
-
-
   self.creatorWinner = function () {
     return (bet.creator === bet.verified_winner);
   };
@@ -311,6 +304,33 @@ app.config(['$routeProvider', function($routeProvider) {
   // self.isVerifiedWinner = function () {
   //   return (bets.winner_name !== null);
   // }
+    // self.betsFilterClassName = false;
+
+  // if (self.filter = 'all') {
+  //   self.betsFilterClassName = true;
+  // }
+  // else if  (self.filter = 'active') {
+  //   self.betsFilterClassName = true;
+  // }
+  // else if (self.filter = 'pending') {
+  //   self.betsFilterClassName = true;
+  // }
+  // else if (self.filter = 'complete') {
+  //   self.betsFilterClassName = true;
+  // };
+
+
+
+
+  self.filterBetAll = function (filter, sort) {
+    var filter = "all";
+    var sort = self.sort;
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+  };
+
 
   self.filterBetComplete = function (filter, sort) {
     var filter = "complete";
@@ -320,6 +340,7 @@ app.config(['$routeProvider', function($routeProvider) {
       self.bets = result;
     });
   };
+
 
   self.filterBetActive = function (filter, sort) {
     var filter = "active";
@@ -339,14 +360,6 @@ app.config(['$routeProvider', function($routeProvider) {
     });
   };
 
-  self.filterBetAll = function (filter, sort) {
-    var filter = "all";
-    var sort = self.sort;
-    betService.filterBet(filter, sort).then(function (result) {
-      console.log(result);
-      self.bets = result;
-    });
-  };
 
   self.isActiveFilter = function () {
     if (self.betsFilterClassName === "bets-filter") {

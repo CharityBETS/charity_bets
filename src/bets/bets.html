@@ -5,15 +5,15 @@
 
   <div class="filter-sort-wrap">
     <div class="bets-filter">
-      <button ng-click="vm.filterBetAll();vm.filter='all'" class="bets-filter" ng-class="vm.betsFilterClassName">All</button>
-      <button ng-click="vm.filterBetActive();vm.filter='active'" class="bets-filter" ng-class="vm.betsFilterClassName">Active</button>
-      <button ng-click="vm.filterBetComplete();vm.filter='complete'" class="bets-filter" ng-class="vm.betsFilterClassName">Complete</button>
-      <button ng-click="vm.filterBetPending();vm.filter='pending'" class="bets-filter" ng-class="vm.betsFilterClassName">Pending</button>
+      <button ng-click="vm.filterBetAll();filter='all'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'all'}">All</button>
+      <button ng-click="vm.filterBetActive();filter='active'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'active'}">Active</button>
+      <button ng-click="vm.filterBetComplete();filter='complete'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'complete'}">Complete</button>
+      <button ng-click="vm.filterBetPending();filter='pending'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'pending'}">Pending</button>
     </div>
     <div class="bets-sort">
-      <button ng-click="vm.sortFunding();vm.sort='total_money_raised'" class="bets-sort">Funding</button>
-      <button ng-click="vm.sortBetSize();vm.sort='amount'" class="bets-sort">Bet Size</button>
-      <button ng-click="vm.sortDate();vm.sort='id'" class="bets-sort">Date</button>
+      <button ng-click="vm.sortBetSize();betsSort='amount'" class="bets-sort" ng-class="{'bets-filter-active' : betsSort === 'amount'}">Bet Size</button>
+      <button ng-click="vm.sortFunding();betsSort='total_money_raised'" class="bets-sort" ng-class="{'bets-filter-active' : betsSort === 'total_money_raised'}">Funding</button>
+      <button ng-click="vm.sortDate();betsSort='id'" class="bets-sort" ng-class="{'bets-filter-active' : betsSort === 'id'}">Date</button>
     </div>
   </div>
 </div>
@@ -38,6 +38,8 @@
       <div class="bets-amount">
         {{bet.amount | currency:"$":0}}
       </div>
+      <div class="bets-funding-title">Donations</div>
+      <div class="bets-funding">{{bet.total_money_raised | currency:"$":0}}</div>
     </div>
 
     <!-- <div class="prize-purse">

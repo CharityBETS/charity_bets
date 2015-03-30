@@ -17,13 +17,13 @@
     width: 7em;
   }
 
-  .bets-filter {
+  .bets-filter-button {
     background-color: $my-gray;
     color: $secondary-accent-color;
     margin: 0;
   }
 
-  .bets-filter:hover {
+  .bets-filter-button:hover {
     background-color: $secondary-accent-color;
     color: $my-gray;
     margin: 0;
@@ -54,6 +54,11 @@
   float: right;
 }
 
+.bets-funding {
+  font-size: 1.3em;
+  font-weight: 700;
+
+}
 
 
 

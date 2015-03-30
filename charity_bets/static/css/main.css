@@ -1392,11 +1392,11 @@ svg {
     border-radius: 0;
     padding: .5rem 0;
     width: 7em; }
-  .bets-secondary-action-div .bets-filter {
+  .bets-secondary-action-div .bets-filter-button {
     background-color: #d3d5d8;
     color: #3072a8;
     margin: 0; }
-  .bets-secondary-action-div .bets-filter:hover {
+  .bets-secondary-action-div .bets-filter-button:hover {
     background-color: #3072a8;
     color: #d3d5d8;
     margin: 0; }
@@ -1419,6 +1419,10 @@ svg {
 .bets-sort {
   margin-top: .15rem;
   float: right; }
+
+.bets-funding {
+  font-size: 1.3em;
+  font-weight: 700; }
 
 .bets-li {
   background-color: #F4F4F4;

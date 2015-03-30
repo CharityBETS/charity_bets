@@ -44,13 +44,6 @@ app.config(['$routeProvider', function($routeProvider) {
   self.cleanChallengerData = angular.toJson(self.challengerData);
   console.log(self.challengerData);
 
-  self.testData = function () {
-  alert(self.cleanCreatorData);
-};
-
-
-
-
   self.creatorWinner = function () {
     return (bet.creator === bet.verified_winner);
   };
