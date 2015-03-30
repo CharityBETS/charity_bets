@@ -42,7 +42,7 @@ def seed():
                     },
                     {
                     'name': "Daniel Newell",
-                    'email': "dn78685@appstate.edu",
+                    'email': "dknewell1@gmail.com",
                     'facebook_id': "10101587473382708"
                     },
                     {
@@ -52,7 +52,7 @@ def seed():
                     },
                     {
                     'name': "Ben Batty",
-                    'email': "bbatty32@yahoo.com",
+                    'email': "battybenjamin@gmail.com",
                     'facebook_id': "10153168971512790"
                     },
                     {
