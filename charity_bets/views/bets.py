@@ -463,8 +463,12 @@ def charge_loser(id):
 
     if user.id == bet.creator:
         charity = Charity.query.filter_by(name = bet.charity_creator).first()
+        bet.winning_charity = charity.id
+        bet.winning_charity_name = charity.name
     if user.id == bet.challenger:
         charity = Charity.query.filter_by(name = bet.charity_challenger).first()
+        bet.winning_charity = charity.id
+        bet.winning_charity_name = charity.name
 
     charity.amount_earned = charity.amount_earned + bet.amount
     bet.loser_paid = "paid"

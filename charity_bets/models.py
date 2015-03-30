@@ -72,6 +72,8 @@ class Bet(db.Model):
     creator_money_raised = db.Column(db.Integer, default = 0)
     challenger_money_raised = db.Column(db.Integer, default = 0)
     total_money_raised = db.Column(db.Integer, default = 0)
+    winning_charity = db.Column(db.Integer)
+    winning_charity_name = db.Column(db.String(255))
 
     def make_dict(self):
         return {"id": self.id,
@@ -101,6 +103,8 @@ class Bet(db.Model):
                 "creator_money_raised": self.creator_money_raised,
                 "challenger_money_raised": self.challenger_money_raised,
                 "total_money_raised": self.total_money_raised,
+                "winning_charity": self.winning_charity,
+                "winning_charity_name": self.winning_charity_name
             }
 
 

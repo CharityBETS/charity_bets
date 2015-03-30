@@ -7,7 +7,7 @@ from flask_mail import Message
 
 
 from ..extensions import oauth, db
-from ..models import User
+from ..models import User, Bet, Charity
 
 
 facebook = oauth.remote_app('facebook',
@@ -117,9 +117,26 @@ def redirect_to_bets(id):
 @login_required
 def get_current_user():
     user = User.query.filter_by(id = current_user.id).first()
+    bets = Bet.query.filter_by(verified_winner=current_user.id).all()
+    charities = Charity.query.all()
+    charity_dict = dict()
+    for bet in bets:
+        for charity in charities:
+            if charity.id == bet.winning_charity:
+                print("WINNING CHARITY:")
+                print(charity.name)
+                if charity.name in charity_dict:
+                    charity_dict[charity.name] += bet.total_money_raised
+                else:
+                    charity_dict[charity.name] = bet.total_money_raised
+    charity_list = []
+    for key in charity_dict:
+        charity_list.append({"label": key, "value": charity_dict[key]})
+
     if user:
         user = user.make_dict()
         user['total_money_raised'] = user['money_won'] + user['donation_money_raised']
+        user["charities"] = charity_list
     return jsonify({'data': user})
 
 
