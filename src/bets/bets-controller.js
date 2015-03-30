@@ -17,6 +17,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.bets = bets;
   self.sort = "total_money_raised";
   self.filterClassName = "bets-filter";
+  self.filter="all";
   // self.filter = "all";
 
   // self.currentUser = currentUser;

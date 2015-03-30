@@ -1471,9 +1471,9 @@ svg {
   -ms-flex-direction: row;
   flex-direction: row;
   max-width: 990px;
-  -webkit-justify-content: space-around;
-  -ms-flex-pack: distribute;
-  justify-content: space-around;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   margin: 0 auto;
   font-family: 'Raleway', sans-serif;
   color: #3072a8; }
