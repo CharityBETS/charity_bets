@@ -37,6 +37,13 @@ app.config(['$routeProvider', function($routeProvider) {
   self.donation=Donation();
   self.charities=charities;
   self.modalaction=false;
+  self.creatorData = bet.chart_data.creator_data;
+  console.log(self.creatorData);
+  self.cleanCreatorData = angular.toJson(self.creatorData);
+  self.challengerData = bet.chart_data.challenger_data;
+  self.cleanChallengerData = angular.toJson(self.challengerData);
+  console.log(self.challengerData);
+
   self.creatorWinner = function () {
     return (bet.creator === bet.verified_winner);
   };
@@ -97,9 +104,10 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.addComment = function () {
     betService.addComment(bet.id, self.comment).then(function(result) {
-      self.comment=result.comment;
+      console.log(result.comment);
+      self.bet.comments.comment=result.comment;
     });
-    self.comment="";
+     self.comment="";
     location.reload();
   };
 

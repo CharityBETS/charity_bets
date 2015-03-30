@@ -38,12 +38,10 @@ def user_money_raised(bet):
     creator = User.query.filter_by(id = bet.creator).first()
     challenger = User.query.filter_by(id=bet.challenger).first()
     if creator.id == bet.verified_winner:
-        donation_money_raised = bet.creator_money_raised - bet.amount
-        creator.donation_money_raised += donation_money_raised
+        creator.donation_money_raised += bet.creator_money_raised
 
     if challenger.id == bet.verified_winner:
-        donation_money_raised = bet.challenger_money_raised - bet.amount
-        challenger.donation_money_raised += donation_money_raised
+        challenger.donation_money_raised += bet.challenger_money_raised
 
 
 def charge_funders(bet):
@@ -111,7 +109,7 @@ def bet_chart_data(bet):
     challenger_donations = []
     if challenger_funders:
         for funder in challenger_funders:
-            challenger_donations.append({funder.amount: funder.date})
+            challenger_donations.append({"x": funder.date, "y":int(funder.amount)})
 
     # pulls funding data for bet creator
 
@@ -284,9 +282,7 @@ def view_filtered_sorted_bets(filter, sorter):
     if bets:
         return jsonify({'data':all_bets}), 201
     else:
-        bets = Bet.query.all()
-        all_bets = [bet.make_dict() for bet in bets]
-        return jsonify({'data': all_bets})
+        return jsonify({'data': {}})
 
 
 @bets.route("/bets/<int:id>", methods = ["GET"])
@@ -546,7 +542,7 @@ def fund_bet(id):
         source = data['token'],
         description="payinguser@example.com"
         )
-    print(customer)
+    # print(customer)
     funder = Funder(is_funding = isfunding,
                     user_id = current_user.id,
                     bet_id = id,
@@ -554,7 +550,7 @@ def fund_bet(id):
                     stripe_customer_id = customer.id,
                     charity = charity.name,
                     charity_token = charity.access_token,
-                    date = str(datetime.datetime.now())[:10])
+                    date = str(datetime.datetime.now())[:16])
 
     db.session.add(funder)
     db.session.commit()
