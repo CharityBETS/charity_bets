@@ -17,7 +17,7 @@ app.directive('areaChart', function () {
         var width = 300 - margin.left - margin.right,
             height = 250 - margin.top - margin.bottom;
 
-        var parseDate = d3.time.format("%Y-%m-%d").parse;
+        var parseDate = d3.time.format("%Y-%m-%d %H:%M").parse;
 
         var svg = d3.select("body").append("svg")
             .attr("width", width + margin.left + margin.right)
