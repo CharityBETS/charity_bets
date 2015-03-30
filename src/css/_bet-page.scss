@@ -26,6 +26,10 @@
     margin-top: -3rem;
   }
 
+  .accept {
+    margin-bottom: 1rem;
+  }
+
   .bet-win {
     margin-bottom: 1rem;
     background-color: $secondary-accent-color;
@@ -288,7 +292,7 @@
 .bet-flex-wrap {
   display: flex;
   flex-direction: row;
-  max-width: 1000px;
+  max-width: 1100px;
   justify-content: space-around;
   margin: 0 auto;
   flex-wrap: wrap;

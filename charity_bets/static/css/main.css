@@ -329,6 +329,8 @@ footer {
     border: 2px solid #3072a8; }
   .create-bet-wrapper .submit-bet {
     margin-top: -3rem; }
+  .create-bet-wrapper .accept {
+    margin-bottom: 1rem; }
   .create-bet-wrapper .bet-win {
     margin-bottom: 1rem;
     background-color: #3072a8; }
@@ -550,7 +552,7 @@ footer {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  max-width: 1000px;
+  max-width: 1100px;
   -webkit-justify-content: space-around;
   -ms-flex-pack: distribute;
   justify-content: space-around;
