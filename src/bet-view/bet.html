@@ -19,6 +19,13 @@
         <div class="info-title">Location:</div>
         <div class="location">{{vm.bet.location}}</div>
       </div>
+
+    <div class="who-won-div">
+        <h4>Who Won</h4>
+         <button class="bet-win" ng-click="vm.betOutcomeWin()">I WON</button>
+         <button class="bet-lose" ng-click="vm.modalaction=true">I LOST</button>
+    </div>
+
     </div>
 
     <div class="better-profile hero-bettor flex-section-2">
@@ -60,12 +67,7 @@
           <div ng-show="vm.showResolutionButton()" class="choose-winner-div">
             <div class="choose-winner-wrapper">
                 <!-- <p ng-hide="showme">It will appear here!</p> -->
-                 <div>
-                   <h4>Who Won</h4>
-                    <button class="bet-win" ng-click="vm.betOutcomeWin()">I WON</button>
-                    <button class="bet-lose" ng-click="vm.modalaction=true">I LOST</button>
-                    <!-- <button class="bet-lose" ng-click="vm.betOutcomeLose()">I LOST</button> -->
-                </div>
+
             </div>
          </div>
 
