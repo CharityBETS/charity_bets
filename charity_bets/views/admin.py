@@ -62,6 +62,14 @@ def delete_charity(id):
     else:
         return jsonify({"ERROR": "Not authorized to make this request"}), 401
 
+@admin.route("/api/admin/charities", methods =["GET"])
+@login_required
+def view_full_charities():
+    if verify_user(current_user):
+        charities = Charity.query.all()
+        all_charities = [charity.make_dict() for charity in charities]
+        return jsonify({"data": all_charities}), 201
+
 @admin.route("/api/admin/bets", methods=["GET"])
 @login_required
 def really_get_all_bets():
@@ -96,7 +104,7 @@ def post_charity():
 
         db.session.add(charity)
         db.session.commit()
-        
+
         return render_template('charity_form.html', form = form)
 
     else:
