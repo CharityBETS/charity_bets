@@ -1,5 +1,6 @@
 <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
+<h2 class="user-page-header">User</h2>
 <div class="profile-top-section">
     <div class="profile-details-container">
         <h3>{{vm.thisUser.name}}</h3>
@@ -10,48 +11,59 @@
 
     <div class="profile-stats">
       <h3 class="user-stats">Stats</h3>
-
-
-
       <div class="good-stats">
         <div class="left-stats">
-          <div class="bets-made">{{vm.thisUser.bets_made}}</div>
-          <div class="stat-title-label">Bets Made</div>
-        </div>
-        <div class="right-stats">
-          <div class="money-won">{{vm.thisUser.money_won | currency:"$":0}}</div>
-          <div class="stat-title-label">Money Won</div>
-       </div>
-      </div>
-
-      <div class="good-stats">
-        <div class="left-stats">
-          <div class="total-money-raised">$12,235</div>
+          <div class="total-money-raised">{{vm.thisUser.total_money_raised | currency:"$":0}}</div>
           <div class="stat-title-label">Total Money Raised</div>
         </div>
       </div>
     </div>
  </div>
 
+ <h2 class="user-stats-header">User Stats</h2>
  <div class="stats-vis-section">
-     <h2 class="user-stats-header">User Stats</h2>
-     <div class="donut-wrap">
+
+
+     <!-- <div class="donut-wrap">
        <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
        <div class="donut-stat-inner-wrap">
          <div class="user-win-streak">{{vm.thisUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
        </div>
+     </div> -->
+
+     <div class="donut-wrap">
+       <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
+       <div class="donut-stat-inner-wrap">
+         <div class="user-win-streak">{{vm.thisUser.money_won | currency:"$":0}}<div class="user-win-streak-label">Money Won</div></div>
+         <div class="user-lose-streak">{{vm.thisUser.money_lost | currency:"$":0}}<div class="user-lose-streak-label">Money Lost</div></div>
+       </div>
+       <div class="user-win-streak-label">Money Won vs Money Lost</div>
      </div>
 
-     <div class="gauge-wrap">
+
+     <!-- <div class="gauge-wrap">
        <gauge-chart  class="gauge"></gauge-chart>
        <!-- <div class="donut-stat-inner-wrap">
          <div class="user-win-streak">{{vm.currentUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
        </div> -->
+     </div> -->
+
+     <div class="gauge-wrap">
+       <gauge-chart dataset="vm.gaugeData" class="gauge"></gauge-chart>
+       <div class="gauge-stat-inner-wrap">
+         <div class="user-win-streak-label">Win Streak Vs. Longest Win Streak</div>
+         <div class="user-win-streak">{{vm.thisUser.win_streak}}/{{vm.thisUser.longest_win_streak}}</div>
+       </div>
      </div>
 
-</div>
+<!-- </div> -->
 
-
+    <div class="donut-wrap-2">
+      <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
+      <div class="donut-stat-inner-wrap">
+        <div class="user-win-streak">{{vm.thisUser.money_won | currency:"$":0}}<div class="user-win-streak-label">Money Won</div></div>
+      </div>
+    </div>
 
 
 

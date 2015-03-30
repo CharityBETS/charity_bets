@@ -12,6 +12,7 @@
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
+  max-width: 1000px;
 
   a {
     color: $my-black;
@@ -36,12 +37,9 @@
 .profile-details-container {
   text-align: center;
   justify-content: center;
+  max-width: 1000px;
 }
 
-.user-page-header {
-  padding: 0 0 0 2rem;
-  color: $secondary-accent-color;
-}
 
 .profile-user-name {
   font-family: 'Raleway', sans-serif;
@@ -51,7 +49,7 @@
 
 .stat-title-label {
   text-align: center;
-  font-size: 1.25em;
+  font-size: 1.5em;
 }
 
 .right-stats {
@@ -63,7 +61,11 @@
   height: 300px;
   border-radius: 150px;
   margin-top: 1rem;
-  border: 5px solid $secondary-accent-color;;
+  border: 5px solid $secondary-accent-color;
+}
+
+.bets-made {
+  text-align: center;
 }
 
 .good-stats, .bad-stats {
@@ -81,10 +83,12 @@
 
 .bets-made, .money-won, .money-lost, .user-record-losses, .total-money-raised {
   font-size: 4.4em;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.4em;
   padding: 0 1.5rem;
 }
+
+
 
 .user-record {
   padding-top: .75rem;
@@ -103,6 +107,7 @@
 
 .total-money-raised {
   padding-top: 1.5rem;
+  font-size: 7.5em;
 }
 
 .stats-vis-section {
@@ -113,6 +118,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  max-width: 1000px;
 }
 
 .profile-section-two {
@@ -129,7 +135,7 @@
   padding: 4rem 0;
   position: relative;
   color: $my-black;
-  border-top: 2px solid #e7e7e7;
+  border-bottom: 2px solid #e7e7e7;
   background-color: $my-white;
 
   img {
@@ -139,6 +145,11 @@
 
 .user-bets-li:nth-child(even) {
   color: $my-black;
+}
+
+.user-page-header {
+  padding: 0 0 0 2rem;
+  color: $secondary-accent-color;
 }
 
 .user-bets-header, .user-stats-header {
@@ -227,8 +238,6 @@
   .user-bets-li {
     img {
       margin-top: 1rem;
-      width: 60px;
-      height: 60px;
     }
   }
 

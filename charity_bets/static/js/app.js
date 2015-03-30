@@ -611,11 +611,15 @@ app.directive('gaugeChart', function () {
            .append("g")
            .attr("transform", "translate(" + width / 4 + "," + width / 4 + ")");
 
-        var title = svg.append("text")
-         .attr("dy", ".35em")
-         .style("text-anchor", "middle")
-         .attr("class", "inside")
-         .text(function(d) { return percentage + "%"; })
+        // var title = svg.append("text")
+        //  .style("color", "#3072a8")
+        //  .style("text-anchor", "middle")
+        //  .style("text-anchor", "center")
+        //  .attr("dy", ".35em")
+        //  .attr("class", "inside")
+        //  .style("margin-top", "-25px")
+        //  .style("font-size", "2em")
+        //  .text(function(d) { return x + " vs " + y; })
 
         var path = svg.selectAll("path")
            .data(pie(winstreak))
@@ -1044,7 +1048,8 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
   self.thisUser = thisUser;
   self.thisUserBets = thisUserBets;
-  self.winDonutData = [thisUser.wins, thisUser.losses]
+  self.winDonutData = [thisUser.money_won, thisUser.money_lost];
+  self.gaugeData = [thisUser.win_streak, thisUser.longest_win_streak];
 
 }]);
 
@@ -1086,17 +1091,18 @@ app.config(['$routeProvider', function($routeProvider) {
   console.log(self.winDonutData);
   self.goo = [currentUser.money_won, currentUser.money_lost];
   self.gaugeData = [currentUser.win_streak, currentUser.longest_win_streak];
+  self.totalMoneyStat = parseInt(currentUser.money_won) + parseInt(currentUser.donation_money_raised);
 
-  $scope.stripeCallback = function (code, result) {
-      var buttons = document.querySelector('.form-stripe-button');
-      var id = buttons.parentNode.getAttribute('data-id');
-      if (result.error) {
-          window.alert('it failed! error: ' + result.error.message);
-      } else {
-          window.alert('success! token: ' + result.id);
-          alert(id, result.id);
-          userService.sendStripe(id, result.id);
-      }
+  // $scope.stripeCallback = function (code, result) {
+  //     var buttons = document.querySelector('.form-stripe-button');
+  //     var id = buttons.parentNode.getAttribute('data-id');
+  //     if (result.error) {
+  //         window.alert('it failed! error: ' + result.error.message);
+  //     } else {
+  //         window.alert('success! token: ' + result.id);
+  //         alert(id, result.id);
+  //         userService.sendStripe(id, result.id);
+  //     }
   };
 
 
