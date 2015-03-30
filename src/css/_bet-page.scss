@@ -35,6 +35,11 @@
     background-color: $secondary-accent-color;
   }
 
+  .bet-win:hover {
+    color: $secondary-accent-color;
+    background-color: $my-white;
+  }
+
   .bet-lose {
     background-color: #f4f4f4;
     border: 2px solid $secondary-accent-color;
@@ -73,7 +78,7 @@
   justify-content: space-around;
   margin: 0 auto;
   flex-wrap: wrap;
-  padding: 0em 0 1em;
+  padding: 3rem 0 1em;
 }
 
 .flex-section-1 {
@@ -134,6 +139,10 @@
   border-radius: 6px;
 }
 
+.who-won-div {
+  padding-top: 1rem;
+}
+
 
 .profile-details-wrap {
   // border: 1px black solid;
@@ -177,6 +186,7 @@
   letter-spacing: 4px;
   padding-top: 1rem;
   text-align: center;
+  margin: 0 auto;
 
   a {
     color: $secondary-accent-color;
@@ -206,7 +216,10 @@
 }
 
 .charity {
-  padding-bottom: 0em;
+  padding-top: 1rem;
+  font-size: 1.4em;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .select-org {
@@ -374,6 +387,8 @@
     display: block;
     padding: 2em 0;
   }
+
+
 
   .bet-essentials {
     max-width: 85%;

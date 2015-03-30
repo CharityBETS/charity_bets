@@ -334,6 +334,9 @@ footer {
   .create-bet-wrapper .bet-win {
     margin-bottom: 1rem;
     background-color: #3072a8; }
+  .create-bet-wrapper .bet-win:hover {
+    color: #3072a8;
+    background-color: #F4F4F4; }
   .create-bet-wrapper .bet-lose {
     background-color: #f4f4f4;
     border: 2px solid #3072a8;
@@ -371,7 +374,7 @@ footer {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 0em 0 1em; }
+  padding: 3rem 0 1em; }
 
 .flex-section-1 {
   -webkit-order: 2;
@@ -421,6 +424,9 @@ footer {
   font-size: 3em;
   border-radius: 6px; }
 
+.who-won-div {
+  padding-top: 1rem; }
+
 .profile-details-wrap {
   padding: 0 0;
   color: white;
@@ -452,7 +458,8 @@ footer {
   color: #3072a8;
   letter-spacing: 4px;
   padding-top: 1rem;
-  text-align: center; }
+  text-align: center;
+  margin: 0 auto; }
   .bettor-name a {
     color: #3072a8;
     font-family: 'Raleway', sans-serif; }
@@ -490,7 +497,10 @@ footer {
     -webkit-transform: scale(1); } }
 
 .charity {
-  padding-bottom: 0em; }
+  padding-top: 1rem;
+  font-size: 1.4em;
+  max-width: 300px;
+  margin: 0 auto; }
 
 .select-org {
   color: black;
@@ -1131,13 +1141,15 @@ input.ng-valid.ng-dirty {
   text-align: center; }
 
 .org-page-img, .about-page-img, .contact-page-img {
-  background: url(http://upload.wikimedia.org/wikipedia/commons/1/1b/Frankfurter_stand_LOC_det.4a13502.jpg) no-repeat bottom center fixed;
+  background: url(http://upload.wikimedia.org/wikipedia/commons/1/1b/Frankfurter_stand_LOC_det.4a13502.jpg) no-repeat center center fixed;
   background-size: cover;
-  height: 60vh; }
+  height: 60vh;
+  width: 100%; }
 
 .about-page-img {
-  background: url(https://s3-us-west-2.amazonaws.com/betti/football.jpg) no-repeat top center fixed;
-  background-size: cover; }
+  background: url(https://s3-us-west-2.amazonaws.com/betti/football.jpg) no-repeat center center fixed;
+  background-size: cover;
+  height: 60vh; }
 
 .contact-page-img {
   background: url(https://s3-us-west-2.amazonaws.com/betti/cars-racing.jpg) no-repeat bottom center fixed;
@@ -1379,6 +1391,9 @@ svg {
 .bets-title, .bets-date, .bets-amount, .bets-users {
   text-align: center; }
 
+.bettor-name {
+  max-width: 300px; }
+
 .bets-secondary-action-div {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1388,7 +1403,10 @@ svg {
   flex-direction: row;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
-  justify-content: space-between; }
+  justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
   .bets-secondary-action-div button {
     display: inline-block;
     border-radius: 0;
@@ -1407,7 +1425,13 @@ svg {
     color: yellow; }
 
 .bets-filter {
-  margin: 0; }
+  margin: 0 !important;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end; }
 
 .filter-sort-wrap {
   display: -webkit-flex;
@@ -1422,12 +1446,15 @@ svg {
   display: inline-block; }
 
 .bets-sort {
-  margin-top: .15rem;
   float: right; }
 
 .bets-funding {
-  font-size: 1.3em;
-  font-weight: 700; }
+  font-size: 2em;
+  padding-top: .4rem; }
+
+.bets-funding-title {
+  font-size: 1.5rem;
+  padding-top: .4rem; }
 
 .bets-li {
   background-color: #F4F4F4;
@@ -1443,7 +1470,8 @@ svg {
   font-size: 2.2em;
   padding-bottom: 1rem;
   letter-spacing: 2px;
-  line-height: 1.25em; }
+  line-height: 1.25em;
+  max-width: 475px; }
   .bets-title a {
     color: #3072a8;
     font-family: 'Raleway', serif; }
@@ -1453,11 +1481,13 @@ svg {
 
 .bets-users {
   font-size: 1.3em;
-  color: #484848; }
+  color: #484848;
+  max-width: 200px; }
 
 .bets-amount {
-  font-size: 1.6em;
-  color: #3072a8; }
+  font-size: 2em;
+  color: #3072a8;
+  padding-top: .4rem; }
 
 .bets-pic {
   width: 200px;
@@ -1504,10 +1534,47 @@ svg {
 
 #stat-title-label-winner {
   font-weight: 400;
-  font-family: 'Raleway', sans-serif; }
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.5em; }
 
-@media only screen and (max-width: 480px) {
-  .bets-pic {
-    margin-top: 1.5rem;
-    height: 60px;
-    width: 60px; } }
+.bets-actual-winner {
+  padding-top: .4rem;
+  font-size: 1.5em; }
+
+@media only screen and (max-width: 960px) {
+  .bets-flex-container {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-width: 0;
+    min-width: 300px;
+    margin: 0 auto;
+    font-family: 'Raleway', sans-serif;
+    color: #3072a8; }
+  .bets-ul {
+    width: 85%;
+    margin: 0 auto; }
+  .bets-section-1 {
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1; }
+  .bets-section-2 {
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    order: 2;
+    text-align: center; }
+  .bets-section-3 {
+    -webkit-order: 3;
+    -ms-flex-order: 3;
+    order: 3;
+    text-align: center; }
+  .bets-title a {
+    text-align: center; }
+  .bets-user a {
+    text-align: center; }
+  .profile-wrap {
+    padding-top: 2rem; } }
+
