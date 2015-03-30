@@ -9,11 +9,34 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
   button {
     display: inline-block;
     border-radius: 0;
-    padding: .5rem .5rem;
+    padding: .5rem 0;
+    width: 7em;
   }
+
+  .bets-filter-button {
+    background-color: $my-gray;
+    color: $secondary-accent-color;
+    margin: 0;
+  }
+
+  .bets-filter-button:hover {
+    background-color: $secondary-accent-color;
+    color: $my-gray;
+    margin: 0;
+  }
+
+  .bets-filter-active {
+    background-color: purple;
+    color: yellow;
+  }
+}
+
+.bets-filter {
+  margin: 0;
 }
 
 .filter-sort-wrap {
@@ -27,10 +50,16 @@
 
 }
 
-.bet-sort {
-  margin-top: .25rem;
+.bets-sort {
+  margin-top: .15rem;
+  // margin-left: .25rem;
+  float: right;
 }
 
+.bets-funding {
+  font-size: 1.3em;
+  font-weight: 700;
+}
 
 
 
@@ -71,22 +100,23 @@
 }
 
 .bets-amount {
-  font-size: 1.4em;
+  font-size: 1.6em;
   color: $secondary-accent-color;
 }
 
 .bets-pic {
-  width: 140px;
-  height: 140px;
-  border-radius: 70px;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
   border: 3px solid $secondary-accent-color;
 }
 
 .bets-flex-container {
   display: flex;
   flex-direction: row;
-  max-width: 880px;
-  justify-content: space-around;
+  max-width: 990px;
+  // min-width: 0px;
+  justify-content: space-between;
   margin: 0 auto;
   font-family: 'Raleway', sans-serif;
   color: $secondary-accent-color;

@@ -7,19 +7,19 @@ app.directive('areaChart', function () {
       },
       link: function(scope, element, attrs) {
 
-        var lineData = [ { "x": '2015-03-15' ,"y": 35},{ "x": '2015-03-21', "y": 10}, { "x": '2015-03-31',   "y": 15}  ];
-        function getDate(d) {
+        // var shit = [ { "x": '2015-03-15' ,"y": 35},{ "x": '2015-03-21', "y": 10}, { "x": '2015-03-31',   "y": 15}  ];
+        var dataset = scope.dataset;
+        var cleanData = JSON.parse(dataset);
 
-             return new Date(d.x);
-         }
+        dataset = cleanData;
 
         var margin = {top: 20, right: 30, bottom: 60, left: 30};
         var width = 300 - margin.left - margin.right,
             height = 250 - margin.top - margin.bottom;
 
-        var parseDate = d3.time.format("%Y-%m-%d").parse;
+        var parseDate = d3.time.format("%Y-%m-%d %H:%M").parse;
 
-        var svg = d3.select("body").append("svg")
+        var svg = d3.select(element[0]).append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
           .append("g")
@@ -27,7 +27,7 @@ app.directive('areaChart', function () {
 
 
 
-        lineData.forEach(function(d) {
+        dataset.forEach(function(d) {
                 d.x = parseDate(d.x);
                 d.y = +d.y;
             });
@@ -57,16 +57,16 @@ app.directive('areaChart', function () {
                           .orient("left")
                           .ticks(5);
 
-        x.domain(d3.extent(lineData,  function(d) { return d.x; }));
-        y.domain([0, d3.max(lineData, function(d) { return d.y; })]);
+        x.domain(d3.extent(dataset,  function(d) { return d.x; }));
+        y.domain([0, d3.max(dataset, function(d) { return d.y; })]);
 
         svg.append("path")
         		.attr("class", "area")
-        		.attr("d", area(lineData));
+        		.attr("d", area(dataset));
 
         svg.append("path")
                     .attr("class", "line")
-                    .attr("d", lineFunction(lineData))
+                    .attr("d", lineFunction(dataset))
                     .attr("stroke", "black")
                     .attr("stroke-width", 1)
                     .attr("fill", "none");

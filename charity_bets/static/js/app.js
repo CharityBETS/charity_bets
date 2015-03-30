@@ -50,6 +50,13 @@ app.config(['$routeProvider', function($routeProvider) {
   self.donation=Donation();
   self.charities=charities;
   self.modalaction=false;
+  self.creatorData = bet.chart_data.creator_data;
+  console.log(self.creatorData);
+  self.cleanCreatorData = angular.toJson(self.creatorData);
+  self.challengerData = bet.chart_data.challenger_data;
+  self.cleanChallengerData = angular.toJson(self.challengerData);
+  console.log(self.challengerData);
+
   self.creatorWinner = function () {
     return (bet.creator === bet.verified_winner);
   };
@@ -110,9 +117,10 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.addComment = function () {
     betService.addComment(bet.id, self.comment).then(function(result) {
-      self.comment=result.comment;
+      console.log(result.comment);
+      self.bet.comments.comment=result.comment;
     });
-    self.comment="";
+     self.comment="";
     location.reload();
   };
 
@@ -283,6 +291,10 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
   self.bets = bets;
   self.sort = "total_money_raised";
+  self.filterClassName = "bets-filter";
+  self.filter="all";
+  // self.filter = "all";
+
   // self.currentUser = currentUser;
   // self.users = users;
 
@@ -293,8 +305,35 @@ app.config(['$routeProvider', function($routeProvider) {
   // self.isVerifiedWinner = function () {
   //   return (bets.winner_name !== null);
   // }
+    // self.betsFilterClassName = false;
 
-  self.sortBetComplete = function (filter, sort) {
+  // if (self.filter = 'all') {
+  //   self.betsFilterClassName = true;
+  // }
+  // else if  (self.filter = 'active') {
+  //   self.betsFilterClassName = true;
+  // }
+  // else if (self.filter = 'pending') {
+  //   self.betsFilterClassName = true;
+  // }
+  // else if (self.filter = 'complete') {
+  //   self.betsFilterClassName = true;
+  // };
+
+
+
+
+  self.filterBetAll = function (filter, sort) {
+    var filter = "all";
+    var sort = self.sort;
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+  };
+
+
+  self.filterBetComplete = function (filter, sort) {
     var filter = "complete";
     var sort = self.sort;
     betService.filterBet(filter, sort).then(function (result) {
@@ -303,7 +342,8 @@ app.config(['$routeProvider', function($routeProvider) {
     });
   };
 
-  self.sortBetActive = function (filter, sort) {
+
+  self.filterBetActive = function (filter, sort) {
     var filter = "active";
     var sort = self.sort;
     betService.filterBet(filter, sort).then(function (result) {
@@ -312,7 +352,7 @@ app.config(['$routeProvider', function($routeProvider) {
     });
   };
 
-  self.sortBetPending = function (filter, sort) {
+  self.filterBetPending = function (filter, sort) {
     var filter = "pending";
     var sort = self.sort;
     betService.filterBet(filter, sort).then(function (result) {
@@ -320,6 +360,47 @@ app.config(['$routeProvider', function($routeProvider) {
       self.bets = result;
     });
   };
+
+
+  self.isActiveFilter = function () {
+    if (self.betsFilterClassName === "bets-filter") {
+      self.betsFilterClassName = "bets-filter-active";
+    }  else {
+      self.betsFilterClassName = "bets-filter";
+    }
+  };
+
+  self.sortDate = function () {
+    var filter = self.filter;
+    var sort = "id";
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+  };
+
+  self.sortFunding = function () {
+    var filter = self.filter;
+    var sort = "total_money_raised";
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+
+  };
+
+  self.sortBetSize = function () {
+    var filter = self.filter;
+    var sort = "amount";
+    betService.filterBet(filter, sort).then(function (result) {
+      console.log(result);
+      self.bets = result;
+    });
+
+  };
+
+
+
 
 
 
@@ -341,19 +422,17 @@ app.directive('areaChart', function () {
       },
       link: function(scope, element, attrs) {
 
-        var lineData = [ { "x": "1-May-16" ,"y": 35},{ "x": "6-May-16",    "y": 10}, { "x": "8-May-16",   "y": 15}  ];
+        // var shit = [ { "x": '2015-03-15' ,"y": 35},{ "x": '2015-03-21', "y": 10}, { "x": '2015-03-31',   "y": 15}  ];
+        var dataset = scope.dataset;
+        var cleanData = JSON.parse(dataset);
 
-        // var dataset = scope.dataset;
+        dataset = cleanData;
 
-        function getDate(d) {
-             return new Date(d.x);
-         }
-
-        var margin = {top: 20, right: 30, bottom: 20, left: 30};
+        var margin = {top: 20, right: 30, bottom: 60, left: 30};
         var width = 300 - margin.left - margin.right,
-            height = 275 - margin.top - margin.bottom;
+            height = 250 - margin.top - margin.bottom;
 
-        var parseDate = d3.time.format("%d-%b-%y").parse;
+        var parseDate = d3.time.format("%Y-%m-%d %H:%M").parse;
 
         var svg = d3.select(element[0]).append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -363,7 +442,7 @@ app.directive('areaChart', function () {
 
 
 
-        lineData.forEach(function(d) {
+        dataset.forEach(function(d) {
                 d.x = parseDate(d.x);
                 d.y = +d.y;
             });
@@ -375,7 +454,7 @@ app.directive('areaChart', function () {
         var area = d3.svg.area()
                 .interpolate("monotone")
                 .x(function(d)  {  return x(d.x); })
-                .y0(230)
+                .y0(height)
                 .y1(function(d) {  return y(d.y); });
 
 
@@ -386,24 +465,24 @@ app.directive('areaChart', function () {
 
 
 
-        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(2);
+        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5);
 
         var yAxis = d3.svg.axis()
                           .scale(y)
                           .orient("left")
                           .ticks(5);
 
-        x.domain(d3.extent(lineData,  function(d) { return d.x; }));
-        y.domain([0, d3.max(lineData, function(d) { return d.y; })]);
+        x.domain(d3.extent(dataset,  function(d) { return d.x; }));
+        y.domain([0, d3.max(dataset, function(d) { return d.y; })]);
 
         svg.append("path")
         		.attr("class", "area")
-        		.attr("d", area(lineData));
+        		.attr("d", area(dataset));
 
         svg.append("path")
                     .attr("class", "line")
-                    .attr("d", lineFunction(lineData))
-                    .attr("stroke", "blue")
+                    .attr("d", lineFunction(dataset))
+                    .attr("stroke", "black")
                     .attr("stroke-width", 1)
                     .attr("fill", "none");
 
@@ -411,12 +490,27 @@ app.directive('areaChart', function () {
         svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + (height) + ")")
-            .call(xAxis);
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", function(d) {
+                return "rotate(-65)"
+            });
 
             // Add the Y Axis
         svg.append("g")
             .attr("class", "y axis")
             .call(yAxis);
+
+        svg.append("text")
+            .attr("class", "x label")
+            .attr("text-anchor", "end")
+            .attr("x", width)
+            .attr("y", height + margin.bottom)
+            .text("Money Raised");
+
 
 
 
@@ -434,11 +528,11 @@ app.directive('donutChart', function () {
         dataset: '='
       },
       link: function(scope, element, attrs) {
-
+        console.log(scope.dataset);
         var dataset = scope.dataset;
 
-        var width = 320,
-           height = 330,
+        var width = 600,
+           height = 400,
            radius = Math.min(width, height) / 2;
 
         var color = d3.scale.category20();
@@ -447,14 +541,14 @@ app.directive('donutChart', function () {
           .sort(null);
 
         var arc = d3.svg.arc()
-          .innerRadius(radius - 80)
+          .innerRadius(radius - 100)
           .outerRadius(radius - 50);
 
         var svg = d3.select(element[0]).append("svg")
-           .attr("width", width)
-           .attr("height", height)
+           .attr("width", width/2)
+           .attr("height", width/2)
            .append("g")
-           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+           .attr("transform", "translate(" + width / 4 + "," + width / 4 + ")");
 
 
         var path = svg.selectAll("path")
@@ -496,8 +590,8 @@ app.directive('gaugeChart', function () {
         var percentage = Math.floor((x/y) * 100);
 
 
-        var width = 400,
-           height = 300,
+        var width = 700,
+           height = 400,
            radius = Math.min(width, height) / 2;
 
         var color = d3.scale.category20();
@@ -512,10 +606,10 @@ app.directive('gaugeChart', function () {
            .outerRadius(radius - 50);
 
         var svg = d3.select(element[0]).append("svg")
-           .attr("width", width)
-           .attr("height", height)
+           .attr("width", width/ 2)
+           .attr("height", height/ 2)
            .append("g")
-           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+           .attr("transform", "translate(" + width / 4 + "," + width / 4 + ")");
 
         var title = svg.append("text")
          .attr("dy", ".35em")
@@ -988,8 +1082,8 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.currentUserBets = currentUserBets;
   self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
-  self.winDonutData = [currentUser.money_won, currentUser.donation_money_raised, currentUser.money_lost];
-  self.doo = [1000, 650];
+  self.winDonutData = [currentUser.money_won, currentUser.money_lost];
+  console.log(self.winDonutData);
   self.goo = [currentUser.money_won, currentUser.money_lost];
   self.gaugeData = [currentUser.win_streak, currentUser.longest_win_streak];
 
