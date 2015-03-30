@@ -214,8 +214,9 @@ def view_bets():
             if bet['challenger']==current_user.id and bet['status']=='pending':
                 bet['needs_accepting'] = 'y'
             if bet['status'] == 'unresolved':
-                if current_user.id != bet['creator_outcome'] or bet['challenger_outcome']:
-                    bet['maybe_you_lost'] = 'y'
+                if current_user.id != bet['creator_outcome']:
+                    if bet['challenger_outcome']:
+                        bet['maybe_you_lost'] = 'y'
         return jsonify({"data": bets}), 201
     else:
         fake_bet_list = []
