@@ -515,7 +515,7 @@ def fund_bet(id):
                     stripe_customer_id = customer.id,
                     charity = charity.name,
                     charity_token = charity.access_token,
-                    date = str(datetime.datetime.now())[:10])
+                    date = str(datetime.datetime.now())[:16])
 
     db.session.add(funder)
     db.session.commit()
