@@ -328,7 +328,8 @@ footer {
   .create-bet-wrapper button:hover {
     border: 2px solid #3072a8; }
   .create-bet-wrapper .submit-bet {
-    margin-top: -3rem; }
+    margin-top: -3rem;
+    margin-bottom: 6em; }
   .create-bet-wrapper .accept {
     margin-bottom: 1rem; }
   .create-bet-wrapper .bet-win {
@@ -842,6 +843,13 @@ input.ng-valid.ng-dirty {
   text-align: center;
   color: #AEC7E8; }
 
+.no-stats-message {
+  text-align: center;
+  color: #3072a8;
+  font-size: 1.4em;
+  padding: 3rem;
+  font-weight: 700; }
+
 .actionable {
   background-color: #3072a8;
   position: absolute;
@@ -978,7 +986,7 @@ input.ng-valid.ng-dirty {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 6em 0 1em; }
+  padding: 1rem 0 1em; }
 
 .bet-charity {
   height: 45px !important;

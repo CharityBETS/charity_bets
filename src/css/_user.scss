@@ -162,6 +162,14 @@
   color: #AEC7E8;
 }
 
+.no-stats-message {
+  text-align: center;
+  color: $secondary-accent-color;
+  font-size: 1.4em;
+  padding: 3rem;
+  font-weight: 700;
+}
+
 
 .actionable {
   background-color: $secondary-accent-color;

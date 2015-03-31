@@ -1,6 +1,7 @@
 <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
-<h2 class="user-page-header">User</h2>
+<div class="bets-secondary-header"><h2 class="user-page-header">User</h2></div>
+
 <div class="profile-top-section">
     <div class="profile-details-container">
         <img class="profile-img" src="https://graph.facebook.com/{{vm.thisUser.facebook_id}}/picture?type=large">
@@ -20,15 +21,8 @@
  </div>
 
  <h2 class="user-stats-header">User Stats</h2>
- <div class="stats-vis-section">
-
-
-     <!-- <div class="donut-wrap">
-       <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
-       <div class="donut-stat-inner-wrap">
-         <div class="user-win-streak">{{vm.thisUser.win_streak}}<div class="user-win-streak-label">Win Streak</div></div>
-       </div>
-     </div> -->
+ <div class="no-stats-message" ng-show="vm.youGotNoStats">This user has yet to win any bets.</div>
+ <div class="stats-vis-section" ng-hide="vm.youGotNoStats">
 
      <div class="donut-wrap">
        <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
@@ -50,7 +44,7 @@
 
 
     <div class="donut-wrap-2">
-      <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
+      <donut-chart  class="donut" dataset="vm.earningPotential"></donut-chart>
       <div class="donut-stat-inner-wrap">
         <div class="user-win-streak">{{vm.thisUser.money_won | currency:"$":0}}<div class="user-win-streak-label">Money Won</div></div>
       </div>

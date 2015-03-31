@@ -1,6 +1,7 @@
   <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
-  <h2 class="user-page-header">User</h2>
+  <div class="bets-secondary-header"><h2 class="user-page-header">User</h2></div>
+
   <div class="profile-top-section">
       <div class="profile-details-container">
           <img class="profile-img" src="https://graph.facebook.com/{{vm.currentUser.facebook_id}}/picture?type=large">
@@ -20,7 +21,9 @@
   </div>
 
     <h2 class="user-stats-header">User Stats</h2>
-    <div class="stats-vis-section">
+
+    <div class="no-stats-message" ng-show="vm.youGotNoStats">Stats will start to appear after you win your first bet. Get after it!</div>
+    <div class="stats-vis-section" ng-hide="vm.youGotNoStats">
 
         <div class="donut-wrap">
           <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
@@ -28,7 +31,7 @@
             <div class="user-win-streak">{{vm.currentUser.money_won | currency:"$":0}}<div class="user-win-streak-label">Money Won</div></div>
             <div class="user-lose-streak">{{vm.currentUser.money_lost | currency:"$":0}}<div class="user-lose-streak-label">Money Lost</div></div>
           </div>
-          <div class="user-win-streak-label">Money Won vs Money Lost</div>
+          <div class="user-win-streak-label">Won vs Lost</div>
         </div>
 
 
@@ -43,11 +46,12 @@
 
 
         <div class="donut-wrap-2">
-          <donut-chart  class="donut" dataset="vm.winDonutData"></donut-chart>
+          <donut-chart  class="donut" dataset="vm.earningPotential"></donut-chart>
           <div class="donut-stat-inner-wrap">
             <div class="user-win-streak">{{vm.currentUser.money_won | currency:"$":0}}<div class="user-win-streak-label">Money Won</div></div>
+            <div class="user-lose-streak">{{vm.currentUser.total_money_raised | currency:"$":0}}<div class="user-lose-streak-label">Money Raised</div></div>
           </div>
-            <div class="user-win-streak-label">Charity Distribution</div>
+            <div class="user-win-streak-label">Won vs Raised</div>
         </div>
 
     </div>
