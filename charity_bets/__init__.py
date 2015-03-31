@@ -29,6 +29,7 @@ def create_app():
 
     sslify = SSLify(app)
 
+
     app.register_blueprint(home)
     app.register_blueprint(users)
     app.register_blueprint(admin)
