@@ -10,6 +10,7 @@ from .views.admin import admin
 from .views.charity_signup import charity_signup
 import sys
 import logging
+from flask_sslify import SSLify
 
 def create_app():
     app = Flask(__name__)
@@ -26,6 +27,7 @@ def create_app():
     app.config['MAIL_USERNAME'] = os.environ['MAIL_USERNAME']
     app.config['MAIL_PASSWORD'] = os.environ['MAIL_PASSWORD']
 
+    sslify = SSLify(app)
 
     app.register_blueprint(home)
     app.register_blueprint(users)
@@ -42,5 +44,6 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
+
 
     return app
