@@ -30,5 +30,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.thisUserBets = thisUserBets;
   self.winDonutData = [thisUser.money_won, thisUser.money_lost];
   self.gaugeData = [thisUser.win_streak, thisUser.longest_win_streak];
+  self.youGotNoStats = (thisUser.wins === 0);
+  self.earningPotential = [thisUser.money_won, thisUser.donation_money_raised];
 
 }]);

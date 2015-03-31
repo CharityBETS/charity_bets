@@ -30,21 +30,8 @@ app.config(['$routeProvider', function($routeProvider) {
   self.goo = [currentUser.money_won, currentUser.money_lost];
   self.gaugeData = [currentUser.win_streak, currentUser.longest_win_streak];
   self.totalMoneyStat = parseInt(currentUser.money_won) + parseInt(currentUser.donation_money_raised);
-
-  // $scope.stripeCallback = function (code, result) {
-  //     var buttons = document.querySelector('.form-stripe-button');
-  //     var id = buttons.parentNode.getAttribute('data-id');
-  //     if (result.error) {
-  //         window.alert('it failed! error: ' + result.error.message);
-  //     } else {
-  //         window.alert('success! token: ' + result.id);
-  //         alert(id, result.id);
-  //         userService.sendStripe(id, result.id);
-  //     }
-  // };
-
-
-
+  self.youGotNoStats = (currentUser.wins === 0);
+  self.earningPotential = [currentUser.money_won, currentUser.donation_money_raised];
 
 
 }]);
