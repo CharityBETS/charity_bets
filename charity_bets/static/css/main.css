@@ -959,6 +959,8 @@ input.ng-valid.ng-dirty {
     background: none;
     color: #3072a8;
     margin: 0 auto; }
+  .edit-bet-wrapper .secondary-create-bet-details:hover {
+    border: none; }
   .edit-bet-wrapper .secondary-input {
     padding: .9em;
     width: 11em;
@@ -1515,7 +1517,7 @@ svg {
     display: inline-block;
     border-radius: 0;
     padding: .5rem 0;
-    width: 7em; }
+    width: 5.63em; }
   .bets-secondary-action-div .bets-filter-button {
     background-color: #d3d5d8;
     color: #3072a8;
@@ -1525,11 +1527,14 @@ svg {
     color: #d3d5d8;
     margin: 0; }
   .bets-secondary-action-div .bets-filter-active {
-    background-color: white;
+    background-color: #F4F4F4;
     color: #3072a8; }
   .bets-secondary-action-div .show-filters {
-    height: 43px;
-    margin-left: 3rem; }
+    height: 41px;
+    margin-left: -1rem;
+    text-transform: lowercase;
+    color: #3072a8;
+    background: none; }
 
 .bets-filter {
   margin: 0 !important;
@@ -1556,7 +1561,8 @@ svg {
   display: inline-block; }
 
 .bets-sort {
-  float: right; }
+  float: right;
+  text-transform: lowercase; }
 
 .bets-funding {
   font-size: 2em;
@@ -1575,8 +1581,8 @@ svg {
 
 .filter-close {
   position: absolute;
-  top: 2.9em;
-  right: -55px;
+  top: 3.1em;
+  right: -45px;
   background: none;
   color: #3072a8; }
 
