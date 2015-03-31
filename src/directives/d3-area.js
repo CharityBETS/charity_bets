@@ -78,8 +78,17 @@ app.directive('areaChart', function () {
         svg.append("text")
             .attr("class", "x label")
             .attr("text-anchor", "end")
-            .attr("x", width)
+            .attr("x", width/2 + margin.left)
             .attr("y", height + margin.bottom)
+            .text("Donation #");
+
+        svg.append("text")
+            .attr("class", "y label")
+            .attr("text-anchor", "end")
+            .attr("y", -margin.left +1)
+            .attr("x", -height/2 +margin.bottom)
+            .attr("dy", ".75em")
+            .attr("transform", "rotate(-90)")
             .text("Money Raised");
 
 
