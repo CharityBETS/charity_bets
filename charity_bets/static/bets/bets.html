@@ -9,17 +9,17 @@
         <div class="search-bar">Search
           <input placeholder="Search by whatever" ng-model="searchText">
         </div>
-        <button class="show-filters" ng-click="vm.filterSort=true">filter</button>
+        <button class="show-filters" ng-click="vm.filterSort=true">sort</button>
       </div>
 
 
       <div class="filter-sort-wrap animate-show" ng-show="vm.filterSort===true">
-        <div class="bets-filter">
+        <!-- <div class="bets-filter">
           <button ng-click="vm.filterBetAll();filter='all'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'all'}">All</button>
           <button ng-click="vm.filterBetActive();filter='active'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'active'}">Active</button>
           <button ng-click="vm.filterBetComplete();filter='complete'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'complete'}">Complete</button>
           <button ng-click="vm.filterBetPending();filter='pending'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'pending'}">Pending</button>
-        </div>
+        </div> -->
         <div class="bets-sort">
           <button ng-click="vm.sortBetSize();betsSort='amount'" class="bets-sort" ng-class="{'bets-filter-active' : betsSort === 'amount'}">Bet Size</button>
           <button ng-click="vm.sortFunding();betsSort='total_money_raised'" class="bets-sort" ng-class="{'bets-filter-active' : betsSort === 'total_money_raised'}">Funding</button>

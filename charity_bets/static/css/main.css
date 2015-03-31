@@ -1541,7 +1541,7 @@ svg {
   justify-content: flex-end; }
 
 .filter-sort-wrap {
-  top: 4em;
+  top: 2em;
   z-index: 1000;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1575,8 +1575,8 @@ svg {
 
 .filter-close {
   position: absolute;
-  top: 2.2em;
-  right: -50px;
+  top: 2.9em;
+  right: -55px;
   background: none;
   color: #3072a8; }
 
@@ -1664,7 +1664,7 @@ svg {
 .animate-show {
   line-height: 20px;
   opacity: 1;
-  padding: 10px 10px 0 10px; }
+  padding: 0 10px 0 10px; }
 
 .animate-show.ng-hide-add.ng-hide-add-active, .animate-show.ng-hide-remove.ng-hide-remove-active {
   transition: all linear 0.5s; }
