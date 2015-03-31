@@ -139,7 +139,7 @@
   max-width: 95%;
   font-size: 2.4em;
   margin: 0 auto;
-  padding: 3rem 0 1.5rem;
+  padding: 3.5rem 0 1.5rem;
   color: $secondary-accent-color;
   line-height: 1.3em;
   font-family: 'Raleway', sans-serif;
@@ -204,13 +204,14 @@
   transform: translate(-50%);
 }
 
-.bettor-name {
+.bet-bettor-name {
   font-size: 1.5em;
   color: $secondary-accent-color;
   letter-spacing: 4px;
   padding-top: 1rem;
   text-align: center;
   margin: 0 auto;
+  max-width: 300px;
 
   a {
     color: $secondary-accent-color;
@@ -335,7 +336,7 @@
   margin: 0 auto;
   flex-wrap: wrap;
   padding-bottom: 3rem;
-  padding-top: 6rem;
+  padding-top: 3rem;
 }
 
 .flex-section-a {

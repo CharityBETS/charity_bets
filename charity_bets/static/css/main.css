@@ -146,8 +146,7 @@ footer {
 .hero-section {
   height: 90vh;
   position: relative;
-  background: url(https://opinionize.files.wordpress.com/2012/08/01_20120713_arm_wrestle_00019-v211.jpg) no-repeat center center fixed;
-  background: url(https://s3-us-west-2.amazonaws.com/betti/betti-arms-2.jpg) no-repeat center center fixed;
+  background: url(https://s3-us-west-2.amazonaws.com/betti/betti-arms-4.jpg) no-repeat center top fixed;
   background-size: cover;
   color: white; }
 
@@ -221,6 +220,10 @@ footer {
     margin: .4rem 2em; }
   .landing-action-buttons button:hover {
     background-color: white;
+    color: #3072a8; }
+  .landing-action-buttons a {
+    color: #F4F4F4; }
+  .landing-action-buttons a:hover {
     color: #3072a8; }
 
 @media only screen and (max-width: 920px) {
@@ -433,7 +436,7 @@ footer {
   max-width: 95%;
   font-size: 2.4em;
   margin: 0 auto;
-  padding: 3rem 0 1.5rem;
+  padding: 3.5rem 0 1.5rem;
   color: #3072a8;
   line-height: 1.3em;
   font-family: 'Raleway', sans-serif;
@@ -477,17 +480,18 @@ footer {
   -webkit-transform: translate(-50%);
   transform: translate(-50%); }
 
-.bettor-name {
+.bet-bettor-name {
   font-size: 1.5em;
   color: #3072a8;
   letter-spacing: 4px;
   padding-top: 1rem;
   text-align: center;
-  margin: 0 auto; }
-  .bettor-name a {
+  margin: 0 auto;
+  max-width: 300px; }
+  .bet-bettor-name a {
     color: #3072a8;
     font-family: 'Raleway', sans-serif; }
-  .bettor-name a:hover {
+  .bet-bettor-name a:hover {
     color: #f05f5c;
     -webkit-animation-name: 'pulse_animation';
     -webkit-animation-duration: 5000ms;
@@ -595,7 +599,7 @@ footer {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding-bottom: 3rem;
-  padding-top: 6rem; }
+  padding-top: 3rem; }
 
 .flex-section-a {
   -webkit-order: 2;
@@ -716,7 +720,7 @@ input.ng-valid.ng-dirty {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  max-width: 1000px;
+  max-width: 1050px;
   margin: 0 auto; }
   .profile-top-section a {
     color: #484848; }
@@ -1472,9 +1476,9 @@ svg {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between; }
+  -webkit-justify-content: flex-;
+  -ms-flex-pack: flex-;
+  justify-content: flex-; }
 
 .bets-date {
   font-size: 1.4em; }
@@ -1495,7 +1499,13 @@ svg {
   background-color: #F4F4F4; }
 
 .bettor-name {
-  max-width: 200px; }
+  max-width: 200px;
+  font-size: 1.5em;
+  color: #3072a8;
+  letter-spacing: 4px;
+  padding-top: 1rem;
+  text-align: center;
+  margin: 0 auto; }
 
 .bets-secondary-action-div {
   display: -webkit-flex;
