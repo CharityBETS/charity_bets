@@ -1,7 +1,6 @@
 <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
 <!-- <button ng-click="vm.testData()">HI DANIEL YOU FUCKER</button> -->
-<div class="bets-secondary-header"><h2 class="user-page-header">Bet Page</h2></div>
 <div class="create-bet-wrapper">
       <div class="bet-title">{{vm.bet.title}}</div>
  <div class="bet-section-top">
@@ -30,12 +29,12 @@
       <div ng-show="vm.isChallengeable()">
         <form ng-submit="vm.acceptBet()">
           <div class="select-org">Select Organization to Support</div>
-          <select class="bet-charity input-primary" ng-model="vm.bet.charity_challenger" required>
+          <select class="bet-charity input-primary" name="charityName" ng-model="vm.bet.charity_challenger" required>
                   <option value="" disabled selected>Select Charity</option>
                   <option ng-repeat="charity in vm.charities" value="{{charity.name}}"> {{charity.name}}</option>
           </select>
           <button class="bet-modal-button accept">ACCEPT BET</button>
-        </form>
+       </form>
 
       <button ng-click="vm.deleteBet()" class="bet-modal-button deny">DECLINE BET</button>
     </div>
@@ -45,7 +44,7 @@
     <div class="better-profile hero-bettor flex-section-2">
       <div class="winner-status" ng-show="vm.creatorWinner()">g</div>
       <div class="user-pic"><img class="user-pic" src="https://graph.facebook.com/{{vm.bet.creator_facebook_id}}/picture?type=large"></div>
-      <div class="bettor-name"><a href="#/user/user-profile/{{vm.bet.creator}}">{{vm.bet.creator_name}}</a></div>
+      <div class="bet-bettor-name"><a href="#/user/user-profile/{{vm.bet.creator}}">{{vm.bet.creator_name}}</a></div>
       <div class="wins-losses number">{{vm.bet.creator_record}}</div>
       <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button" ng-click="vm.modalDonateCreator=true">$DONATE$</button>
@@ -58,7 +57,7 @@
     <div class="better-profile villian-bettor flex-section-3">
       <div class="winner-status" ng-show="vm.challengerWinner()">g</div>
       <div class="user-pic"><img class="user-pic" src="https://graph.facebook.com/{{vm.bet.challenger_facebook_id}}/picture?type=large"></div>
-      <div class="bettor-name"><a href="#/user/user-profile/{{vm.bet.challenger}}">{{vm.bet.challenger_name}}</a></div>
+      <div class="bet-bettor-name"><a href="#/user/user-profile/{{vm.bet.challenger}}">{{vm.bet.challenger_name}}</a></div>
       <div class="wins-losses number">{{vm.bet.challenger_record}}</div>
       <div ng-show="vm.isActive()" class="crowd-funding-section">
         <button class="donate-button" ng-click="vm.modalDonateChallenger=true">$DONATE$</button>

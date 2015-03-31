@@ -1,8 +1,8 @@
 .hero-section {
   height: 90vh;
   position: relative;
-  background: url(https://opinionize.files.wordpress.com/2012/08/01_20120713_arm_wrestle_00019-v211.jpg) no-repeat center center fixed;
-  background: url(https://s3-us-west-2.amazonaws.com/betti/betti-arms-2.jpg) no-repeat center center fixed;
+  // background: url(https://opinionize.files.wordpress.com/2012/08/01_20120713_arm_wrestle_00019-v211.jpg) no-repeat center center fixed;
+  background: url(https://s3-us-west-2.amazonaws.com/betti/betti-arms-4.jpg) no-repeat center top fixed;
   background-size: cover;
   color: white;
 }
@@ -77,6 +77,14 @@
 
   button:hover {
     background-color: white;
+    color: $secondary-accent-color;
+  }
+
+  a {
+    color: $my-white;
+  }
+
+  a:hover {
     color: $secondary-accent-color;
   }
 }

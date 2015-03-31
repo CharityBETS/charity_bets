@@ -9,7 +9,7 @@
   position: relative;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-;
 }
 
 .bets-date {
@@ -44,6 +44,12 @@
 .bettor-name {
   // text-align: center;
   max-width: 200px;
+  font-size: 1.5em;
+  color: $secondary-accent-color;
+  letter-spacing: 4px;
+  padding-top: 1rem;
+  text-align: center;
+  margin: 0 auto;
 }
 .bets-secondary-action-div {
   display: flex;
