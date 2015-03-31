@@ -811,7 +811,7 @@ input.ng-valid.ng-dirty {
   -ms-flex-pack: justify;
   justify-content: space-between;
   margin: 0 auto;
-  max-width: 1000px; }
+  max-width: 1100px; }
 
 .profile-section-two {
   color: white;
@@ -885,7 +885,14 @@ input.ng-valid.ng-dirty {
 
 @media only screen and (max-width: 920px) {
   .actionable {
-    top: 0; } }
+    top: 0; }
+  .stats-vis-section {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between; } }
 
 @media only screen and (max-width: 480px) {
   .profile-top-section {
@@ -923,7 +930,7 @@ input.ng-valid.ng-dirty {
     height: 45px;
     margin-bottom: 1rem;
     background: #F4F4F4;
-    color: #999999; }
+    color: black; }
   .edit-bet-wrapper select {
     height: 64px;
     margin-bottom: 1rem 0;
@@ -1367,7 +1374,8 @@ donut-chart {
 
 .user-lose-streak {
   font-size: 1.6rem;
-  color: #3072a8; }
+  color: #3072a8;
+  padding-top: .37rem; }
 
 .user-lose-streak-label {
   font-size: 1.2rem;
@@ -1436,6 +1444,10 @@ svg {
   font-family: 'Raleway';
   font-size: 12px;
   stroke: #3072a8; }
+
+@media only screen and (max-width: 920px) {
+  .gauge-wrap, .donut-wrap, .donut-wrap-2 {
+    text-align: center; } }
 
 .bets-title, .bets-date, .bets-amount, .bets-users {
   text-align: center; }
