@@ -12,8 +12,9 @@ app.directive('areaChart', function () {
         var cleanData = JSON.parse(dataset);
 
         lineData = cleanData;
+        console.log(lineData);
 
-        var margin = {top: 20, right: 30, bottom: 50, left: 30};
+        var margin = {top: 20, right: 30, bottom: 50, left: 50};
         var width = 300 - margin.left - margin.right,
             height = 250 - margin.top - margin.bottom;
 
@@ -79,13 +80,13 @@ app.directive('areaChart', function () {
             .attr("class", "x label")
             .attr("text-anchor", "end")
             .attr("x", width/2 + margin.left)
-            .attr("y", height + margin.bottom)
-            .text("Donation #");
+            .attr("y", height + margin.bottom - 10)
+            .text("Donations");
 
         svg.append("text")
             .attr("class", "y label")
             .attr("text-anchor", "end")
-            .attr("y", -margin.left +1)
+            .attr("y", -margin.left + 1)
             .attr("x", -height/2 +margin.bottom)
             .attr("dy", ".75em")
             .attr("transform", "rotate(-90)")

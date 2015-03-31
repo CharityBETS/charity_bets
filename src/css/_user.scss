@@ -120,7 +120,7 @@
   flex-direction: row;
   justify-content: space-between;
   margin: 0 auto;
-  max-width: 1000px;
+  max-width: 1100px;
 
 }
 
@@ -229,6 +229,12 @@
   .actionable {
     top: 0;
   }
+
+  .stats-vis-section {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
 
 }
 

@@ -20,13 +20,26 @@
         <div class="location">{{vm.bet.location}}</div>
       </div>
 
-  <div ng-show="vm.showResolutionButton()" class="choose-winner-div">
-    <div class="who-won-div">
-        <h4>Who Won</h4>
-         <button class="bet-win" ng-click="vm.betOutcomeWin()">I WON</button>
-         <button class="bet-lose" ng-click="vm.modalaction=true">I LOST</button>
+      <div ng-show="vm.showResolutionButton()" class="choose-winner-div">
+        <div class="who-won-div">
+            <h4>Who Won</h4>
+             <button class="bet-win" ng-click="vm.betOutcomeWin()">I WON</button>
+             <button class="bet-lose" ng-click="vm.modalaction=true">I LOST</button>
+        </div>
+      </div>
+
+      <div ng-show="vm.isChallengeable()">
+        <form ng-submit="vm.acceptBet()">
+          <div class="select-org">Select Organization to Support</div>
+          <select class="bet-charity input-primary" ng-model="vm.bet.charity_challenger" required>
+                  <option value="" disabled selected>Select Charity</option>
+                  <option ng-repeat="charity in vm.charities" value="{{charity.name}}"> {{charity.name}}</option>
+          </select>
+          <button class="bet-modal-button accept">ACCEPT BET</button>
+        </form>
+
+      <button ng-click="vm.deleteBet()" class="bet-modal-button deny">DECLINE BET</button>
     </div>
-  </div>
 
     </div>
 
@@ -58,8 +71,8 @@
 
  </div>
 
-    <div class="profile-details-wrap">
-</button>
+    <div class="profile-details-wrap" ng-hide="vm.isNoDonations">
+<!-- </button> -->
 
       <div class=bet-flex-wrap>
 
@@ -82,7 +95,7 @@
         <!-- <button ng-if="vm.isChallengeable" ng-hide="!vm.hideme" ng-click="vm.hideme=false">ACCEPT BET</button> -->
         <!-- <button ng-show="vm.isChallengeable" ng-click="vm.showModal=show">ACCEPT BET</button> -->
 
-        <div ng-show="vm.isChallengeable()">
+        <!-- <div ng-show="vm.isChallengeable()">
           <form ng-submit="vm.acceptBet()">
             <div class="select-org">Select Organization to Support</div>
             <select class="bet-charity input-primary" ng-model="vm.bet.charity_challenger" required>
@@ -93,7 +106,8 @@
           </form>
 
         <button ng-click="vm.deleteBet()" class="bet-modal-button deny">DECLINE BET</button>
-      </div>
+      </div> -->
+
     </div>
 
          <div class="area-wrap flex-section-c">

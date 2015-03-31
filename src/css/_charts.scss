@@ -73,7 +73,8 @@ donut-chart {
 
 .user-lose-streak {
   font-size: 1.6rem;
-  color: $secondary-accent-color
+  color: $secondary-accent-color;
+  padding-top: .37rem;
 }
 
 .user-lose-streak-label {
@@ -172,4 +173,10 @@ svg {
    font-family: 'Raleway';
    font-size: 12px;
    stroke: $secondary-accent-color;
+}
+
+@media only screen and (max-width : 920px) {
+  .gauge-wrap, .donut-wrap, .donut-wrap-2 {
+    text-align: center;
+  }
 }
