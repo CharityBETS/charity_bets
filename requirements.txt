@@ -11,7 +11,7 @@ Flask-Assets==0.10
 flask-oauthlib==0.9.0
 Flask-Login==0.2.11
 Flask-Mail==0.9.1
-
+SSLify
 # Database
 Flask-SQLAlchemy==2.0
 SQLAlchemy==0.9.8
