@@ -8,12 +8,14 @@ from .views.bets import bets
 from .views.charities import charities
 from .views.admin import admin
 from .views.charity_signup import charity_signup
+from flask_sslify import SSLify
 
 
 
 
 def create_app():
     app = Flask(__name__)
+    sslify = SSLify(app)
     app.config.from_pyfile('config.cfg')
 
     app.config['DEBUG']
