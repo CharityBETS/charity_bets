@@ -4,8 +4,41 @@
   text-align: center;
 }
 
+.bets-secondary-header {
+  max-width: 1100px;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
 .bets-date {
     font-size: 1.4em;
+}
+
+.search-bar {
+  margin-top: .3rem;
+  // background-color: $my-white;
+  font-family: "Raleway";
+  display: inline-block;
+
+
+    input {
+      margin-left: .3rem;
+      padding: .25em;
+      outline: none;
+      border-radius: .2em;
+    }
+
+    input:focus {
+      background-color:$my-white;
+    }
+
+}
+
+.search-bar:active {
+  background-color: $my-white;
+
 }
 
 .bettor-name {
@@ -13,11 +46,22 @@
   max-width: 200px;
 }
 .bets-secondary-action-div {
-  // border-bottom: 1px $secondary-accent-color solid;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: no-wrap;
+  // max-width: 1050px;
+  // margin: 0 auto;
+  position: relative;
+
+  z-index: 1000;
+  background-color: $my-white;
+  opacity: .7;
+
+  .search-filter-wrap {
+    display: inline-block;
+  }
+
 
   button {
     display: inline-block;
@@ -39,8 +83,13 @@
   }
 
   .bets-filter-active {
-    background-color: purple;
-    color: yellow;
+    background-color: white;
+    color: $secondary-accent-color;
+  }
+
+  .show-filters {
+    height: 43px;
+    margin-left: 3rem;
   }
 }
 
@@ -51,14 +100,16 @@
 }
 
 .filter-sort-wrap {
+  top: 4em;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
+  opacity: 0;
 }
 
 .bets-page-header {
   padding-left: 2rem;
   display: inline-block;
-
 }
 
 .bets-sort {
@@ -85,6 +136,18 @@
   position: relative;
   color: $my-black;
   border-bottom: 2px solid #e7e7e7;
+}
+
+.filter-close {
+  position: absolute;
+  top: 2.2em;
+  right: -50px;
+  background: none;
+  color: $secondary-accent-color;
+}
+
+.filter-close:hover {
+  background: none;
 }
 
 
@@ -174,6 +237,26 @@
 .bets-actual-winner {
   padding-top: .4rem;
   font-size: 1.5em;
+}
+
+.animate-show {
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px 10px 0 10px;
+  // border: 1px solid black;
+  // background: white;
+}
+
+.animate-show.ng-hide-add.ng-hide-add-active,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+  // -webkit-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+}
+
+.animate-show.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
 }
 
 

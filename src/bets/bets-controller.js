@@ -22,7 +22,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
   // self.currentUser = currentUser;
   // self.users = users;
-
+  self.filterSort = false;
   self.goToBet = function (id) {
     $location.path('/bet/' + id );
     };

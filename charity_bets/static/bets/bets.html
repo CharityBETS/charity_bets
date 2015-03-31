@@ -1,26 +1,39 @@
 <header class="site-header" ng-include="'/static/nav/app-nav.html'"></header>
 
-<div class="bets-secondary-action-div">
-  <h2 class="bets-page-header">Bets</h2>
+<div class="bets-secondary-header">
+    <h2 class="bets-page-header">Bets</h2>
+    <div class="bets-secondary-action-div">
 
-  <div class="filter-sort-wrap">
-    <div class="bets-filter">
-      <button ng-click="vm.filterBetAll();filter='all'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'all'}">All</button>
-      <button ng-click="vm.filterBetActive();filter='active'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'active'}">Active</button>
-      <button ng-click="vm.filterBetComplete();filter='complete'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'complete'}">Complete</button>
-      <button ng-click="vm.filterBetPending();filter='pending'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'pending'}">Pending</button>
+
+      <div class="search-filter-wrap">
+        <div class="search-bar">Search
+          <input placeholder="Search by anything" ng-model="searchText">
+        </div>
+        <button class="show-filters" ng-click="vm.filterSort=true">filter</button>
+      </div>
+
+
+      <div class="filter-sort-wrap animate-show" ng-show="vm.filterSort===true">
+        <div class="bets-filter">
+          <button ng-click="vm.filterBetAll();filter='all'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'all'}">All</button>
+          <button ng-click="vm.filterBetActive();filter='active'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'active'}">Active</button>
+          <button ng-click="vm.filterBetComplete();filter='complete'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'complete'}">Complete</button>
+          <button ng-click="vm.filterBetPending();filter='pending'" class="bets-filter-button" ng-class="{'bets-filter-active' : filter === 'pending'}">Pending</button>
+        </div>
+        <div class="bets-sort">
+          <button ng-click="vm.sortBetSize();betsSort='amount'" class="bets-sort" ng-class="{'bets-filter-active' : betsSort === 'amount'}">Bet Size</button>
+          <button ng-click="vm.sortFunding();betsSort='total_money_raised'" class="bets-sort" ng-class="{'bets-filter-active' : betsSort === 'total_money_raised'}">Funding</button>
+          <button ng-click="vm.sortDate();betsSort='id'" class="bets-sort" ng-class="{'bets-filter-active' : betsSort === 'id'}">Date</button>
+          <button class="filter-close" ng-click="vm.filterSort=false">X</button>
+        </div>
+      </div>
     </div>
-    <div class="bets-sort">
-      <button ng-click="vm.sortBetSize();betsSort='amount'" class="bets-sort" ng-class="{'bets-filter-active' : betsSort === 'amount'}">Bet Size</button>
-      <button ng-click="vm.sortFunding();betsSort='total_money_raised'" class="bets-sort" ng-class="{'bets-filter-active' : betsSort === 'total_money_raised'}">Funding</button>
-      <button ng-click="vm.sortDate();betsSort='id'" class="bets-sort" ng-class="{'bets-filter-active' : betsSort === 'id'}">Date</button>
-    </div>
-  </div>
+
 </div>
 
 
 <ul class="bets-ul">
-  <li class="bets-li" ng-repeat="bet in vm.bets" ng-click="vm.goToBet(bet.id)">
+  <li class="bets-li" ng-repeat="bet in vm.bets | filter:searchText" ng-click="vm.goToBet(bet.id)">
 
   <div class="bets-flex-container">
 
