@@ -28,6 +28,7 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
   self.thisUser = thisUser;
   self.thisUserBets = thisUserBets;
-  self.winDonutData = [thisUser.wins, thisUser.losses]
+  self.winDonutData = [thisUser.money_won, thisUser.money_lost];
+  self.gaugeData = [thisUser.win_streak, thisUser.longest_win_streak];
 
 }]);

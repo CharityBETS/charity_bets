@@ -21,8 +21,8 @@ app.directive('gaugeChart', function () {
         var percentage = Math.floor((x/y) * 100);
 
 
-        var width = 700,
-           height = 400,
+        var width = 500,
+           height = 350,
            radius = Math.min(width, height) / 2;
 
         var color = d3.scale.category20();
@@ -42,11 +42,15 @@ app.directive('gaugeChart', function () {
            .append("g")
            .attr("transform", "translate(" + width / 4 + "," + width / 4 + ")");
 
-        var title = svg.append("text")
-         .attr("dy", ".35em")
-         .style("text-anchor", "middle")
-         .attr("class", "inside")
-         .text(function(d) { return percentage + "%"; })
+        // var title = svg.append("text")
+        //  .style("color", "#3072a8")
+        //  .style("text-anchor", "middle")
+        //  .style("text-anchor", "center")
+        //  .attr("dy", ".35em")
+        //  .attr("class", "inside")
+        //  .style("margin-top", "-25px")
+        //  .style("font-size", "2em")
+        //  .text(function(d) { return x + " vs " + y; })
 
         var path = svg.selectAll("path")
            .data(pie(winstreak))

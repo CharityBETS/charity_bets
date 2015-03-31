@@ -29,18 +29,19 @@ app.config(['$routeProvider', function($routeProvider) {
   console.log(self.winDonutData);
   self.goo = [currentUser.money_won, currentUser.money_lost];
   self.gaugeData = [currentUser.win_streak, currentUser.longest_win_streak];
+  self.totalMoneyStat = parseInt(currentUser.money_won) + parseInt(currentUser.donation_money_raised);
 
-  $scope.stripeCallback = function (code, result) {
-      var buttons = document.querySelector('.form-stripe-button');
-      var id = buttons.parentNode.getAttribute('data-id');
-      if (result.error) {
-          window.alert('it failed! error: ' + result.error.message);
-      } else {
-          window.alert('success! token: ' + result.id);
-          alert(id, result.id);
-          userService.sendStripe(id, result.id);
-      }
-  };
+  // $scope.stripeCallback = function (code, result) {
+  //     var buttons = document.querySelector('.form-stripe-button');
+  //     var id = buttons.parentNode.getAttribute('data-id');
+  //     if (result.error) {
+  //         window.alert('it failed! error: ' + result.error.message);
+  //     } else {
+  //         window.alert('success! token: ' + result.id);
+  //         alert(id, result.id);
+  //         userService.sendStripe(id, result.id);
+  //     }
+  // };
 
 
 

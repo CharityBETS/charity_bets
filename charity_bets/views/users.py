@@ -7,7 +7,7 @@ from flask_mail import Message
 import os
 
 from ..extensions import oauth, db
-from ..models import User
+from ..models import User, Bet, Charity
 
 
 facebook = oauth.remote_app('facebook',
@@ -98,11 +98,27 @@ def view_all_users():
 def view_user(id):
     user = User.query.filter_by(id = id).first()
     if user:
+        bets = Bet.query.filter_by(verified_winner=user.id).all()
+        charities = Charity.query.all()
+        charity_dict = dict()
+        for bet in bets:
+            for charity in charities:
+                if charity.id == bet.winning_charity:
+                    if charity.name in charity_dict:
+                        charity_dict[charity.name] += bet.total_money_raised
+                    else:
+                        charity_dict[charity.name] = bet.total_money_raised
+        charity_list = []
+        for key in charity_dict:
+            charity_list.append({"label": key, "value": charity_dict[key]})
+
         user = user.make_dict()
-        del user['bank_token']
+        user['total_money_raised'] = user['money_won'] + user['donation_money_raised']
+        user["charities"] = charity_list
         return jsonify({'data': user})
     else:
         return jsonify({"ERROR": "User does not exist."}), 401
+
 
 @users.route("/email/<int:id>")
 def redirect_to_bets(id):
@@ -119,9 +135,27 @@ def redirect_to_bets(id):
 def get_current_user():
     user = User.query.filter_by(id = current_user.id).first()
     if user:
+        bets = Bet.query.filter_by(verified_winner=current_user.id).all()
+        charities = Charity.query.all()
+        charity_dict = dict()
+        for bet in bets:
+            for charity in charities:
+                if charity.id == bet.winning_charity:
+                    if charity.name in charity_dict:
+                        charity_dict[charity.name] += bet.total_money_raised
+                    else:
+                        charity_dict[charity.name] = bet.total_money_raised
+        charity_list = []
+        for key in charity_dict:
+            charity_list.append({"label": key, "value": charity_dict[key]})
+
+
         user = user.make_dict()
         user['total_money_raised'] = user['money_won'] + user['donation_money_raised']
-    return jsonify({'data': user})
+        user["charities"] = charity_list
+        return jsonify({'data': user})
+    else:
+        return jsonify({"ERROR": "User does not exist."}), 401
 
 
 @users.route("/api/user/<int:id>", methods = ["PUT"])

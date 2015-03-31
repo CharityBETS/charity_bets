@@ -9,8 +9,8 @@ app.directive('donutChart', function () {
         console.log(scope.dataset);
         var dataset = scope.dataset;
 
-        var width = 600,
-           height = 400,
+        var width = 500,
+           height = 350,
            radius = Math.min(width, height) / 2;
 
         var color = d3.scale.category20();
@@ -19,7 +19,7 @@ app.directive('donutChart', function () {
           .sort(null);
 
         var arc = d3.svg.arc()
-          .innerRadius(radius - 100)
+          .innerRadius(radius - 70)
           .outerRadius(radius - 50);
 
         var svg = d3.select(element[0]).append("svg")
