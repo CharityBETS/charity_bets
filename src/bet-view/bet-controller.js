@@ -32,6 +32,9 @@ app.config(['$routeProvider', function($routeProvider) {
 
   var self = this;
   self.bet = bet;
+
+  self.bet.charity_challenger = '';
+
   self.currentUser = currentUser;
   self.comment=Comment();
   self.donation=Donation();
