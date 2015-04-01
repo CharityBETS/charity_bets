@@ -283,10 +283,10 @@ footer {
   border: 5px #3072a8 solid; }
 
 .marketing-link {
-  color: #3072a8; }
+  color: #3072a8 !important; }
 
 .marketing-link:hover {
-  color: #f05f5c; }
+  color: #f05f5c !important; }
 
 .the-team-wrap {
   padding-bottom: 3rem; }
