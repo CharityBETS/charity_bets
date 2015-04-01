@@ -1667,7 +1667,8 @@ svg {
 
 .bets-funding {
   font-size: 2em;
-  padding-top: .4rem; }
+  padding-top: .4rem;
+  font-weight: 700; }
 
 .bets-funding-title {
   font-size: 1.5rem;
