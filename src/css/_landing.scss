@@ -139,11 +139,11 @@
 }
 
 .marketing-link {
-  color: $secondary-accent-color;
+  color: $secondary-accent-color !important;
 }
 
 .marketing-link:hover {
-  color: $main-accent-color;
+  color: $main-accent-color !important;
 }
 
 .the-team-wrap {
