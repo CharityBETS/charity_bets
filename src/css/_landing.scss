@@ -138,6 +138,14 @@
     border: 5px $secondary-accent-color solid;
 }
 
+.marketing-link {
+  color: $secondary-accent-color;
+}
+
+.marketing-link:hover {
+  color: $main-accent-color;
+}
+
 .the-team-wrap {
   padding-bottom: 3rem;
 }
