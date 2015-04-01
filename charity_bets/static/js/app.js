@@ -187,7 +187,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.challengerData = bet.chart_data.challenger_data;
   self.cleanChallengerData = angular.toJson(self.challengerData);
   self.isNoDonations = (bet.creator_money_raised + bet.challenger_money_raised === 0);
-  self.bet.charity_challenger = '';
+  self.bet.charity_challenger = self.bet.charity_challenger || '';
 
   self.creatorWinner = function () {
     return (bet.creator === bet.verified_winner);
