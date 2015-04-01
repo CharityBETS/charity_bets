@@ -123,12 +123,17 @@ footer {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  width: 30em;
+  max-width: 30em;
   margin: 0 auto;
-  font-size: 1.1em; }
+  font-size: 1.1em;
+  text-transform: uppercase;
+  font-weight: 700; }
 
 .copywrite {
   font-family: serif;
@@ -143,6 +148,11 @@ footer {
   color: #F4F4F4;
   font-size: 2em; }
 
+@media only screen and (max-width: 620px) {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
 .hero-section {
   height: 90vh;
   position: relative;
@@ -150,8 +160,31 @@ footer {
   background-size: cover;
   color: white; }
 
-.landing-content-wrap {
-  padding: 2rem; }
+.about-stats {
+  padding: 5rem 0 2rem;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  color: #3072a8;
+  color: #484848;
+  font-family: monserrat, sans-serif; }
+
+.about-stat {
+  font-size: 5em;
+  font-weight: 700; }
+
+.about-span {
+  font-size: 1rem;
+  font-family: Raleway, serif; }
+
+.landing-content-wrap h3 {
+  margin: 0; }
 
 .three-items {
   display: -webkit-flex;
@@ -168,7 +201,7 @@ footer {
   -ms-flex-positive: 1;
   flex-grow: 1;
   width: 25%;
-  padding: 1rem 2rem;
+  padding: 4rem 2rem;
   text-align: center; }
 
 .landing-block-header {
@@ -178,7 +211,13 @@ footer {
   padding-bottom: 1rem; }
 
 .landing-content-head {
-  text-align: center; }
+  text-align: center;
+  width: 100%;
+  padding: 6rem 0;
+  background-color: #1A1A1A;
+  color: white;
+  font-family: Raleway, sans-serif;
+  font-weight: 400; }
 
 .top-hero-line {
   margin-left: .75em;
@@ -217,13 +256,43 @@ footer {
   -ms-flex-pack: center;
   justify-content: center; }
   .landing-action-buttons button {
-    margin: .4rem 2em; }
+    margin: .4rem 2em;
+    opacity: .7; }
   .landing-action-buttons button:hover {
     background-color: white;
     color: #3072a8; }
   .landing-action-buttons a {
-    color: #F4F4F4; }
+    color: #F4F4F4;
+    background-color: #3072a8;
+    opacity: .85;
+    margin: .4rem 2em;
+    padding: .75em 1.4em;
+    border-radius: .3em; }
   .landing-action-buttons a:hover {
+    color: #3072a8;
+    background-color: #F4F4F4;
+    opacity: .7; }
+
+.about-page-pic {
+  width: 150px;
+  height: auto;
+  border-radius: 150px;
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  border: 5px #3072a8 solid; }
+
+.the-team-wrap {
+  padding-bottom: 3rem; }
+
+.contact-page {
+  text-align: center; }
+
+.contact-page-content {
+  padding: 2rem 0; }
+  .contact-page-content p {
+    padding: 2rem 0; }
+  .contact-page-content h2 {
     color: #3072a8; }
 
 @media only screen and (max-width: 920px) {
@@ -234,6 +303,12 @@ footer {
     width: 75%; } }
 
 @media only screen and (max-width: 535px) {
+  .hero-section, .about-page-img, .contact-page-img, .org-page-img {
+    background-size: contain;
+    color: white;
+    height: 400px; }
+  .three-items {
+    width: 93%; }
   .landing-action-buttons {
     margin-top: 0%; }
   .sign-up-button {
@@ -289,6 +364,9 @@ footer {
 .app-header li:first-child:hover {
   background-color: #484848; }
 
+.app-header {
+  font-size: .85em; }
+
 .header-nav li:first-child {
   margin-right: auto; }
 
@@ -299,7 +377,7 @@ footer {
 .logo-li {
   font-family: 'McLaren', cursive;
   letter-spacing: 3px;
-  color: #3072a8;
+  color: white;
   padding: .75rem 2.5rem .75rem 2.5rem; }
 
 .header-nav-a {
@@ -706,7 +784,7 @@ input.ng-valid.ng-dirty {
 
 .profile-top-section {
   background-color: #F4F4F4;
-  padding: 3.5rem 0rem 4.5rem;
+  padding: 7rem 0rem 4.5rem;
   color: #3072a8;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -846,9 +924,18 @@ input.ng-valid.ng-dirty {
   padding: 0 0 0 2rem;
   color: #3072a8; }
 
-.user-bets-header, .user-stats-header, .user-page-header, .bet-page-header, .bets-page-header {
+.user-page-header, .bet-page-header, .bets-page-header {
   text-align: center;
   color: #AEC7E8; }
+
+.user-bets-header, .user-stats-header {
+  text-align: left;
+  color: #AEC7E8;
+  padding-top: 4rem; }
+
+.user-stats-header {
+  max-width: 1000px;
+  margin: 0 auto; }
 
 .no-stats-message {
   text-align: center;
@@ -995,7 +1082,7 @@ input.ng-valid.ng-dirty {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 1rem 0 1em; }
+  padding: 4rem 0 1em; }
 
 .bet-charity {
   height: 45px !important;
@@ -1225,7 +1312,7 @@ input.ng-valid.ng-dirty {
   padding-bottom: 2rem; }
 
 .about-page a {
-  color: #f05f5c; }
+  color: #F4F4F4; }
 
 .modal-bg {
   position: absolute;
@@ -1396,13 +1483,14 @@ donut-chart {
 
 .user-lose-streak-label {
   font-size: 1.2rem;
-  color: #3072a8; }
+  color: #3072a8;
+  font-weight: 400; }
 
 .user-win-streak-label {
   font-size: 1.2rem;
   padding: .6rem 0 0 .4rem;
   color: #3072a8;
-  font-weight: 700;
+  font-weight: 400;
   text-align: center; }
 
 .user-win-streak {
@@ -1476,9 +1564,9 @@ svg {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: flex-;
-  -ms-flex-pack: flex-;
-  justify-content: flex-; }
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end; }
 
 .bets-date {
   font-size: 1.4em; }
@@ -1607,7 +1695,8 @@ svg {
   padding-bottom: 1rem;
   letter-spacing: 2px;
   line-height: 1.25em;
-  max-width: 475px; }
+  max-width: 475px;
+  font-weight: 700; }
   .bets-title a {
     color: #3072a8;
     font-family: 'Raleway', serif; }

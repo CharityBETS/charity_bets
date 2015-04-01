@@ -6,7 +6,7 @@
 .profile-top-section {
 
   background-color: $my-white;
-  padding: 3.5rem 0rem 4.5rem;
+  padding: 7rem 0rem 4.5rem;
   color: $secondary-accent-color;
   display: flex;
   flex-direction: row;
@@ -157,9 +157,20 @@
   color: $secondary-accent-color;
 }
 
-.user-bets-header, .user-stats-header, .user-page-header, .bet-page-header, .bets-page-header {
+.user-page-header, .bet-page-header, .bets-page-header {
   text-align: center;
   color: #AEC7E8;
+}
+
+.user-bets-header, .user-stats-header {
+  text-align: left;
+  color: #AEC7E8;
+  padding-top: 4rem;
+}
+
+.user-stats-header {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .no-stats-message {

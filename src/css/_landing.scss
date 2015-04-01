@@ -7,8 +7,34 @@
   color: white;
 }
 
+.about-stats {
+  padding: 5rem 0 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: $secondary-accent-color;
+  color: $my-black;
+  font-family: monserrat, sans-serif;
+}
+
+.about-stat {
+  font-size: 5em;
+  font-weight: 700;
+  }
+
+.about-span {
+  font-size: 1rem;
+  font-family: Raleway, serif;
+}
+
+
+
 .landing-content-wrap {
-  padding: 2rem;
+  // padding: 2rem;
+
+  h3 {
+    margin: 0;
+  }
 }
 
 .three-items {
@@ -21,9 +47,8 @@
 .landing-block {
   flex-grow: 1;
   width: 25%;
-  padding: 1rem 2rem;
+  padding: 4rem 2rem;
   text-align: center;
-
 }
 
 .landing-block-header {
@@ -35,6 +60,12 @@
 
 .landing-content-head {
   text-align: center;
+  width: 100%;
+  padding: 6rem 0;
+  background-color: #1A1A1A;
+  color: white;
+  font-family: Raleway, sans-serif;
+  font-weight: 400;
 }
 
 .top-hero-line {
@@ -73,6 +104,7 @@
 
   button {
     margin: .4rem 2em;
+    opacity: .7;
   }
 
   button:hover {
@@ -82,13 +114,49 @@
 
   a {
     color: $my-white;
+    background-color: $secondary-accent-color;
+    opacity: .85;
+    margin: .4rem 2em;
+    padding: .75em 1.4em;
+    border-radius: .3em;
   }
 
   a:hover {
     color: $secondary-accent-color;
+    background-color: $my-white;
+    opacity: .7;
   }
 }
 
+.about-page-pic {
+    width: 150px;
+    height: auto;
+    border-radius: 150px;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    border: 5px $secondary-accent-color solid;
+}
+
+.the-team-wrap {
+  padding-bottom: 3rem;
+}
+
+.contact-page {
+  text-align: center;
+
+}
+
+.contact-page-content {
+  padding: 2rem 0;
+  p {
+    padding: 2rem 0;
+  }
+
+  h2 {
+    color: $secondary-accent-color;
+  }
+}
 
 
 @media only screen and (max-width : 920px) {
@@ -106,6 +174,17 @@
 }
 
 @media only screen and (max-width : 535px) {
+
+  .hero-section, .about-page-img, .contact-page-img, .org-page-img {
+
+    background-size: contain;
+    color: white;
+    height: 400px;
+  }
+
+  .three-items {
+    width: 93%;
+  }
 
   .landing-action-buttons {
     margin-top: 0%;

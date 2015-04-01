@@ -9,11 +9,11 @@
   position: relative;
   margin: 0 auto;
   display: flex;
-  justify-content: flex-;
+  justify-content: flex-end;
 }
 
 .bets-date {
-    font-size: 1.4em;
+  font-size: 1.4em;
 }
 
 .search-bar {
@@ -23,16 +23,16 @@
   display: inline-block;
 
 
-    input {
-      margin-left: .3rem;
-      padding: .25em;
-      outline: none;
-      border-radius: .2em;
-    }
+  input {
+    margin-left: .3rem;
+    padding: .25em;
+    outline: none;
+    border-radius: .2em;
+  }
 
-    input:focus {
-      background-color:$my-white;
-    }
+  input:focus {
+    background-color:$my-white;
+  }
 
 }
 
@@ -167,6 +167,7 @@
   letter-spacing: 2px;
   line-height: 1.25em;
   max-width: 475px;
+  font-weight: 700;
 
 
   a {
@@ -178,7 +179,7 @@
 .bets-title:hover {
   a {
     color: $main-accent-color;
-    }
+  }
 }
 
 .bets-users {
@@ -310,14 +311,14 @@
 
     a {
 
-    text-align: center;
+      text-align: center;
     }
   }
 
   .bets-user {
 
     a {
-    text-align: center;
+      text-align: center;
     }
   }
 

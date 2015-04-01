@@ -79,7 +79,8 @@ donut-chart {
 
 .user-lose-streak-label {
   font-size: 1.2rem;
-  color: $secondary-accent-color
+  color: $secondary-accent-color;
+  font-weight: 400;
 }
 
 
@@ -87,7 +88,7 @@ donut-chart {
   font-size: 1.2rem;
   padding: .6rem 0 0 .4rem;
   color: $secondary-accent-color;
-  font-weight: 700;
+  font-weight: 400;
   text-align: center;
 
 }
@@ -148,6 +149,7 @@ path.area {
 .x.axis path {
  display: none;
 }
+
 
 .y.axis line, .y.axis path {
  fill: none;

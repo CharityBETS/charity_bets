@@ -21,7 +21,7 @@ app.directive('areaChart', function () {
         var svg = d3.select(element[0]).append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-          .append("g")
+            .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
@@ -44,11 +44,12 @@ app.directive('areaChart', function () {
 
 
 
-        var xAxis = var xAxis = d3.svg.axis()
-                                      .scale(x)
-                                      .orient("bottom")
-                                      .tickValues(d3.range(lineData.length + 1))
-                                      .tickFormat(d3.format(",.0f"));
+        var xAxis = d3.svg.axis()
+                          .scale(x)
+                          .orient("bottom")
+                          .tickValues(d3.range(lineData.length + 1))
+                          .tickFormat(d3.format(",.0f"));
+
 
         var yAxis = d3.svg.axis()
                           .scale(y)
