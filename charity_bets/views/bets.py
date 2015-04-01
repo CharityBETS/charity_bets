@@ -83,8 +83,9 @@ def check_resolution(bet):
             winner = User.query.filter_by(id=bet.verified_winner).first()
             bet.winner_name = winner.name
 
-            charge_funders(bet)
             db.session.commit()
+            charge_funders(bet)
+            
         else:
             bet.status = "conflict"
             bet.mail_track = "conflict"
@@ -458,6 +459,7 @@ def view_comments(id):
 def charge_loser(id):
     body = request.get_data(as_text=True)
     data = json.loads(body)
+    print(data)
     bet = Bet.query.filter_by(id = id).first()
     user = User.query.filter_by(id = bet.verified_winner).first()
 
@@ -473,17 +475,18 @@ def charge_loser(id):
     charity.amount_earned = charity.amount_earned + bet.amount
     bet.loser_paid = "paid"
     db.session.commit()
+    try:
+        stripe.api_key = charity.access_token
+        card_token = data['token']
+        charge = stripe.Charge.create(
+            amount = int(bet.amount)*100,
+            currency='usd',
+            source = card_token,
+            description='BET PAYMENT')
+        return jsonify({"SUCESSFUL PAYMENT":"SUCCESSFUL PAYMENT"})
+    except:
+        return jsonify ({"Error":"UNSUCCESSFUL PAYMENT"})
 
-    stripe.api_key = charity.access_token
-    card_token = data['token']
-    charge = stripe.Charge.create(
-        amount = int(bet.amount)*100,
-        currency='usd',
-        source = card_token,
-        description='BET PAYMENT')
-
-
-    return jsonify({"SUCESSFUL PAYMENT":"SUCCESSFUL PAYMENT"})
 
 
 @bets.route("/bets/<int:id>/fund_bettor", methods = ["POST"])
@@ -523,4 +526,37 @@ def fund_bet(id):
 
     db.session.add(funder)
     db.session.commit()
+    return jsonify({"Data":funder.make_dict()})
+
+@bets.route("/bets/<int:id>/fake_funder", methods = ["POST"])
+@login_required
+def fake_funder(id):
+    body = request.get_data(as_text=True)
+    data = json.loads(body)
+    bet = Bet.query.filter_by(id = id).first()
+    amount = int(data["amount"])
+    if "creatorid" in data.keys():
+        charity = Charity.query.filter_by(name = bet.charity_challenger).first()
+        isfunding = bet.creator
+        bet.creator_money_raised += amount
+        bet.total_money_raised += amount
+        db.session.commit()
+    if "challengerid" in data.keys():
+        charity = Charity.query.filter_by(name = bet.charity_creator).first()
+        isfunding = bet.challenger
+        bet.challenger_money_raised += amount
+        bet.total_money_raised += amount
+        db.session.commit()
+
+    funder = Funder(is_funding = isfunding,
+                    user_id = current_user.id,
+                    bet_id = id,
+                    amount = amount,
+                    stripe_customer_id = "FAKE CUSTOMER ID",
+                    charity = charity.name,
+                    charity_token = charity.access_token,
+                    date = str(datetime.datetime.now())[:16])
+    db.session.add(funder)
+    db.session.commit()
+
     return jsonify({"Data":funder.make_dict()})

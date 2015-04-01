@@ -45,10 +45,11 @@ app.directive('areaChart', function () {
 
 
         var xAxis = d3.svg.axis()
-                                      .scale(x)
-                                      .orient("bottom")
-                                      .tickValues(d3.range(lineData.length + 1))
-                                      .tickFormat(d3.format(",.0f"));
+                          .scale(x)
+                          .orient("bottom")
+                          .tickValues(d3.range(lineData.length + 1))
+                          .tickFormat(d3.format(",.0f"));
+
 
         var yAxis = d3.svg.axis()
                           .scale(y)
