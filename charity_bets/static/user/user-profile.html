@@ -48,7 +48,7 @@
           <donut-chart  class="donut" dataset="vm.earningPotential"></donut-chart>
           <div class="donut-stat-inner-wrap">
             <div class="user-win-streak">{{vm.currentUser.money_won | currency:"$":0}}<div class="user-win-streak-label">Money Won</div></div>
-            <div class="user-lose-streak">{{vm.currentUser.total_money_raised | currency:"$":0}}<div class="user-lose-streak-label">Money Raised</div></div>
+            <div class="user-lose-streak">{{vm.currentUser.donation_money_raised | currency:"$":0}}<div class="user-lose-streak-label">Money Raised</div></div>
           </div>
             <div class="user-win-streak-label">Won vs Raised</div>
         </div>
