@@ -21,7 +21,7 @@ app.directive('areaChart', function () {
         var svg = d3.select(element[0]).append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-          .append("g")
+            .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 

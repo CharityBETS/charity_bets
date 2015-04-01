@@ -14,10 +14,13 @@ footer {
 .footer-nav {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   flex-wrap: wrap;
-  width: 30em;
+  max-width: 30em;
   margin: 0 auto;
   font-size: 1.1em;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .copywrite {
@@ -33,4 +36,9 @@ footer {
   right: 20px;
   color: $my-white;
   font-size: 2em;
+}
+
+@media only screen and (max-width : 620px)  {
+  flex-direction: column;
+
 }
