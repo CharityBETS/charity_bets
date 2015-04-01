@@ -28,7 +28,6 @@ app.config(['$routeProvider', function($routeProvider) {
       }],
       charities: ['betService', function(betService) {
         return betService.getCharities().then(function (result) {
-          console.log(result);
           return result;
         });
       }]
@@ -45,21 +44,17 @@ app.config(['$routeProvider', function($routeProvider) {
 
   var self = this;
   self.bet = bet;
-
-  // self.bet.charity_challenger = '';
-
   self.currentUser = currentUser;
   self.comment=Comment();
   self.donation=Donation();
   self.charities=charities;
   self.modalaction=false;
   self.creatorData = bet.chart_data.creator_data;
-  console.log(self.creatorData);
   self.cleanCreatorData = angular.toJson(self.creatorData);
   self.challengerData = bet.chart_data.challenger_data;
   self.cleanChallengerData = angular.toJson(self.challengerData);
-  console.log(self.challengerData);
   self.isNoDonations = (bet.creator_money_raised + bet.challenger_money_raised === 0);
+  self.bet.charity_challenger = '';
 
   self.creatorWinner = function () {
     return (bet.creator === bet.verified_winner);
@@ -96,7 +91,6 @@ app.config(['$routeProvider', function($routeProvider) {
   self.betOutcomeWin = function (id) {
      betService.betOutcomeWin(bet.id, currentUser.id).then(function (result) {
        self.bet=result;
-       bet=self.bet
      });
   };
 
@@ -109,9 +103,14 @@ app.config(['$routeProvider', function($routeProvider) {
     betService.acceptBet(bet.id).then(function (result) {
       console.log(result);
       self.bet.status=result.status;
+      // self.bet = result;
     });
     betService.challengerCharity(bet.id, bet.charity_challenger);
   };
+
+
+
+
 
   self.deleteBet = function () {
     betService.deleteBet(bet.id).then(function(result) {
@@ -192,8 +191,7 @@ app.factory('Bet', function () {
         date: spec.date,
         location: spec.location,
         description: spec.description,
-        charity_creator: spec.charity_creator,
-        charity_challenger: ''
+        charity_creator: spec.charity_creator
     };
   };
 });
