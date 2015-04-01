@@ -150,6 +150,29 @@ footer {
   background-size: cover;
   color: white; }
 
+.about-stats {
+  padding: 5rem 0 2rem;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  color: #3072a8;
+  color: #484848;
+  font-family: monserrat, sans-serif; }
+
+.about-stat {
+  font-size: 5em;
+  font-weight: 700; }
+
+.about-span {
+  font-size: 1rem;
+  font-family: Raleway, serif; }
+
 .landing-content-wrap {
   padding: 2rem; }
 
@@ -225,6 +248,23 @@ footer {
     color: #F4F4F4; }
   .landing-action-buttons a:hover {
     color: #3072a8; }
+
+.about-page-pic {
+  width: 150px;
+  height: auto;
+  border-radius: 150px;
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  border: 5px #3072a8 solid; }
+
+.contact-page {
+  text-align: center; }
+
+.contact-page-content {
+  padding: 2rem 0; }
+  .contact-page-content p {
+    padding: 2rem 0; }
 
 @media only screen and (max-width: 920px) {
   .three-items {

@@ -411,340 +411,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: '/static/landing/about.html',
-    controller: 'AboutCtrl',
-    controllerAs: 'vm',
-  };
-  $routeProvider.when('/about', routeDefinition);
-}])
-.controller('AboutCtrl', ['$location', function ($location) {
-
-  var self = this;
-  
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: '/static/landing/organizations.html',
-    controller: 'OrgCtrl',
-    controllerAs: 'vm',
-  };
-  $routeProvider.when('/partners', routeDefinition);
-}])
-.controller('OrgCtrl', ['$location', function ($location) {
-
-  var self = this;
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: '/static/landing/contact.html',
-    controller: 'ContactCtrl',
-    controllerAs: 'vm',
-  };
-  $routeProvider.when('/contact', routeDefinition);
-}])
-.controller('ContactCtrl', ['$location', function ($location) {
-
-  var self = this;
-
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: '/static/landing/landing.html',
-    controller: 'LandingCtrl',
-    controllerAs: 'vm',
-  };
-  $routeProvider.when('/', routeDefinition);
-}])
-.controller('LandingCtrl', ['$location', function ($location) {
-
-  var self = this;
-
-
-
-
-}]);
-
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-      return StringUtil.startsWith($location.path(), path);
-    };
-
-    // self.addToLi = function () {
-    //   var navItem = document.querySelector('.')
-    //   return
-    //     if (isActive) {
-    //     }
-    // }
-
-}]);
-
-app.factory('betService', ['$http', '$log', function($http, $log) {
-
-  function get(url) {
-    return processAjaxPromise($http.get(url));
-  }
-
-  function put(url, bet) {
-    return processAjaxPromise($http.put(url, bet));
-  }
-
-  function post(url, share) {
-    return processAjaxPromise($http.post(url, share));
-  }
-
-  function remove(url) {
-    return processAjaxPromise($http.delete(url));
-
-  }
-
-  function processAjaxPromise(p) {
-    return p.then(function (result) {
-      var data = result.data;
-      return data.data;
-    })
-    .catch(function (error) {
-     $log.log(error);
-     throw error;
-    });
-  }
-
-
-  return {
-    // getBetList: function () {
-    //   return get('/api/res');
-    // },
-
-    getBet: function (id) {
-      return get('/api/bets/' + id);
-    },
-
-    addBet: function (bet) {
-      return post('/api/user/bets', bet);
-    },
-
-    getBets: function () {
-      return get('/api/bets');
-    },
-
-    betOutcomeWin: function(id, currentuserId) {
-      return put('/api/bets/' + id, {"outcome": currentuserId});
-    },
-
-    betOutcomeLose: function(id) {
-      console.log('/api/bets/' + id);
-      return put('/api/bets/' + id, {"outcome": -1});
-    },
-
-    acceptBet: function(id) {
-      return put('/api/bets/' + id, {"status": "active"});
-    },
-
-    deleteBet: function (id) {
-      return remove('/api/bets/' + id);
-    },
-
-    addComment: function (id, comment) {
-      return post('/api/bets/' + id + '/comments', comment);
-    },
-
-    getCharities: function () {
-      return get('/api/charities');
-    },
-
-    challengerCharity: function (id, charity) {
-      console.log('/api/bets/' + id, {'charity_challenger': charity});
-      return put ('/api/bets/' + id, {'charity_challenger': charity});
-    },
-
-    sendStripe: function (betid, resultid) {
-      console.log('api/bets/' + betid + '/pay_bet', resultid);
-      return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
-    },
-
-    addDonationCreator: function(betid, creatorId, amount, resultid) {
-      console.log('api/bets/' + betid + '/fund_bettor', {'creatorid': creatorId, 'amount': amount, 'token': resultid});
-      return post('api/bets/' + betid + '/fund_bettor', {'creatorid': creatorId, 'amount': amount, 'token': resultid});
-    },
-
-    addDonationChallenger: function(betid, challengerId, amount, resultid) {
-      console.log('api/bets/' + betid + '/fund_bettor', {'creatorid': challengerId, 'amount': amount, 'token': resultid});
-      return post('api/bets/' + betid + '/fund_bettor', {'challengerid': challengerId, 'amount': amount, 'token': resultid});
-    },
-
-    filterBet: function (filter, sort) {
-        return get ('api/bets/' + filter + '/' + sort);
-    }
-
-
-
-    // deleteShare: function (id) {
-    //   return remove('/api/res/' + id);
-    // }
-  };
-}]);
-
-app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
-
-  function get(url) {
-    return processAjaxPromise($http.get(url));
-  }
-
-  function post(url, share) {
-    return processAjaxPromise($http.post(url, share));
-  }
-
-  function processAjaxPromise(p) {
-    return p.then(function (result) {
-      return result.data;
-    })
-    .catch(function (error) {
-      $log.log(error);
-    });
-  }
-
-  return {
-    getUsers: function () {
-      return get('/api/users');
-    },
-
-    getByUserId: function (userId) {
-      if (!userId) {
-        throw new Error('getByUserId requires a user id');
-      }
-      return get('/api/user/' + userId);
-    },
-
-    addUser: function (user) {
-      return processAjaxPromise($http.post('/api/users', user));
-    },
-
-    getCurrent: function () {
-      return get('/api/user/me');
-    },
-
-    logOut: function (currentUser) {
-      return post('/api/logout');
-    },
-
-    getCurrentUserBets: function () {
-      return get('/api/user/bets');
-    },
-
-    getBetsByUser: function (id) {
-      return get ('api/user/' + id + '/bets');
-    }
-
-    // sendStripe: function (betid, resultid) {
-    //   console.log('api/bets/' + betid + '/pay_bet', resultid);
-    //   return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
-    // }
-
-  };
-}]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/user/other-users.html',
-    controller: 'OtherUserCtrl',
-    controllerAs: 'vm',
-    resolve: {
-          // user: ['userService', '$route', function (userService, $route) {
-          //   var id = $route.current.params.id;
-          //   return userService.getByUserId(id);
-          // }],
-          thisUser: ['userService', '$route', function (userService, $route) {
-          return userService.getByUserId($route.current.params.id).then(function (result) {
-            return result.data;
-          });
-          }],
-          thisUserBets: ['userService', '$route', function (userService, $route) {
-          return userService.getBetsByUser($route.current.params.id).then(function (result) {
-          console.log(result.data);
-            return result.data;
-          });
-          }]
-      }
-  };
-  $routeProvider.when('/user/user-profile/:id', routeDefinition);
-}])
-.controller('OtherUserCtrl', ['$location', 'userService', 'thisUser', 'thisUserBets', function ($location, userService, thisUser, thisUserBets) {
-
-  var self = this;
-  self.thisUser = thisUser;
-  self.thisUserBets = thisUserBets;
-  self.winDonutData = [thisUser.money_won, thisUser.money_lost];
-  self.gaugeData = [thisUser.win_streak, thisUser.longest_win_streak];
-  self.youGotNoStats = (thisUser.wins === 0);
-  self.earningPotential = [thisUser.money_won, thisUser.donation_money_raised];
-
-}]);
-
-// app.directive('paymentForm', function() {
-//   return {
-//     restrict: 'E',
-//     templateUrl: 'static/directives/user-payment-form-template.html'
-//   };
-// });
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/user/user-profile.html',
-    controller: 'UserCtrl',
-    controllerAs: 'vm',
-    resolve: {
-          currentUser: ['userService', function (userService) {
-          return userService.getCurrent().then(function (result) {
-            return result.data;
-          });
-          }],
-          currentUserBets: ['userService', function (userService) {
-          console.log(userService.getCurrentUserBets());
-          return userService.getCurrentUserBets().then(function (result) {
-            return result.data;
-          });
-          }]
-      }
-  };
-  $routeProvider.when('/user/user-profile', routeDefinition);
-}])
-.controller('UserCtrl', ['$location', 'userService', 'currentUser', 'currentUserBets', '$scope', function ($location, userService, currentUser, currentUserBets, $scope) {
-
-  var self = this;
-  self.currentUser = currentUser;
-  self.currentUserBets = currentUserBets;
-  self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
-  self.winDonutData = [currentUser.money_won, currentUser.money_lost];
-  console.log(self.winDonutData);
-  self.goo = [currentUser.money_won, currentUser.money_lost];
-  self.gaugeData = [currentUser.win_streak, currentUser.longest_win_streak];
-  self.totalMoneyStat = parseInt(currentUser.money_won) + parseInt(currentUser.donation_money_raised);
-  self.youGotNoStats = (currentUser.wins === 0);
-  self.earningPotential = [currentUser.money_won, currentUser.donation_money_raised];
-
-
-}]);
-
-app.factory('StringUtil', function() {
-  return {
-    startsWith: function (str, subStr) {
-      str = str || '';
-      return str.slice(0, subStr.length) === subStr;
-    }
-  };
-});
-
 app.directive('betPaymentForm', function() {
   return {
     restrict: 'E',
@@ -1155,7 +821,7 @@ app.directive('areaChart', function () {
 
 
 
-        var xAxis = var xAxis = d3.svg.axis()
+        var xAxis = d3.svg.axis()
                                       .scale(x)
                                       .orient("bottom")
                                       .tickValues(d3.range(lineData.length + 1))
@@ -1669,6 +1335,340 @@ app.directive('pageslide', [
         };
     }
 ]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: '/static/landing/about.html',
+    controller: 'AboutCtrl',
+    controllerAs: 'vm',
+  };
+  $routeProvider.when('/about', routeDefinition);
+}])
+.controller('AboutCtrl', ['$location', function ($location) {
+
+  var self = this;
+  
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: '/static/landing/organizations.html',
+    controller: 'OrgCtrl',
+    controllerAs: 'vm',
+  };
+  $routeProvider.when('/partners', routeDefinition);
+}])
+.controller('OrgCtrl', ['$location', function ($location) {
+
+  var self = this;
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: '/static/landing/contact.html',
+    controller: 'ContactCtrl',
+    controllerAs: 'vm',
+  };
+  $routeProvider.when('/contact', routeDefinition);
+}])
+.controller('ContactCtrl', ['$location', function ($location) {
+
+  var self = this;
+
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: '/static/landing/landing.html',
+    controller: 'LandingCtrl',
+    controllerAs: 'vm',
+  };
+  $routeProvider.when('/', routeDefinition);
+}])
+.controller('LandingCtrl', ['$location', function ($location) {
+
+  var self = this;
+
+
+
+
+}]);
+
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+      return StringUtil.startsWith($location.path(), path);
+    };
+
+    // self.addToLi = function () {
+    //   var navItem = document.querySelector('.')
+    //   return
+    //     if (isActive) {
+    //     }
+    // }
+
+}]);
+
+app.factory('betService', ['$http', '$log', function($http, $log) {
+
+  function get(url) {
+    return processAjaxPromise($http.get(url));
+  }
+
+  function put(url, bet) {
+    return processAjaxPromise($http.put(url, bet));
+  }
+
+  function post(url, share) {
+    return processAjaxPromise($http.post(url, share));
+  }
+
+  function remove(url) {
+    return processAjaxPromise($http.delete(url));
+
+  }
+
+  function processAjaxPromise(p) {
+    return p.then(function (result) {
+      var data = result.data;
+      return data.data;
+    })
+    .catch(function (error) {
+     $log.log(error);
+     throw error;
+    });
+  }
+
+
+  return {
+    // getBetList: function () {
+    //   return get('/api/res');
+    // },
+
+    getBet: function (id) {
+      return get('/api/bets/' + id);
+    },
+
+    addBet: function (bet) {
+      return post('/api/user/bets', bet);
+    },
+
+    getBets: function () {
+      return get('/api/bets');
+    },
+
+    betOutcomeWin: function(id, currentuserId) {
+      return put('/api/bets/' + id, {"outcome": currentuserId});
+    },
+
+    betOutcomeLose: function(id) {
+      console.log('/api/bets/' + id);
+      return put('/api/bets/' + id, {"outcome": -1});
+    },
+
+    acceptBet: function(id) {
+      return put('/api/bets/' + id, {"status": "active"});
+    },
+
+    deleteBet: function (id) {
+      return remove('/api/bets/' + id);
+    },
+
+    addComment: function (id, comment) {
+      return post('/api/bets/' + id + '/comments', comment);
+    },
+
+    getCharities: function () {
+      return get('/api/charities');
+    },
+
+    challengerCharity: function (id, charity) {
+      console.log('/api/bets/' + id, {'charity_challenger': charity});
+      return put ('/api/bets/' + id, {'charity_challenger': charity});
+    },
+
+    sendStripe: function (betid, resultid) {
+      console.log('api/bets/' + betid + '/pay_bet', resultid);
+      return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
+    },
+
+    addDonationCreator: function(betid, creatorId, amount, resultid) {
+      console.log('api/bets/' + betid + '/fund_bettor', {'creatorid': creatorId, 'amount': amount, 'token': resultid});
+      return post('api/bets/' + betid + '/fund_bettor', {'creatorid': creatorId, 'amount': amount, 'token': resultid});
+    },
+
+    addDonationChallenger: function(betid, challengerId, amount, resultid) {
+      console.log('api/bets/' + betid + '/fund_bettor', {'creatorid': challengerId, 'amount': amount, 'token': resultid});
+      return post('api/bets/' + betid + '/fund_bettor', {'challengerid': challengerId, 'amount': amount, 'token': resultid});
+    },
+
+    filterBet: function (filter, sort) {
+        return get ('api/bets/' + filter + '/' + sort);
+    }
+
+
+
+    // deleteShare: function (id) {
+    //   return remove('/api/res/' + id);
+    // }
+  };
+}]);
+
+app.factory('userService', ['$http', '$q', '$log', function($http, $q, $log) {
+
+  function get(url) {
+    return processAjaxPromise($http.get(url));
+  }
+
+  function post(url, share) {
+    return processAjaxPromise($http.post(url, share));
+  }
+
+  function processAjaxPromise(p) {
+    return p.then(function (result) {
+      return result.data;
+    })
+    .catch(function (error) {
+      $log.log(error);
+    });
+  }
+
+  return {
+    getUsers: function () {
+      return get('/api/users');
+    },
+
+    getByUserId: function (userId) {
+      if (!userId) {
+        throw new Error('getByUserId requires a user id');
+      }
+      return get('/api/user/' + userId);
+    },
+
+    addUser: function (user) {
+      return processAjaxPromise($http.post('/api/users', user));
+    },
+
+    getCurrent: function () {
+      return get('/api/user/me');
+    },
+
+    logOut: function (currentUser) {
+      return post('/api/logout');
+    },
+
+    getCurrentUserBets: function () {
+      return get('/api/user/bets');
+    },
+
+    getBetsByUser: function (id) {
+      return get ('api/user/' + id + '/bets');
+    }
+
+    // sendStripe: function (betid, resultid) {
+    //   console.log('api/bets/' + betid + '/pay_bet', resultid);
+    //   return post('api/bets/' + betid + '/pay_bet', {'token': resultid});
+    // }
+
+  };
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/user/other-users.html',
+    controller: 'OtherUserCtrl',
+    controllerAs: 'vm',
+    resolve: {
+          // user: ['userService', '$route', function (userService, $route) {
+          //   var id = $route.current.params.id;
+          //   return userService.getByUserId(id);
+          // }],
+          thisUser: ['userService', '$route', function (userService, $route) {
+          return userService.getByUserId($route.current.params.id).then(function (result) {
+            return result.data;
+          });
+          }],
+          thisUserBets: ['userService', '$route', function (userService, $route) {
+          return userService.getBetsByUser($route.current.params.id).then(function (result) {
+          console.log(result.data);
+            return result.data;
+          });
+          }]
+      }
+  };
+  $routeProvider.when('/user/user-profile/:id', routeDefinition);
+}])
+.controller('OtherUserCtrl', ['$location', 'userService', 'thisUser', 'thisUserBets', function ($location, userService, thisUser, thisUserBets) {
+
+  var self = this;
+  self.thisUser = thisUser;
+  self.thisUserBets = thisUserBets;
+  self.winDonutData = [thisUser.money_won, thisUser.money_lost];
+  self.gaugeData = [thisUser.win_streak, thisUser.longest_win_streak];
+  self.youGotNoStats = (thisUser.wins === 0);
+  self.earningPotential = [thisUser.money_won, thisUser.donation_money_raised];
+
+}]);
+
+// app.directive('paymentForm', function() {
+//   return {
+//     restrict: 'E',
+//     templateUrl: 'static/directives/user-payment-form-template.html'
+//   };
+// });
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/user/user-profile.html',
+    controller: 'UserCtrl',
+    controllerAs: 'vm',
+    resolve: {
+          currentUser: ['userService', function (userService) {
+          return userService.getCurrent().then(function (result) {
+            return result.data;
+          });
+          }],
+          currentUserBets: ['userService', function (userService) {
+          console.log(userService.getCurrentUserBets());
+          return userService.getCurrentUserBets().then(function (result) {
+            return result.data;
+          });
+          }]
+      }
+  };
+  $routeProvider.when('/user/user-profile', routeDefinition);
+}])
+.controller('UserCtrl', ['$location', 'userService', 'currentUser', 'currentUserBets', '$scope', function ($location, userService, currentUser, currentUserBets, $scope) {
+
+  var self = this;
+  self.currentUser = currentUser;
+  self.currentUserBets = currentUserBets;
+  self.isBetLoser = (currentUser.id === currentUserBets.verified_loser && currentUserBets.loser_paid === "unpaid");
+  self.winDonutData = [currentUser.money_won, currentUser.money_lost];
+  console.log(self.winDonutData);
+  self.goo = [currentUser.money_won, currentUser.money_lost];
+  self.gaugeData = [currentUser.win_streak, currentUser.longest_win_streak];
+  self.totalMoneyStat = parseInt(currentUser.money_won) + parseInt(currentUser.donation_money_raised);
+  self.youGotNoStats = (currentUser.wins === 0);
+  self.earningPotential = [currentUser.money_won, currentUser.donation_money_raised];
+
+
+}]);
+
+app.factory('StringUtil', function() {
+  return {
+    startsWith: function (str, subStr) {
+      str = str || '';
+      return str.slice(0, subStr.length) === subStr;
+    }
+  };
+});
 
 app.controller('Error404Ctrl', ['$location', function ($location) {
   this.message = 'Could not find: ' + $location.url();

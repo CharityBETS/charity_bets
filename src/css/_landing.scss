@@ -7,6 +7,28 @@
   color: white;
 }
 
+.about-stats {
+  padding: 5rem 0 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: $secondary-accent-color;
+  color: $my-black;
+  font-family: monserrat, sans-serif;
+}
+
+.about-stat {
+  font-size: 5em;
+  font-weight: 700;
+  }
+
+.about-span {
+  font-size: 1rem;
+  font-family: Raleway, serif;
+}
+
+
+
 .landing-content-wrap {
   padding: 2rem;
 }
@@ -23,7 +45,6 @@
   width: 25%;
   padding: 1rem 2rem;
   text-align: center;
-
 }
 
 .landing-block-header {
@@ -89,6 +110,26 @@
   }
 }
 
+.about-page-pic {
+    width: 150px;
+    height: auto;
+    border-radius: 150px;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    border: 5px $secondary-accent-color solid;
+}
+
+.contact-page {
+  text-align: center;
+}
+
+.contact-page-content {
+  padding: 2rem 0;
+  p {
+    padding: 2rem 0;
+  }
+}
 
 
 @media only screen and (max-width : 920px) {
