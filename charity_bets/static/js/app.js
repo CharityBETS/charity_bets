@@ -107,10 +107,11 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.acceptBet = function (charity) {
     betService.acceptBet(bet.id).then(function (result) {
+    betService.challengerCharity(bet.id, bet.charity_challenger);
       console.log(result);
       self.bet.status=result.status;
+      // self.bet = result;
     });
-    betService.challengerCharity(bet.id, bet.charity_challenger);
   };
 
   self.deleteBet = function () {
