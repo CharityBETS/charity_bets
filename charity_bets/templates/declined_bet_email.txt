@@ -2,7 +2,7 @@ Dear {{ creator.name}},
 {{ challenger.name }} has declined your bet, {{ bet.title }} on betti.
 Don't be discouraged!  Make another bet at:
 
-http://localhost:5000/#/createbet
+http://betti.co/#/createbet
 
 
 Good luck,
