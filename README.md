@@ -16,4 +16,4 @@ and wager.
 ###Features:
 * Handles all payments securely and seamlessly through stipe.
 * Easily select from a wide range of charities.
-* Automatically route earnings to selected charity at bet completion
+* Automatically route earnings to selected charity at bet completion.
