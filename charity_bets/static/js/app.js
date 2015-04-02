@@ -108,7 +108,9 @@ app.config(['$routeProvider', function($routeProvider) {
     betService.challengerCharity(bet.id, bet.charity_challenger);
   };
 
-
+  self.isLocation = function () {
+    return (bet.location !== null);
+  }
 
 
 
@@ -301,9 +303,14 @@ app.config(['$routeProvider', function($routeProvider) {
   // self.currentUser = currentUser;
   // self.users = users;
   self.filterSort = false;
+
   self.goToBet = function (id) {
     $location.path('/bet/' + id );
     };
+
+  self.isWinner = function () {
+    return (bet.verified_winner !== null);
+    }
 
   // self.isVerifiedWinner = function () {
   //   return (bets.winner_name !== null);

@@ -35,6 +35,7 @@
   <li class="bets-li" ng-repeat="bet in vm.bets | filter:searchText" ng-click="vm.goToBet(bet.id)">
 
   <div class="bets-flex-container">
+    <div class="bets-pad" ng-show="bet.verified_winner !== null">COMPLETE</div>
 
     <div class="bets-section-1">
       <div class="bets-title">

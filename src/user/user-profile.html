@@ -76,22 +76,23 @@
 
         <div class="actionable" ng-show="{{bet.needs_accepting==='y'}}"><a href="#/bet/{{bet.id}}">ACCEPT?</a></div>
         <div class="actionable" ng-show="{{bet.maybe_you_lost==='y'}}"><a href="#/bet/{{bet.id}}">YOU LOST?</a></div>
+        <div class="bets-pad" ng-show="bet.verified_winner !== null">COMPLETE</div>
         <div class="bets-section-1">
           <div class="bets-title">
             <a href="#/bet/{{bet.id}}">{{bet.title}}</a>
           </div>
           <div ng-show="bet.winner_name !== null" class="bet-status number">
-            <div id="stat-title-label-winner">Winner</div>
+            <div class="stat-title-label-winner">n</div>
           <div class="bets-actual-winner">{{bet.winner_name}}</div>
           </div>
           <div ng-show="bet.winning_charity_name !== null" class="bet-status number">
-            <div id="stat-title-label-winner">Winning Charity</div>
+            <div class="stat-title-label-winner">m</div>
           <div class="bets-actual-winner">{{bet.winning_charity_name}}</div>
           </div>
           <!-- <div class="bets-date">
             {{bet.date | date:'EEEE, MMM d'}}
           </div> -->
-          <div class="bets-funding-title">Money Pledged</div>
+          <div class="bets-funding-title">e</div>
           <div class="bets-funding">{{bet.total_money_raised | currency:"$":0}}</div>
 
         </div>

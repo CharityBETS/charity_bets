@@ -16,6 +16,20 @@
   font-size: 1.4em;
 }
 
+.bets-pad {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  color: $secondary-accent-color;
+  font-size: .8rem;
+  height: 40px;
+  transform: translate(-50%);
+  width: 7.3em;
+  text-align: center;
+  padding-top: .35rem;
+  padding-bottom: 2em;
+}
+
 .search-bar {
   margin-top: .3rem;
   // background-color: $my-white;

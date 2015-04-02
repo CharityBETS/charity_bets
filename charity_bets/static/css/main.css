@@ -309,7 +309,7 @@ footer {
 
 .member-wrap {
   width: 47%;
-  padding: 2rem 2%; }
+  padding: .5rem 2% 0rem; }
 
 .about-icon {
   font-family: major-wager !important;
@@ -1590,6 +1590,20 @@ svg {
 
 .bets-date {
   font-size: 1.4em; }
+
+.bets-pad {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  color: #3072a8;
+  font-size: .8rem;
+  height: 40px;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+  width: 7.3em;
+  text-align: center;
+  padding-top: .35rem;
+  padding-bottom: 2em; }
 
 .search-bar {
   margin-top: .3rem;
