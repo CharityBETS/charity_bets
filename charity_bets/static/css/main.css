@@ -533,6 +533,13 @@ footer {
   font-size: 2em;
   font-weight: bold; }
 
+.location {
+  font-weight: 700;
+  font-size: 2.3em;
+  font-family: 'Montserrat', serif;
+  padding-bottom: 0;
+  margin-bottom: 0; }
+
 .bet-title {
   max-width: 95%;
   font-size: 2.4em;
