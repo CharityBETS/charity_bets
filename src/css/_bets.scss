@@ -136,8 +136,9 @@
 
 .bets-funding-title {
   font-size: 1.5rem;
-  padding-top: .8rem;
+  padding-top: .2rem;
 }
+
 
 
 
@@ -240,14 +241,14 @@
   font-weight: 700;
 }
 
-#stat-title-label-winner {
+.stat-title-label-winner, .bets-funding-title {
   font-weight: 400;
-  font-family: 'Raleway', sans-serif;
-  font-size: 1.5em;
+  font-family: major-wager;
+  font-size: 2em;
 }
 
 .bets-actual-winner {
-  padding-top: .4rem;
+  padding: .4rem 0 1rem;
   font-size: 1.5em;
 }
 

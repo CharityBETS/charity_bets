@@ -102,16 +102,6 @@
   transform: translate(-50%,-50%);
   justify-content: center;
 
-  button {
-    margin: .4rem 2em;
-    opacity: .7;
-  }
-
-  button:hover {
-    background-color: white;
-    color: $secondary-accent-color;
-  }
-
   a {
     color: $my-white;
     background-color: $secondary-accent-color;
@@ -126,6 +116,7 @@
     background-color: $my-white;
     opacity: .7;
   }
+
 }
 
 .about-page-pic {
@@ -146,9 +137,6 @@
   color: $main-accent-color !important;
 }
 
-.the-team-wrap {
-  padding-bottom: 3rem;
-}
 
 .contact-page {
   text-align: center;
@@ -164,6 +152,27 @@
   h2 {
     color: $secondary-accent-color;
   }
+}
+
+.the-team-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.member-wrap {
+  width: 47%;
+  padding: 2rem 2%;
+}
+
+.about-icon {
+  font-family: major-wager !important;
+  font-size: 2em;
+  display: inline-block;
+  padding-right: .5rem;
+  font-color: $my-black !important;
 }
 
 
@@ -196,6 +205,7 @@
 
   .landing-action-buttons {
     margin-top: 0%;
+
   }
 
   .sign-up-button {

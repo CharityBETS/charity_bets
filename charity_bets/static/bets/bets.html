@@ -41,12 +41,12 @@
         <a href="#/bet/{{bet.id}}">{{bet.title}}</a>
       </div>
       <div ng-show="bet.winner_name !== null" class="bet-status number">
-        <div id="stat-title-label-winner">Winner</div>
+        <div class="stat-title-label-winner">n</div>
         <div class="bets-actual-winner">{{bet.winner_name}}</div>
       </div>
 
       <div ng-show="bet.winning_charity_name !== null" class="bet-status number">
-        <div id="stat-title-label-winner">Winning Charity</div>
+        <div class="stat-title-label-winner">m</div>
         <div class="bets-actual-winner">{{bet.winning_charity_name}}</div>
       </div>
 
@@ -56,7 +56,7 @@
       <!-- <div class="bets-amount">
         {{bet.amount | currency:"$":0}}
       </div> -->
-      <div class="bets-funding-title">Total Money Pledged</div>
+      <div class="bets-funding-title">e</div>
       <div class="bets-funding">{{bet.total_money_raised | currency:"$":0}}</div>
     </div>
 
