@@ -95,7 +95,9 @@ app.config(['$routeProvider', function($routeProvider) {
     betService.challengerCharity(bet.id, bet.charity_challenger);
   };
 
-
+  self.isLocation = function () {
+    return (bet.location !== null);
+  }
 
 
 

@@ -255,12 +255,6 @@ footer {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
-  .landing-action-buttons button {
-    margin: .4rem 2em;
-    opacity: .7; }
-  .landing-action-buttons button:hover {
-    background-color: white;
-    color: #3072a8; }
   .landing-action-buttons a {
     color: #F4F4F4;
     background-color: #3072a8;
@@ -288,9 +282,6 @@ footer {
 .marketing-link:hover {
   color: #f05f5c !important; }
 
-.the-team-wrap {
-  padding-bottom: 3rem; }
-
 .contact-page {
   text-align: center; }
 
@@ -300,6 +291,32 @@ footer {
     padding: 2rem 0; }
   .contact-page-content h2 {
     color: #3072a8; }
+
+.the-team-wrap {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding-bottom: 3rem;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
+
+.member-wrap {
+  width: 47%;
+  padding: .5rem 2% 0rem; }
+
+.about-icon {
+  font-family: major-wager !important;
+  font-size: 2em;
+  display: inline-block;
+  padding-right: .5rem;
+  font-color: #484848 !important; }
 
 @media only screen and (max-width: 920px) {
   .three-items {
@@ -516,6 +533,13 @@ footer {
   font-size: 2em;
   font-weight: bold; }
 
+.location {
+  font-weight: 700;
+  font-size: 2.3em;
+  font-family: 'Montserrat', serif;
+  padding-bottom: 0;
+  margin-bottom: 0; }
+
 .bet-title {
   max-width: 95%;
   font-size: 2.4em;
@@ -683,7 +707,7 @@ footer {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding-bottom: 3rem;
-  padding-top: 3rem; }
+  padding-top: 3git rem; }
 
 .flex-section-a {
   -webkit-order: 2;
@@ -1317,9 +1341,6 @@ input.ng-valid.ng-dirty {
   margin: 0 auto;
   padding-bottom: 2rem; }
 
-.about-page a {
-  color: #F4F4F4; }
-
 .modal-bg {
   position: absolute;
   top: 0;
@@ -1577,6 +1598,20 @@ svg {
 .bets-date {
   font-size: 1.4em; }
 
+.bets-pad {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  color: #3072a8;
+  font-size: .8rem;
+  height: 40px;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+  width: 7.3em;
+  text-align: center;
+  padding-top: .35rem;
+  padding-bottom: 2em; }
+
 .search-bar {
   margin-top: .3rem;
   font-family: "Raleway";
@@ -1678,7 +1713,7 @@ svg {
 
 .bets-funding-title {
   font-size: 1.5rem;
-  padding-top: .8rem; }
+  padding-top: .2rem; }
 
 .bets-li {
   background-color: #F4F4F4;
@@ -1767,13 +1802,13 @@ svg {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700; }
 
-#stat-title-label-winner {
+.stat-title-label-winner, .bets-funding-title {
   font-weight: 400;
-  font-family: 'Raleway', sans-serif;
-  font-size: 1.5em; }
+  font-family: major-wager;
+  font-size: 2em; }
 
 .bets-actual-winner {
-  padding-top: .4rem;
+  padding: .4rem 0 1rem;
   font-size: 1.5em; }
 
 .animate-show {
