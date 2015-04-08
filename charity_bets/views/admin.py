@@ -4,6 +4,7 @@ from flask.ext.login import current_user, login_required
 from ..models import Bet, UserBet, User, Comment, Charity
 from ..extensions import db
 from ..forms import CharityForm
+import json
 
 
 admin = Blueprint("admin", __name__)
@@ -31,6 +32,24 @@ def delete_user(id):
             return jsonify({"Success": "User Deleted"})
         else:
             return jsonify({"ERROR": "Could not delete"}), 400
+    else:
+        return jsonify({"ERROR": "Not authorized to make this request"}), 401
+
+@admin.route("/api/admin/user/<int:id>", methods=["PUT"])
+@login_required
+def modify_user(id):
+    if verify_user(current_user):
+        user = User.query.get(id)
+        if user:
+            body = request.get_data(as_text=True)
+            data = json.loads(body)
+            keys = data.keys()
+            for key in keys:
+                setattr(user, key, data[key])
+                db.session.commit()
+            return jsonify({"data": user.make_dict()}), 201
+        else:
+            return jsonify({"ERROR": "No such user"}), 400
     else:
         return jsonify({"ERROR": "Not authorized to make this request"}), 401
 
