@@ -30,7 +30,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.isWinner = function () {
     return (bet.verified_winner !== null);
-    }
+  };
 
   // self.isVerifiedWinner = function () {
   //   return (bets.winner_name !== null);

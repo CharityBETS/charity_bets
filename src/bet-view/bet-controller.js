@@ -109,11 +109,12 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.addComment = function () {
     betService.addComment(bet.id, self.comment).then(function(result) {
+      debugger;
       console.log(result.comment);
-      self.bet.comments.comment=result.comment;
+      self.bet.comments.push(result);
     });
      self.comment="";
-    location.reload();
+    // location.reload();
   };
 
   self.sendStripe = function (card) {
