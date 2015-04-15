@@ -1032,7 +1032,9 @@ input.ng-valid.ng-dirty {
     padding: 2rem;
     text-align: center; }
   .user-bets-li img {
-    margin-top: 1rem; } }
+    margin-top: 1rem; }
+  .user-bets-header, .user-stats-header {
+    text-align: center; } }
 
 .datepicker button {
   width: auto;
