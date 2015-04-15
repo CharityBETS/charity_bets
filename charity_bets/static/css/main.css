@@ -1183,6 +1183,10 @@ input.ng-valid.ng-dirty {
     -ms-flex-direction: column;
     flex-direction: column; } }
 
+@media only screen and (max-width: 420px) {
+  .create-bet-wrapper .submit-bet {
+    margin-top: 1.5rem; } }
+
 .charity-signup {
   background: url(http://cdn.judysvintagefair.co.uk/wp-content/uploads/2014/06/Country-week-tennis-5-January-1937.jpg) no-repeat center center fixed;
   background-size: cover; }
