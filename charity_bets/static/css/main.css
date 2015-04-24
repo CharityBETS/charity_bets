@@ -1032,7 +1032,9 @@ input.ng-valid.ng-dirty {
     padding: 2rem;
     text-align: center; }
   .user-bets-li img {
-    margin-top: 1rem; } }
+    margin-top: 1rem; }
+  .user-bets-header, .user-stats-header {
+    text-align: center; } }
 
 .datepicker button {
   width: auto;
@@ -1182,6 +1184,10 @@ input.ng-valid.ng-dirty {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column; } }
+
+@media only screen and (max-width: 420px) {
+  .create-bet-wrapper .submit-bet {
+    margin-top: 1.5rem; } }
 
 .charity-signup {
   background: url(http://cdn.judysvintagefair.co.uk/wp-content/uploads/2014/06/Country-week-tennis-5-January-1937.jpg) no-repeat center center fixed;

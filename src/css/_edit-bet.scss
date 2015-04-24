@@ -160,6 +160,7 @@
        font-family: 'Raleway', sans-serif;
      }
    }
+
    @media only screen and (max-width : 920px) {
 
      .bet-amount-input, .bet-challenger-input {
@@ -175,6 +176,15 @@
      .edit-bet-flex {
        flex-direction: column;
      }
+
+   }
+
+   @media only screen and (max-width : 420px) {
+
+     .create-bet-wrapper .submit-bet {
+       margin-top: 1.5rem;
+     }
+
 
 
    }
